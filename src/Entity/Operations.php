@@ -29,7 +29,7 @@ class Operations
     private ?int $final_price = null;
 
     #[ORM\ManyToOne(inversedBy: 'operations')]
-    private ?typeOperation $type = null;
+    private ?TypeOperation $type = null;
 
     #[ORM\ManyToOne(inversedBy: 'operations')]
     private ?appointements $appointement = null;
