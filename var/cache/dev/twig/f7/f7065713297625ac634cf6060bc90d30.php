@@ -566,6 +566,6 @@ class __TwigTemplate_e06c44e0801494e7337785e3c83e59f2 extends Template
         </div>
     {% endfor %}
 {% endblock %}
-", "@WebProfiler/Collector/validator.html.twig", "C:\\xampp\\htdocs\\cours\\filRouge_repo\\cleanthis\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\validator.html.twig");
+", "@WebProfiler/Collector/validator.html.twig", "C:\\Users\\nacim\\Desktop\\Projet file Rouge\\cleanthis\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\validator.html.twig");
     }
 }

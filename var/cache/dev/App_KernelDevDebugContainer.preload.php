@@ -10,6 +10,7 @@ if (in_array(PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)) {
 }
 
 require dirname(__DIR__, 3).''.\DIRECTORY_SEPARATOR.'vendor/autoload.php';
+
 (require __DIR__.'/App_KernelDevDebugContainer.php')->set(\ContainerVBhsUAD\App_KernelDevDebugContainer::class, null);
 require __DIR__.'/ContainerVBhsUAD/EntityManagerGhostEbeb667.php';
 require __DIR__.'/ContainerVBhsUAD/RequestPayloadValueResolverGhost3590451.php';
@@ -197,6 +198,7 @@ require __DIR__.'/ContainerVBhsUAD/get_Debug_ValueResolver_ArgumentResolver_Back
 require __DIR__.'/ContainerVBhsUAD/get_Debug_Security_Voter_Security_Access_SimpleRoleVoterService.php';
 require __DIR__.'/ContainerVBhsUAD/get_Debug_Security_Voter_Security_Access_ExpressionVoterService.php';
 require __DIR__.'/ContainerVBhsUAD/get_Debug_Security_Voter_Security_Access_AuthenticatedVoterService.php';
+
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -453,6 +455,7 @@ $classes[] = 'Symfony\Component\HttpKernel\EventListener\LocaleListener';
 $classes[] = 'Symfony\Component\Mailer\EventListener\EnvelopeListener';
 $classes[] = 'Symfony\Component\Mailer\EventListener\MessageLoggerListener';
 $classes[] = 'Symfony\Component\Mailer\EventListener\MessengerTransportListener';
+$classes[] = 'Symfony\Component\Mailer\Bridge\Google\Transport\GmailTransportFactory';
 $classes[] = 'Symfony\Component\Mailer\Transport\NativeTransportFactory';
 $classes[] = 'Symfony\Component\Mailer\Transport\NullTransportFactory';
 $classes[] = 'Symfony\Component\Mailer\Transport\SendmailTransportFactory';
@@ -680,3 +683,10 @@ $classes[] = 'Symfony\Bundle\WebProfilerBundle\Csp\NonceGenerator';
 $classes[] = 'Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener';
 
 $preloaded = Preloader::preload($classes);
+
+$classes = [];
+$classes[] = 'Symfony\\Component\\Routing\\Generator\\CompiledUrlGenerator';
+$classes[] = 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableCompiledUrlMatcher';
+$classes[] = 'Symfony\\Component\\Validator\\Mapping\\ClassMetadata';
+$classes[] = 'Symfony\\Component\\Form\\Extension\\Validator\\Constraints\\Form';
+$preloaded = Preloader::preload($classes, $preloaded);
