@@ -6,10 +6,12 @@ use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
-class Users
+class Users implements UserInterface , PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,6 +20,9 @@ class Users
 
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
+
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
 
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
@@ -46,10 +51,10 @@ class Users
     #[ORM\Column(nullable: true)]
     private ?int $surpervisor = null;
 
-    #[ORM\ManyToMany(targetEntity: meeting::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Meeting::class, inversedBy: 'users')]
     private Collection $meetings;
 
-    #[ORM\ManyToMany(targetEntity: address::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Address::class, inversedBy: 'users')]
     private Collection $addresses;
 
 
@@ -186,14 +191,14 @@ class Users
     }
 
     /**
-     * @return Collection<int, meeting>
+     * @return Collection<int, Meeting>
      */
     public function getMeetings(): Collection
     {
         return $this->meetings;
     }
 
-    public function addMeeting(meeting $meeting): static
+    public function addMeeting(Meeting $meeting): static
     {
         if (!$this->meetings->contains($meeting)) {
             $this->meetings->add($meeting);
@@ -202,22 +207,23 @@ class Users
         return $this;
     }
 
-    public function removeMeeting(meeting $meeting): static
+    public function removeMeeting(Meeting $meeting): static
     {
         $this->meetings->removeElement($meeting);
 
         return $this;
     }
+    
 
     /**
-     * @return Collection<int, address>
+     * @return Collection<int, Address>
      */
     public function getAddresses(): Collection
     {
         return $this->addresses;
     }
 
-    public function addAddress(address $address): static
+    public function addAddress(Address $address): static
     {
         if (!$this->addresses->contains($address)) {
             $this->addresses->add($address);
@@ -226,11 +232,36 @@ class Users
         return $this;
     }
 
-    public function removeAddress(address $address): static
+    public function removeAddress(Address $address): static
     {
         $this->addresses->removeElement($address);
 
         return $this;
     }
 
+    
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+
+    public function eraseCredentials()
+    {
+        // Ne rien faire ici si vous utilisez un système de hachage sécurisé pour stocker les mots de passe
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
 }
