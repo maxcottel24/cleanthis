@@ -27,13 +27,14 @@ class Address
     #[ORM\OneToMany(targetEntity: meeting::class, mappedBy: 'address')]
     private Collection $meetings;
 
-    #[ORM\ManyToMany(targetEntity: Users::class, mappedBy: 'addresses')]
-    private Collection $users;
+    #[ORM\ManyToOne(inversedBy: 'addresses')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?users $user = null;
+
 
     public function __construct()
     {
         $this->meetings = new ArrayCollection();
-        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,30 +108,16 @@ class Address
         return $this;
     }
 
-    /**
-     * @return Collection<int, Users>
-     */
-    public function getUsers(): Collection
+    public function getUser(): ?users
     {
-        return $this->users;
+        return $this->user;
     }
 
-    public function addUser(Users $user): static
+    public function setUser(?users $user): static
     {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->addAddress($this);
-        }
+        $this->user = $user;
 
         return $this;
     }
 
-    public function removeUser(Users $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            $user->removeAddress($this);
-        }
-
-        return $this;
-    }
 }
