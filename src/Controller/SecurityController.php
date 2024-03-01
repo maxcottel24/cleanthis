@@ -29,4 +29,13 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+    #[Route(path: '/moche', name: 'app_moche')]
+    public function moche(): Response
+    {
+    
+
+        return $this->render('email/_basemail.html.twig');
+    }
+
 }
