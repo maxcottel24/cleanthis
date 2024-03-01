@@ -120,4 +120,20 @@ class Address
         return $this;
     }
 
+
+    public function removeUser(Users $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->street. ' ' .$this->zipcode. ' ' .$this->city;
+    }
+
+
 }
