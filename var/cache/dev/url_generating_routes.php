@@ -21,8 +21,13 @@ return [
     'app_profile' => [[], ['_controller' => 'App\\Controller\\Profile\\ProfileController::index'], [], [['text', '/profile']], [], [], []],
     'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], [], []],
     'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], [], []],
+
     'App\Controller\Admin\DashboardController::index' => [[], ['_controller' => 'App\\Controller\\Admin\\DashboardController::index'], [], [['text', '/admin']], [], [], []],
+
+    'security.registration' => [[], ['_controller' => 'App\\Controller\\SecurityController::registration'], [], [['text', '/inscription']], [], [], []],
+
     'App\Controller\Profile\ProfileController::index' => [[], ['_controller' => 'App\\Controller\\Profile\\ProfileController::index'], [], [['text', '/profile']], [], [], []],
     'App\Controller\SecurityController::login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], [], []],
     'App\Controller\SecurityController::logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], [], []],
+    'App\Controller\SecurityController::registration' => [[], ['_controller' => 'App\\Controller\\SecurityController::registration'], [], [['text', '/inscription']], [], [], []],
 ];
