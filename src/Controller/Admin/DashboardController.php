@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Users;
 use App\Entity\Address;
+use App\Entity\Invitation;
 use App\Entity\Invoice;
 use App\Entity\Meeting;
 use App\Entity\Operation;
@@ -31,10 +32,11 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        yield MenuItem::linkToCrud('Invitations', 'fas fa-envelope', Invitation::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', Users::class);
         yield MenuItem::linkToCrud('Adresses', 'fas fa-building', Address::class);
-        yield MenuItem::linkToCrud('Rendez-vous', 'fas fa-circle', Meeting::class);
-        yield MenuItem::linkToCrud('Liste des opérations', 'fas fa-circle', Operation::class);
-        yield MenuItem::linkToCrud('Factures', 'fas fa-circle', Invoice::class);
+        yield MenuItem::linkToCrud('Rendez-vous', 'fas fa-info-circle', Meeting::class);
+        yield MenuItem::linkToCrud('Liste des opérations', 'fas fa-info-circle', Operation::class);
+        yield MenuItem::linkToCrud('Factures', 'fas fa-info-circle', Invoice::class);
     }
 }
