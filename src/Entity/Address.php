@@ -24,12 +24,12 @@ class Address
     #[ORM\Column(length: 255)]
     private ?string $street = null;
 
-    #[ORM\OneToMany(targetEntity: meeting::class, mappedBy: 'address')]
+    #[ORM\OneToMany(targetEntity: Meeting::class, mappedBy: 'address')]
     private Collection $meetings;
 
     #[ORM\ManyToOne(inversedBy: 'addresses')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?users $user = null;
+    private ?Users $user = null;
 
 
     public function __construct()
@@ -86,7 +86,7 @@ class Address
         return $this->meetings;
     }
 
-    public function addMeeting(meeting $meeting): static
+    public function addMeeting(Meeting $meeting): static
     {
         if (!$this->meetings->contains($meeting)) {
             $this->meetings->add($meeting);
@@ -96,7 +96,7 @@ class Address
         return $this;
     }
 
-    public function removeMeeting(meeting $meeting): static
+    public function removeMeeting(Meeting $meeting): static
     {
         if ($this->meetings->removeElement($meeting)) {
             // set the owning side to null (unless already changed)
@@ -108,12 +108,12 @@ class Address
         return $this;
     }
 
-    public function getUser(): ?users
+    public function getUser(): ?Users
     {
         return $this->user;
     }
 
-    public function setUser(?users $user): static
+    public function setUser(?Users $user): static
     {
         $this->user = $user;
 
@@ -123,7 +123,7 @@ class Address
 
     public function removeUser(Users $user): static
     {
-        if ($this->users->removeElement($user)) {
+        if ($this->user->removeElement($user)) {
             $user->removeAddress($this);
         }
 
