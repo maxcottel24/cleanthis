@@ -19,6 +19,7 @@ class MeetingCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            AssociationField::new('users'),
             AssociationField::new('address'),
             TextEditorField::new('description'),
         ];
