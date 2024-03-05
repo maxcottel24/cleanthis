@@ -11,6 +11,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class UsersCrudController extends AbstractCrudController
 {
@@ -37,6 +39,7 @@ class UsersCrudController extends AbstractCrudController
                 ->onlyOnIndex(),
             ArrayField::new('meetings')
                 ->onlyOnDetail(),
+            TextField::new('phone_number')
         ];
     }
 }
