@@ -1,0 +1,24 @@
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% block content %}
+	<section class="container my-3">
+		<div class="row">
+			<div class="col px-4 py-4">
+				<h1 class="pb-2 border-bottom">Modification du profil de {{ app.user.lastname }} {{ app.user.lastname }}</h1>
+				
+                {{ form_errors(editAdminProfileType) }}
+
+				{{ form_start(editAdminProfileType) }}
+				    <fieldset class="mb-3">
+					    {{ form_row(editAdminProfileType.firstname) }}
+					    {{ form_row(editAdminProfileType.lastname) }}
+					    {{ form_row(editAdminProfileType.email) }}
+					    {{ form_row(editAdminProfileType.date_of_birthday) }}
+					    {{ form_row(editAdminProfileType.phone_number) }}
+				    </fieldset>
+                    <button type="submit" class="btn btn-primary btn-lg mt-3">Valider les modifications</button>
+                {{ form_end(editAdminProfileType) }}
+			</div>
+		</div>
+	</section>
+{% endblock %}

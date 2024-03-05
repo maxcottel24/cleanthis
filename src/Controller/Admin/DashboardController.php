@@ -38,5 +38,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Rendez-vous', 'fas fa-info-circle', Meeting::class);
         yield MenuItem::linkToCrud('Liste des opérations', 'fas fa-info-circle', Operation::class);
         yield MenuItem::linkToCrud('Factures', 'fas fa-info-circle', Invoice::class);
+        yield MenuItem::linkToRoute('Profil', 'fa fa-id-card', 'edit_admin_profile');
     }
 }
