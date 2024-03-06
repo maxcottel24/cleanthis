@@ -81,7 +81,7 @@ class SecurityController extends AbstractController
             $manager->flush();
             $token = new UsernamePasswordToken($user, 'main', $roles);
             $this->tokenStorage->setToken($token);
-            return $this->redirectToRoute('app_address_new');
+            return $this->redirectToRoute('app_address_primary');
         }
 
         return $this->render('security/registration.html.twig', [
