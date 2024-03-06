@@ -53,17 +53,7 @@ class InvitationController extends AbstractController
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            // $uuid= $invitation->getUuid();
-            // $url= $this->generateUrl('app_invitation', ['uuid' => $uuid], UrlGeneratorInterface::ABSOLUTE_URL);
-            // $context= compact('url', 'invitation');
-            // $mail->send(
-            //     'acleanthis@gmail.com', 
-            //     $invitation->getEmail(),
-            //     'Création de votre compte professionel', 
-            //     'invitation',  
-            //     $context
-            // );
-
+            
             return $this->redirectToRoute('admin');
         }
 
