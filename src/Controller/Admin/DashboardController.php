@@ -35,9 +35,14 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Invitations', 'fas fa-envelope', Invitation::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', Users::class);
         yield MenuItem::linkToCrud('Adresses', 'fas fa-building', Address::class);
-        yield MenuItem::linkToCrud('Rendez-vous', 'fas fa-info-circle', Meeting::class);
+        yield MenuItem::linkToCrud('Rendez-vous', 'fas fa-calendar', Meeting::class);
         yield MenuItem::linkToCrud('Liste des opérations', 'fas fa-info-circle', Operation::class);
-        yield MenuItem::linkToCrud('Factures', 'fas fa-info-circle', Invoice::class);
-        yield MenuItem::linkToRoute('Profil', 'fa fa-id-card', 'edit_admin_profile');
+        yield MenuItem::linkToCrud('Factures', 'fas fa-file-invoice-dollar', Invoice::class);
+        yield MenuItem::linkToRoute('Gestion de profil', 'fa fa-id-card', 'app_admin_profile');
+        yield MenuItem::subMenu('Modification du profil', 'fas fa-bar')->setSubItems([
+            MenuItem::linkToRoute('Mot de passe', 'fa fa-arrow-right', 'edit_admin_password'),
+            MenuItem::linkToRoute('Coordonnées', 'fa fa-arrow-right', 'edit_admin_profile')
+        ]);
+        yield MenuItem::subMenu('Mes opérations', 'fas fa-bar')->setSubItems([]);
     }
 }

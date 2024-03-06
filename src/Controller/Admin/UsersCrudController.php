@@ -11,12 +11,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 
 class UsersCrudController extends AbstractCrudController
 {
-    use Trait\ReadOnlyTrait;
+    use Trait\ReadDeleteTrait;
 
     public static function getEntityFqcn(): string
     {
@@ -39,7 +39,9 @@ class UsersCrudController extends AbstractCrudController
                 ->onlyOnIndex(),
             ArrayField::new('meetings')
                 ->onlyOnDetail(),
-            TextField::new('phone_number')
+            TelephoneField::new('phone_number'),
+            DateField::new('date_of_birthday')
+                ->onlyOnDetail(),
         ];
     }
 }
