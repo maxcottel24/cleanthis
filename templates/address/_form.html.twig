@@ -1,4 +1,52 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{form_row(form.street) }}
+    <div id="address_suggestions" class="list-group"></div>
+    {{ form_row(form.city ) }}
+    {{ form_row(form.zipcode) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var streetInput = document.getElementById('address1_street');
+
+    streetInput.addEventListener('input', debounce(function(event) {
+        var query = event.target.value;
+
+        if (query.length < 3) return; 
+
+        fetch(`/api/search_address?query=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                const suggestions = document.getElementById('address_suggestions');
+                suggestions.innerHTML = ''; 
+                
+                data.features.forEach((feature) => {
+                    const option = document.createElement('div');
+                    option.className = 'list-group-item list-group-item-action';
+                    option.innerText = `${feature.properties.name}, ${feature.properties.city} , ${feature.properties.context}`;
+                    
+                    option.addEventListener('click', () => {
+                        
+                        streetInput.value = feature.properties.name;
+                        document.getElementById('address1_street').value = feature.properties.name;
+                        document.getElementById('address1_city').value = feature.properties.city;
+                        document.getElementById('address1_zipcode').value = feature.properties.postcode;
+                        
+                        suggestions.innerHTML = ''; 
+                    });
+
+                    suggestions.appendChild(option);
+                });
+            });
+    }, 500));
+});
+
+function debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+}
+</script>
