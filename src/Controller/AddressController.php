@@ -24,7 +24,33 @@ class AddressController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_address_new', methods: ['GET', 'POST'])]
+    #[Route('/inscription', name: 'app_address_primary', methods: ['GET', 'POST'])]
+    public function newPrimary(Request $request, EntityManagerInterface $entityManager, Security $security): Response
+    {
+        $user = $security->getUser();
+
+        // if ($user instanceof Users) {
+            $address = new Address();
+            $form = $this->createForm(Address1Type::class, $address);
+            $form->handleRequest($request);
+            
+            if ($form->isSubmitted() && $form->isValid()) {
+                $address->setUser($user);
+                $address->setIsPrimary(true);
+                $entityManager->persist($address);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_profile', [], Response::HTTP_SEE_OTHER);
+            }
+        // }
+
+        return $this->render('address/primaryNew.html.twig', [
+            'address' => $address,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/address/new', name: 'app_address_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
         $user = $security->getUser();
@@ -36,6 +62,7 @@ class AddressController extends AbstractController
             
             if ($form->isSubmitted() && $form->isValid()) {
                 $address->setUser($user);
+                $address->setIsPrimary(false);
                 $entityManager->persist($address);
                 $entityManager->flush();
 
