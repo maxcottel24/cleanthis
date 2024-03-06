@@ -51,6 +51,9 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $surpervisor = null;
 
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    private $resetToken;
+
     #[ORM\ManyToMany(targetEntity: Meeting::class, inversedBy: 'users')]
     private Collection $meetings;
 
@@ -186,6 +189,18 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
     public function setSurpervisor(?int $surpervisor): static
     {
         $this->surpervisor = $surpervisor;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken):self
+    {
+        $this->resetToken = $resetToken;
 
         return $this;
     }
