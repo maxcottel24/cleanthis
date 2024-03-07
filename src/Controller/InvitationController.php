@@ -48,6 +48,7 @@ class InvitationController extends AbstractController
 
             $roles[] = 'ROLE_APPRENTI';
             $user->setRoles($roles);
+            $user->setIsVerified(true);
 
             $invitation->setEmployee($user);
 

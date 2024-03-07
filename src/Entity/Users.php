@@ -60,11 +60,18 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Address::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $addresses;
 
+    #[ORM\Column]
+    private ?bool $is_verified = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
+
 
     public function __construct()
     {
         $this->meetings = new ArrayCollection();
         $this->addresses = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
 
@@ -239,6 +246,30 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function isIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
+
+    public function setIsVerified(bool $is_verified): static
+    {
+        $this->is_verified = $is_verified;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
