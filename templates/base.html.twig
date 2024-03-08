@@ -13,6 +13,18 @@
     </head>
     <body>
         {% include '_partials/_flash.html.twig' %}
+
+        {% if app.user and app.user.isIsVerified == false %}
+			<div class="alert alert-warning alert-dismissible" role="alert">
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+				<div class="alert message">
+					<i class="fa-solid fa-triangle-exclamation alert-icon"></i>
+					<strong class="m-1">Votre compte n'est pas activé, </strong>
+					<a href="{{ path('resend_verif') }}"> Renvoyer le lien d'activation</a>
+				</div>
+			</div>
+		{% endif %}
+
         {% block body %}{% endblock %}
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

@@ -37,6 +37,12 @@ class AddressController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $address->setUser($user);
                 $address->setIsPrimary(true);
+
+                $this->addFlash(
+                    'success',
+                    'Votre compte a bien été créé'
+                );
+
                 $entityManager->persist($address);
                 $entityManager->flush();
 

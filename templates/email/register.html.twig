@@ -1,0 +1,5 @@
+<h1>Activez votre compte</h1>
+<p>Bonjour {{ user.firstname }} {{ user.lastname }},</p>
+<p>Votre inscription sur le site test est à valider en cliquant sur le lien ci-dessous :</p>
+<p><a href="{{ absolute_url(path('verify_user', {jwtToken: jwtToken})) }}">Confirmation de votre compte client</a></p>
+<p>Ce lien expirera dans 3 heures.</p>
