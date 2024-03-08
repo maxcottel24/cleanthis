@@ -27,6 +27,7 @@ final readonly class OAuthRegistrationService
                 ->setLastname($resourceOwner->getLastName())
                 ->setFirstname($resourceOwner->getFirstName())
                 ->setRoles(["ROLE_USER"])
+                ->setIsVerified(false)
                 ; 
 
         $this->repository->add($user, true); 
