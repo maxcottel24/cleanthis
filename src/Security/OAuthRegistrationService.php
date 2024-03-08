@@ -24,7 +24,6 @@ final readonly class OAuthRegistrationService
         $user = (new Users()) 
                 ->setEmail($resourceOwner->getEmail())
                 ->setGoogleId($resourceOwner->getId())
-                ->setLastname($resourceOwner->getLastName())
                 ->setFirstname($resourceOwner->getFirstName())
                 ->setRoles(["ROLE_USER"])
                 ->setIsVerified(false)
