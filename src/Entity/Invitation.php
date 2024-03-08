@@ -23,6 +23,9 @@ class Invitation
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Users $employee = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $roles = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Invitation
     public function setEmployee(?Users $employee): static
     {
         $this->employee = $employee;
+
+        return $this;
+    }
+
+    public function getRoles(): ?string
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(?string $roles): static
+    {
+        $this->roles = $roles;
 
         return $this;
     }

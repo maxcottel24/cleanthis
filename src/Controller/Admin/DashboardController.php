@@ -4,10 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\Users;
 use App\Entity\Address;
-use App\Entity\Invitation;
 use App\Entity\Invoice;
 use App\Entity\Meeting;
 use App\Entity\Operation;
+use App\Entity\Invitation;
+use App\Controller\Admin\UsersCrudController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -33,7 +34,12 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToCrud('Invitations', 'fas fa-envelope', Invitation::class);
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', Users::class);
+        yield MenuItem::subMenu('Utilisateurs', 'fa fa-user')->setSubItems([
+            MenuItem::linkToCrud('Clients', 'fa fa-arrow-right', Users::class)
+                ->setQueryParameter('roles', '["ROLE_USER"]'),
+            MenuItem::linkToCrud('Employés', 'fa fa-arrow-right', Users::class)
+                ->setQueryParameter('roles', '["ROLE_ADMIN"]')
+        ]);
         yield MenuItem::linkToCrud('Adresses', 'fas fa-building', Address::class);
         yield MenuItem::linkToCrud('Rendez-vous', 'fas fa-calendar', Meeting::class);
         yield MenuItem::linkToCrud('Liste des opérations', 'fas fa-info-circle', Operation::class);
