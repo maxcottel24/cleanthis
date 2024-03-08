@@ -26,6 +26,15 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         parent::__construct($registry, Users::class);
     }
 
+    public function add(Users $user, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($user);
+
+        if ($flush){
+            $this->getEntityManager()->flush();
+        }
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
@@ -49,6 +58,8 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
     }
+
+
 
     //    /**
     //     * @return Users[] Returns an array of Users objects

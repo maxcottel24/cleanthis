@@ -29,5 +29,6 @@
 		</button>
 		<a href="{{ path('security.registration')}}" class="btn btn-secondary mt-3">M'inscrire</a>
 		<a href="{{ path('forgotten_password')}}" class="btn btn-secondary mt-3">Mot de passe oublié</a>
+		<a href="{{ path('auth_oauth_connect', {service: 'google'}) }}" class="btn btn-secondary mt-3"> Connexion avec google</a>
 	</form>
 {% endblock %}

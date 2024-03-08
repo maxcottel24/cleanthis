@@ -12,6 +12,7 @@ use App\Security\AppAuthenticator;
 use App\Repository\UsersRepository;
 use App\Form\ResetPasswordRequestType;
 use Doctrine\ORM\EntityManagerInterface;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security\UserAuthenticator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
@@ -29,6 +31,10 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class SecurityController extends AbstractController
 {
 
+    public const SCOPES = [
+        'google' => [],
+    ];
+
     private $tokenStorage;
 
     public function __construct(TokenStorageInterface $tokenStorage)
@@ -36,7 +42,7 @@ class SecurityController extends AbstractController
         $this->tokenStorage = $tokenStorage;
     }
 
-    #[Route(path: '/connexion', name: 'app_login')]
+    #[Route(path: '/connexion', name: 'app_login', methods:['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
@@ -56,6 +62,24 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+    #[Route("/oauth/connect/{service}", name: 'auth_oauth_connect', methods:['GET'])]
+    public function connect(string $service, ClientRegistry $clientRegistry): RedirectResponse
+    {
+        if (! in_array($service, array_keys(self::SCOPES), true)) {
+            throw $this->createNotFoundException();
+        }
+
+        return $clientRegistry->getClient($service)->redirect(self::SCOPES[$service]); 
+    }
+
+
+    #[Route('/oauth/check/{service}', name: 'auth_oauth_check', methods:['GET', 'POST'])]
+    public function check(): Response
+    {
+        return new Response(status: 200); 
+    }
+
 
     #[Route('/inscription', 'security.registration', methods: ['GET', 'POST'])]
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, Security $security, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $appAuthenticator): Response
