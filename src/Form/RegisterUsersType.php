@@ -24,97 +24,98 @@ class RegisterUsersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstname' , TextType::class ,  [
-                'attr' =>[
+            ->add('firstname', TextType::class,  [
+                'attr' => [
                     'class' => 'form-control',
                     'minlenght' => '2',
                     'maxlength' => '50',
-                ],            
-               'label' => 'Prénom' , 
-               'label_attr' => [
-                'class' => 'form_label'
-               ],
-               'constraints' => [
-                new Length(['min' => 2]),
-                new NotBlank(),
-               ]
+                ],
+                'label' => 'Prénom',
+                'label_attr' => [
+                    'class' => 'form_label'
+                ],
+                'constraints' => [
+                    new Length(['min' => 2]),
+                    new NotBlank(),
+                ]
             ])
-            ->add('lastname', TextType::class ,  [
-                'attr' =>[
+            ->add('lastname', TextType::class,  [
+                'attr' => [
                     'class' => 'form-control',
                     'minlenght' => '2',
                     'maxlength' => '50',
-                ],            
-               'label' => 'Nom' , 
-               'label_attr' => [
-                'class' => 'form_label'
-               ],
-               'constraints' => [
-                new Length(['min' => 2]),
-                new NotBlank(),
-               ]
+                ],
+                'label' => 'Nom',
+                'label_attr' => [
+                    'class' => 'form_label'
+                ],
+                'constraints' => [
+                    new Length(['min' => 2]),
+                    new NotBlank(),
+                ]
             ])
-            ->add('date_of_birthday', BirthdayType::class ,[
-                'placeholder'=> [
+            ->add('date_of_birthday', BirthdayType::class, [
+                'label' => 'Date de naissance',
+                'label_attr' => [
+                    'class' => 'form_dateofbirthday'
+                ],
+                'placeholder' => [
                     'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
             ])
-            ->add('phone_number' , TextType::class ,  [
-                'attr' =>[
+            ->add('phone_number', TextType::class,  [
+                'attr' => [
                     'class' => 'form-control',
                     'minlenght' => '2',
                     'maxlength' => '50',
-                ],            
-               'label' => 'Numéro de Telephone' , 
-               'label_attr' => [
-                'class' => 'form_label'
-               ],
-               'constraints' => [
-                new Length(['min' => 10 , 'max' => 10]),
-                new NotBlank(),
-               ]
-               ])
-            ->add('email' , EmailType::class ,[
-                'attr' =>[
+                ],
+                'label' => 'Numéro de Telephone',
+                'label_attr' => [
+                    'class' => 'form_label'
+                ],
+                'constraints' => [
+                    new Length(['min' => 10, 'max' => 10]),
+                    new NotBlank(),
+                ]
+            ])
+            ->add('email', EmailType::class, [
+                'attr' => [
                     'class' => 'form-control',
                     'minlenght' => '5',
                     'maxlength' => '255',
                 ],
-                'label' => 'Email' , 
-               'label_attr' => [
-                'class' => 'form_label'
-               ],
-               'constraints' => [
-                new Length(['min' => 3]),
-                new NotBlank(),
-                new Email(),
-               ],
-               ])
-            ->add('password' , RepeatedType::class , [
-
-             'type' => PasswordType::class ,
-             'first_options' => [
-                'label' => 'Mot de passe',
-                'attr' => [
-                    'class'=> 'form-control'
-                ]
-             ],
-             'second_options' => [
-                'label' =>'Confirmation du mot de passe',
-                'attr' => [
-                    'class'=> 'form-control'
-                ] 
-             ],
-             'invalid_message' => 'Les mots de passe ne correspondent pas.'
+                'label' => 'Email',
+                'label_attr' => [
+                    'class' => 'form_label'
+                ],
+                'constraints' => [
+                    new Length(['min' => 3]),
+                    new NotBlank(),
+                    new Email(),
+                ],
             ])
-            ->add('submit', SubmitType::class, [
+            ->add('password', RepeatedType::class, [
+
+                'type' => PasswordType::class,
+                'first_options' => [
+                    'label' => 'Mot de passe',
+                    'attr' => [
+                        'class' => 'form-control'
+                    ]
+                ],
+                'second_options' => [
+                    'label' => 'Confirmation du mot de passe',
+                    'attr' => [
+                        'class' => 'form-control'
+                    ]
+                ],
+                'invalid_message' => 'Les mots de passe ne correspondent pas.'
+            ])
+            ->add('Continuer', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ]
-            ])
-            ;
-            
-
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
