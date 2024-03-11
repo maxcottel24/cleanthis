@@ -23,6 +23,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
+
 abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
 {
     use TargetPathTrait; 
@@ -34,6 +35,7 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
         private readonly UsersRepository $repository,  
         private readonly OAuthRegistrationService $registrationService
     ){
+
         
     }
 
@@ -49,9 +51,15 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
         if ($targetPath) {
             return new RedirectResponse($targetPath); 
         }
+        
+        $roles = $token->getRoleNames();
 
-
-        return new RedirectResponse($this->router->generate('app_profile')); 
+    if (in_array('ROLE_SENIOR', $roles) || in_array('ROLE_APPRENTI', $roles) || in_array('ROLE_EXPERT', $roles) || in_array('ROLE_ADMIN', $roles)) {
+        return new RedirectResponse($this->router->generate('admin'));
+    } else {
+        return new RedirectResponse($this->router->generate('app_profile'));
+    }
+        
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
