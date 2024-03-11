@@ -112,3 +112,18 @@ body {
 .google-sign-in {
     padding-top: 10px;
 }
+
+.connected{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.70rem;
+    margin-top: 1%;
+    text-decoration: none;
+}
+
+.connected a {
+    margin-left: 0.3rem;
+    text-decoration: none;
+}
