@@ -44,7 +44,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/connexion', name: 'app_login', methods:['GET', 'POST'])]
-    public function login(AuthenticationUtils $authenticationUtils, ): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('app_profile');
@@ -291,6 +291,5 @@ class SecurityController extends AbstractController
         );
         return $this->redirectToRoute('app_profile');
     }
-
 
 }
