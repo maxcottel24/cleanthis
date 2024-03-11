@@ -55,6 +55,7 @@ class RegisterUsersType extends AbstractType
                ]
             ])
             ->add('date_of_birthday', BirthdayType::class ,[
+                'label' => "Date d'anniversaire" , 
                 'placeholder'=> [
                     'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
@@ -65,14 +66,14 @@ class RegisterUsersType extends AbstractType
                     'minlenght' => '2',
                     'maxlength' => '50',
                 ],            
-               'label' => 'Numéro de Telephone' , 
+               'label' => 'Numéro de téléphone' , 
                'label_attr' => [
                 'class' => 'form_label'
                ],
                'constraints' => [
                 new Length(['min' => 10 , 'max' => 10]),
                 new NotBlank(),
-               ]
+               ], 
                ])
             ->add('email' , EmailType::class ,[
                 'attr' =>[
@@ -80,7 +81,7 @@ class RegisterUsersType extends AbstractType
                     'minlenght' => '5',
                     'maxlength' => '255',
                 ],
-                'label' => 'Email' , 
+                'label' => 'E-mail' , 
                'label_attr' => [
                 'class' => 'form_label'
                ],

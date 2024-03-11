@@ -81,7 +81,7 @@ class SecurityController extends AbstractController
             $manager->flush();
             $token = new UsernamePasswordToken($user, 'main', $roles);
             $this->tokenStorage->setToken($token);
-            return $this->redirectToRoute('app_address_new');
+            return $this->redirectToRoute('app_address_inscription' , ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('security/registration.html.twig', [
@@ -172,4 +172,14 @@ class SecurityController extends AbstractController
         $this->addFlash('danger', 'Jeton invalide');
         return $this->redirectToRoute('app_login');
     }
+
+
+
+
+
+
+
+
+
+    
 }

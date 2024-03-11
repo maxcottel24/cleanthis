@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class Address1Type extends AbstractType
+class Address1TypeEdit extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -29,6 +29,10 @@ class Address1Type extends AbstractType
                 'attr' => ['id' => 'form_street',
                  'class' => 'custom-class',
                   'placeholder' => 'Adresse' ],
+            ])
+            ->add('is_primary', CheckboxType::class, [
+                'label'    => 'Définir comme adresse principale     ',
+                'required' => false,
             ])
 //             ->add('user', EntityType::class, [
 //                 'class' => users::class,

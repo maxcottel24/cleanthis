@@ -31,6 +31,9 @@ class Address
     #[ORM\JoinColumn(nullable: false)]
     private ?Users $user = null;
 
+    #[ORM\Column]
+    private ?bool $is_primary = null;
+
 
     public function __construct()
     {
@@ -133,6 +136,18 @@ class Address
     public function __toString(): string
     {
         return $this->street. ' ' .$this->zipcode. ' ' .$this->city;
+    }
+
+    public function isIsPrimary(): ?bool
+    {
+        return $this->is_primary;
+    }
+
+    public function setIsPrimary(bool $is_primary): static
+    {
+        $this->is_primary = $is_primary;
+
+        return $this;
     }
 
 
