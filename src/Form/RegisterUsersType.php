@@ -54,12 +54,14 @@ class RegisterUsersType extends AbstractType
                     new NotBlank(),
                 ]
             ])
+
             ->add('date_of_birthday', BirthdayType::class, [
                 'label' => 'Date de naissance',
                 'label_attr' => [
                     'class' => 'form_dateofbirthday'
                 ],
                 'placeholder' => [
+
                     'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
             ])
@@ -68,33 +70,37 @@ class RegisterUsersType extends AbstractType
                     'class' => 'form-control',
                     'minlenght' => '2',
                     'maxlength' => '50',
-                ],
-                'label' => 'Numéro de Telephone',
-                'label_attr' => [
-                    'class' => 'form_label'
-                ],
-                'constraints' => [
-                    new Length(['min' => 10, 'max' => 10]),
-                    new NotBlank(),
-                ]
-            ])
-            ->add('email', EmailType::class, [
-                'attr' => [
+
+                ],            
+               'label' => 'Numéro de téléphone' , 
+               'label_attr' => [
+                'class' => 'form_label'
+               ],
+               'constraints' => [
+                new Length(['min' => 10 , 'max' => 10]),
+                new NotBlank(),
+               ], 
+               ])
+            ->add('email' , EmailType::class ,[
+                'attr' =>[
+
                     'class' => 'form-control',
                     'minlenght' => '5',
                     'maxlength' => '255',
                 ],
-                'label' => 'Email',
-                'label_attr' => [
-                    'class' => 'form_label'
-                ],
-                'constraints' => [
-                    new Length(['min' => 3]),
-                    new NotBlank(),
-                    new Email(),
-                ],
-            ])
-            ->add('password', RepeatedType::class, [
+
+                'label' => 'E-mail' , 
+               'label_attr' => [
+                'class' => 'form_label'
+               ],
+               'constraints' => [
+                new Length(['min' => 3]),
+                new NotBlank(),
+                new Email(),
+               ],
+               ])
+            ->add('password' , RepeatedType::class , [
+
 
                 'type' => PasswordType::class,
                 'first_options' => [

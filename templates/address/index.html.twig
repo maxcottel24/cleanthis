@@ -1,39 +1,87 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Address index{% endblock %}
+{% block title %}Mes adresses{% endblock %}
 
 {% block body %}
-    <h1>Address index</h1>
+<style>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Zipcode</th>
-                <th>City</th>
-                <th>Street</th>
-                <th>actions</th>
-            </tr>
-        </thead>
+ #card-container {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.card a {
+    
+    color: inherit;
+    text-decoration: none; 
+  }
+
+.card a:hover {
+    
+    color: blue;
+    text-decoration: none; 
+  }
+
+.card {
+    width: 100%; 
+   
+      margin: 20px;
+    cursor: pointer;
+       
+  }
+
+</style>
+    <h1 class="d-flex position-relative" style="left: 50px;">Vos Adresses</h1>
+      
+      <div  class="position-relative">
+      <div class="position-relative" style="left: 700px;">
+ <div class="card" style="width: 23rem;">
+  <a href="{{ path('app_address_secondary', {'id': app.user.id}) }}"><img src="{{ asset('images/addAddress.png') }}" class="flex-shrink-0 me-3" alt="..."></a>   
+</div>
+</div>
+</div>
+<div class="d-flex position-relative">
+    
+
         <tbody>
         {% for address in addresses %}
-            <tr>
-                <td>{{ address.id }}</td>
-                <td>{{ address.zipcode }}</td>
-                <td>{{ address.city }}</td>
-                <td>{{ address.street }}</td>
-                <td>
-                    <a href="{{ path('app_address_show', {'id': address.id}) }}">show</a>
-                    <a href="{{ path('app_address_edit', {'id': address.id}) }}">edit</a>
+         <div id="card-container" class="container">
+          <div class="card-deck">
+    <div class="card">
+    {% if address.isIsPrimary == true %}
+    <div class="card-header">
+Addresse Principale
+ </div>
+ {% endif %}
+ {% if address.isIsPrimary == false %}
+    <div class="card-header">
+ </div>
+ {% endif %}
+        <div class="card-body">
+    <h5 class="card-title">{{ address.street }}</h5>
+    <p class="card-text">{{ address.city }} ,{{ address.zipcode }}</p>
+    <div class="d-flex align-items-center">
+    <a href="{{ path('app_address_edit', {'id': address.id}) }}" class="btn">Modifier</a>
+    {% if address.isIsPrimary == false %}
+    <form method="post" action="{{ path('app_address_delete', {'id': address.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer cette adresse ?');" class="mb-0">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ address.id) }}">
+        <button type="submit" class="btn">Supprimer</button>
+    </form>
+    {% endif %}
+</div>
+  </div>
+</div>
+        </div>
+    </div>      
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Aucune Adresse Trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_address_new') }}">Create new</a>
 {% endblock %}

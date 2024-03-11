@@ -122,7 +122,9 @@ class SecurityController extends AbstractController
 
             $token = new UsernamePasswordToken($user, 'main', $roles);
             $this->tokenStorage->setToken($token);
-            return $this->redirectToRoute('app_address_primary');
+
+            return $this->redirectToRoute('app_address_inscription' , ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->render('security/registration.html.twig', [
@@ -214,6 +216,7 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
+
     #[Route('/verif/{jwtToken}', name: 'verify_user')]
     public function verifyUser($jwtToken, JWTService $jwt, UsersRepository $usersRepository, EntityManagerInterface $emi): Response
     {
@@ -288,4 +291,5 @@ class SecurityController extends AbstractController
         );
         return $this->redirectToRoute('app_profile');
     }
+
 }

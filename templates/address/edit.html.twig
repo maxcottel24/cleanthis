@@ -1,13 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Address{% endblock %}
+{% block title %}Mon Profill - Modifier Mon Adresse{% endblock %}
 
 {% block body %}
-    <h1>Edit Address</h1>
+    <h1>Modifier Votre Adresse</h1>
 
-    {{ include('address/_form.html.twig', {'button_label': 'Update'}) }}
+   {{ form_start(form) }}
+    {{form_row(form.street) }}
+    <div id="address_suggestions" class="list-group"></div>
+    {{ form_row(form.city ) }}
+    {{ form_row(form.zipcode) }}
+    {{ form_row(form.is_primary) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
 
-    <a href="{{ path('app_address_index') }}">back to list</a>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var streetInput = document.getElementById('address1_type_edit_street');
 
-    {{ include('address/_delete_form.html.twig') }}
+    streetInput.addEventListener('input', debounce(function(event) {
+        var query = event.target.value;
+
+        if (query.length < 3) return; 
+
+        fetch(`/api/search_address?query=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                const suggestions = document.getElementById('address_suggestions');
+                suggestions.innerHTML = ''; 
+                
+                data.features.forEach((feature) => {
+                    const option = document.createElement('div');
+                    option.className = 'list-group-item list-group-item-action';
+                    option.innerText = `${feature.properties.name}, ${feature.properties.city} , ${feature.properties.context}`;
+                    
+                    option.addEventListener('click', () => {
+                        
+                        streetInput.value = feature.properties.name;
+                        document.getElementById('address1_type_edit_street').value = feature.properties.name;
+                        document.getElementById('address1_type_edit_city').value = feature.properties.city;
+                        document.getElementById('address1_type_edit_zipcode').value = feature.properties.postcode;
+                        
+                        suggestions.innerHTML = ''; 
+                    });
+
+                    suggestions.appendChild(option);
+                });
+            });
+    }, 500));
+});
+
+function debounce(func, timeout = 100) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+}
+</script>
+
 {% endblock %}

@@ -1,24 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}CleanThis - Mon Profile{% endblock %}
+
 
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+ html, body {
+    height: 80%;
+  }
+  #card-container {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card {
+    width: 100%; 
+   
+      margin: 20px;
+    cursor: pointer;
+       
+  }
+  .card a {
+    
+    color: inherit;
+    text-decoration: none; 
+  }
+
+
+
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello ! {{ controller_name }}! ✅</h1>
 {% for message in app.flashes('notice') %}
      <h2 class="alert alert-warning text-center mt-4 mb-4" role="alert">
       {{ message }}
       </h2>
     {% endfor %}
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/xampp/htdocs/cours/filRouge_repo/cleanthis/src/Controller/Profile/ProfileController.php</code></li>
-        <li>Your template at <code>C:/xampp/htdocs/cours/filRouge_repo/cleanthis/templates/profile/profile/index.html.twig</code></li>
-    </ul>
+
+
+
+<div id="card-container" class="container">
+  <div class="card-deck">
+    <div class="card">
+      <a href="#" class="card-link">
+        <div class="card-body text-center">
+          <h5 class="card-title">Vos commandes</h5>
+          <p class="card-text">Suivre, Annulé</p>
+        </div>
+      </a>
+    </div>
+    <div class="card">
+      <a href="/profile/edition/{{app.user.id}}" class="card-link">
+        <div class="card-body text-center">
+          <h5 class="card-title">Connexion - sécurité</h5>
+          <p class="card-text">Modifier l'adresse e-mail, le nom et le numéro de téléphone mobile ...</p>
+        </div>
+      </a>
+    </div>
+    <div class="card">
+      <a href="/address/{{app.user.id}}" class="card-link">
+        <div class="card-body text-center">
+          <h5 class="card-title">Adresse</h5>
+          <p class="card-text">Modifier , Ajouter , Changer d'adresse principal</p>
+        </div>
+      </a>
+    </div>
+  </div>
 </div>
+
+
 {% endblock %}
