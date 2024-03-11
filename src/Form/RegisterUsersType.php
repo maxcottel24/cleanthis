@@ -30,7 +30,7 @@ class RegisterUsersType extends AbstractType
                     'minlenght' => '2',
                     'maxlength' => '50',
                 ],
-                'label' => 'Prénom',
+                'label' => 'Prénom *',
                 'label_attr' => [
                     'class' => 'form_label'
                 ],
@@ -45,7 +45,7 @@ class RegisterUsersType extends AbstractType
                     'minlenght' => '2',
                     'maxlength' => '50',
                 ],
-                'label' => 'Nom',
+                'label' => 'Nom *',
                 'label_attr' => [
                     'class' => 'form_label'
                 ],
@@ -56,7 +56,7 @@ class RegisterUsersType extends AbstractType
             ])
 
             ->add('date_of_birthday', BirthdayType::class, [
-                'label' => 'Date de naissance',
+                'label' => 'Date de naissance *',
                 'label_attr' => [
                     'class' => 'form_dateofbirthday'
                 ],
@@ -72,7 +72,7 @@ class RegisterUsersType extends AbstractType
                     'maxlength' => '50',
 
                 ],            
-               'label' => 'Numéro de téléphone' , 
+               'label' => 'Numéro de téléphone *' , 
                'label_attr' => [
                 'class' => 'form_label'
                ],
@@ -89,7 +89,7 @@ class RegisterUsersType extends AbstractType
                     'maxlength' => '255',
                 ],
 
-                'label' => 'E-mail' , 
+                'label' => 'E-mail *' , 
                'label_attr' => [
                 'class' => 'form_label'
                ],
@@ -104,13 +104,13 @@ class RegisterUsersType extends AbstractType
 
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Mot de passe',
+                    'label' => 'Mot de passe *',
                     'attr' => [
                         'class' => 'form-control'
                     ]
                 ],
                 'second_options' => [
-                    'label' => 'Confirmation du mot de passe',
+                    'label' => 'Confirmer mot de passe *',
                     'attr' => [
                         'class' => 'form-control'
                     ]
