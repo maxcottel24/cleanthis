@@ -1,9 +1,32 @@
-{% extends 'base.html.twig' %}
+ {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+ {% block head %}
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"
+ {% endblock %}     
+
+ {% block stylesheets %}
+        <link href="{{ asset('assets/login.css') }}" rel="stylesheet">
+ {% endblock %}
+
+ {% block title %}
+    CleanThis - Connexion
+ {% endblock %}
 
 {% block body %}
-	<form method="post">
+
+ <div class ="split-container">
+ <div class ="left-side">
+ 
+ </div>
+ <div class ="right-side">
+ <a href = "{{ path ('app_home') }}">
+  <img src="{{ asset('assets/images/CleanThisLogo.png') }}" alt="Logo Cleanthis" class="cleanthis-logo" style="position: absolute; top: 0; right: 0; z-index: 3;">
+  </a>
+ <div class="container">
+<form method="post">
 		{% if error %}
 			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 		{% endif %}
@@ -16,19 +39,33 @@
 			</div>
 		{% endif %}
 
-		<h1 class="h3 mb-3 font-weight-normal">Me connecter</h1>
+	<div class = "loginform">
+	<h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
 		<label for="inputEmail">Email</label>
 		<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
 		<label for="inputPassword">Mot de passe</label>
 		<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
+		<a href="{{ path('forgotten_password')}}" class="forgottenpwd">Mot de passe oublié ?</a>
+
 		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
 		<button class="btn btn-lg btn-primary" type="submit">
-			Me connecter
+			Se connecter
 		</button>
-		<a href="{{ path('security.registration')}}" class="btn btn-secondary mt-3">M'inscrire</a>
-		<a href="{{ path('forgotten_password')}}" class="btn btn-secondary mt-3">Mot de passe oublié</a>
-		<a href="{{ path('auth_oauth_connect', {service: 'google'}) }}" class="btn btn-secondary mt-3"> Connexion avec google</a>
 	</form>
+   <div class="google-sign-in">
+    <a href="{{ path('auth_oauth_connect', {service: 'google'}) }}">
+        <img src="{{ asset('assets/images/googlelogo.png') }}" alt="Se connecter avec Google" style="display: block; margin-top: 20px"> 
+   </a>
+</div>
+ <div class="noaccount">
+      <p>Vous ne possédez pas de compte ?    </p> <a href="{{ path('security.registration') }}"> Inscrivez-vous</a>
+   </div>
+</div>
+    </div>
+    </div>
+    </div>
+
+	
 {% endblock %}

@@ -17,7 +17,7 @@ body {
 }
 
 .left-side {
-    background-image: url("/assets/images/registerpicture.png");
+    background-image: url("/assets/images/loginpicture.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -35,6 +35,14 @@ body {
 }
 
 .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 85px;
+}
+
+.loginform {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -119,7 +127,20 @@ body {
     padding-top: 10px;
 }
 
-.connected {
+.forgottenpwd {
+    margin-top: 10px;
+    font-size: small;
+    color: #123b61;
+    text-decoration: none;
+    font-weight: normal;
+    transition: font-weight 0.3s ease;
+}
+
+.forgottenpwd:hover {
+    color: #3971FF
+}
+
+.noaccount {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -129,11 +150,11 @@ body {
     text-decoration: none;
 }
 
-.connected a {
+.noaccount a {
     margin-left: 0.3rem;
     text-decoration: none;
 }
 
-.connected a:hover {
+.noaccount a:hover {
     color: #3971FF
 }
