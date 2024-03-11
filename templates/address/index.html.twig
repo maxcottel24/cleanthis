@@ -3,6 +3,10 @@
 {% block title %}Mes adresses{% endblock %}
 
 {% block body %}
+
+
+{% include '_partials/_navbar.html.twig' %}
+
 <style>
 
  #card-container {
@@ -38,7 +42,7 @@
       <div  class="position-relative">
       <div class="position-relative" style="left: 700px;">
  <div class="card" style="width: 23rem;">
-  <a href="{{ path('app_address_secondary', {'id': app.user.id}) }}"><img src="{{ asset('images/addAddress.png') }}" class="flex-shrink-0 me-3" alt="..."></a>   
+  <a href="{{ path('app_address_secondary', {'id': app.user.id}) }}"><img src="{{ asset('assets/images/addAddress.png') }}" class="flex-shrink-0 me-3" alt="..."></a>   
 </div>
 </div>
 </div>
