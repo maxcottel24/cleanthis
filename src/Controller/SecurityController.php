@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Users;
+use App\Service\JWTService;
 use App\Form\RegisterUsersType;
 use App\Form\ResetPasswordType;
 use Doctrine\ORM\EntityManager;
@@ -12,6 +13,7 @@ use App\Security\AppAuthenticator;
 use App\Repository\UsersRepository;
 use App\Form\ResetPasswordRequestType;
 use Doctrine\ORM\EntityManagerInterface;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security\UserAuthenticator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
@@ -29,6 +32,10 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class SecurityController extends AbstractController
 {
 
+    public const SCOPES = [
+        'google' => [],
+    ];
+
     private $tokenStorage;
 
     public function __construct(TokenStorageInterface $tokenStorage)
@@ -36,7 +43,7 @@ class SecurityController extends AbstractController
         $this->tokenStorage = $tokenStorage;
     }
 
-    #[Route(path: '/connexion', name: 'app_login')]
+    #[Route(path: '/connexion', name: 'app_login', methods:['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
@@ -57,8 +64,26 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
+    #[Route("/oauth/connect/{service}", name: 'auth_oauth_connect', methods:['GET'])]
+    public function connect(string $service, ClientRegistry $clientRegistry): RedirectResponse
+    {
+        if (! in_array($service, array_keys(self::SCOPES), true)) {
+            throw $this->createNotFoundException();
+        }
+
+        return $clientRegistry->getClient($service)->redirect(self::SCOPES[$service]); 
+    }
+
+
+    #[Route('/oauth/check/{service}', name: 'auth_oauth_check', methods:['GET', 'POST'])]
+    public function check(): Response
+    {
+        return new Response(status: 200); 
+    }
+
+
     #[Route('/inscription', 'security.registration', methods: ['GET', 'POST'])]
-    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, Security $security, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $appAuthenticator): Response
+    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, Security $security, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $appAuthenticator, JWTService $jwt, SendMailService $mail): Response
     {
 
         $user = new Users();
@@ -72,16 +97,34 @@ class SecurityController extends AbstractController
             $user->setPassword($noHash);
             $roles[] = 'ROLE_USER';
             $user->setRoles($roles);
-            $this->addFlash(
-                'success',
-                'Votre compte a bien été créé'
-            );
+            $user->setIsVerified(false);
 
             $manager->persist($user);
             $manager->flush();
+
+            //On génère le JWT de l'utilisateur
+            $header = [
+                "alg" => "HS256",
+                "typ" => "JWT"
+            ];
+            $payload = [
+                "user_id" => $user->getId()
+            ];
+            $jwtToken = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+
+            $mail->send(
+                'acleanthis@gmail.com',
+                $user->getEmail(),
+                'Activation de votre compte sur notre site',
+                'register',
+                compact('user', 'jwtToken')
+            );
+
             $token = new UsernamePasswordToken($user, 'main', $roles);
             $this->tokenStorage->setToken($token);
+
             return $this->redirectToRoute('app_address_inscription' , ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->render('security/registration.html.twig', [
@@ -117,7 +160,7 @@ class SecurityController extends AbstractController
 
                 //Envoi du mail
                 $mail->send(
-                    'no-reply@afpa.fr',
+                    'acleanthis@gmail.com',
                     $user->getEmail(),
                     'Réinitialisation de mot de passe',
                     'password_reset',
@@ -174,12 +217,79 @@ class SecurityController extends AbstractController
     }
 
 
+    #[Route('/verif/{jwtToken}', name: 'verify_user')]
+    public function verifyUser($jwtToken, JWTService $jwt, UsersRepository $usersRepository, EntityManagerInterface $emi): Response
+    {
+        //On vérifie si le token est valide, n'a pas expiré et n'a pas été modifié
+        if ($jwt->isValid($jwtToken) && !$jwt->isExpired($jwtToken) && $jwt->check($jwtToken, $this->getParameter('app.jwtsecret'))) {
+            //On récupère le Payload
+            $payload = $jwt->getPayload($jwtToken);
 
+            //On récupère le user du token
+            $user = $usersRepository->find($payload['user_id']);
 
+            //On vérifie que l'utilisateur existe et n'a pas encore activé son compte
+            if ($user && !$user->isIsVerified()) {
+                $user->setIsVerified(true);
+                $emi->flush($user);
+                $this->addFlash('success', 'Utilisateur activé');
+                return $this->redirectToRoute('app_profile');
+            }
+        }
+        //Après vérification token non valide
+        $this->addFlash('danger', 'Le token est invalide ou a expiré');
+        return $this->redirectToRoute('app_login');
+    }
 
+    #[Route('/renvoiverif', name: 'resend_verif')]
+    public function resendVerif(JWTService $jwt, SendMailService $mail, UsersRepository $usersRepository): Response
+    {
+        $user = $this->getUser();
 
+        if (!$user) {
+            $this->addFlash(
+                'danger',
+                'Vous devez être connecté pour accéder à cette page'
+            );
+            return $this->redirectToRoute('app_login');
+        }
 
+        if ($user->isIsVerified()) {
+            $this->addFlash(
+                'warning',
+                'Cet utilisateur est déjà activé'
+            );
+            return $this->redirectToRoute('app_profile');
+        }
 
+        //On génère le JWT de l'utilisateur
+        //On crée le Header
+        $header = [
+            "alg" => "HS256",
+            "typ" => "JWT"
+        ];
 
-    
+        //On crée le Payload
+        $payload = [
+            "user_id" => $user->getId()
+        ];
+
+        //On génère le token
+        $jwtToken = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+
+        //On envoie un mail
+        $mail->send(
+            'acleanthis@gmail.com',
+            $user->getEmail(),
+            'Activation de votre compte sur notre site',
+            'register',
+            compact('user', 'jwtToken')
+        );
+        $this->addFlash(
+            'success',
+            'Email de vérification envoyé'
+        );
+        return $this->redirectToRoute('app_profile');
+    }
+
 }

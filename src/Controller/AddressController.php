@@ -31,7 +31,9 @@ class AddressController extends AbstractController
     }
 
 
+
     #[Route('/{id}/inscription', name: 'app_address_inscription', methods: ['GET', 'POST'])]
+
     public function new(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
         $user = $security->getUser();
@@ -51,7 +53,9 @@ class AddressController extends AbstractController
             
             if ($form->isSubmitted() && $form->isValid()) {
                 $address->setUser($user);
+
                 $address->setisPrimary(true);
+
                 $entityManager->persist($address);
                 $entityManager->flush();
 

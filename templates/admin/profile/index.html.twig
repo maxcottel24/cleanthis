@@ -1,0 +1,63 @@
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% block content %}
+    <section class="container my-3" >
+		<div class="container px-4 py-4">
+			<h1 class="pb-2 border-bottom">Profil de {{ app.user.email }}</h1>
+			<div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
+				<div class="col d-flex flex-column align-items-start gap-2">
+					<h2 class="fw-bold text-body-emphasis">Mes différentes informations :</h2>
+					<a class ="lien" href="#"><h4 class="fw-semibold lien text-body-secondary">Liste des opérations disponible</h4></a>
+					<a class ="lien" href="#"><h4 class="fw-semibold lien text-body-secondary">Mes opérations</h4></a>
+				</div>
+
+				<div class="col">
+					<div class="row row-cols-1 row-cols-sm-2 g-4">
+						<div class="col d-flex flex-column gap-2">
+							<div class="d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+								<svg class="bi" width="1em" height="1em">
+									<use xlink:href="#collection"/>
+								</svg>
+							</div>
+							<h4 class="fw-semibold mb-0 text-body-emphasis">Nom : {{ app.user.lastname }}</h4>
+						</div>
+
+						<div class="col d-flex flex-column gap-2">
+							<div class="d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+								<svg class="bi" width="1em" height="1em">
+									<use xlink:href="#gear-fill"/>
+								</svg>
+							</div>
+							<h4 class="fw-semibold mb-0 text-body-emphasis">Prénom : {{ app.user.firstname }}</h4>
+						</div>
+
+						<div class="col d-flex flex-column gap-2">
+							<div class="d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+								<svg class="bi" width="1em" height="1em">
+									<use xlink:href="#speedometer"/>
+								</svg>
+							</div>
+							<h4 class="fw-semibold mb-0 text-body-emphasis">
+								<div>Téléphone : {{ app.user.phoneNumber }}</div>
+							</h4>
+							<div>
+							</div>
+						</div>
+
+						<div class="col d-flex flex-column gap-2">
+							<div class="d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+								<svg class="bi" width="1em" height="1em">
+									<use xlink:href="#table"/>
+								</svg>
+							</div>
+							<h4 class="fw-semibold mb-0 text-body-emphasis">E-mail : {{ app.user.email }}</h4>
+							<div>
+								<p></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

@@ -2,12 +2,14 @@
 
 namespace App\Controller\Admin;
 
+use App\Form\RoleType;
 use App\Entity\Invitation;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -51,7 +53,14 @@ class InvitationCrudController extends AbstractCrudController
             TextField::new('uuid')
                 ->hideWhenCreating(),
             AssociationField::new('employee')
-                ->hideWhenCreating()
+                ->hideWhenCreating(),
+            ChoiceField::new('roles')->setChoices([
+                'choices' => [
+                    'Apprenti' => 'ROLE_APPRENTI',
+                    'Senior' => 'ROLE_SENIOR',
+                    'Expert' => 'ROLE_EXPERT'
+                ]
+            ])
         ];
     }
 }

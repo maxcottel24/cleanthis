@@ -46,8 +46,9 @@ class InvitationController extends AbstractController
             $noHash = $this->userPasswordHasher->hashPassword($user, $noHash);
             $user->setPassword($noHash);
 
-            $roles[] = 'ROLE_APPRENTI';
+            $roles[] = $invitation->getRoles();
             $user->setRoles($roles);
+            $user->setIsVerified(true);
 
             $invitation->setEmployee($user);
 
