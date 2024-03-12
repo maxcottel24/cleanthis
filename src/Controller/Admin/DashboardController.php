@@ -37,6 +37,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('Utilisateurs', 'fa fa-user')->setSubItems([
             MenuItem::linkToCrud('Clients', 'fa fa-arrow-right', Users::class)
                 ->setQueryParameter('roles', '["ROLE_USER"]'),
+                // ->setPermission('ROLE_ADMIN'), 
             MenuItem::linkToCrud('Employés', 'fa fa-arrow-right', Users::class)
                 ->setQueryParameter('roles', '["ROLE_ADMIN"]')
         ]);

@@ -4,9 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\Users;
 use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
@@ -58,5 +61,14 @@ class UsersCrudController extends AbstractCrudController
             DateField::new('date_of_birthday')
                 ->onlyOnDetail(),
         ];
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        $actions->disable(Action::NEW, Action::EDIT)
+                ->add(Crud::PAGE_INDEX, Action::DETAIL)
+                ->setPermission(Action::DELETE, 'ROLE_ADMIN');
+                
+        return $actions;
     }
 }
