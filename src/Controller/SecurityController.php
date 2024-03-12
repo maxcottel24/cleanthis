@@ -97,7 +97,6 @@ class SecurityController extends AbstractController
             $user->setPassword($noHash);
             $roles[] = 'ROLE_USER';
             $user->setRoles($roles);
-            $user->setIsVerified(false);
 
             $manager->persist($user);
             $manager->flush();

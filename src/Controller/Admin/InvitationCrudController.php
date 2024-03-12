@@ -6,6 +6,7 @@ use App\Form\RoleType;
 use App\Entity\Invitation;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
@@ -45,17 +46,23 @@ class InvitationCrudController extends AbstractCrudController
         return Invitation::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return parent::configureCrud($crud)
+            ->setPageTitle(Crud::PAGE_INDEX, 'Nouvel employé par invitation');
+    }
+
     public function configureFields(string $pageName): iterable
     {
 
         return [
-            EmailField::new('email'),
-            TextField::new('uuid')
+            EmailField::new('email', ('E-mail')),
+            TextField::new('uuid', ('Clé Uuid'))
                 ->hideWhenCreating(),
-            AssociationField::new('employee')
+            AssociationField::new('employee', ('Employé'))
                 ->hideWhenCreating(),
-            ChoiceField::new('roles')->setChoices([
-                'choices' => [
+            ChoiceField::new('roles', ('Poste'))->setChoices([
+                'Poste' => [
                     'Apprenti' => 'ROLE_APPRENTI',
                     'Senior' => 'ROLE_SENIOR',
                     'Expert' => 'ROLE_EXPERT'
