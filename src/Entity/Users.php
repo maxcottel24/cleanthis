@@ -80,6 +80,9 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
         $this->meetings = new ArrayCollection();
         $this->addresses = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
+        $this->is_verified = false;
+        $this->job_title = 'Null';
+        $this->roles = ["ROLE_USER"];
     }
 
 

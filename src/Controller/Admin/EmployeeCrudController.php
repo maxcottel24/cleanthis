@@ -21,10 +21,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class UsersCrudController extends AbstractCrudController
+class EmployeeCrudController extends UsersCrudController
 {
-    use trait\CreateReadTrait;
-
     public static function getEntityFqcn(): string
     {
         return Users::class;
@@ -33,38 +31,30 @@ class UsersCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
-            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des clients');
+            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des employés');
     }
 
-    public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
+    public function configureActions(Actions $actions): Actions
     {
-        $qb = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
+        $actions->disable(Action::NEW, Action::EDIT)
+                ->add(Crud::PAGE_INDEX, Action::DETAIL)
+                ->setPermission(Action::DELETE, 'ROLE_ADMIN')
+                ->update(Crud::PAGE_INDEX, Action::NEW, function(Action $actions){
+                    return $actions->setIcon('fa fa-file-alt')->setLabel(false);
+                })
+        ;
 
-        $statusFilter = $this->getContext()->getRequest()->query->get('job_title');
-        if ($statusFilter) {
-            $qb->andWhere('entity.job_title = :job_title')->setParameter('job_title', $statusFilter);
-        }
-
-        return $qb;
+        return $actions;
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')
-                ->hideWhenCreating()
-                ->hideOnIndex()
-                ->hideOnDetail(),
-            ArrayField::new('roles')
-                ->hideWhenCreating()
-                ->hideOnIndex()
-                ->hideOnDetail(),
+            ArrayField::new('roles', ('Poste')),
             TextField::new('lastname', ('Nom')),
             TextField::new('firstname', ('Prénom')),
             EmailField::new('email', ('E-mail')),
-            AssociationField::new('addresses', ('Adresses'))
-                ->onlyOnIndex(),
-            ArrayField::new('addresses', ('Adresses'))
+            ArrayField::new('addresses', ('Adresse'))
                 ->onlyOnDetail(),
             AssociationField::new('meetings', ('Rendez-vous'))
                 ->onlyOnIndex(),
@@ -74,14 +64,5 @@ class UsersCrudController extends AbstractCrudController
             DateField::new('date_of_birthday', ('Date de naissance'))
                 ->onlyOnDetail(),
         ];
-    }
-
-    public function configureActions(Actions $actions): Actions
-    {
-        $actions->disable(Action::NEW, Action::EDIT)
-                ->add(Crud::PAGE_INDEX, Action::DETAIL)
-                ->setPermission(Action::DELETE, 'ROLE_ADMIN');
-                
-        return $actions;
     }
 }

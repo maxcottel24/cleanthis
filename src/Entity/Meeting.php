@@ -31,6 +31,9 @@ class Meeting
     #[ORM\OneToMany(targetEntity: Operation::class, mappedBy: 'meeting')]
     private Collection $operations;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $floor_space = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -132,6 +135,18 @@ class Meeting
                 $operation->setMeeting(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFloorSpace(): ?string
+    {
+        return $this->floor_space;
+    }
+
+    public function setFloorSpace(string $floor_space): static
+    {
+        $this->floor_space = $floor_space;
 
         return $this;
     }
