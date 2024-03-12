@@ -75,4 +75,13 @@ class UsersCrudController extends AbstractCrudController
                 ->onlyOnDetail(),
         ];
     }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        $actions->disable(Action::NEW, Action::EDIT)
+                ->add(Crud::PAGE_INDEX, Action::DETAIL)
+                ->setPermission(Action::DELETE, 'ROLE_ADMIN');
+                
+        return $actions;
+    }
 }

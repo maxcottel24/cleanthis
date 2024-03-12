@@ -35,6 +35,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+
         if ($this->isGranted("ROLE_ADMIN") or $this->isGranted("ROLE_EXPERT")) {
             return [
                 yield MenuItem::section('Opérations', 'fa-solid fa-folder-open'),
@@ -89,5 +90,6 @@ class DashboardController extends AbstractDashboardController
 
             ];
         }
+
     }
 }
