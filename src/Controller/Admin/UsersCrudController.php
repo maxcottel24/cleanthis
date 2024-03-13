@@ -23,7 +23,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class UsersCrudController extends AbstractCrudController
 {
-    use trait\CreateReadTrait;
+    use Trait\CreateReadTrait;
 
     public static function getEntityFqcn(): string
     {
@@ -74,14 +74,5 @@ class UsersCrudController extends AbstractCrudController
             DateField::new('date_of_birthday', ('Date de naissance'))
                 ->onlyOnDetail(),
         ];
-    }
-
-    public function configureActions(Actions $actions): Actions
-    {
-        $actions->disable(Action::NEW, Action::EDIT)
-                ->add(Crud::PAGE_INDEX, Action::DETAIL)
-                ->setPermission(Action::DELETE, 'ROLE_ADMIN');
-                
-        return $actions;
     }
 }

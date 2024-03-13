@@ -1,3 +1,7 @@
+{% block stylesheets %}
+   <link href="{{ asset('assets/css/flash.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% for label, messages in app.flashes %}
     {% for message in messages %}
 		<div class="alert alert-{{ label }} alert-dismissible" role="alert">

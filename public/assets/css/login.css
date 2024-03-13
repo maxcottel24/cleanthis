@@ -39,7 +39,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 85px;
+    margin-top: 10rem;
+}
+
+.container h1 {
+    border-bottom: 4px solid #92D4F5;
 }
 
 .loginform {
@@ -117,6 +121,7 @@ body {
     padding: 10px 20px;
     font-size: 1rem;
     transition: background-color 0.5s, color 0.5s;
+    cursor: pointer;
 }
 
 .btn-primary:hover {

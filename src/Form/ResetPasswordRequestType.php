@@ -13,7 +13,7 @@ class ResetPasswordRequestType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'Entrez votre e-mail',
+                'label' => 'Entrez votre e-mail *',
                 'attr' => [
                     'placeholder' => 'exemple@gmail.fr',
                     'class' => 'form-control'

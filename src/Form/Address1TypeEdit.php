@@ -17,27 +17,33 @@ class Address1TypeEdit extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('zipcode', TextType::class, array ('attr' => array ('readonly' => true) ,
-            'constraints' => [
-                new NotBlank()
-               ]))
-            ->add('city', TextType::class, array ('attr' => array ('readonly' => true) ,
-            'constraints' => [
-                new NotBlank()
-               ]))
+            ->add('zipcode', TextType::class, array(
+                'attr' => array('readonly' => true),
+                'constraints' => [
+                    new NotBlank()
+                ]
+            ))
+            ->add('city', TextType::class, array(
+                'attr' => array('readonly' => true),
+                'constraints' => [
+                    new NotBlank()
+                ]
+            ))
             ->add('street', null, [
-                'attr' => ['id' => 'form_street',
-                 'class' => 'custom-class',
-                  'placeholder' => 'Adresse' ],
+                'attr' => [
+                    'id' => 'form_street',
+                    'class' => 'custom-class',
+                    'placeholder' => 'Adresse'
+                ],
             ])
             ->add('is_primary', CheckboxType::class, [
                 'label'    => 'Définir comme adresse principale     ',
                 'required' => false,
             ])
-//             ->add('user', EntityType::class, [
-//                 'class' => users::class,
-// 'choice_label' => 'id',
-//             ])
+            //             ->add('user', EntityType::class, [
+            //                 'class' => users::class,
+            // 'choice_label' => 'id',
+            //             ])
         ;
     }
 
