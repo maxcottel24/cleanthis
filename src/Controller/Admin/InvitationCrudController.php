@@ -18,7 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class InvitationCrudController extends AbstractCrudController
 {
-    use Trait\CreateReadTrait;
+    use trait\CreateReadTrait;
     protected $mail;
 
     public function __construct(SendMailService $mail)

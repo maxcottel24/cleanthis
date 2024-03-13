@@ -1,0 +1,67 @@
+:root, [data-bs-theme="dark"] 
+{
+    --sidebar-border-color:#92d4f5; 
+    --sidebar-menu-color: #9fd7e6 ; 
+    --sidebar-menu-active-item-bg: #9fd7e6;
+    --sidebar-menu-submenu-color: #9fd7e6; 
+    --sidebar-menu-header-color: white; 
+    --sidebar-logo-bg: white;  
+    --sidebar-menu-active-item-color: white;
+    --sidebar-menu-icon-color:#9fd7e6 ; 
+
+}
+
+
+
+:root, [data-bs-theme="light"]{
+    --sidebar-bg: #9fd7e6; 
+    --sidebar-border-color: #2a56a1; 
+    --user-name-color: #2A56A1; 
+    --sidebar-menu-color: #2a56a1; 
+    --sidebar-menu-submenu-color: #2a56a1;
+    --sidebar-menu-active-item-bg: white; 
+    --table-thead-color: solid 5px black ; 
+    --font-size-xxxl:40px; 
+    --font-size-base: 16px; 
+    --user-avatar-icon-bg:black ;
+    --user-avatar-icon-color: #92d4f5 ;
+    --form-label-color: black; 
+    --sidebar-menu-badge-color: white ; 
+    --sidebar-menu-icon-color:#2a56a1 ; 
+    --sidebar-menu-item-a: white;
+    --sidebar-menu-active-item-color: #2a56a1; 
+    --sidebar-menu-header-color: black; 
+    --sidebar-logo-bg: black; 
+    --form-group-border-color: #9fd7e6;
+    --form-switch-bg: red; 
+    --bs-body-font-size: 10rem; 
+}
+[data-bs-theme="light"] .main-content{
+    background-image:  url("/assets/images/paneladmin.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #9fd7e6;
+
+}
+.content-header{
+    border-radius: 20px 20px 0px 0px;
+    padding: 1%;
+
+}
+.content-top ea-search-enabled{
+    border-color: #9fd7e6;
+}
+
+.content-wrapper{
+    margin-left: 7%;
+}
+
+
+.row{
+    display: flex;
+    justify-content: center;
+}
+
+label{
+    font-weight: bolder;
+}

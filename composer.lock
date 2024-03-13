@@ -1157,16 +1157,16 @@
         },
         {
             "name": "doctrine/persistence",
-            "version": "3.3.1",
+            "version": "3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/persistence.git",
-                "reference": "b6fd1f126b13c1f7e7321f7338b14a19116b5de4"
+                "reference": "477da35bd0255e032826f440b94b3e37f2d56f42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/persistence/zipball/b6fd1f126b13c1f7e7321f7338b14a19116b5de4",
-                "reference": "b6fd1f126b13c1f7e7321f7338b14a19116b5de4",
+                "url": "https://api.github.com/repos/doctrine/persistence/zipball/477da35bd0255e032826f440b94b3e37f2d56f42",
+                "reference": "477da35bd0255e032826f440b94b3e37f2d56f42",
                 "shasum": ""
             },
             "require": {
@@ -1235,7 +1235,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/persistence/issues",
-                "source": "https://github.com/doctrine/persistence/tree/3.3.1"
+                "source": "https://github.com/doctrine/persistence/tree/3.3.2"
             },
             "funding": [
                 {
@@ -1251,7 +1251,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-01T19:53:13+00:00"
+            "time": "2024-03-12T14:54:36+00:00"
         },
         {
             "name": "doctrine/sql-formatter",
@@ -1307,16 +1307,16 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v4.9.3",
+            "version": "v4.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "9f9129ee2ea936f09dffa87e430f9b1d72469978"
+                "reference": "3af34835d5efdd05e786b8d4e1b344bd5e88622d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/9f9129ee2ea936f09dffa87e430f9b1d72469978",
-                "reference": "9f9129ee2ea936f09dffa87e430f9b1d72469978",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/3af34835d5efdd05e786b8d4e1b344bd5e88622d",
+                "reference": "3af34835d5efdd05e786b8d4e1b344bd5e88622d",
                 "shasum": ""
             },
             "require": {
@@ -1390,7 +1390,7 @@
             ],
             "support": {
                 "issues": "https://github.com/EasyCorp/EasyAdminBundle/issues",
-                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.9.3"
+                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.9.4"
             },
             "funding": [
                 {
@@ -1398,7 +1398,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-29T19:23:49+00:00"
+            "time": "2024-03-12T19:05:14+00:00"
         },
         {
             "name": "egulias/email-validator",
