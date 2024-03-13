@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Users;
-use trait\ReadOnlyTrait;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -23,7 +22,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class UsersCrudController extends AbstractCrudController
 {
-    use trait\CreateReadTrait;
+    use Trait\CreateReadTrait;
 
     public static function getEntityFqcn(): string
     {
@@ -58,7 +57,8 @@ class UsersCrudController extends AbstractCrudController
             ArrayField::new('roles')
                 ->hideWhenCreating()
                 ->hideOnIndex()
-                ->hideOnDetail(),
+                ->hideOnDetail()
+                , 
             TextField::new('lastname', ('Nom')),
             TextField::new('firstname', ('Prénom')),
             EmailField::new('email', ('E-mail')),
@@ -74,14 +74,5 @@ class UsersCrudController extends AbstractCrudController
             DateField::new('date_of_birthday', ('Date de naissance'))
                 ->onlyOnDetail(),
         ];
-    }
-
-    public function configureActions(Actions $actions): Actions
-    {
-        $actions->disable(Action::NEW, Action::EDIT)
-                ->add(Crud::PAGE_INDEX, Action::DETAIL)
-                ->setPermission(Action::DELETE, 'ROLE_ADMIN');
-                
-        return $actions;
     }
 }
