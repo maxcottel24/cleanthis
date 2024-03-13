@@ -22,19 +22,36 @@ use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+
 class EmployeeCrudController extends UsersCrudController
 {
+
+    /**
+     * @author Florent <bflorent53170@gmail.com>
+     *
+     * @return string
+     */
     public static function getEntityFqcn(): string
     {
         return Users::class;
     }
 
+
+    /**
+     * @author Florent <bflorent53170@gmail.com>
+     */
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
             ->setPageTitle(Crud::PAGE_INDEX, 'Liste des employés');
     }
 
+    /**
+     * @author Nacim <nacim.ouldrabah@gmail.com>
+     *
+     * @param Actions $actions
+     * @return Actions
+     */
     public function configureActions(Actions $actions): Actions
     {
         $actions->disable(Action::NEW, Action::EDIT)
@@ -45,6 +62,11 @@ class EmployeeCrudController extends UsersCrudController
         return $actions;
     }
 
+
+    /**
+     * @author  Florent <bflorent53170@gmail.com>
+     * @author Nacim <nacim.ouldrabah@gmail.com>
+     */
     public function configureFields(string $pageName): iterable
     {
         return [

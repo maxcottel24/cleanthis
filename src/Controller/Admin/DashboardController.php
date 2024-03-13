@@ -21,6 +21,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
 {
+
+    /**
+     * @author Florent <bflorent53170@gmail.com>
+     */
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
@@ -33,12 +37,24 @@ class DashboardController extends AbstractDashboardController
                 ->addCssFile('css/sidebarstyle.css');     
     }
 
+    /**
+     * @author Nacim <nacim.ouldrabah@gmail.com>
+     *
+     * @return Dashboard
+     */
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-        ->setTitle('<img src="assets/images/Logo.png" class="img-fluid d-block mx-auto" style="max-width:100px; width:100%; ; border-radius: 10px;  ">');
+        ->setTitle('<img src="assets/images/Logo.png" class="img-fluid d-block mx-auto" style="max-width:100px; width:100%; ">');
     }
 
+
+    /**
+     * @author Florent <bflorent53170@gmail.com>
+     * @author Nacim <nacim.ouldrabah@gmail.com>
+     *
+     * @return iterable
+     */
     public function configureMenuItems(): iterable
     {
 

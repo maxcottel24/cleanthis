@@ -12,6 +12,10 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+
+/**
+ * @author Florent <bflorent53170@gmail.com>
+ */
 class AdminProfileController extends AbstractController
 {
     #[Route('/admin/profil', name: 'app_admin_profile')]

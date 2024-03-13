@@ -6,6 +6,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
 class HomeController extends AbstractController 
 {
     #[Route('/', 'app_home', methods: ['GET'])]

@@ -16,16 +16,30 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+
+
 class InvitationCrudController extends AbstractCrudController
 {
     use trait\CreateReadTrait;
     protected $mail;
 
+    /**
+     * @author Florent <bflorent53170@gmail.com>
+     *
+     * @param SendMailService $mail
+     */
     public function __construct(SendMailService $mail)
     {
         $this->mail = $mail;
     }
 
+    /**
+     * @author Nacim <nacim.ouldrabah@gmail.com>
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param [type] $entityInstance
+     * @return void
+     */
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         parent::persistEntity($entityManager, $entityInstance);
@@ -41,17 +55,35 @@ class InvitationCrudController extends AbstractCrudController
         );
     }
 
+
+    /**
+     * @author Florent <bflorent53170@gmail.com>
+     *
+     * @return string
+     */
     public static function getEntityFqcn(): string
     {
         return Invitation::class;
     }
 
+    /**
+     * @author Florent <bflorent53170@gmail.com>
+     *
+     * @param Crud $crud
+     * @return Crud
+     */
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
             ->setPageTitle(Crud::PAGE_INDEX, 'Nouvel employé par invitation');
     }
 
+    /**
+     * @author Florent <bflorent53170@gmail.com>
+     *
+     * @param string $pageName
+     * @return iterable
+     */
     public function configureFields(string $pageName): iterable
     {
 

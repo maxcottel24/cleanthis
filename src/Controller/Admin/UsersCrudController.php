@@ -20,6 +20,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+
+/**
+ * @author Florent <bflorent53170@gmail.com>
+ */
 class UsersCrudController extends AbstractCrudController
 {
     use Trait\CreateReadTrait;
