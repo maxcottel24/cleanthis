@@ -15,6 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -47,7 +48,19 @@ class EmployeeCrudController extends UsersCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            ArrayField::new('roles', ('Poste')),
+            ChoiceField::new('roles', ('Poste'))
+                ->setChoices([
+                        'Apprenti' => 'ROLE_APPRENTI',
+                        'Senior' => 'ROLE_SENIOR',
+                        'Expert' => 'ROLE_EXPERT',
+                        'Admin' => 'ROLE_ADMIN'
+                ])
+                ->renderAsBadges([
+                    'ROLE_APPRENTI' => 'warning',
+                    'ROLE_SENIOR' => 'primary',
+                    'ROLE_EXPERT' => 'success',
+                    'ROLE_ADMIN' => 'danger'
+                ]),
             TextField::new('lastname', ('Nom')),
             TextField::new('firstname', ('Prénom')),
             EmailField::new('email', ('E-mail')),

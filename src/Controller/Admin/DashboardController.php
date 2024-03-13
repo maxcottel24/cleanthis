@@ -12,6 +12,7 @@ use App\Controller\Admin\UsersCrudController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\Admin\EmployeeCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -27,10 +28,15 @@ class DashboardController extends AbstractDashboardController
         return $this->redirect($adminUrlGenerator->setController(OperationCrudController::class)->generateUrl());
     }
 
+    public function configureAssets(): Assets     
+    {         return parent::configureAssets()             
+                ->addCssFile('css/sidebarstyle.css');     
+    }
+
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('CleanThis');
+        ->setTitle('<img src="assets/images/Logo.png" class="img-fluid d-block mx-auto" style="max-width:100px; width:100%; ; border-radius: 10px;  ">');
     }
 
     public function configureMenuItems(): iterable

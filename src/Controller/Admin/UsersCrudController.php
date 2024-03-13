@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Users;
-use trait\ReadOnlyTrait;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -58,7 +57,8 @@ class UsersCrudController extends AbstractCrudController
             ArrayField::new('roles')
                 ->hideWhenCreating()
                 ->hideOnIndex()
-                ->hideOnDetail(),
+                ->hideOnDetail()
+                , 
             TextField::new('lastname', ('Nom')),
             TextField::new('firstname', ('Prénom')),
             EmailField::new('email', ('E-mail')),
@@ -75,4 +75,5 @@ class UsersCrudController extends AbstractCrudController
                 ->onlyOnDetail(),
         ];
     }
+
 }
