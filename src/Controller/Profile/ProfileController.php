@@ -14,6 +14,10 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
+
+/**
+ * @author Efflam <cefflam@gmail.com>
+ */
 class ProfileController extends AbstractController
 {
 

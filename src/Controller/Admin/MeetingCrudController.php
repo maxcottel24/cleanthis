@@ -10,6 +10,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+
+/**
+ * @author Florent <bflorent53170@gmail.com>
+ */
 class MeetingCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

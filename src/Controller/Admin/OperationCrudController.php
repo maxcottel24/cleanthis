@@ -9,6 +9,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+
+/**
+ * @author Florent <bflorent53170@gmail.com>
+ */
 class OperationCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
