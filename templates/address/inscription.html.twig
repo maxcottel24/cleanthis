@@ -1,10 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription - Nouvelle adresse{% endblock %}
+{% block title %}Inscription - Adresse principale{% endblock %}
+
+{% block head %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"
+{% endblock %} 
+
+{% block stylesheets %}
+   <link href="{{ asset('assets/css/address.css') }}" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
-    <h1>Entré votre adresse principale</h1>
+   <div class ="split-container">
+   <div class ="left-side">
+ 
+   </div>
+   <div class ="right-side">
+   <a href="{{ path('app_home') }}">
+      <img src="{{ asset('assets/images/CleanThisLogo.png') }}"  alt="Logo Cleanthis" class="cleanthis-logo" style="position: absolute; top: 2%; right: 2%; z-index: 3;">
+   </a>
+   <div class="container">
+   <h1 class="mt-4">Adresse principale</h1>
+   {{ include('address/_form.html.twig') }}
 
-    {{ include('address/_form.html.twig') }}
+   </div>
+   </div>
+   </div>
 
 {% endblock %}

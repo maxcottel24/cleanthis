@@ -2,39 +2,53 @@
 
 namespace App\Form;
 
-use App\Entity\Address;
 use App\Entity\users;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Address;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class Address1Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('zipcode', TextType::class, array ('attr' => array ('readonly' => true) ,
-            'constraints' => [
-                new NotBlank()
-               ]))
-            ->add('city', TextType::class, array ('attr' => array ('readonly' => true) ,
-            'constraints' => [
-                new NotBlank()
-               ]))
+            ->add('zipcode', TextType::class, array(
+                'attr' => array('readonly' => true),
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'label' => 'Code postale',
+            ))
+            ->add('city', TextType::class, array(
+                'attr' => array('readonly' => true),
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'label' => 'Ville',
+            ))
             ->add('street', null, [
-                'attr' => ['id' => 'form_street',
-                 'class' => 'custom-class',
-                  'placeholder' => 'Adresse' ],
+                'attr' => [
+                    'id' => 'form_street',
+                    'class' => 'form-control',
+                    'placeholder' => 'Veuillez écrire dans ce champ'
+                ],
+                'label' => 'Adresse *'
             ])
-//             ->add('user', EntityType::class, [
-//                 'class' => users::class,
-// 'choice_label' => 'id',
-//             ])
-        ;
+            ->add('Valider', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-primary mt-4'
+                ]
+            ]);
+        //             ->add('user', EntityType::class, [
+        //                 'class' => users::class,
+        // 'choice_label' => 'id',
+        //             ])
     }
 
     public function configureOptions(OptionsResolver $resolver): void

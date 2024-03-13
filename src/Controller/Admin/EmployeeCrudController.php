@@ -40,9 +40,6 @@ class EmployeeCrudController extends UsersCrudController
         $actions->disable(Action::NEW, Action::EDIT)
                 ->add(Crud::PAGE_INDEX, Action::DETAIL)
                 ->setPermission(Action::DELETE, 'ROLE_ADMIN')
-                ->update(Crud::PAGE_INDEX, Action::NEW, function(Action $actions){
-                    return $actions->setIcon('fa fa-file-alt')->setLabel(false);
-                })
         ;
 
         return $actions;
