@@ -15,11 +15,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 
 /**
  * @author Florent <bflorent53170@gmail.com>
@@ -72,7 +73,7 @@ class UsersCrudController extends AbstractCrudController
                 ->onlyOnDetail(),
             AssociationField::new('meetings', ('Rendez-vous'))
                 ->onlyOnIndex(),
-            ArrayField::new('meetings', ('Rendez-vous'))
+            AssociationField::new('meetings', ('Rendez-vous'))
                 ->onlyOnDetail(),
             TelephoneField::new('phone_number', ('Téléphone')),
             DateField::new('date_of_birthday', ('Date de naissance'))
