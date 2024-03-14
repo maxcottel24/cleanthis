@@ -66,7 +66,7 @@ class MeetingController extends AbstractController
 
             return $this->redirectToRoute('app_profile');
         }
-        return $this->render('meeting/index.html.twig', [
+        return $this->render('meeting/addMeeting.html.twig', [
 
             'form' => $form->createView(),
         ]);
