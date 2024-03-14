@@ -46,8 +46,5 @@ class UsersPasswordType extends AbstractType {
             'label' => 'Confirmer' ,
         ])
         ;
-
-
-
     }
 }
