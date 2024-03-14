@@ -34,6 +34,9 @@ class Meeting
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $floor_space = null;
 
+    #[ORM\Column]
+    private ?int $status = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -151,4 +154,16 @@ class Meeting
         return $this;
     }
 
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+   
 }

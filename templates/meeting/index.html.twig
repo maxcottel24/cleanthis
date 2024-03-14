@@ -1,65 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CleanThis - Demande de devis{% endblock %}
+{% block title %}Mes Commandes{% endblock %}
 
 {% block body %}
+
+
 {% include '_partials/_navbar.html.twig' %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1> </h1>
-    {{ form_start(form) }}
-    {{form_row(form.reservedAt) }}
-     {{form_row(form.floor_space) }}
-     {{form_row(form.description) }}
-      {{form_row(form.address) }}
-      {{form_row(form.submit)}}
-       {{form_end(form) }}
+.btn-aligned {
+    position: relative;
+    top: -38px; 
+}
+</style> 
+	<div class="container mt-5">
+    <h2>Vos Commandes</h2>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Rendez-vous</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Opération</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Terminé</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <!-- Rendez-vous -->
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <h1 class="my-5">Vos rendez-vous</h1>
+            <div class="row">
+                 <div class="row align-items-md-stretch">
+                 {% for meeting in meetings %}
+            <div class="col-md-6 mb-3">
+                <div class="h-100 p-5 text-white bg-dark rounded-3">
+                <span class="float-end {{meeting.Status|meeting_status_badge}}">{{ meeting.Status|meeting_status}}</span>
+                    <h2>{{ meeting.reservedAt|date('d/m/Y') }}  à {{ meeting.reservedAt|date('H:i') }} </h2>
+                    <br>
+                    <p>Pour une surface de : <strong> {{ meeting.floorSpace }} cm² </strong> <br> à l'adresse : <strong> {{ meeting.address }} </strong></p>
+                    <br>
+                    {% if meeting.status == 1 or meeting.status == 4 %}
+                    <a class="btn btn-outline-light" type="button" href="{{path('app_meeting_edit', {'id': meeting.id})}}">Modifié</a>
+                    {% endif %}
+{% if meeting.status == 1 or meeting.status == 2 %}
+                    <div class="d-flex justify-content-end ">
+    <form method="post" action="{{ path('app_meeting_delete', {'id': meeting.id}) }}" onsubmit="return confirm('Etes-vous sûr d\'annuler votre demande de RDV ? (un opérateur va vous contacter) pour une réponse URGENTE : 01 02 03 04 ');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ meeting.id) }}">
+        <button class="btn btn-outline-danger btn-aligned" type="submit">Annuler</button>
+    </form>
+    </div>
+ {% endif %}
+                </div>
+            </div>
+             {% endfor %}
+            </div>
+            </div>
+        </div>
+        <!-- Opération -->
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <!-- Ici pour l'onglet Operation -->
+        </div>
+        <!-- Terminé -->
+        <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+            <h1 class="my-5">Historique des commandes terminées</h1>
+            <div class="row">
+                <!-- Ici Pour afficher les Operation bien effectuer -->
+            </div>
+        </div>
+    </div>
 </div>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const datePicker = document.querySelector("#meeting_reservedAt");
-
-    function setMinDateTime() {
-        const now = new Date();
-        now.setDate(now.getDate() + 2); 
-        const minDate = formatDateTimeString(now, true) + "T08:00";
-        datePicker.setAttribute("min", minDate);
-    }
-
-    function adjustDateTime() {
-        const inputDateTime = new Date(datePicker.value);
-        const hour = inputDateTime.getHours();
-        if (hour < 8 || hour > 17) {
-            alert("Veuillez choisir une heure entre 8h00 et 17h00.");
-            datePicker.value = ''; 
-        }
-        const dayOfWeek = inputDateTime.getDay();
-        if (dayOfWeek === 0 || dayOfWeek === 6) {
-            alert("Les rendez-vous ne peuvent pas être pris les weekends.");
-            datePicker.value = ''; 
-        }
-    }
-
-    datePicker.addEventListener("change", adjustDateTime);
-
-    function formatDateTimeString(date, isDateOnly) {
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = date.getDate().toString().padStart(2, '0');
-        if (isDateOnly) {
-            return `${year}-${month}-${day}`;
-        } else {
-            const hours = date.getHours().toString().padStart(2, '0');
-            const minutes = date.getMinutes().toString().padStart(2, '0');
-            return `${year}-${month}-${day}T${hours}:${minutes}`;
-        }
-    }
-
-    setMinDateTime();
-});
-</script>
 {% endblock %}

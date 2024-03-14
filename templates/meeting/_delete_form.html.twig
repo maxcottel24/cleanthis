@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_address_delete', {'id': meeting.id}) }}" onsubmit="return confirm('Etes vous sur d'annuler votre demande de RDV ? (un operateur va vous contactez) pour une reponse URGENTE : 01 02 03 04 ');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ meeting.id) }}">
+    <button class="btn">Annuler</button>
+</form>

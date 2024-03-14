@@ -21,6 +21,14 @@ class MeetingRepository extends ServiceEntityRepository
         parent::__construct($registry, Meeting::class);
     }
 
+    public function findByUser($userId) {
+        return $this->createQueryBuilder('m')
+            ->innerJoin('m.users', 'u')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
     //    /**
     //     * @return Meeting[] Returns an array of Meeting objects
     //     */
