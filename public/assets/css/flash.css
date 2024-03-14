@@ -21,7 +21,9 @@
 }
 
 .alert-warning,
+.alert-primary,
 .alert-danger,
+.alert-info,
 .alert-success {
     width: 67%;
     margin: auto;
