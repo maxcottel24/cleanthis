@@ -71,6 +71,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+#register_employee_date_of_birthday {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
 }
 
