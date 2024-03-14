@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\UsersRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Meeting;
 use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[ORM\Table(name: 'users')]
@@ -40,6 +43,10 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\PasswordStrength([
+        'minScore' => PasswordStrength::STRENGTH_WEAK, 
+        'message' => 'Votre mot de passe n\'est pas suffisament sécurisé' 
+    ])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
