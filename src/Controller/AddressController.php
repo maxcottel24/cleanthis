@@ -20,14 +20,19 @@ class AddressController extends AbstractController
 {
 
     #[Route('/{id}', name: 'app_address_index', methods: ['GET'])]
-    public function index (int $id ,AddressRepository $addressRepository ): Response
+    public function index (int $id ,AddressRepository $addressRepository , Security $security ): Response
     {
+        $user = $security->getUser();
+
+        if ($user->getId() == $id ) {
 
         $addresses = $addressRepository->findBy(['user' => $id]);
 
         return $this->render('address/index.html.twig', [
          'addresses' => $addresses,
         ]);
+    } else {
+        return $this->redirectToRoute('app_home'); }
     }
 
 
@@ -131,7 +136,7 @@ class AddressController extends AbstractController
     public function delete(Request $request, Address $address, EntityManagerInterface $entityManager, Security $security): Response
     {
         $user = $security->getUser();
-
+    
     if ($user->getId() === $address->getUser()->getId()) {
         if ($address->isIsPrimary()) {
             $this->addFlash('error', 'Impossible de supprimer une adresse principale.');
@@ -143,7 +148,7 @@ class AddressController extends AbstractController
             } else {
                 $this->addFlash('error', 'Token de sécurité invalide.');
             }
-        }
+         }
     } else {
         $this->addFlash('error', 'Vous n’êtes pas autorisé à supprimer cette adresse.');
     }
