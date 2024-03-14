@@ -20,7 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class InvitationCrudController extends AbstractCrudController
 {
-    use trait\CreateReadTrait;
+    use Trait\CreateReadTrait;
     protected $mail;
 
     /**
@@ -93,13 +93,19 @@ class InvitationCrudController extends AbstractCrudController
                 ->hideWhenCreating(),
             AssociationField::new('employee', ('Employé'))
                 ->hideWhenCreating(),
-            ChoiceField::new('roles', ('Poste'))->setChoices([
-                'Poste' => [
-                    'Apprenti' => 'ROLE_APPRENTI',
-                    'Senior' => 'ROLE_SENIOR',
-                    'Expert' => 'ROLE_EXPERT'
-                ]
-            ])
+                ChoiceField::new('roles', ('Poste'))
+                ->setChoices([
+                        'Apprenti' => 'ROLE_APPRENTI',
+                        'Senior' => 'ROLE_SENIOR',
+                        'Expert' => 'ROLE_EXPERT',
+                        'Admin' => 'ROLE_ADMIN'
+                ])
+                ->renderAsBadges([
+                    'ROLE_APPRENTI' => 'warning',
+                    'ROLE_SENIOR' => 'primary',
+                    'ROLE_EXPERT' => 'success',
+                    'ROLE_ADMIN' => 'danger'
+                ]),
         ];
     }
 }

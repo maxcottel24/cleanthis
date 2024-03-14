@@ -32,7 +32,7 @@ class ProfileController extends AbstractController
     #[Route('/profile', name: 'app_profile')]
     public function index(): Response
     {
-        return $this->render('profile/profile/index.html.twig', [
+        return $this->render('profile/index.html.twig', [
             'controller_name' => 'ProfileController',
         ]);
     }
@@ -62,7 +62,7 @@ class ProfileController extends AbstractController
             
         return $this->redirectToRoute('app_profile');
         }
-        return $this->render('profile/profile/edit.html.twig', [
+        return $this->render('profile/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -81,7 +81,7 @@ class ProfileController extends AbstractController
 
         $form = $this->createForm(UsersPasswordType::class);
 
-        return $this->render('profile/profile/editPassword.html.twig' , [
+        return $this->render('profile/editPassword.html.twig' , [
             'form' => $form->createView()
         ]);
 
