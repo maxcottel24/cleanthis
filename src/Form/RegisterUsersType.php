@@ -104,9 +104,10 @@ class RegisterUsersType extends AbstractType
 
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Mot de passe *',
+                    'label' => 'Mot de passe * (8 caratère minimum)',
                     'attr' => [
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'placeholder' => '1 majascule, 1 minuscule, 1 chiffre, 1 caractère spécial'
                     ]
                 ],
                 'second_options' => [

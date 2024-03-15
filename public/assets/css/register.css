@@ -49,8 +49,9 @@ body {
 .right-side input,
 .right-side select,
 .right-side textarea {
-    margin-bottom: 10px;
-    width: 100%;
+    margin-bottom: 1.2rem;
+    margin-left: -2rem;
+    width: 150%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border: none;
     background-color: #ffffff;
@@ -58,7 +59,7 @@ body {
     border-radius: 5px;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 5px 5px;
-    width: 100%;
+    /* width: 100%; */
     box-sizing: border-box;
 }
 
@@ -146,4 +147,8 @@ body {
 
 .connected a:hover {
     color: #3971FF
+}
+
+input{
+    width: 10rem;
 }

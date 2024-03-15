@@ -1,205 +1,166 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes adresses{% endblock %}
+{% block title %}Mes adresses
+{% endblock %}
 
 {% block body %}
 
 
-{% include '_partials/_navbar.html.twig' %}
+	{% include '_partials/_navbar.html.twig' %}
 
-<style>
+	<style>
 
-.content-container {
-    display: flex; /* Alignement horizontal des éléments enfants */
-    justify-content: flex-start; /* Alignement des enfants au début */
-    align-items: center; /* Centrage vertical des éléments enfants */
-    gap: 20px; /* Ajoute un espace entre les éléments */
-    padding: 20px; /* Espacement autour du contenu */
-}
+		.content-container {
+			display: flex; /* Alignement horizontal des éléments enfants */
+			justify-content: flex-start; /* Alignement des enfants au début */
+			align-items: center; /* Centrage vertical des éléments enfants */
+			gap: 20px; /* Ajoute un espace entre les éléments */
+			padding: 20px; /* Espacement autour du contenu */
+		}
 
-.add-address-container {
-    margin-right : 40px;
-    left : 80px;/* Permet au conteneur de s'ajuster selon la largeur disponible */
-    max-width: 23rem;/* Définit une largeur maximale pour le conteneur AddAddress */
-}
+		.add-address-container {
+			margin-right: 40px;
+			left: 80px; /* Permet au conteneur de s'ajuster selon la largeur disponible */
+			max-width: 23rem; /* Définit une largeur maximale pour le conteneur AddAddress */
+		}
 
- #card-container {
-    min-height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+		#card-container {
+			min-height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 
-.card a {
-    
-    color: inherit;
-    text-decoration: none; 
-  }
+		.card a {
 
-.card a:hover {
-    
-    color: blue;
-    text-decoration: none; 
-  }
+			color: inherit;
+			text-decoration: none;
+		}
 
-.card {
-    width: 100%; 
-   
-      margin: 20px;
-    cursor: pointer;
-       
-  }
+		.card a:hover {
 
-.pricing-container {
-    display: flex;
-    gap: 2em; /* Espacement entre les éléments de tarification */
-    /* Autres styles si nécessaires */
-}
+			color: blue;
+			text-decoration: none;
+		}
 
+		.card {
+			width: 100%;
 
-.pricing--sonam {
-    display: flex; /* Assure que les éléments de tarification sont alignés horizontalement */
-    gap: 2em; /* Espacement entre les éléments de tarification */
-}
+			margin: 20px;
+			cursor: pointer;
+
+		}
+
+		.pricing-container {
+			display: flex;
+			gap: 2em; /* Espacement entre les éléments de tarification */
+			/* Autres styles si nécessaires */
+		}
 
 
-/* Sonam */
-/*card*/
-.pricing--sonam .pricing__item {
-    margin: 0; /* Ajustement pour alignement flex */
-    padding: 2em;
-    cursor: default;
-    border-radius: 10px;
-    background: white;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05), 0 15px 30px -10px rgba(0,0,0,0.3);
-    transition: background 0.3s;
-    /* Autres styles restent inchangés */
-}
-
-.pricing--sonam .pricing__item:hover {
-	background: #CBDAFF;
-}
-
-.pricing--sonam .pricing__title {
-	font-size: 2em;
-	width: 100%;
-	margin: 0 0 0.25em;
-	padding: 0 0 0.5em;
-	border-bottom: 3px solid rgb(27, 26, 28);
-}
-
-/* price*/
-.pricing--sonam .pricing__price {
-	color: blue;
-	font-size: 1.75em;
-	padding: 1em 0 0.75em;
-}
-
-.pricing--sonam .pricing__sentence {
-	font-weight: bold;
-}
-
-.pricing--sonam .pricing__feature-list {
-	margin: 0;
-	padding: 1em 1.25em 2em;
-}
-
-/*btn*/
-.pricing--sonam .pricing__action {
-	font-weight: bold;
-	margin-top: auto;
-	padding: 0.75em 2em;
-	border-radius: 5px;
-	background: white;
-	transition: background 0.3s;
-}
-/* hover btn */
-.pricing--sonam .pricing__action:hover,
-.pricing--sonam .pricing__action:focus {
-	background:  #E8F0FE;
-}
-</style>
-    <h1 class="d-flex position-relative" style="left: 445px;">Vos Adresses</h1>
-      
-      <div class="content-container">
+		.pricing--sonam {
+			display: flex; /* Assure que les éléments de tarification sont alignés horizontalement */
+			gap: 2em; /* Espacement entre les éléments de tarification */
+		}
 
 
-    <div class="add-address-container">
-      <div  class="d-flex">
-      <div class="d-flex" style="left: 700px;">
- <div class="card" style="width: 23rem;">
-  <a href="{{ path('app_address_secondary', {'id': app.user.id}) }}"><img src="{{ asset('assets/images/addAddress.png') }}" class="flex-shrink-0 me-3" alt="..."></a>   
-</div>
-</div>
-</div>
- </div>
-        {# <tbody>
-        {% for address in addresses %}
-         <div id="card-container" class="container">
-          <div class="card-deck">
-    <div class="card">
-    {% if address.isIsPrimary == true %}
-    <div class="card-header">
-Addresse Principale
- </div>
- {% endif %}
- {% if address.isIsPrimary == false %}
-    <div class="card-header">
- </div>
- {% endif %}
-        <div class="card-body">
-    <h5 class="card-title">{{ address.street }}</h5>
-    <p class="card-text">{{ address.city }} ,{{ address.zipcode }}</p>
-    <div class="d-flex align-items-center">
-    <a href="{{ path('app_address_edit', {'id': address.id}) }}" class="btn">Modifier</a>
-    {% if address.isIsPrimary == false %}
-    <form method="post" action="{{ path('app_address_delete', {'id': address.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer cette adresse ?');" class="mb-0">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ address.id) }}">
-        <button type="submit" class="btn">Supprimer</button>
-    </form>
-    {% endif %}
-</div>
-  </div>
-</div>
-        </div>
-    </div>      
-                </td>
-            </tr>
-            
- {% else %} 
-<tr>
-                <td colspan="5">Aucune Adresse Trouvé</td>
-            </tr>
-        {% endfor %} 
-        </tbody>
-    </table> #}
-    <div class="pricing-container">
-             <div class="pricing pricing--sonam">
-             {% for address in addresses %}
-	<div class="pricing__item">
-  {% if address.isIsPrimary == true %}
-		<h3 class="pricing__title">Adresse Principale</h3>
-		{# <div class="pricing__price"><span class="pricing__currency"></span></div> #}
-    {% endif %}
-		<p class="pricing__sentence">{{ address.street }}</p>
-    
-		<ul class="pricing__feature-list">
-			<li class="pricing__feature">Ville : {{ address.city }} </li>
-			<li class="pricing__feature">Code Postal : {{ address.zipcode }}</li>
-		</ul>
-       <a href="{{ path('app_address_edit', {'id': address.id}) }}" class="btn  pricing__action">Modifier</a>
-       {% if address.isIsPrimary == false %}
-		<form method="post" action="{{ path('app_address_delete', {'id': address.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer cette adresse ?');" class="mb-0">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ address.id) }}">
-        <button type="submit" class="pricing__action">Supprimer</button>
-    </form>
-    {% endif %}
+		/* Sonam */
+		/*card*/
+		.pricing--sonam .pricing__item {
+			margin: 0; /* Ajustement pour alignement flex */
+			padding: 2em;
+			cursor: default;
+			border-radius: 10px;
+			background: white;
+			box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05), 0 15px 30px -10px rgba(0, 0, 0, 0.3);
+			transition: background 0.3s;
+			/* Autres styles restent inchangés */
+		}
+
+		.pricing--sonam .pricing__item:hover {
+			background: #CBDAFF;
+		}
+
+		.pricing--sonam .pricing__title {
+			font-size: 2em;
+			width: 100%;
+			margin: 0 0 0.25em;
+			padding: 0 0 0.5em;
+			border-bottom: 3px solid rgb(27, 26, 28);
+		}
+
+		/* price*/
+		.pricing--sonam .pricing__price {
+			color: blue;
+			font-size: 1.75em;
+			padding: 1em 0 0.75em;
+		}
+
+		.pricing--sonam .pricing__sentence {
+			font-weight: bold;
+		}
+
+		.pricing--sonam .pricing__feature-list {
+			margin: 0;
+			padding: 1em 1.25em 2em;
+		}
+
+		/*btn*/
+		.pricing--sonam .pricing__action {
+			font-weight: bold;
+			margin-top: auto;
+			padding: 0.75em 2em;
+			border-radius: 5px;
+			background: white;
+			transition: background 0.3s;
+		}
+		/* hover btn */
+		.pricing--sonam .pricing__action:hover,
+		.pricing--sonam .pricing__action:focus {
+			background: #E8F0FE;
+		}
+	</style>
+	<h1 class="d-flex position-relative" style="left: 445px;">Vos Adresses</h1>
+
+	<div class="content-container">
+
+
+		<div class="add-address-container">
+			<div class="d-flex">
+				<div class="d-flex" style="left: 700px;">
+					<div class="card" style="width: 23rem;">
+						<a href="{{ path('app_address_secondary', {'id': app.user.id}) }}"><img src="{{ asset('assets/images/addAddress.png') }}" class="flex-shrink-0 me-3" alt="..."></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="pricing-container">
+			<div class="pricing pricing--sonam">
+				{% for address in addresses %}
+					<div class="pricing__item">
+						{% if address.isIsPrimary == true %}
+							<h3 class="pricing__title">Adresse Principale</h3>
+							{# <div class="pricing__price"><span class="pricing__currency"></span></div> #}
+						{% endif %}
+						<p class="pricing__sentence">{{ address.street }}</p>
+
+						<ul class="pricing__feature-list">
+							<li class="pricing__feature">Ville :
+								{{ address.city }}
+							</li>
+							<li class="pricing__feature">Code Postal :
+								{{ address.zipcode }}</li>
+						</ul>
+						<a href="{{ path('app_address_edit', {'id': address.id}) }}" class="btn  pricing__action">Modifier</a>
+						{% if address.isIsPrimary == false %}
+							<form method="post" action="{{ path('app_address_delete', {'id': address.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer cette adresse ?');" class="mb-0">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ address.id) }}">
+								<button type="submit" class="pricing__action">Supprimer</button>
+							</form>
+						{% endif %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
 	</div>
-  {% endfor %}
-</div>
-</div>
-</div>
- </div>  
-
-      
-{% endblock %}
+</div>{% endblock %}
