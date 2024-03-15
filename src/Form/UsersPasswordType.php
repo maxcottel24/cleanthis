@@ -17,14 +17,15 @@ class UsersPasswordType extends AbstractType {
 
         'type' => PasswordType::class ,
         'first_options' => [
-           'label' => 'Mot de passe',
+           'label' => 'Mot de passe : 8 caractère minimum',
            'label_attr' => ['class' => 'form-label'],
            'attr' => [
-               'class'=> 'form-control'
+               'class'=> 'form-control', 
+               'placeholder' => '1 Majuscule, 1 minuscule, 1chiffre, 1caractère spécial'
            ]
         ],
         'second_options' => [
-           'label' =>'Confirmation du mot de passe',
+           'label' =>'Confirmation du mot de passe : ',
            'label_attr' => ['class' => 'form-label'],
            'attr' => [
                'class'=> 'form-control'
@@ -35,7 +36,7 @@ class UsersPasswordType extends AbstractType {
 
        ->add('newPassword' , PasswordType::class , [
         'attr' => ['class' => 'form-control'],
-        'label' => 'Nouveau mot de passe' ,
+        'label' => 'Nouveau mot de passe : ' ,
          'label_attr' => ['class' => 'form-label'],
          'constraints' =>  [ new NotBlank(),
          ]

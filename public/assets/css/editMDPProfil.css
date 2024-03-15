@@ -64,9 +64,8 @@
 }
 
 .form-control{
-    background-color: #92D4F5;
     color:#123b61; 
-    font-weight: bolder;
+    border: 1px solid #123b61; 
     text-align: center;
 }
 
@@ -75,6 +74,17 @@
     font-weight:bolder; 
 }
 
+
+
+.formulaire input{
+    width: 25rem;
+}
+
+#btn-retour{
+    margin-top: 1.5rem; 
+}
+
+
 #btn-confirm{
-    
+
 }
