@@ -112,3 +112,7 @@ body {
 .btn-primary:hover {
     background-color: #123b61;
 }
+
+.container input{
+    width: 37rem;
+}
