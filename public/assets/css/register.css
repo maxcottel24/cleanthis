@@ -51,7 +51,7 @@ body {
 .right-side textarea {
     margin-bottom: 1.2rem;
     margin-left: -2rem;
-    width: 150%;
+    width: 112%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border: none;
     background-color: #ffffff;
@@ -114,12 +114,13 @@ body {
     color: #ffffff;
     border: 1px solid #d0d0d0;
     border-radius: 5px;
-    width: 100%;
+    width: 112%;
     margin-top: 15px;
-    padding: 10px 20px;
+    padding: 10px 15px;
     font-size: 1rem;
     transition: background-color 0.5s, color 0.5s;
     cursor: pointer;
+    margin-left: -2rem;
 }
 
 .btn-primary:hover {
@@ -128,6 +129,7 @@ body {
 
 .google-sign-in {
     padding-top: 10px;
+    margin-left: -2rem;
 }
 
 .connected {
@@ -138,6 +140,7 @@ body {
     font-size: 0.70rem;
     margin-top: 1%;
     text-decoration: none;
+    margin-left: -2rem;
 }
 
 .connected a {
@@ -149,6 +152,6 @@ body {
     color: #3971FF
 }
 
-input{
-    width: 10rem;
-}
+/* input{
+    width: 7rem;
+} */
