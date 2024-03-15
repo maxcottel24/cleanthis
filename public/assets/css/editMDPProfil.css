@@ -1,0 +1,90 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2rem;
+    width: 52%;
+    height: 200%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background-color: white;
+    border:2px solid #c5ccbf;
+    box-shadow: 0 5px 5px #c5ccbf;
+    z-index: 1;
+    margin-top: 7.5rem;
+    
+}
+
+.fancy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formulaire{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem; 
+    width: 80%; 
+    height: auto; 
+    padding: 10px;
+    /* border: 1px solid #ccc;  */
+    border-radius:2rem ; 
+    background: #fff; 
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    border-radius: 4px;  */
+    margin-top: 1.5rem;
+}
+
+.backgrd {
+    display: flex;
+    flex-direction: unset;
+    background-color: #92D4F5;
+    font-weight: bold;
+    color: white;
+    width: 75rem;
+    height: 12rem;
+    border-radius: 0.8rem;
+    margin-left: 0;
+    top: 0;
+    z-index: 0;
+    position: absolute;
+    top: 18%;
+    border:1px solid #c5ccbf;
+    box-shadow: 0 2px 5px #c5ccbf;
+}
+
+.backgrd p {
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+}
+
+.form-control{
+    color:#123b61; 
+    border: 1px solid #123b61; 
+    text-align: center;
+}
+
+.form-label{
+    text-align: center;
+    font-weight:bolder; 
+}
+
+
+
+.formulaire input{
+    width: 25rem;
+}
+
+#btn-retour{
+    margin-top: 1.5rem; 
+}
+
+
+#btn-confirm{
+
+}
