@@ -28,7 +28,6 @@
 			height: 80%;
 		}
 
-
 		#card-container {
 			min-height: 100%;
 			display: flex;
@@ -76,7 +75,6 @@
 			margin-top: 0.5rem;
 		}
 
-
 		.profile {
 			display: flex;
 			flex-direction: column;
@@ -93,6 +91,20 @@
 			z-index: 1;
 			margin-top: 10rem;
 		}
+
+		.card-link:hover {
+			background-color: #CBDAFF;
+			transition: background 0.3s;
+		}
+
+		.profile h5 {
+			color: #123b61;
+		}
+
+		.profile p {
+			color: #123b61;
+		}
+		
 	</style>
 	<section class="fancy">
 		<div class="backgrd">
@@ -112,16 +124,16 @@
 					<div class="card">
 						<a href="/profile/edition/{{app.user.id}}" class="card-link">
 							<div class="card-body text-center">
-								<h5 class="card-title">Connexion - sécurité</h5>
-								<p class="card-text">Modifier l'adresse e-mail, le nom et le numéro de téléphone mobile ...</p>
+								<h5 class="card-title">Connexion - Sécurité</h5>
+								<p class="card-text">Modification adresse e-mail, nom, numéro de téléphone etc...</p>
 							</div>
 						</a>
 					</div>
 					<div class="card">
 						<a href="/address/{{app.user.id}}" class="card-link">
 							<div class="card-body text-center">
-								<h5 class="card-title">Adresse</h5>
-								<p class="card-text">Modifier , Ajouter , Changer d'adresse principal</p>
+								<h5 class="card-title">Adresses</h5>
+								<p class="card-text">Modification de vos adresses, ajout, changer l'adresse de facturation</p>
 							</div>
 						</a>
 					</div>
