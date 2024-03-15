@@ -19,14 +19,20 @@ class Address1Type extends AbstractType
     {
         $builder
             ->add('zipcode', TextType::class, array(
-                'attr' => array('readonly' => true),
+                'attr' => [
+                    'readonly' => true,
+                    'class' => 'form-control',
+                ],
                 'constraints' => [
                     new NotBlank()
                 ],
                 'label' => 'Code postale',
             ))
             ->add('city', TextType::class, array(
-                'attr' => array('readonly' => true),
+                'attr' => [
+                    'readonly' => true,
+                    'class' => 'form-control',
+                ],
                 'constraints' => [
                     new NotBlank()
                 ],
