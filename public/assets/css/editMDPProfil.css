@@ -32,11 +32,11 @@
     width: 80%; 
     height: auto; 
     padding: 10px;
-    /* border: 1px solid #ccc;  */
+    border: 1px solid #ccc; 
     border-radius:2rem ; 
     background: #fff; 
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    border-radius: 4px;  */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    border-radius: 4px; 
     margin-top: 1.5rem;
 }
 
