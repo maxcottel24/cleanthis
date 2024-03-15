@@ -2,16 +2,17 @@
 
 namespace App\Form;
 
-use App\Entity\Meeting;
 use App\Entity\Users;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Meeting;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType ;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType ;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UsersType extends AbstractType
 {
@@ -63,6 +64,17 @@ class UsersType extends AbstractType
             new NotBlank(),
            ]
            ])
+
+           ->add('email', EmailType::class,[
+            'attr' => [
+                'class' => 'form-control'
+            ],
+            'label' => 'E-mail :',
+            'label_attr' => [
+                'class' => 'form_label'
+               ],
+            
+        ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
