@@ -18,13 +18,19 @@ class Address1TypeEdit extends AbstractType
     {
         $builder
             ->add('zipcode', TextType::class, array(
-                'attr' => array('readonly' => true),
+                'attr' => [
+                    'readonly' => true,
+                    'class' => 'form-control'
+                ],
                 'constraints' => [
                     new NotBlank()
                 ]
             ))
             ->add('city', TextType::class, array(
-                'attr' => array('readonly' => true),
+                'attr' => [
+                    'readonly' => true,
+                    'class' => 'form-control'
+                ], 
                 'constraints' => [
                     new NotBlank()
                 ]
@@ -32,7 +38,7 @@ class Address1TypeEdit extends AbstractType
             ->add('street', null, [
                 'attr' => [
                     'id' => 'form_street',
-                    'class' => 'custom-class',
+                    'class' => 'form-control',
                     'placeholder' => 'Adresse'
                 ],
             ])

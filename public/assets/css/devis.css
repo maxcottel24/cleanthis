@@ -21,6 +21,7 @@
         border-radius: 50%; 
         position: relative; 
         overflow: hidden; 
+        text-align: center;
       }
     
       #button:hover {
