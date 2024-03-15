@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Users;
 use App\Entity\Address;
+use App\Entity\Meeting;
 use App\Form\Address1Type;
 use App\Form\Address1TypeEdit;
 use App\Repository\AddressRepository;
@@ -91,6 +92,12 @@ class AddressController extends AbstractController
             $this->addFlash('error', 'Vous n’êtes pas autorisé à modifier cette adresse.');
             return $this->redirectToRoute('app_address_index', ['id' => $user->getId()]);
         }
+        $meetingCount = $entityManager->getRepository(Meeting::class)->count(['address' => $address]);
+
+    if ($meetingCount > 0) {
+        $this->addFlash('warning', 'Cette adresse est actuellement utilisée par un ou plusieurs RDV et ne peut pas être modifiée.');
+        return $this->redirectToRoute('app_address_index', ['id' => $user->getId()]);
+    }
     
         $originalIsPrimary = $address->isIsPrimary();
         $form = $this->createForm(Address1TypeEdit::class, $address);
@@ -132,56 +139,61 @@ class AddressController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_address_delete', methods: ['GET','POST',])]
-    public function delete(Request $request, Address $address, EntityManagerInterface $entityManager, Security $security): Response
-    {
-        $user = $security->getUser();
-    
+    #[Route('/delete/{id}', name: 'app_address_delete', methods: ['GET','POST'])]
+public function delete(Request $request, Address $address, EntityManagerInterface $entityManager, Security $security): Response
+{
+    $user = $security->getUser();
+
     if ($user->getId() === $address->getUser()->getId()) {
         if ($address->isIsPrimary()) {
             $this->addFlash('error', 'Impossible de supprimer une adresse principale.');
         } else {
-            if ($this->isCsrfTokenValid('delete'.$address->getId(), $request->request->get('_token'))) {
+            $meetingCount = $entityManager->getRepository(Meeting::class)->count(['address' => $address]);
+            if ($meetingCount > 0) {
+                $this->addFlash('error', 'Cette adresse est associée à un ou plusieurs RDV et ne peut pas être supprimée.');
+            } else if ($this->isCsrfTokenValid('delete'.$address->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($address);
                 $entityManager->flush();
                 $this->addFlash('success', 'Adresse supprimée avec succès.');
             } else {
                 $this->addFlash('error', 'Token de sécurité invalide.');
             }
-         }
+        }
     } else {
         $this->addFlash('error', 'Vous n’êtes pas autorisé à supprimer cette adresse.');
     }
-    
+
     return $this->redirectToRoute('app_address_index', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
-
 }
-    #[Route('/{id}/secondary', name: 'app_address_secondary', methods: ['GET', 'POST'])]
-    public function newSecondary(Request $request, EntityManagerInterface $entityManager, Security $security): Response
-    {
-        $user = $security->getUser();
+#[Route('/{id}/secondary', name: 'app_address_secondary', methods: ['GET', 'POST'])]
+public function newSecondary(Request $request, EntityManagerInterface $entityManager, Security $security): Response
+{
+    $user = $security->getUser();
 
-        // if ($user instanceof Users) {
-            $address = new Address();
-            $form = $this->createForm(Address1Type::class, $address);
-            $form->handleRequest($request);
-            
-            if ($form->isSubmitted() && $form->isValid()) {
-                $address->setUser($user);
-                $address->setisPrimary(false);
-                $entityManager->persist($address);
-                $entityManager->flush();
+    if ($user instanceof Users && $user->getAddressesCount() < 4) {
+        $address = new Address();
+        $form = $this->createForm(Address1Type::class, $address);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $address->setUser($user);
+            $address->setIsPrimary(false);
+            $entityManager->persist($address);
+            $entityManager->flush();
 
-
-                return $this->redirectToRoute('app_address_index', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
-            }
-        // }
+            return $this->redirectToRoute('app_address_index', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+        }
 
         return $this->render('address/secondary.html.twig', [
             'address' => $address,
             'form' => $form,
         ]);
+    } else {
+       
+        $this->addFlash('warning', 'Il est impossible de voir plus de 4 adresses...');
+        return $this->redirectToRoute('app_address_index', ['id' => $user->getId()]);
     }
+}
 
     }
 

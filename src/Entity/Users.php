@@ -349,4 +349,9 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    public function getAddressesCount(): int
+{
+    return $this->addresses->count();
+}
+
 }
