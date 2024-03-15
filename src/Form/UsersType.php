@@ -25,7 +25,7 @@ class UsersType extends AbstractType
                 'minlenght' => '2',
                 'maxlength' => '50',
             ],            
-           'label' => 'Prénom' , 
+           'label' => 'Prénom :' , 
            'label_attr' => [
             'class' => 'form_label'
            ],
@@ -40,7 +40,7 @@ class UsersType extends AbstractType
                 'minlenght' => '2',
                 'maxlength' => '50',
             ],            
-           'label' => 'Nom' , 
+           'label' => 'Nom :' , 
            'label_attr' => [
             'class' => 'form_label'
            ],
@@ -55,7 +55,7 @@ class UsersType extends AbstractType
                 'minlenght' => '2',
                 'maxlength' => '50',
             ],            
-           'label' => 'Numéro de téléphone' , 
+           'label' => 'Numéro de téléphone :' , 
            'label_attr' => [
             'class' => 'form_label'
            ],

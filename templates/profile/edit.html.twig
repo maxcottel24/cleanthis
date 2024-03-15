@@ -1,63 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CleanThis - Modification de l'utilisateur{% endblock %}
+{% block title %}CleanThis - Modification de l'utilisateur
+{% endblock %}
 
 {% block body %}
 
-{% include '_partials/_navbar.html.twig' %}
+	{% include '_partials/_navbar.html.twig' %}
 
-<style>
-.carte-mot-de-passe {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  border: 1px solid #ccc; 
-  background: #fff; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  border-radius: 4px; 
-  max-width: 500px; 
-  margin: 2rem auto; 
+	<style>
+		.carte-mot-de-passe {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 10px;
+			border: 1px solid #ccc;
+			background: #fff;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			border-radius: 4px;
+			max-width: 500px;
+			margin: 2rem auto;
 
-}
+		}
 
-.label-mot-de-passe {
-  font-size: 16px; 
-  font-weight: bold; 
-  margin-right: 5px; 
-}
+		.label-mot-de-passe {
+			font-size: 16px;
+			font-weight: bold;
+			margin-right: 5px;
+      color: #123b61;
+		}
 
-.points {
-  flex-grow: 1; 
-  text-align: center; 
-  font-size: 16px;
-  letter-spacing: 3px; 
-}
+		.points {
+			flex-grow: 1;
+			text-align: center;
+			font-size: 16px;
+			letter-spacing: 3px;
+      color: #123b61;
+		}
 
-.bouton-lien {
-  padding: 10px 20px; 
-  font-size: 16px; 
-  text-decoration: none;
-  color: #333; 
-  background-color: #f5f5f5; 
-  border: 1px solid #ccc; 
-  border-radius: 4px; 
-  display: inline-block; 
-  cursor: pointer; 
-}
+		.bouton-lien {
+			padding: 10px 20px;
+			font-size: 16px;
+			text-decoration: none;
+			color: #123b61;
+			background-color: #f5f5f5;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			display: inline-block;
+			cursor: pointer;
+		}
 
-.bouton-lien:hover {
-  background-color: #e6e6e6; 
-}
+		.bouton-lien:hover {
+			background-color: #CBDAFF;
+			transition: background 0.3s;
+		}
 
-.fancy {
+		.fancy {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
 		}
 
-.backgrd {
+		.backgrd {
 			display: flex;
 			flex-direction: unset;
 			background-color: #92D4F5;
@@ -71,7 +75,7 @@
 			z-index: 0;
 			position: absolute;
 			top: 18%;
-      border:1px solid #c5ccbf;
+			border: 1px solid #c5ccbf;
 			box-shadow: 0 2px 5px #c5ccbf;
 		}
 
@@ -79,7 +83,8 @@
 			margin-left: 1rem;
 			margin-top: 0.5rem;
 		}
-  .container {
+
+		.container {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -90,83 +95,112 @@
 			padding-top: 2rem;
 			padding-bottom: 2rem;
 			background-color: white;
-			border:2px solid #c5ccbf;
+			border: 2px solid #c5ccbf;
 			box-shadow: 0 5px 5px #c5ccbf;
 			z-index: 1;
 			margin-top: 7.5rem;
 		}
-    .formulaire{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 3rem; 
-      width: 80%; 
-      height: auto; 
-      padding: 10px;
-      border: 1px solid #ccc; 
-      border-radius:2rem ; 
-      background: #fff; 
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-      border-radius: 4px; 
-      margin-top: 1.5rem;
-    }
-    .col1{
-      display: flex;
-      flex-direction: row;
-      text-align: center;
-    }
 
-    .col2{
-      display: flex;
-      flex-direction: row;
-      text-align: center;
-    }
+		.formulaire {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			padding: 10px;
+			width: 80%;
+			height: auto;
+			border: 1px solid #ccc;
+			border-radius: 2rem;
+			background: #fff;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			border-radius: 4px;
+			margin-top: 1.5rem;
+		}
 
-    .row1{
-      margin-right: 2rem;
-    }
+		.col1 {
+			display: flex;
+			flex-direction: row;
+			text-align: center;
+		}
 
-    .row3{
-      margin-right: 2rem; 
-    }
-    .form-control{
-      background-color: #92D4F5;
-      color:#123b61; 
-      font-weight: bolder;
-    }
-    .form_label{
-      font-weight:bolder; 
-    }
+		.col2 {
+			display: flex;
+			flex-direction: row;
+			text-align: center;
+		}
 
+		.row1 {
+			margin-right: 2rem;
+		}
 
+		.row3 {
+			margin-right: 2rem;
+		}
 
-</style>
-<section class= "fancy">
-  <div class="backgrd">
-		<p>MES INFORMATION</p>
-	</div>
-  <div class="container">
+		.form-control {
+			background-color: white;
+			color: #123b61;
+      border: 1px solid #123b61;
+		}
+
+    .form-control:hover {
+			color: #123b61;
+		}
+
+		.form_label {
+			font-weight: bolder;
+      color: #123b61;
+		}
+
+		.btn-primary {
+      padding: 10px 20px;
+			font-size: 16px;
+			color: #123b61;
+			background-color: #f5f5f5;
+			border: 1px solid #d0d0d0;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		.btn-primary:hover {
+			background-color: #123b61;
+      transition: background 0.3s;
+		}
     
-    <div class="formulaire ">
-      {{ form_start(form) }}
-      <div class="col1">
-        <div class="row1"> {{ form_row(form.firstname) }} </div>
-        <div class="row2"> {{ form_row(form.phone_number) }} </div>
-      </div>
-      <div class="col2">
-        <div class="row3"> {{ form_row(form.lastname) }}  </div>
-        <div class="row4"> {{ form_row(form.email) }}  </div>
-      </div>
-      {{ form_row(form.submit) }} 
-      {{ form_end(form) }}
-    </div>
-    <div class="carte-mot-de-passe">
-      <span class="label-mot-de-passe">Mot de passe</span>
-      <span class="points">**********</span>
-      <a href="/profile/edition/{{app.user.id}}/password" class="bouton-lien">Modifier</a>
-    </div>
-    <a href="/profile" class="btn btn-primary">Retour</a>
-  </div>
-</section>
+	</style>
+	<section class="fancy">
+		<div class="backgrd">
+			<p>MES INFORMATIONS</p>
+		</div>
+		<div class="container">
+
+			<div class="formulaire ">
+				{{ form_start(form) }}
+				<div class="col1">
+					<div class="row1">
+						{{ form_row(form.firstname) }}
+					</div>
+					<div class="row2">
+						{{ form_row(form.phone_number) }}
+					</div>
+				</div>
+				<div class="col2">
+					<div class="row3">
+						{{ form_row(form.lastname) }}
+					</div>
+					<div class="row4">
+						{{ form_row(form.email) }}
+					</div>
+				</div>
+				{{ form_row(form.submit) }}
+				{{ form_end(form) }}
+			</div>
+			<div class="carte-mot-de-passe">
+				<span class="label-mot-de-passe">Mot de passe</span>
+				<span class="points">**********</span>
+				<a href="/profile/edition/{{app.user.id}}/password" class="bouton-lien">Modifier</a>
+			</div>
+			<a href="/profile" class="btn btn-primary">Retour</a>
+		</div>
+	</section>
 {% endblock %}
