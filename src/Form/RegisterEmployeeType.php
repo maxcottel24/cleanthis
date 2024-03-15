@@ -71,42 +71,43 @@ class RegisterEmployeeType extends AbstractType
                     'minlenght' => '2',
                     'maxlength' => '50',
 
-                ],            
-               'label' => 'Numéro de téléphone *' , 
-               'label_attr' => [
-                'class' => 'form_label'
-               ],
-               'constraints' => [
-                new Length(['min' => 10 , 'max' => 10]),
-                new NotBlank(),
-               ], 
-               ])
-            ->add('email' , EmailType::class ,[
-                'attr' =>[
+                ],
+                'label' => 'Numéro de téléphone *',
+                'label_attr' => [
+                    'class' => 'form_label'
+                ],
+                'constraints' => [
+                    new Length(['min' => 10, 'max' => 10]),
+                    new NotBlank(),
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'attr' => [
 
                     'class' => 'form-control',
                     'minlenght' => '5',
                     'maxlength' => '255',
                 ],
 
-                'label' => 'E-mail *' , 
-               'label_attr' => [
-                'class' => 'form_label'
-               ],
-               'constraints' => [
-                new Length(['min' => 3]),
-                new NotBlank(),
-                new Email(),
-               ],
-               ])
-            ->add('password' , RepeatedType::class , [
+                'label' => 'E-mail *',
+                'label_attr' => [
+                    'class' => 'form_label'
+                ],
+                'constraints' => [
+                    new Length(['min' => 3]),
+                    new NotBlank(),
+                    new Email(),
+                ],
+            ])
+            ->add('password', RepeatedType::class, [
 
 
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Mot de passe *',
+                    'label' => 'Mot de passe : (8 caractères minimum)',
                     'attr' => [
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'placeholder' => '1 maj, 1 min, 1 chiffre, 1 caractère spécial'
                     ]
                 ],
                 'second_options' => [
