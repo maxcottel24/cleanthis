@@ -55,8 +55,8 @@
 
 		.add-address-container {
 			margin-right: 5px;
-			left: 80px; /* Permet au conteneur de s'ajuster selon la largeur disponible */
-			max-width: 23rem; /* Définit une largeur maximale pour le conteneur AddAddress */
+			left: 80px; 
+			max-width: 23rem; 
       display:flex; 
 		}
 
@@ -88,14 +88,14 @@
 
 		.pricing-container {
 			display: flex;
-			gap: 2em; /* Espacement entre les éléments de tarification */
-			/* Autres styles si nécessaires */
+			gap: 2em; 
+			
 		}
 
 
 		.pricing--sonam {
-			display: flex; /* Assure que les éléments de tarification sont alignés horizontalement */
-			gap: 2em; /* Espacement entre les éléments de tarification */
+			display: flex; 
+			gap: 2em; 
       margin-left: 2em;
       margin-right: 2em; 
 		}
@@ -104,14 +104,13 @@
 		/* Sonam */
 		/*card*/
 		.pricing--sonam .pricing__item {
-			margin: 0; /* Ajustement pour alignement flex */
+			margin: 0; 
 
 			cursor: default;
 			border-radius: 10px;
 			background: white;
 			box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05), 0 15px 30px -10px rgba(0, 0, 0, 0.3);
 			transition: background 0.3s;
-			/* Autres styles restent inchangés */
 		}
 
 		.pricing--sonam .pricing__item:hover {
@@ -119,7 +118,7 @@
 		}
 
 		.pricing--sonam .pricing__title {
-			font-size: 2em;
+			font-size: 20px;
 			width: 30%;
 			margin: 0 0 0.25em;
 			padding: 0 0 0.5em;
@@ -185,7 +184,7 @@
 					{% for address in addresses %}
 						<div class="pricing__item">
 							{% if address.isIsPrimary == true %}
-								<h3 class="pricing__title">Adresse Principale</h3>
+								<h6 class="pricing__title">Adresse Principale</h6>
 								{# <div class="pricing__price"><span class="pricing__currency"></span></div> #}
 							{% endif %}
 							<p class="pricing__sentence">{{ address.street }}</p>

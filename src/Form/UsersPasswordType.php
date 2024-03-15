@@ -14,11 +14,18 @@ class UsersPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface  $builder, array $options): void
     {
         $builder
-            ->add('password', RepeatedType::class, [
-
+            ->add('oldPassword', PasswordType::class, [
+                'attr' => ['class' => 'form-control'],
+                'label' => 'Ancien mot de passe : ',
+                'label_attr' => ['class' => 'form-label'],
+                'constraints' =>  [
+                    new NotBlank(),
+                ]
+            ])
+            ->add('newPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Mot de passe : (8 caractères minimum)',
+                    'label' => 'Nouveau mot de passe : ',
                     'label_attr' => ['class' => 'form-label'],
                     'attr' => [
                         'class' => 'form-control',
@@ -26,29 +33,17 @@ class UsersPasswordType extends AbstractType
                     ]
                 ],
                 'second_options' => [
-                    'label' => 'Confirmation du mot de passe : ',
+                    'label' => 'Confirmation du nouveau mot de passe : ',
                     'label_attr' => ['class' => 'form-label'],
-                    'attr' => [
-                        'class' => 'form-control'
-                    ]
+                    'attr' => ['class' => 'form-control']
                 ],
-                'invalid_message' => 'Les mots de passe ne correspondent pas.'
-            ])
-
-            ->add('newPassword', PasswordType::class, [
-                'attr' => ['class' => 'form-control'],
-                'label' => 'Nouveau mot de passe : ',
-                'label_attr' => ['class' => 'form-label'],
-                'constraints' =>  [
+                'invalid_message' => 'Les nouveaux mots de passe ne correspondent pas.',
+                'constraints' => [
                     new NotBlank(),
                 ]
             ])
-
             ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary mt-4',
-                    'id' => 'btn-confirm'
-                ],
+                'attr' => ['class' => 'btn btn-primary mt-4', 'id' => 'btn-confirm'],
                 'label' => 'Confirmer',
             ]);
     }
