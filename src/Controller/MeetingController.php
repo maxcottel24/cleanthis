@@ -57,7 +57,20 @@ class MeetingController extends AbstractController
             $manager->persist($meeting);
             $manager->flush();
 
-            // Optionnel : envoyer un e-mail 
+            $context = [
+                
+                'userId' => $user->getId(),
+                'user' => $user,
+                'meeting' => $meeting,
+            ];
+
+            $mail->send(
+                'acleanthis@gmail.com', 
+                $user->getEmail(), 
+                'Demande de rendez vous reçue', 
+                'meeting_confirmation', 
+                $context
+            );
 
             $this->addFlash(
                 'success',
