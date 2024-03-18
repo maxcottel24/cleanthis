@@ -22,7 +22,7 @@
 				{{ form_row(form.city ) }}
 				{{ form_row(form.zipcode) }}
 				{{ form_row(form.is_primary) }}
-				<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+				<button class="btn btn-primary">{{ button_label|default('Confirmer') }}</button>
 				{{ form_end(form) }}
 				<a href="/address/{{app.user.id}}" class="btn btn-primary" id="btn-retour">Retour</a>
 			</div>

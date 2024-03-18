@@ -16,7 +16,7 @@ class UsersPasswordType extends AbstractType
         $builder
             ->add('oldPassword', PasswordType::class, [
                 'attr' => ['class' => 'form-control'],
-                'label' => 'Ancien mot de passe : ',
+                'label' => 'Mot de passe actuel : ',
                 'label_attr' => ['class' => 'form-label'],
                 'constraints' =>  [
                     new NotBlank(),
@@ -25,11 +25,11 @@ class UsersPasswordType extends AbstractType
             ->add('newPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Nouveau mot de passe : ',
+                    'label' => 'Nouveau mot de passe : (8 caractères minimum)',
                     'label_attr' => ['class' => 'form-label'],
                     'attr' => [
                         'class' => 'form-control',
-                        'placeholder' => '1 maj, 1 min, 1 chiffre, 1 caractère spécial'
+                        'placeholder' => '* 1 maj, 1 min, 1 chiffre, 1 caractère spécial'
                     ]
                 ],
                 'second_options' => [
