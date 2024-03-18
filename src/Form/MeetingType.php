@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class MeetingType extends AbstractType
 {
@@ -46,6 +47,11 @@ class MeetingType extends AbstractType
                         ->setParameter('user', $user)
                         ->orderBy('a.is_primary', 'DESC');
                 },
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectionner une adresse.',
+                    ]),
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [

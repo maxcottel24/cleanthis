@@ -166,9 +166,13 @@ public function delete(Request $request, Address $address, EntityManagerInterfac
     return $this->redirectToRoute('app_address_index', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
 }
 #[Route('/{id}/secondary', name: 'app_address_secondary', methods: ['GET', 'POST'])]
-public function newSecondary(Request $request, EntityManagerInterface $entityManager, Security $security): Response
+public function newSecondary(Request $request, EntityManagerInterface $entityManager, Security $security ,): Response
 {
     $user = $security->getUser();
+    $previousPrimary = $entityManager->getRepository(Address::class)->findOneBy([
+        'user' => $user,
+        'is_primary' => true,
+    ]);
 
     if ($user instanceof Users && $user->getAddressesCount() < 4) {
         $address = new Address();
@@ -177,7 +181,11 @@ public function newSecondary(Request $request, EntityManagerInterface $entityMan
         
         if ($form->isSubmitted() && $form->isValid()) {
             $address->setUser($user);
-            $address->setIsPrimary(false);
+            if ($previousPrimary != null ) {
+                $address->setIsPrimary(false);
+            }else {
+                $address->setIsPrimary(true);
+            }
             $entityManager->persist($address);
             $entityManager->flush();
 
