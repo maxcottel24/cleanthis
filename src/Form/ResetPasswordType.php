@@ -5,8 +5,10 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
 
 class ResetPasswordType extends AbstractType
 {
@@ -28,7 +30,15 @@ class ResetPasswordType extends AbstractType
                        'class'=> 'form-control'
                    ] 
                 ],
-                'invalid_message' => 'Les mots de passe ne correspondent pas.'
+                'invalid_message' => 'Les mots de passe ne correspondent pas.', 
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Length(['min' => 8]),
+                    new Assert\PasswordStrength([
+                        'minScore' => PasswordStrength::STRENGTH_WEAK ,
+                        'Votre mot de passe n\'est pas suffisament sécurisé'
+                    ]) 
+                ]
                ])
         ;
     }

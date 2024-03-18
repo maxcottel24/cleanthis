@@ -2,13 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\Meeting;
 use App\Entity\Users;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Meeting;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class EditAdminPasswordType extends AbstractType
 {
@@ -19,6 +21,14 @@ class EditAdminPasswordType extends AbstractType
             'label' => 'Entrez votre nouveau mot de passe',
             'attr' => [
                 'class' => 'form-control'
+            ], 
+            'constraints' => [
+                new Assert\NotBlank(),
+                new Assert\Length(['min' => 8]),
+                new Assert\PasswordStrength([
+                    'minScore' => PasswordStrength::STRENGTH_WEAK ,
+                    'message' => 'Votre mot de passe n\'est pas suffisament sécurisé'
+                ]) 
             ]
         ])
         ;
