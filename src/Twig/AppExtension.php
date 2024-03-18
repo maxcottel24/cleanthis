@@ -24,9 +24,9 @@ class AppExtension extends AbstractExtension
             case 2:
                 return "En attente de prise en charge";
             case 3:
-                return "RDV pris en charge";
+                return "Rendez-vous pris en charge";
             case 4:
-                return "Modifier par l'operateur [veuillez confirmer]";
+                return "Modifié par l'operateur [veuillez confirmer]";
             default:
                 return "Statut inconnu";
         }

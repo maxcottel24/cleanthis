@@ -126,7 +126,7 @@
   </a>
 		<ul>
       <li><a href ="{{path('app_profile')}}">Mon profil</a></li>
-			<li><a href="#">Commande</a></li>
+			<li><a href="{{ path('app_meeting_index', {'id': app.user.id}) }}">Commande</a></li>
 			<li><a href="{{path('app_logout')}}">Déconnexion</a></li>
 		</ul>
 	</li>

@@ -37,14 +37,16 @@
                 <span class="float-end {{meeting.Status|meeting_status_badge}}">{{ meeting.Status|meeting_status}}</span>
                     <h2>{{ meeting.reservedAt|date('d/m/Y') }}  à {{ meeting.reservedAt|date('H:i') }} </h2>
                     <br>
-                    <p>Pour une surface de : <strong> {{ meeting.floorSpace }} cm² </strong> <br> à l'adresse : <strong> {{ meeting.address }} </strong></p>
+                    <p>Pour une surface de : <strong> {{ meeting.floorSpace }} m² </strong> <br> À l'adresse : <strong> {{ meeting.address }} </strong></p>
                     <br>
                     {% if meeting.status == 1 or meeting.status == 4 %}
-                    <a class="btn btn-outline-light" type="button" href="{{path('app_meeting_edit', {'id': meeting.id})}}">Modifié</a>
+                    <a class="btn btn-outline-light" type="button" href="{{path('app_meeting_edit', {'id': meeting.id})}}">Modifier</a>
                     {% endif %}
 {% if meeting.status == 1 or meeting.status == 2 %}
                     <div class="d-flex justify-content-end ">
+
     <form method="post" action="{{ path('app_meeting_delete', {'id': meeting.id}) }}" onsubmit="return confirm('Êtes-vous sûr annuler votre demande de RDV ? (un opérateur va vous contacter) pour une réponse URGENTE : 01 02 03 04 ');">
+
         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ meeting.id) }}">
         <button class="btn btn-outline-danger btn-aligned" type="submit">Annuler</button>
     </form>
