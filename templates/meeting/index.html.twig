@@ -44,7 +44,7 @@
                     {% endif %}
 {% if meeting.status == 1 or meeting.status == 2 %}
                     <div class="d-flex justify-content-end ">
-    <form method="post" action="{{ path('app_meeting_delete', {'id': meeting.id}) }}" onsubmit="return confirm('Etes-vous sûr d\'annuler votre demande de RDV ? (un opérateur va vous contacter) pour une réponse URGENTE : 01 02 03 04 ');">
+    <form method="post" action="{{ path('app_meeting_delete', {'id': meeting.id}) }}" onsubmit="return confirm('Êtes-vous sûr annuler votre demande de RDV ? (un opérateur va vous contacter) pour une réponse URGENTE : 01 02 03 04 ');">
         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ meeting.id) }}">
         <button class="btn btn-outline-danger btn-aligned" type="submit">Annuler</button>
     </form>

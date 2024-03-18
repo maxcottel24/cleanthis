@@ -34,10 +34,10 @@ class ResetPasswordType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length(['min' => 8]),
-                    new Assert\PasswordStrength([
-                        'minScore' => PasswordStrength::STRENGTH_WEAK ,
-                        'Votre mot de passe n\'est pas suffisament sécurisé'
-                    ]) 
+                    // new Assert\PasswordStrength([
+                    //     'minScore' => PasswordStrength::STRENGTH_WEAK ,
+                    //     'Votre mot de passe n\'est pas suffisament sécurisé'
+                    // ]) 
                 ]
                ])
         ;
