@@ -95,6 +95,7 @@ class RegisterUsersType extends AbstractType
                 'label_attr' => [
                     'class' => 'form_label'
                 ],
+                // 'message' => 'Email non conforme', 
                 'constraints' => [
                     new Length(['min' => 3]),
                     new NotBlank(),

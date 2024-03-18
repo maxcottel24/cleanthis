@@ -7,6 +7,7 @@ use App\Entity\Meeting;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -65,15 +66,23 @@ class UsersType extends AbstractType
            ]
            ])
 
-           ->add('email', EmailType::class,[
+           ->add('email', EmailType::class, [
             'attr' => [
-                'class' => 'form-control'
+
+                'class' => 'form-control',
+                'minlenght' => '5',
+                'maxlength' => '255',
             ],
-            'label' => 'E-mail :',
+
+            'label' => 'E-mail *',
             'label_attr' => [
                 'class' => 'form_label'
-               ],
-            
+            ],
+            'constraints' => [
+                new Length(['min' => 3]),
+                new NotBlank(),
+                new Email(),
+            ],
         ])
             ->add('submit', SubmitType::class, [
                 'attr' => [

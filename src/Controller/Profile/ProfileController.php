@@ -93,7 +93,7 @@ public function editPassword(UserInterface $user, Request $request, EntityManage
             $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
             return $this->redirectToRoute('app_profile');
         } else {
-            $this->addFlash('warning', 'L\'ancien mot de passe est incorrect.');
+            $this->addFlash('danger', 'L\'ancien mot de passe est incorrect.');
         }
     }
 

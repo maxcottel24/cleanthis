@@ -38,10 +38,10 @@
 }
 [data-bs-theme="light"] .main-content{
     background-image:  url("/assets/images/paneladmin.jpg");
-    background-repeat: space repeat;
-    background-position: left;
+    background-repeat: space no-repeat;
+    background-position: bottom;
     background-color: #9fd7e6;
-    background-size: 47rem;
+    background-size: 20rem;
 
 }
 .content-header{

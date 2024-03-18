@@ -20,9 +20,6 @@ class UsersPasswordType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'label' => 'Mot de passe actuel : ',
                 'label_attr' => ['class' => 'form-label'],
-                'constraints' =>  [
-                    new NotBlank(),
-                ]
             ])
             ->add('newPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
