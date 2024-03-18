@@ -27,7 +27,7 @@ class MeetingController extends AbstractController
         if ($user->isIsVerified() == 0) {
             $this->addFlash(
                 'danger',
-                "Votre compte n'est pas vérifié"
+                "Votre compte n'est pas vérifié."
             );
             return $this->redirectToRoute('app_profile');
         }
@@ -108,7 +108,7 @@ public function edit(Request $request, Meeting $meeting, EntityManagerInterface 
 {
     $user = $security->getUser();
     if (!$meeting->getUsers()->contains($user)) {
-        $this->addFlash('error', 'Vous n’êtes pas autorisé à modifier cette réunion.');
+        $this->addFlash('warning', 'Vous n’êtes pas autorisé à modifier ce rendez-vous.');
         return $this->redirectToRoute('app_meeting_index', ['id' => $user->getId()]);
     }
 
@@ -121,7 +121,7 @@ public function edit(Request $request, Meeting $meeting, EntityManagerInterface 
         
 
         $entityManager->flush();
-        $this->addFlash('success', 'RDV mise à jour avec succès.');
+        $this->addFlash('success', 'Rendez-vous mis à jour avec succès.');
         return $this->redirectToRoute('app_meeting_index', ['id' => $user->getId()]);
     }
 
@@ -136,7 +136,7 @@ public function delete(Request $request, Meeting $meeting, EntityManagerInterfac
 {
     $user = $security->getUser();
     if (!$meeting->getUsers()->contains($user)) {
-        $this->addFlash('error', 'Vous n’êtes pas autorisé à supprimer ce RDV.');
+        $this->addFlash('warning', 'Vous n’êtes pas autorisé à supprimer ce rendez-vous.');
         return $this->redirectToRoute('app_meeting_index');
     }
 
@@ -144,12 +144,12 @@ public function delete(Request $request, Meeting $meeting, EntityManagerInterfac
         try {
             $entityManager->remove($meeting);
             $entityManager->flush();
-            $this->addFlash('success', 'Le RDV a été annulé avec succès.');
+            $this->addFlash('success', 'Le rendez-vous a été annulé avec succès.');
         } catch (\Exception $e) {
-            $this->addFlash('error', 'Une erreur est survenue lors de l\'annulation du RDV.');
+            $this->addFlash('warning', 'Une erreur est survenue lors de l\'annulation du rendez-vous.');
         }
     } else {
-        $this->addFlash('error', 'Le token de sécurité est invalide.');
+        $this->addFlash('danger', 'Le token de sécurité est invalide.');
     }
 
     return $this->redirectToRoute('app_meeting_index' , ['id' => $user->getId()]);

@@ -25,16 +25,18 @@ class MeetingType extends AbstractType
         $builder
             ->add('reservedAt', null, [
                 'widget' => 'single_text',
-                'label' => 'Date et Heure du RDV souhaitez : ' ,
+                'label' => 'Date et heure du rendez-vous souhaitée : ' ,
             ])
-            ->add('description')
+            ->add('description', null, [
+                'label' => 'Description : '
+            ])
             ->add('floor_space' , NumberType::class , [
-                'label' => 'surface en cm²' ,
-                'invalid_message' => 'Vous devez rentré un nombre.'
+                'label' => 'Surface en m² : ' ,
+                'invalid_message' => 'Merci de renseigner un nombre.'
             ])
             ->add('address', EntityType::class, [
                 'class' => Address::class,
-                'label' => 'Adresse' ,
+                'label' => 'Adresse du rendez-vous : ' ,
                 'choice_label' => function (Address $address) {
                     return sprintf('%s, %s %s', $address->getStreet(), $address->getCity(), $address->getZipcode());
                 },

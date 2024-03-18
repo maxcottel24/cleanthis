@@ -34,12 +34,12 @@ document.addEventListener("DOMContentLoaded", function() {
         const inputDateTime = new Date(datePicker.value);
         const hour = inputDateTime.getHours();
         if (hour < 8 || hour > 17) {
-            alert("Veuillez choisir une heure entre 8h00 et 17h00.");
+            alert("Veuillez choisir un horaire entre 8h00 et 17h00.");
             datePicker.value = ''; 
         }
         const dayOfWeek = inputDateTime.getDay();
         if (dayOfWeek === 0 || dayOfWeek === 6) {
-            alert("Les rendez-vous ne peuvent pas être pris les weekends.");
+            alert("Un rendez-vous ne peut pas être pris les jours de week-ends.");
             datePicker.value = ''; 
         }
     }
