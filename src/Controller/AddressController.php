@@ -89,7 +89,7 @@ class AddressController extends AbstractController
         $user = $security->getUser();
 
         if ($user->getId() !== $address->getUser()->getId()) {
-            $this->addFlash('error', 'Vous n’êtes pas autorisé à modifier cette adresse.');
+            $this->addFlash('warning', 'Vous n’êtes pas autorisé à modifier cette adresse.');
             return $this->redirectToRoute('app_address_index', ['id' => $user->getId()]);
         }
         $meetingCount = $entityManager->getRepository(Meeting::class)->count(['address' => $address]);
@@ -111,7 +111,7 @@ class AddressController extends AbstractController
                 ]);
     
                 if ($primaryAddressCount <= 1) {
-                    $this->addFlash('error', 'Vous devez avoir au moins une adresse principale.');
+                    $this->addFlash('info', 'Il est nécessaire d\'avoir au moins une adresse principale.');
                     return $this->redirectToRoute('app_address_edit', ['id' => $address->getId()]);
                 }
             }
@@ -146,21 +146,21 @@ public function delete(Request $request, Address $address, EntityManagerInterfac
 
     if ($user->getId() === $address->getUser()->getId()) {
         if ($address->isIsPrimary()) {
-            $this->addFlash('error', 'Impossible de supprimer une adresse principale.');
+            $this->addFlash('danger', 'Impossible de supprimer une adresse principale.');
         } else {
             $meetingCount = $entityManager->getRepository(Meeting::class)->count(['address' => $address]);
             if ($meetingCount > 0) {
-                $this->addFlash('error', 'Cette adresse est associée à un ou plusieurs RDV et ne peut pas être supprimée.');
+                $this->addFlash('danger', 'Cette adresse est associée à un ou plusieurs RDV et ne peut pas être supprimée.');
             } else if ($this->isCsrfTokenValid('delete'.$address->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($address);
                 $entityManager->flush();
                 $this->addFlash('success', 'Adresse supprimée avec succès.');
             } else {
-                $this->addFlash('error', 'Token de sécurité invalide.');
+                $this->addFlash('warning', 'Token de sécurité invalide.');
             }
         }
     } else {
-        $this->addFlash('error', 'Vous n’êtes pas autorisé à supprimer cette adresse.');
+        $this->addFlash('danger', 'Vous n’êtes pas autorisé à supprimer cette adresse.');
     }
 
     return $this->redirectToRoute('app_address_index', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
@@ -181,6 +181,7 @@ public function newSecondary(Request $request, EntityManagerInterface $entityMan
             $entityManager->persist($address);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Adresse ajoutée avec succès.');
             return $this->redirectToRoute('app_address_index', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -190,7 +191,7 @@ public function newSecondary(Request $request, EntityManagerInterface $entityMan
         ]);
     } else {
        
-        $this->addFlash('warning', 'Il est impossible de voir plus de 4 adresses...');
+        $this->addFlash('info', 'Il est impossible d\'avoir plus de quatre adresses.');
         return $this->redirectToRoute('app_address_index', ['id' => $user->getId()]);
     }
 }

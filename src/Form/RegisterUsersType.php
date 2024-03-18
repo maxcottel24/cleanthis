@@ -109,7 +109,7 @@ class RegisterUsersType extends AbstractType
                     'label' => 'Mot de passe : (8 caractères minimum)',
                     'attr' => [
                         'class' => 'form-control',
-                        'placeholder' => '1 maj, 1 min, 1 chiffre, 1 caractère spécial'
+                        'placeholder' => '* 1 maj, 1 min, 1 chiffre, 1 caractère spécial'
                     ]
                 ],
                 'second_options' => [

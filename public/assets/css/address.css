@@ -116,3 +116,15 @@ body {
 .container input{
     width: 37rem;
 }
+
+.list-group-item-action:hover {
+    cursor: pointer ;
+}
+
+#address1_city {
+    cursor: not-allowed;
+}
+
+#address1_zipcode {
+    cursor: not-allowed;
+}

@@ -24,7 +24,8 @@ class Address1TypeEdit extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank()
-                ]
+                ],
+                'label' => 'Code postale :'
             ))
             ->add('city', TextType::class, array(
                 'attr' => [
@@ -33,7 +34,8 @@ class Address1TypeEdit extends AbstractType
                 ], 
                 'constraints' => [
                     new NotBlank()
-                ]
+                ],
+                'label' => 'Ville :',
             ))
             ->add('street', null, [
                 'attr' => [
@@ -41,6 +43,7 @@ class Address1TypeEdit extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'Adresse'
                 ],
+                'label' => 'Adresse :'
             ])
             ->add('is_primary', CheckboxType::class, [
                 'label'    => 'Définir comme adresse principale     ',
