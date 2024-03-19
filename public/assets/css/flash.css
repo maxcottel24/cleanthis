@@ -14,17 +14,14 @@
 
 .alert {
     z-index: 11;
-    max-height: 6rem;
-    width: auto;
+    height: 60px;
     position: absolute;
-    justify-content:center;
+    justify-content:space-around;
     align-items: center;
-    text-align: center;
-    top: 7rem;
+    top: 5.2rem;
     left: 50%;
     transform: translate(-50%,-50%);
     opacity: 0.9;
-    padding-top: -0.4rem;
 }
 
 .alert-warning,
@@ -32,11 +29,9 @@
 .alert-danger,
 .alert-info,
 .alert-success {
-    width: auto;
-    /* margin: auto; */
-    /* margin-top: 16px; */
-    padding: -2rem;
-    font-size: 0.8rem;
+    width: 67%;
+    margin: auto;
+    margin-top: 16px;
 }
 .message{
     top: 1.6rem;
