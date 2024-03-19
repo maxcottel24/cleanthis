@@ -1,65 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CleanThis - Demande de devis{% endblock %}
+
+{% block head %}
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	
+{% endblock %}
+{% block stylesheets %}
+   <link href="{{ asset('assets/css/addmeeting.css') }}" rel="stylesheet">
+{% endblock %}
+{% block title %}CleanThis - Demande de devis
+{% endblock %}
 
 {% block body %}
-{% include '_partials/_navbar.html.twig' %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	{% include '_partials/_navbar.html.twig' %}
 
-<div class="example-wrapper">
-    <h1> </h1>
-    {{ form_start(form) }}
-    {{form_row(form.reservedAt) }}
-     {{form_row(form.floor_space) }}
-     {{form_row(form.description) }}
-      {{form_row(form.address) }}
-      {{form_row(form.submit)}}
-       {{form_end(form) }}
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const datePicker = document.querySelector("#meeting_reservedAt");
+	<section class="fancy">
+		<div class="backgrd">
+            <p>PRISE DE RENDEZ-VOUS</p>
+        </div>
+		<div class="container">
+			<div class="formulaire">
+				<div class="example-wrapper">
+					<h1></h1>
+					{{ form_start(form) }}
+					{{form_row(form.reservedAt) }}
+					{{form_row(form.floor_space) }}
+					{{form_row(form.description) }}
+					{{form_row(form.address) }}
+					{{form_row(form.submit)}}
+					{{form_end(form) }}
+				</div>
+			</div>
+            <a href="/profile" class="btn btn-primary" id="btn-retour">Retour</a>
+		</div>
+	</section>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+const datePicker = document.querySelector("#meeting_reservedAt");
 
-    function setMinDateTime() {
-        const now = new Date();
-        now.setDate(now.getDate() + 2); 
-        const minDate = formatDateTimeString(now, true) + "T08:00";
-        datePicker.setAttribute("min", minDate);
-    }
+function setMinDateTime() {
+const now = new Date();
+now.setDate(now.getDate() + 2);
+const minDate = formatDateTimeString(now, true) + "T08:00";
+datePicker.setAttribute("min", minDate);
+}
 
-    function adjustDateTime() {
-        const inputDateTime = new Date(datePicker.value);
-        const hour = inputDateTime.getHours();
-        if (hour < 8 || hour > 17) {
-            alert("Veuillez choisir un horaire entre 8h00 et 17h00.");
-            datePicker.value = ''; 
-        }
-        const dayOfWeek = inputDateTime.getDay();
-        if (dayOfWeek === 0 || dayOfWeek === 6) {
-            alert("Un rendez-vous ne peut pas être pris les jours de week-ends.");
-            datePicker.value = ''; 
-        }
-    }
+function adjustDateTime() {
+const inputDateTime = new Date(datePicker.value);
+const hour = inputDateTime.getHours();
+if (hour < 8 || hour > 17) {
+alert("Veuillez choisir un horaire entre 8h00 et 17h00.");
+datePicker.value = '';
+}
+const dayOfWeek = inputDateTime.getDay();
+if (dayOfWeek === 0 || dayOfWeek === 6) {
+alert("Un rendez-vous ne peut pas être pris les jours de week-ends.");
+datePicker.value = '';
+}
+}
 
-    datePicker.addEventListener("change", adjustDateTime);
+datePicker.addEventListener("change", adjustDateTime);
 
-    function formatDateTimeString(date, isDateOnly) {
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = date.getDate().toString().padStart(2, '0');
-        if (isDateOnly) {
-            return `${year}-${month}-${day}`;
-        } else {
-            const hours = date.getHours().toString().padStart(2, '0');
-            const minutes = date.getMinutes().toString().padStart(2, '0');
-            return `${year}-${month}-${day}T${hours}:${minutes}`;
-        }
-    }
+function formatDateTimeString(date, isDateOnly) {
+const year = date.getFullYear();
+const month = (date.getMonth() + 1).toString().padStart(2, '0');
+const day = date.getDate().toString().padStart(2, '0');
+if (isDateOnly) {
+return `${year}-${month}-${day}`;
+} else {
+const hours = date.getHours().toString().padStart(2, '0');
+const minutes = date.getMinutes().toString().padStart(2, '0');
+return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+}
 
-    setMinDateTime();
+setMinDateTime();
 });
-</script>
+	</script>
 {% endblock %}
