@@ -13,11 +13,15 @@
 }
 
 .alert {
+    z-index: 11;
     height: 60px;
-    display: flex;
+    position: absolute;
     justify-content:space-around;
     align-items: center;
-    margin-bottom: 0 !important;
+    top: 5.2rem;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    opacity: 0.9;
 }
 
 .alert-warning,
@@ -28,4 +32,8 @@
     width: 67%;
     margin: auto;
     margin-top: 16px;
+}
+.message{
+    top: 1.6rem;
+    opacity: 1;
 }
