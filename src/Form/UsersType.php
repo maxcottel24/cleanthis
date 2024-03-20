@@ -74,7 +74,7 @@ class UsersType extends AbstractType
                 'maxlength' => '255',
             ],
 
-            'label' => 'E-mail *',
+            'label' => 'E-mail *:',
             'label_attr' => [
                 'class' => 'form_label'
             ],

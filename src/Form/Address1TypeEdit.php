@@ -43,10 +43,10 @@ class Address1TypeEdit extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'Adresse'
                 ],
-                'label' => 'Adresse :'
+                'label' => 'Adresse *:'
             ])
             ->add('is_primary', CheckboxType::class, [
-                'label'    => 'Définir comme adresse principale     ',
+                'label'    => 'Définir comme adresse principale :',
                 'required' => false,
             ])
             //             ->add('user', EntityType::class, [
