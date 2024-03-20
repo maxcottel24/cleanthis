@@ -26,7 +26,7 @@ class Address1Type extends AbstractType
                 'constraints' => [
                     new NotBlank()
                 ],
-                'label' => 'Code postale',
+                'label' => 'Code postale :',
             ))
             ->add('city', TextType::class, array(
                 'attr' => [
@@ -36,15 +36,15 @@ class Address1Type extends AbstractType
                 'constraints' => [
                     new NotBlank()
                 ],
-                'label' => 'Ville',
+                'label' => 'Ville :',
             ))
             ->add('street', null, [
                 'attr' => [
                     'id' => 'form_street',
                     'class' => 'form-control',
-                    'placeholder' => 'Veuillez écrire dans ce champ'
+                    'placeholder' => '* veuillez entrer votre adresse ici'
                 ],
-                'label' => 'Adresse *'
+                'label' => 'Adresse *:'
             ])
             ->add('Valider', SubmitType::class, [
                 'attr' => [
