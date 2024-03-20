@@ -1,0 +1,39 @@
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% block content %}
+    <table data-toggle="table" data-search="true" data-pagination="true"  >
+      <thead>
+        <tr>
+            <th data-sortable="true" data-field="id">Numéro de Rendez-vous</th>
+            <th data-sortable="true" data-field="reserved_at">Date et Heure</th>
+            <th data-sortable="true" data-field="users">Client</th>
+            <th data-sortable="true" data-field="status">Status</th>
+            <th data-sortable="true" data-field="users">Opérateur</th>
+            <th data-sortable="true" data-field="id_address">Adresse</th>
+            <th data-sortable="true" data-field="descritpion">Description</th>
+            <th data-sortable="true" data-field="floor_space">Surface(m²)</th>
+            <th data-sortable="true" data-field="action">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for meeting in meetings %}
+        <tr>
+          <td> {{ meeting.id }} </td>
+          <td> {{ meeting.reservedAt | date }} </td>
+          <td> {{ meeting.Users }} </td>
+          <td> {{ meeting.status }} </td>
+          {# <td> {{ meeting.Users }} </td> #}
+          <td> {{ meeting.Address }} </td>
+          <td> {{ meeting.description }} </td>
+          <td> {{ meeting.FloorSpace }} </td>
+          <td> <button class="btn btn-primary">suivant</button> </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
+{% endblock %}

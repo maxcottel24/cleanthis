@@ -29,6 +29,15 @@ class MeetingRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('p')
+            // ->where('p.status = 1')
+            ->getQuery()
+            ->getResult(); 
+    }
     //    /**
     //     * @return Meeting[] Returns an array of Meeting objects
     //     */
