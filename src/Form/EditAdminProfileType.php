@@ -20,13 +20,13 @@ class EditAdminProfileType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Nom :'
+                'label' => 'Prénom :'
             ])
             ->add('lastname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Prénom :'
+                'label' => 'Nom :'
             ])
             ->add('date_of_birthday', BirthdayType::class, [
                 'attr' => [

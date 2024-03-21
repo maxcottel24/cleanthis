@@ -10,15 +10,17 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class AdminMeetingController extends AbstractDashboardController
+class AdminMeetingController extends AbstractController
 {
     private $entityManager;
+    private $meetingRepository;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, MeetingRepository $meetingRepository)
     {
         $this->entityManager = $entityManager;
+        $this->meetingRepository = $meetingRepository;
     }
 
     #[Route('/admin/meeting', name: 'app_admin_meeting')]
