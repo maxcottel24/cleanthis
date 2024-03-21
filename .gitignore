@@ -23,3 +23,5 @@
 /assets/vendor/
 ###< symfony/asset-mapper ###
 /migrations
+/composer.lock
+/assets/controllers.json
