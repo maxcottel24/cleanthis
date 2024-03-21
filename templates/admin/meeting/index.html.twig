@@ -2,8 +2,11 @@
 
 {% set _content_title = 'Liste des rendez-vous' %}
 
+
 {% block page_title -%}{{ _content_title }}{%- endblock %}{% block content_header %}
-<h1 class="title">{{ _content_title }}</h1>{% endblock content_header %}{% block main %}
+<h1 class="title">{{ _content_title }}</h1> <form action="{{ path('app_admin_meeting_new') }}" method="post">
+							<button type="submit" class="btn btn-primary">Add RDV</button>
+						</form>{% endblock content_header %}{% block main %}
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
 <table id="meeting-table" data-toggle="table" data-search="true" data-pagination="true">
 	<thead>
@@ -11,7 +14,7 @@
 			<th data-sortable="true" data-field="id">Numéro RDV</th>
 			<th data-sortable="true" data-field="reserved_at">Date/Heure</th>
 			<th data-sortable="true" data-field="status">Status</th>
-			<th data-sortable="true" data-field="address">Adresse</th>
+			<th data-sortable="true" data-field="address">Adresse</th>0
 			<th data-sortable="true" data-field="description">Description</th>
 			<th data-sortable="true" data-field="floor_space">Surface(m²)</th>
 			<th data-sortable="true" data-field="created_by">Client</th>
