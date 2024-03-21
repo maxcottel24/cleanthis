@@ -1,0 +1,55 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% set _content_title = 'Liste de tous mes rendez-vous' %}
+
+{% block page_title -%}
+    {{ _content_title }}
+{%- endblock %}
+
+{% block content_header %}
+    <h1 class="title">{{ _content_title }}</h1>
+{% endblock content_header %}
+
+{% block main %}
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Numéro RDV</th>
+                <th scope="col">Date/Heure</th>
+                <th scope="col">Status</th>
+                <th scope="col">Adresse</th>
+                <th scope="col">Description</th>
+                <th scope="col">Surface(m²)</th>
+                <th scope="col">Clients</th>
+                <th scope="col">Opérateur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for meeting in meetings %}
+                <tr>
+                    <td>{{ meeting.id }}</td>
+                    <td>{{ meeting.reservedAt | date('Y-m-d H:i') }}</td>
+                    <td>{{ meeting.status }}</td>
+                    <td>{{ meeting.address }}</td>
+                    <td>{{ meeting.description }}</td>
+                    <td>{{ meeting.floorSpace }}</td>
+                    <td>
+                        {% for user in meeting.users %}
+                            {{ user.firstname }} {{ user.lastname }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ meeting.operatorName|default('N/A') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">Aucun rendez-vous trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
+{% endblock main %}
