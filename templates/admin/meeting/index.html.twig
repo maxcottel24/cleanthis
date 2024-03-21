@@ -2,90 +2,90 @@
 
 {% set _content_title = 'Liste des rendez-vous' %}
 
-{% block page_title -%}{{ _content_title }}{%- endblock %}
-
-{% block content_header %}
-    <h1 class="title">{{ _content_title }}</h1>
-{% endblock content_header %}
-
-{% block main %}
-	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
-	<table id="meeting-table" data-toggle="table" data-search="true" data-pagination="true">
-		<thead>
+{% block page_title -%}{{ _content_title }}{%- endblock %}{% block content_header %}
+<h1 class="title">{{ _content_title }}</h1>{% endblock content_header %}{% block main %}
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
+<table id="meeting-table" data-toggle="table" data-search="true" data-pagination="true">
+	<thead>
+		<tr>
+			<th data-sortable="true" data-field="id">Numéro RDV</th>
+			<th data-sortable="true" data-field="reserved_at">Date/Heure</th>
+			<th data-sortable="true" data-field="status">Status</th>
+			<th data-sortable="true" data-field="address">Adresse</th>
+			<th data-sortable="true" data-field="description">Description</th>
+			<th data-sortable="true" data-field="floor_space">Surface(m²)</th>
+			<th data-sortable="true" data-field="created_by">Client</th>
+			<th data-sortable="true" data-field="operator">Opérateur</th>
+			<th data-sortable="true" data-field="action">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for meeting in meetings %}
 			<tr>
-				<th data-sortable="true" data-field="id">Numéro RDV</th>
-				<th data-sortable="true" data-field="reserved_at">Date/Heure</th>
-				<th data-sortable="true" data-field="status">Status</th>
-				<th data-sortable="true" data-field="address">Adresse</th>
-				<th data-sortable="true" data-field="description">Description</th>
-				<th data-sortable="true" data-field="floor_space">Surface(m²)</th>
-				<th data-sortable="true" data-field="created_by">Client</th>
-				<th data-sortable="true" data-field="operator">Opérateur</th>
-				<th data-sortable="true" data-field="action">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for meeting in meetings %}
-				<tr>
-					<td>{{ meeting.id }}</td>
-					<td>{{ meeting.reservedAt | date }}</td>
-					<td>{{ meeting.status }}</td>
-					<td>{{ meeting.address }}</td>
-					<td>
-						{% if meeting.description|length > 20 %}
-							<span class="description-truncate">{{ meeting.description|slice(0, 20) }}...</span>
-							<a href="#" class="read-more-link" data-bs-toggle="modal" data-bs-target="#descriptionModal{{ meeting.id }}">Voir plus</a>
-							<div class="modal fade" id="descriptionModal{{ meeting.id }}" tabindex="-1" aria-labelledby="descriptionModal{{ meeting.id }}Label" aria-hidden="false">
-								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="descriptionModal{{ meeting.id }}Label">Description</h5>
-											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-										<div class="modal-body">
-											{{ meeting.description }}
-										</div>
+				<td>{{ meeting.id }}</td>
+				<td>{{ meeting.reservedAt | date }}</td>
+				<td > <span class=" {{meeting.Status|meeting_statuss_badge}}">{{ meeting.Status|meeting_statuss}}</span></td>
+				<td>{{ meeting.address }}</td>
+				<td>
+					{% if meeting.description|length > 20 %}
+						<span class="description-truncate">{{ meeting.description|slice(0, 20) }}...</span>
+						<a href="#" class="read-more-link" data-bs-toggle="modal" data-bs-target="#descriptionModal{{ meeting.id }}">Voir plus</a>
+						<div class="modal fade" id="descriptionModal{{ meeting.id }}" tabindex="-1" aria-labelledby="descriptionModal{{ meeting.id }}Label" aria-hidden="false">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="descriptionModal{{ meeting.id }}Label">Description</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										{{ meeting.description }}
 									</div>
 								</div>
 							</div>
-						{% else %}
-							{{ meeting.description }}
-						{% endif %}
-					</td>
-					<td>{{ meeting.floorSpace }}</td>
-					<td>
-						{% for user in meeting.users %}
-							{{ user.firstname }}
-							{{ user.lastname }}
-							{% if not loop.last %},
-							{% endif %}
-						{% endfor %}
-					</td>
-					<td>
-						{{ operatorNames[meeting.id]|default('N/A') }}
-					</td>
-					<td>
-						{% if meeting.status != 3 %}
-							<form action="{{ path('app_admin_meeting_handle', {'id': meeting.id}) }}" method="post">
-								<button type="submit" class="btn btn-primary">Prendre en charge</button>
-							</form>
-						{% else %}
-							<span class="badge badge-success">Pris en charge</span>
-						{% endif %}
-					</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+						</div>
+					{% else %}
+						{{ meeting.description }}
+					{% endif %}
+				</td>
+				<td>{{ meeting.floorSpace }}</td>
+				<td>
+					{% if meeting.users|length > 0 %}
+						{{ meeting.users.last().firstname }}
+						{{ meeting.users.last().lastname }}
+					{% else %}
+						Aucun créateur défini
+					{% endif %}
+				</td>
+				<td>
+					{% if meeting.users|length > 1 %}
+						{{ meeting.users.first().firstname }}
+						{{ meeting.users.first().lastname }}
+					{% elseif meeting.users|length == 1  %}
+						N/A
+					{% endif %}
+				</td>
+				<td>
+					{% if meeting.status != 3 %}
+						<form action="{{ path('app_admin_meeting_handle', {'id': meeting.id}) }}" method="post">
+							<button type="submit" class="btn btn-primary">Prendre en charge</button>
+						</form>
+					{% else %}
+						<span class="badge badge-success">Pris en charge</span>
+					{% endif %}
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
 
-	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 
-	<script>
-		// Reinitialize Bootstrap table after form submission
-    $(document).ready(function () {
-    $('#meeting-table').bootstrapTable();
-  });
-	</script>
+<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
+
+{# <script>
+	// Reinitialize Bootstrap table after form submission
+$(document).ready(function () {
+$('#meeting-table').bootstrapTable();
+});
+</script> #}
 {% endblock main %}

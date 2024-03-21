@@ -3,16 +3,15 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Meeting;
+use App\Entity\Users;
 use App\Repository\MeetingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security as SecurityBundleSecurity;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
-class AdminMeetingController extends AbstractController
+class AdminMeetingController extends AbstractDashboardController
 {
     private $entityManager;
 
@@ -22,8 +21,9 @@ class AdminMeetingController extends AbstractController
     }
 
     #[Route('/admin/meeting', name: 'app_admin_meeting')]
-    public function index(Request $request): Response
+    public function index(): Response
     {
+        
         $meetings = $this->entityManager->getRepository(Meeting::class)->findAll();
 
         //Permets d'inscrire le nom de l'opérateur
@@ -35,27 +35,32 @@ class AdminMeetingController extends AbstractController
         return $this->render('admin/meeting/index.html.twig', [
             'meetings' => $meetings,
             'operatorNames' => $operatorNames,
-            'eaContext' => $request->query->get('eaContext'),
-            'menuIndex' => $request->query->get('menuIndex'),
-            'submenu' => $request->query->get('submenuIndex')
         ]);
     }
 
     #[Route('/admin/meeting/handle/{id}', name: 'app_admin_meeting_handle', methods: ['POST'])]
-    public function handleMeeting(Request $request, $id): Response
+    public function handleMeeting(Request $request, $id, ): Response
     {
         $meeting = $this->entityManager->getRepository(Meeting::class)->find($id);
 
         if (!$meeting) {
             throw $this->createNotFoundException('RDV non trouvé');
         }
+        $user = $this->getUser();
+    
+    if (!$user instanceof Users) {
+        throw new \RuntimeException('Aucun utilisateur connecté');
+    }
 
+    // Associer l'utilisateur au rendez-vous
+        $meeting->addUser($user);
         $meeting->setStatus(3);
         $this->entityManager->flush();
 
         $this->addFlash('success', 'RDV pris en charge avec succès.');
 
-        return $this->redirectToRoute('app_admin_meeting');
+        return $this->redirectToRoute('admin');
     }
 }
+
 

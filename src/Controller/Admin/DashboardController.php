@@ -30,6 +30,7 @@ class DashboardController extends AbstractDashboardController
     {
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
         return $this->redirect($adminUrlGenerator->setController(OperationCrudController::class)->generateUrl());
+        // return $this->redirectToRoute('app_admin_meeting'); 
     }
 
     public function configureAssets(): Assets     
