@@ -9,21 +9,23 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class AdminMeetingController extends AbstractDashboardController
+class AdminMeetingController extends AbstractController
 {
     private $entityManager;
+    private $meetingRepository;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, MeetingRepository $meetingRepository)
     {
         $this->entityManager = $entityManager;
+        $this->meetingRepository = $meetingRepository;
     }
 
     #[Route('/admin/meeting', name: 'app_admin_meeting')]
     public function index(): Response
     {
-        
+
         $meetings = $this->entityManager->getRepository(Meeting::class)->findAll();
 
         //Permets d'inscrire le nom de l'opérateur
@@ -39,7 +41,7 @@ class AdminMeetingController extends AbstractDashboardController
     }
 
     #[Route('/admin/meeting/handle/{id}', name: 'app_admin_meeting_handle', methods: ['POST'])]
-    public function handleMeeting(Request $request, $id, ): Response
+    public function handleMeeting(Request $request, $id,): Response
     {
         $meeting = $this->entityManager->getRepository(Meeting::class)->find($id);
 
@@ -47,12 +49,12 @@ class AdminMeetingController extends AbstractDashboardController
             throw $this->createNotFoundException('RDV non trouvé');
         }
         $user = $this->getUser();
-    
-    if (!$user instanceof Users) {
-        throw new \RuntimeException('Aucun utilisateur connecté');
-    }
 
-    // Associer l'utilisateur au rendez-vous
+        if (!$user instanceof Users) {
+            throw new \RuntimeException('Aucun utilisateur connecté');
+        }
+
+        // Associer l'utilisateur au rendez-vous
         $meeting->addUser($user);
         $meeting->setStatus(3);
         $this->entityManager->flush();
@@ -62,5 +64,3 @@ class AdminMeetingController extends AbstractDashboardController
         return $this->redirectToRoute('admin');
     }
 }
-
-
