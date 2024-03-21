@@ -62,9 +62,8 @@ class DashboardController extends AbstractDashboardController
             return [
                 yield MenuItem::section('Opérations', 'fa-solid fa-folder-open'),
                 yield MenuItem::linkToCrud('Opérations', 'fa-solid fa-hand-sparkles', Operation::class),
-                yield MenuItem::linkToCrud('Rendez-vous', 'fas fa-calendar', Meeting::class),
+                yield MenuItem::linkToRoute('Rendez-vous', 'fas fa-calendar', 'app_admin_meeting'),
                 yield MenuItem::linkToCrud('Factures', 'fas fa-file-invoice-dollar', Invoice::class),
-
                 yield MenuItem::section('Utilisateurs', 'fa-solid fa-users-line'),
                 yield MenuItem::linkToCrud('Invitations', 'fas fa-envelope', Invitation::class),
                 yield MenuItem::subMenu('Utilisateurs', 'fa-solid fa-users-rectangle')->setSubItems([
