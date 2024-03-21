@@ -34,7 +34,7 @@
                  {% for meeting in meetings %}
             <div class="col-md-6 mb-3">
                 <div class="h-100 p-5 text-white bg-dark rounded-3">
-                <span class="float-end {{meeting.Status|meeting_status_badge}}">{{ meeting.Status|meeting_status}}</span>
+                <span class=" {{meeting.Status|meeting_status_badge}}">{{ meeting.Status|meeting_status}}</span>
                     <h2>{{ meeting.reservedAt|date('d/m/Y') }}  à {{ meeting.reservedAt|date('H:i') }} </h2>
                     <br>
                     <p>Pour une surface de : <strong> {{ meeting.floorSpace }} m² </strong> <br> À l'adresse : <strong> {{ meeting.address }} </strong></p>
