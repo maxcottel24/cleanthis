@@ -15,7 +15,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class MeetingFormType extends AbstractType
@@ -32,45 +31,39 @@ class MeetingFormType extends AbstractType
         $builder
             ->add('reservedAt', null, [
                 'widget' => 'single_text', 
-                'attr' =>[
+                'attr' => [
                     'class' => 'form-control',
                 ], 
-                'label' => 'Selectionner date et heure du rdv',
-                'label_attr' => [
-                    'class' => 'form_label'
-                   ],
-                   'constraints' => [
+                'label' => 'Sélectionner la date et l\'heure du rendez-vous',
+                'constraints' => [
                     new NotBlank(),
-                   ]
+                ]
             ])
             ->add('description', null, [
-                'attr' =>[
+                'attr' => [
                     'class' => 'form-control',
                 ],
                 'label' => 'Description : '
             ])
-            ->add('floor_space' , NumberType::class , [
-                'attr' =>[
+            ->add('floor_space', NumberType::class, [
+                'attr' => [
                     'class' => 'form-control',
                 ],
-                'label' => 'Surface en m² : ' ,
+                'label' => 'Surface en m² : ',
                 'invalid_message' => 'Merci de renseigner un nombre.'
             ])
             ->add('status', ChoiceType::class, [
-                'attr' =>[
-                    'class' => 'form-control',
-                ],
                 'choices' => [
                     'Nouveau RDV' => '1',
                     'En attente de retour client' => '2',
                     'Pris en charge' => '3',
                     'Intervention opérateur' => '4'
                 ],
-            ])
-            ->add('selectedUser', EntityType::class, [
-                'attr' =>[
+                'attr' => [
                     'class' => 'form-control',
                 ],
+            ])
+            ->add('selectedUser', EntityType::class, [
                 'class' => Users::class,
                 'label' => 'Client',
                 'query_builder' => function ($er) {
@@ -83,34 +76,26 @@ class MeetingFormType extends AbstractType
                 },
                 'multiple' => false,
                 'mapped' => false,
-            ])
-            ->add('currentUser', HiddenType::class, [
-                'mapped' => false,
-                'data' => $options['user'] ? $options['user']->getId() : null,
-            ])
-            ->add('address', ChoiceType::class, [
-                'attr' =>[
+                'attr' => [
                     'class' => 'form-control',
                 ],
+            ])
+            ->add('address', EntityType::class, [
+                'class' => Address::class, // Spécifiez la classe de l'entité Address
                 'label' => 'Adresse',
-                'label_attr' => [
-                    'class' => 'form_label'
-                   ],
-                'choices' => $options['userData'], // Use userData passed as option
                 'choice_label' => function ($address) {
-                    if (is_array($address) && isset($address['street']) && isset($address['city']) && isset($address['zipcode'])) {
-                        return sprintf('%s, %s %s', $address['street'], $address['city'], $address['zipcode']);
-                    } else {
-                        return 'Address information is missing';
-                    }
+                    return sprintf('%s, %s %s', $address->getStreet(), $address->getCity(), $address->getZipcode());
                 },
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please select an address.',
+                        'message' => 'Veuillez sélectionner une adresse.',
                     ]),
                 ],
             ]);
-
+        
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) {
@@ -143,19 +128,27 @@ class MeetingFormType extends AbstractType
 
     private function addAddressField(FormInterface $form, Users $user = null)
     {
-        $addresses = $user ? $user->getAddresses() : [];
+        $addresses = [];
+        if ($user) {
+            foreach ($user->getAddresses() as $address) {
+                // Utilisez l'entité Address directement dans le choix
+                $addresses[$address->getStreet() . ', ' . $address->getCity() . ' ' . $address->getZipcode()] = $address;
+            }
+        }
 
         $form->add('address', EntityType::class, [
-            'class' => Address::class,
-            'placeholder' => 'Select an address',
+            'class' => Address::class, // Spécifiez la classe de l'entité Address
+            'label' => 'Adresse',
             'choices' => $addresses,
-            'label' => 'Address',
-            'choice_label' => function (Address $address) {
+            'choice_label' => function ($address) {
                 return sprintf('%s, %s %s', $address->getStreet(), $address->getCity(), $address->getZipcode());
             },
+            'attr' => [
+                'class' => 'form-control',
+            ],
             'constraints' => [
                 new NotBlank([
-                    'message' => 'Please select an address.',
+                    'message' => 'Veuillez sélectionner une adresse.',
                 ]),
             ],
         ]);
@@ -165,8 +158,8 @@ class MeetingFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Meeting::class,
-            'user' => null,
-            'userData' => null, // Add userData option
+            'userData' => [],
         ]);
     }
 }
+

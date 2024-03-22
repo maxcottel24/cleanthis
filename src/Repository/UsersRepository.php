@@ -59,7 +59,17 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         $this->getEntityManager()->flush();
     }
 
-    
+    /**
+     * @return Users[] Returns an array of Users objects with their addresses
+     */
+    public function findAllWithAddresses(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.addresses', 'a')
+            ->addSelect('a')
+            ->getQuery()
+            ->getResult();
+    }
 
 
     //    /**
