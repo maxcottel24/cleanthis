@@ -7,8 +7,7 @@
 <h1 class="title">{{ _content_title }}</h1>
 <form action="{{ path('app_admin_meeting_new') }}" method="post">
 	<button type="submit" class="btn btn-primary">Add RDV</button>
-</form>
-{% endblock content_header %}{% block main %}
+</form>{% endblock content_header %}{% block main %}
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
 <table id="meeting-table" data-toggle="table" data-search="false" data-pagination="true">
 	<thead>
@@ -79,7 +78,14 @@
 					{% else %}
 						<span class="badge badge-success">Pris en charge</span>
 					{% endif %}
+					{% if meeting.status != 3 %}
+						<form action="{{ path('app_admin_meeting_delete', {'id': meeting.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ meeting.id) }}">
+							<button type="submit" class="btn btn-danger">Supprimer</button>
+						</form>
+					{% endif %}
 				</td>
+
 			</tr>
 		{% endfor %}
 	</tbody>
@@ -87,6 +93,4 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 
-<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
-
-{% endblock main %}
+<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>{% endblock main %}
