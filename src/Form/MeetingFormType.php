@@ -2,20 +2,21 @@
 
 namespace App\Form;
 
+use App\Entity\Users;
 use App\Entity\Address;
 use App\Entity\Meeting;
-use App\Entity\Users;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class MeetingFormType extends AbstractType
 {
@@ -30,11 +31,35 @@ class MeetingFormType extends AbstractType
     {
         $builder
             ->add('reservedAt', null, [
-                'widget' => 'single_text'
+                'widget' => 'single_text', 
+                'attr' =>[
+                    'class' => 'form-control',
+                ], 
+                'label' => 'Selectionner date et heure du rdv',
+                'label_attr' => [
+                    'class' => 'form_label'
+                   ],
+                   'constraints' => [
+                    new NotBlank(),
+                   ]
             ])
-            ->add('description')
-            ->add('floor_space')
+            ->add('description', null, [
+                'attr' =>[
+                    'class' => 'form-control',
+                ],
+                'label' => 'Description : '
+            ])
+            ->add('floor_space' , NumberType::class , [
+                'attr' =>[
+                    'class' => 'form-control',
+                ],
+                'label' => 'Surface en m² : ' ,
+                'invalid_message' => 'Merci de renseigner un nombre.'
+            ])
             ->add('status', ChoiceType::class, [
+                'attr' =>[
+                    'class' => 'form-control',
+                ],
                 'choices' => [
                     'Nouveau RDV' => '1',
                     'En attente de retour client' => '2',
@@ -43,8 +68,11 @@ class MeetingFormType extends AbstractType
                 ],
             ])
             ->add('selectedUser', EntityType::class, [
+                'attr' =>[
+                    'class' => 'form-control',
+                ],
                 'class' => Users::class,
-                'label' => 'Utilisateur',
+                'label' => 'Client',
                 'query_builder' => function ($er) {
                     return $er->createQueryBuilder('u')
                         ->where('u.job_title = :jobTitle')
@@ -61,6 +89,13 @@ class MeetingFormType extends AbstractType
                 'data' => $options['user'] ? $options['user']->getId() : null,
             ])
             ->add('address', ChoiceType::class, [
+                'attr' =>[
+                    'class' => 'form-control',
+                ],
+                'label' => 'Adresse',
+                'label_attr' => [
+                    'class' => 'form_label'
+                   ],
                 'choices' => $options['userData'], // Use userData passed as option
                 'choice_label' => function ($address) {
                     if (is_array($address) && isset($address['street']) && isset($address['city']) && isset($address['zipcode'])) {
