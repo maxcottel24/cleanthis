@@ -45,28 +45,33 @@ class AdminMeetingController extends DashboardController
     }
 
     #[Route('/admin/meeting/handle/{id}', name: 'app_admin_meeting_handle', methods: ['POST'])]
-    public function handleMeeting(Request $request, $id): Response
-    {
-        $meeting = $this->entityManager->getRepository(Meeting::class)->find($id);
+public function handleMeeting(Request $request, $id): Response
+{
+    $meeting = $this->entityManager->getRepository(Meeting::class)->find($id);
 
-        if (!$meeting) {
-            throw $this->createNotFoundException('RDV non trouvé');
-        }
-        $user = $this->getUser();
-
-        if (!$user instanceof Users) {
-            throw new \RuntimeException('Aucun utilisateur connecté');
-        }
-
-        // Associer l'utilisateur au rendez-vous
-        $meeting->addUser($user);
-        $meeting->setStatus(3);
-        $this->entityManager->flush();
-
-        $this->addFlash('success', 'RDV pris en charge avec succès.');
-
-        return $this->redirect('/admin?routeName=app_admin_meeting', 301);
+    if (!$meeting) {
+        throw $this->createNotFoundException('RDV non trouvé');
     }
+
+    $user = $this->getUser();
+
+    if (!$user instanceof Users) {
+        throw new \RuntimeException('Aucun utilisateur connecté');
+    }
+
+    // Associer l'utilisateur au rendez-vous
+    $meeting->addUser($user);
+    $meeting->setStatus(3); // Suppose que 3 est le statut pour "Pris en charge"
+    
+    // Ajouter l'utilisateur courant (opérateur) comme dernier participant
+    $meeting->addUser($user);
+
+    $this->entityManager->flush();
+
+    $this->addFlash('success', 'RDV pris en charge avec succès.');
+
+    return $this->redirect('/admin?routeName=app_admin_meeting', 301);
+}
 
     #[Route('/admin/meeting/new/', name: 'app_admin_meeting_new', methods: ['GET', 'POST'])]
 public function new(Request $request, Security $security): Response
@@ -106,13 +111,17 @@ public function new(Request $request, Security $security): Response
 
         // Récupérer l'utilisateur courant
         $currentUser = $security->getUser();
-        
+        $meetingStatus = $meeting->getStatus(); // Suppose que getStatus() renvoie le statut actuel du rendez-vous
+        $currentUser = $this->getUser();
+        if ($currentUser && ($meetingStatus == 3)) {
+            $meeting->addUser($currentUser);
+        }
         // Enregistrer le nouveau rendez-vous dans la base de données
         $this->entityManager->persist($meeting);
         
         // Ajouter les utilisateurs au rendez-vous
         $meeting->addUser($selectedUser);
-        $meeting->addUser($currentUser);
+        
         
         // Enregistrer le rendez-vous avec les utilisateurs
         $this->entityManager->flush();
