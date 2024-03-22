@@ -1,4 +1,4 @@
-.example-wrapper { 
+/* .example-wrapper { 
     margin: 1em auto; 
     max-width: 800px; 
     width: 95%; 
@@ -44,11 +44,11 @@
     width: 80%; 
     height: auto; 
     padding: 10px;
-    /* border: 1px solid #ccc;  */
+     border: 1px solid #ccc;  
     border-radius:2rem ; 
     background: #fff; 
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    border-radius: 4px;  */
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    border-radius: 4px; 
     margin-top: 1.5rem;
     color: #123b61;
 }
@@ -109,4 +109,320 @@
     background-color: #123b61;
     transition: background 0.3s;
 }
+ */
 
+ @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root {
+    --main-color: #92D4F5;
+    --main-light-color: #bce5fa;
+    --secondary-color: #3971FF;
+    --light-color: #dcdcdc;
+    --dark-color: #52505e;
+
+    --font-smaller: 13px;
+    --font-bigger: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*,::before,::after{
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Nunito' , sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--dark-color);
+   
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+
+ul {
+    list-style: none;
+}
+
+h1,h2,h3 {
+    font-weight: 700;
+    line-height: 1.25 ;
+    margin: 0 0 0.5em;
+}
+
+img {
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2em;
+}
+
+
+.form-box {
+
+    display: flex ;
+    flex-direction: column ;
+    margin-top: 5em;
+    border: 8px solid var(--light-color);
+    border-radius: 15px;
+    background-color: rgb(243, 246, 255);
+}
+
+.form-box .progress {
+    position: relative ;
+    padding: 1em;
+}
+
+.logo {
+    font-size: 1.75em;
+    font-weight: 800;
+    color:var(--dark-color);
+    padding: 40px 48px;
+    text-align: center;
+}
+
+.logo span {
+    color: var(--secondary-color);
+}
+
+.progress ul.progress-steps {
+    display: flex;
+    flex-direction: row; 
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2em;
+}
+
+.progress ul.progress-steps li {
+    position: relative;
+    display: flex;
+    align-items: flex-start; 
+    margin-bottom: 2em;
+}
+
+
+.progress ul.progress-steps li > span {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-smaller);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1em;
+    border-radius: 50%;
+    background-color: var(--light-color);
+    z-index: 1;
+}
+
+.progress ul.progress-steps li p {
+    margin-left: 1em;
+}
+
+.progress ul.progress-steps li.active > span {
+    color: white;
+    background-color: var(--main-color);
+    border: 4px solid var(--main-light-color);
+    z-index: 1;
+}
+
+.progress ul.progress-steps li p span {
+    font-size: var(--font-smaller);
+    color: rgb(255, 109, 109);
+    color: rgb(171, 171, 171);
+    display: none;
+}
+
+
+.progress ul li p {
+    position: absolute;
+    top: -2em;
+    font-size: 12px;
+    left: -5px ;
+}
+
+/* le css du form */
+.form-box form {
+    width: 100%;
+    padding: 3em 1em;
+    background-color: white;
+    border-radius: 30px 30px 15px 15px ;
+}
+
+form > div {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+form > div p {
+    color: grey;
+    margin-bottom: 2em;
+}
+
+/* form > div > div:not(.checkbox) {
+
+} */
+
+form :where(input,select) {
+    height:40px ;
+    padding: 0 1em;
+    border-radius: 7px;
+    outline-color: var(--main-light-color);
+    border: 1px solid var(--light-color);
+    background-color: transparent;
+
+}
+
+form label {
+    font-size: var(--font-smaller);
+    margin-bottom: 0.5em;
+    font-weight: 600;
+}
+
+form > div:not(.btn-group) {
+    display: none;
+    -webkit-animation: fadeIn .6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+    animation: fadeIn .6s cubic-bezier(0.39, 0.575, 0.565, 1) both ;
+}
+
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+        -webkit-transform: translateY(10%);
+        transform: translateY(10%);
+    }
+    100%{
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+
+form > div.active {
+    display: block;
+}
+
+.btn-group{
+    margin-top: 250px;
+    flex-wrap: wrap;
+    gap: 1em;
+    display: flex;
+
+}
+
+.btn-group [class*="btn-"] {
+    background-color: var(--main-color);
+    color: white;
+    padding: 1em 2.5em;
+    border: 4px solid var(--main-light-color);
+    border-radius: 30px;
+    cursor: pointer;
+    -webkit-transition: background-color .3s , border-color 2s ease-out;
+    transition: background-color .3s , border-color 2s ease-out;
+}
+
+.btn-group [class*="btn-"]:disabled{
+    background-color: var(--light-color);
+    border-color: var(--light-color);
+    cursor: not-allowed;
+}
+
+.btn-group [class*="btn-"]:hover:not(:disabled) {
+    background-color: var(--dark-color);
+    border-color:var(--light-color) ;
+}
+
+
+
+.btn-group #meeting_submit,
+.form-four.active ~ .btn-group .btn-next {
+    display: none;
+}
+
+.form-four.active ~ .btn-group #meeting_submit {
+    display: block;
+}
+
+.form-four.active ~ .btn-group {
+    justify-content: space-between;
+}
+
+
+
+form > div .bg-svg {
+    width: 60px;
+    height: 80px;
+}
+
+
+
+::placeholder {
+    color: var(--light-color);
+}
+
+.form-step > div,
+.form-step h2,
+.form-step p {
+    text-align: center; 
+}
+
+
+@media screen and (min-width: 768px) {
+
+    .form-box {
+        flex-direction: row;
+    }
+
+    .form-box .progress {
+        flex:  1 0 35%;
+        min-height: 300px;
+        padding: 3em;
+    }
+    .logo {
+        margin: -48px -48px 48px;
+    }
+    .progress ul.progress-steps {
+        flex-direction: column;
+    }
+    .progress ul.progress-steps li:not(:last-child)::before{
+        content: '';
+        position: absolute ;
+        left: 19px;
+        top: 30px;
+        width: 2px;
+        height: 92px;
+        background-color: var(--light-color);
+    }
+    .form-box form {
+        padding: 3em;
+        border-radius: 0 15px 15px 0 ;
+    }
+    
+    .progress ul li p {
+        position: relative;
+        top :auto;
+        font-size: inherit;
+    }
+
+    .progress ul.progress-steps li p span {
+        display: block;
+    }
+}

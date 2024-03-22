@@ -6,10 +6,12 @@ use App\Entity\Address;
 use App\Entity\Meeting;
 use App\Entity\Users;
 use App\Repository\AddressRepository;
+use DateTime;
 use Doctrine\DBAL\Types\DecimalType;
 use Doctrine\DBAL\Types\FloatType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -24,7 +26,8 @@ class MeetingType extends AbstractType
     {
         $user = $options['user'];
         $builder
-            ->add('reservedAt', null, [
+            ->add('reservedAt', DateTimeType::class, [
+                'attr' => ['id' => 'meeting_reservedAt'],
                 'widget' => 'single_text',
                 'label' => 'Date et heure du rendez-vous souhaitée : ' ,
             ])

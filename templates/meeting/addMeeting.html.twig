@@ -1,83 +1,135 @@
-{% extends 'base.html.twig' %}
+ {% extends 'base.html.twig' %} 
 
 
 {% block head %}
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 	
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 {% endblock %}
 {% block stylesheets %}
+   
    <link href="{{ asset('assets/css/addmeeting.css') }}" rel="stylesheet">
 {% endblock %}
-{% block title %}CleanThis - Demande de devis
-{% endblock %}
+
+
 
 {% block body %}
-	{% include '_partials/_navbar.html.twig' %}
 
-	<section class="fancy">
-		<div class="backgrd">
-            <p>PRISE DE RENDEZ-VOUS</p>
-        </div>
-		<div class="container">
-			<div class="formulaire">
-				<div class="example-wrapper">
-					<h1></h1>
-					{{ form_start(form) }}
-					{{form_row(form.reservedAt) }}
-					{{form_row(form.floor_space) }}
-					{{form_row(form.description) }}
-					{{form_row(form.address) }}
-					{{form_row(form.submit)}}
-					{{form_end(form) }}
-				</div>
+
+<title>CleanThis - Demande de devis</title>
+
+
+<div id="page" class="site">
+	<div class="container">
+		<div class="form-box">
+			<div class="progress">
+				<div class="logo"><a href="/"><img src="{{ asset('assets/images/Logo.png') }}" alt="Logo"></a></div>
+				<ul class="progress-steps">
+					<li class="step active">
+						<span>1</span>
+						<p>Date<br><span>Jour / Heure </span></p> 
+					</li>
+					<li class="step">
+						<span>2</span>
+						<p>Surface<br><span>en m² </span></p> 
+					</li>
+					<li class="step">
+						<span>3</span>
+						<p>Description<br><span>Informations </span></p> 
+					</li>
+					<li class="step">
+						<span>4</span>
+						<p>Adresse<br><span>Où intervenir ?</span></p> 
+					</li>
+				</ul>
 			</div>
-            <a href="/profile" class="btn btn-primary" id="btn-retour">Retour</a>
+			{{ form_start(form) }}
+				<div class="form-one form-step active">
+					<div class="bg-svg"><img src="{{ asset('assets/images/calendar.png') }}" alt="calendar"></div>
+					<h2>Jour et Heure du rendez-vous</h2>
+					<p>Sélectionnez une date et une heure qui vous conviennent pour votre rendez-vous.</p>
+					<div>
+						<label></label>
+						{{form_row(form.reservedAt) }}
+					</div>
+				</div>
+				<div class="form-two form-step">
+					<div class="bg-svg">
+						<img src="{{ asset('assets/images/m2.png') }}" alt="m2">
+					</div>
+					<h2>Surface à nettoyer</h2>
+					<div>
+						<p>Taille de la surface en <strong>m²</strong> </p>
+						{{form_row(form.floor_space) }}
+					</div>
+				</div>
+					<div class="form-three form-step">
+						<div class="bg-svg"><img src="{{ asset('assets/images/commente.png') }}" alt="Description"></div>
+						<h2>Description</h2>
+						<div>
+							<p>Entrée une Description</p>
+							{{form_row(form.description) }}
+						</div>
+					</div>
+						<div class="form-four form-step">
+							<div class="bg-svg"><img src="{{ asset('assets/images/address.png') }}" alt="Adresse"></div>
+							<h2>Adresse</h2>
+							<div>
+								<p>Selectionée l'adresse du lieux de prise en charge</p>
+								{{form_row(form.address) }}
+							</div>
+						</div>
+
+				<div class="btn-group">
+					<button type="button" class="btn-prev" disabled>Avant</button>
+					<button type="button" class="btn-next">Etape Suivante</button>
+					{{form_row(form.submit)}}
+				</div>	
+				{{form_end(form) }}
 		</div>
-	</section>
-	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-const datePicker = document.querySelector("#meeting_reservedAt");
+	</div>
+</div>
 
-function setMinDateTime() {
-const now = new Date();
-now.setDate(now.getDate() + 2);
-const minDate = formatDateTimeString(now, true) + "T08:00";
-datePicker.setAttribute("min", minDate);
-}
 
-function adjustDateTime() {
-const inputDateTime = new Date(datePicker.value);
-const hour = inputDateTime.getHours();
-if (hour < 8 || hour > 17) {
-alert("Veuillez choisir un horaire entre 8h00 et 17h00.");
-datePicker.value = '';
-}
-const dayOfWeek = inputDateTime.getDay();
-if (dayOfWeek === 0 || dayOfWeek === 6) {
-alert("Un rendez-vous ne peut pas être pris les jours de week-ends.");
-datePicker.value = '';
-}
-}
 
-datePicker.addEventListener("change", adjustDateTime);
 
-function formatDateTimeString(date, isDateOnly) {
-const year = date.getFullYear();
-const month = (date.getMonth() + 1).toString().padStart(2, '0');
-const day = date.getDate().toString().padStart(2, '0');
-if (isDateOnly) {
-return `${year}-${month}-${day}`;
-} else {
-const hours = date.getHours().toString().padStart(2, '0');
-const minutes = date.getMinutes().toString().padStart(2, '0');
-return `${year}-${month}-${day}T${hours}:${minutes}`;
-}
-}
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script src="{{ asset('assets/js/scriptAddMeeting.js') }}"></script>
 
-setMinDateTime();
-});
+<link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		flatpickr("#meeting_reservedAt", {
+			enableTime: true, 
+			dateFormat: "Y-m-d H:i", 
+			time_24hr: true,
+			minTime: "8:00",
+    		maxTime: "17:00",
+			"disable": [
+        function(date) {
+			 const isWeekend = (date.getDay() === 0 || date.getDay() === 6);
+
+			  const today = new Date();
+            today.setHours(0,0,0,0);
+
+			 const twoDaysAfterToday = new Date();
+            twoDaysAfterToday.setDate(today.getDate() + 2);
+            twoDaysAfterToday.setHours(0,0,0,0);
+
+			const isBeforeTwoDaysAfterToday = date <= twoDaysAfterToday;
+
+			  return isWeekend || isBeforeTwoDaysAfterToday;
+        }
+    ],
+    "locale": {
+        "firstDayOfWeek": 1 
+    }
+		});
+	});
 	</script>
+
 {% endblock %}
