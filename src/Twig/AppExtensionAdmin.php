@@ -9,8 +9,9 @@ class AppExtensionAdmin extends AbstractExtension
     public function getFilters()
     {
         return [
-            new TwigFilter('meeting_statuss_badge', [$this, 'MeetingStatusBadge']),
-            new TwigFilter('meeting_statuss', [$this, 'MeetingStatus']),
+            // Ensure method names match the actual method definitions
+            new TwigFilter('meeting_statuss_badge', [$this, 'meetingStatusBadge']), // Corrected method name
+            new TwigFilter('meeting_statuss', [$this, 'meetingStatus']), // Corrected method name
             new TwigFilter('statuss_to_percent', [$this, 'statusToPercent']),
             new TwigFilter('operation_statuss', [$this, 'operationStatus']),
         ];
@@ -31,6 +32,7 @@ class AppExtensionAdmin extends AbstractExtension
                 return "Statut inconnu";
         }
     }
+
     public function meetingStatusBadge($status)
     {
         switch ($status) {
@@ -41,13 +43,12 @@ class AppExtensionAdmin extends AbstractExtension
             case 3:
                 return "badge badge-success";
             case 4:
-                return "badge badge-warning text-dark";
+                return "badge badge-info";
             default:
-                return "Statut inconnu";
+                return "badge badge-secondary"; // It's better to return a default badge class than text
         }
     }
 
-    // Nouvelle méthode pour la traduction des statuts d'opération
     public function operationStatus($status)
     {
         switch ($status) {
@@ -64,7 +65,6 @@ class AppExtensionAdmin extends AbstractExtension
         }
     }
 
-
     public function statusToPercent($status)
     {
         switch ($status) {
@@ -74,14 +74,10 @@ class AppExtensionAdmin extends AbstractExtension
                 return 50;
             case 4:
                 return 75;
-            case 5 :
+            case 5:
                 return 100;
             default:
                 return 0;
         }
     }
-
-
-
 }
-
