@@ -3,11 +3,14 @@
 {% set _content_title = 'Liste des rendez-vous' %}
 
 
-{% block page_title -%}{{ _content_title }}{%- endblock %}{% block content_header %}
+{% block page_title -%}{{ _content_title }}{%- endblock %}
+{% block content_header %}
 <h1 class="title">{{ _content_title }}</h1>
 <form action="{{ path('app_admin_meeting_new') }}" method="post">
 	<button type="submit" class="btn btn-primary">Add RDV</button>
-</form>{% endblock content_header %}{% block main %}
+</form>
+{% endblock content_header %}
+{% block main %}
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
 <table id="meeting-table" data-toggle="table" data-search="false" data-pagination="true">
 	<thead>
@@ -28,8 +31,13 @@
 			<tr>
 				<td>{{ meeting.id }}</td>
 				<td>{{ meeting.reservedAt | date }}</td>
-				<td>
+				{# <td>
 					<span class=" {{meeting.Status|meeting_statuss_badge}}">{{ meeting.Status|meeting_statuss}}</span>
+				</td> #}
+				<td>
+					<span class="status-badge badge badge-success" data-meeting-id="{{ meeting.id }}" data-status="{{ meeting.status }}">
+    					{{ meeting.status|meeting_statuss }}
+					</span>
 				</td>
 				<td>{{ meeting.address }}</td>
 				<td>
@@ -93,4 +101,122 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 
-<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>{% endblock main %}
+<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.addEventListener('dblclick', function(event) {
+        if (event.target.classList.contains('status-badge')) {
+            const badge = event.target;
+            const meetingId = badge.getAttribute('data-meeting-id');
+            const currentStatus = badge.getAttribute('data-status');
+
+            // Define all your statuses here
+            const statuses = {
+                1: 'Nouveau RDV',
+                2: 'En attente de retour client',
+                3: 'Pris en charge',
+                4: 'Intervention opérateur',
+
+            };
+
+            let optionsHTML = Object.keys(statuses).map(statusCode => 
+                `<option value="${statusCode}" ${currentStatus === statusCode ? 'selected' : ''}>${statuses[statusCode]}</option>`
+            ).join('');
+
+            const selectHTML = `<select class="temporary-status-selector" data-meeting-id="${meetingId}" autofocus>${optionsHTML}</select>`;
+            badge.outerHTML = selectHTML;
+
+            const dropdown = document.querySelector('.temporary-status-selector[data-meeting-id="' + meetingId + '"]');
+            dropdown.focus();
+
+            dropdown.addEventListener('change', function() {
+                updateMeetingStatus(meetingId, this.value);
+                // Optionally handle transformation back to badge here or on blur
+            });
+
+            dropdown.addEventListener('blur', function() {
+                // Handle transformation back to badge here
+                transformDropdownToBadge(dropdown, meetingId, this.value); // Assuming this function is implemented
+            });
+        }
+    });
+});
+
+function updateMeetingStatus(meetingId, newStatus) {
+    fetch('/admin/meeting/update/status', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // Include CSRF token if necessary
+        },
+        body: JSON.stringify({ meetingId, newStatus }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Call transformDropdownToBadge to update UI
+            const dropdown = document.querySelector(`.temporary-status-selector[data-meeting-id="${meetingId}"]`);
+            transformDropdownToBadge(dropdown, meetingId, newStatus);
+        } else {
+            alert(data.message || 'Failed to update status. Please try again.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    });
+}
+
+function transformDropdownToBadge(dropdown, meetingId, newStatus) {
+    const parentRow = dropdown.closest('tr');
+    const statusText = getStatusText(newStatus); // Implement getStatusText based on your app logic
+    const badgeClass = getBadgeClass(newStatus); // Implement getBadgeClass based on your app logic
+
+    // Replace the dropdown with a new badge reflecting the updated status
+    const badgeHTML = `<span class="status-badge badge ${badgeClass}" data-meeting-id="${meetingId}" data-status="${newStatus}">${statusText}</span>`;
+    dropdown.outerHTML = badgeHTML;
+
+    // Optionally, update action buttons visibility based on the new status
+    updateActionButtons(parentRow, newStatus);
+}
+
+// Example helper functions (you need to implement these based on your specific status text and badge classes)
+function getStatusText(status) {
+    const statuses = {
+        1: 'Nouveau RDV',
+        2: 'En attente de retour client',
+        3: 'Pris en charge',
+        4: 'Intervention opérateur',
+    };
+    return statuses[status] || 'Unknown';
+}
+
+function getBadgeClass(status) {
+    // Example logic; adjust according to your application's needs
+    switch(status) {
+        case '1': return 'badge-danger';
+        case '2': return 'badge-warning';
+        case '3': return 'badge-success';
+        case '4': return 'badge-info';
+        default: return 'badge-secondary';
+    }
+}
+
+function updateActionButtons(parentRow, newStatus) {
+    const actionButtons = parentRow.querySelector('.action-buttons');
+    if (actionButtons) { // Only proceed if the element exists
+        if (newStatus === '1' || newStatus === '2') {
+            actionButtons.style.display = ''; // Show action buttons for specific statuses
+        } else {
+            actionButtons.style.display = 'none'; // Hide for others
+        }
+    } else {
+        console.error('Failed to find action buttons in the DOM.');
+    }
+}
+
+
+</script>
+
+{% endblock main %}

@@ -145,22 +145,10 @@ class AdminMeetingController extends DashboardController
             throw $this->createNotFoundException('RDV non trouvé.');
         }
 
-        // Security check: Ensure that the user is allowed to delete the meeting.
-        // This is a placeholder for your security logic, which might involve checking if the user has the right roles or permissions.
-        // if (!$this->isUserAllowedToDeleteMeeting($meeting)) {
-        //     throw new AccessDeniedException('You do not have permission to delete this meeting.');
-        // }
-
-        // CRSF token validation can also be added here for additional security
-
-        // Delete the meeting from the database
         $this->entityManager->remove($meeting);
         $this->entityManager->flush();
 
-        // Add a flash message to indicate success
         $this->addFlash('success', 'Rendez-vous supprimé avec succès.');
-
-        // Redirect to the meeting index page
         return $this->redirect('/admin?routeName=app_admin_meeting', 301);
     }
 }
