@@ -16,6 +16,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 class AddressCrudController extends AbstractCrudController
 {
 
+    use Trait\CreateEditTrait;
+
     /**
      * @author Florent <bflorent53170@gmail.com>
      *
