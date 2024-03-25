@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Users;
 use App\Entity\Address;
+use LengthException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -79,8 +80,11 @@ class RegisterUsersType extends AbstractType
                     'class' => 'form_label'
                 ],
                 'constraints' => [
-                    new Length(['min' => 10, 'max' => 10]),
-                    new NotBlank(),
+                    new Length([
+                        'min' => 10,
+                        'max' => 10,
+                    ]),
+                    new NotBlank([]),
                 ],
             ])
             ->add('email', EmailType::class, [
@@ -95,11 +99,12 @@ class RegisterUsersType extends AbstractType
                 'label_attr' => [
                     'class' => 'form_label'
                 ],
-                // 'message' => 'Email non conforme', 
                 'constraints' => [
                     new Length(['min' => 3]),
                     new NotBlank(),
-                    new Email(),
+                    new Email([
+                        'message' => 'Le format de l\'email est incorrect.'
+                    ]),
                 ],
             ])
             ->add('password', RepeatedType::class, [
@@ -107,10 +112,10 @@ class RegisterUsersType extends AbstractType
 
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Mot de passe : (8 caractères minimum)',
+                    'label' => 'Mot de passe : (8 caractères minimum) *',
+                    'help' => '1 maj, 1 min, 1 chiffre et 1 caractère spécial requis',
                     'attr' => [
                         'class' => 'form-control',
-                        'placeholder' => '* 1 maj, 1 min, 1 chiffre, 1 caractère spécial'
                     ]
                 ],
                 'second_options' => [
@@ -119,14 +124,14 @@ class RegisterUsersType extends AbstractType
                         'class' => 'form-control'
                     ]
                 ],
-                'invalid_message' => 'Les mots de passe ne correspondent pas.', 
+                'invalid_message' => 'Les mots de passe ne correspondent pas.',
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length(['min' => 8]),
                     new Assert\PasswordStrength([
-                        'minScore' => PasswordStrength::STRENGTH_WEAK ,
-                        'message' => 'Votre mot de passe n\'est pas suffisament sécurisé'
-                    ]) 
+                        'minScore' => PasswordStrength::STRENGTH_WEAK,
+                        'message' => 'Votre mot de passe n\'est pas suffisament sécurisé.'
+                    ])
                 ]
             ])
             ->add('Continuer', SubmitType::class, [

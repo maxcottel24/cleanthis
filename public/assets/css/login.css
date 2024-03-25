@@ -151,14 +151,20 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 0.70rem;
-    margin-top: 1%;
+    margin-top: 10%;
     text-decoration: none;
 }
 
 .noaccount a {
     margin-left: 0.3rem;
     text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
 }
+
 
 .noaccount a:hover {
     color: #3971FF
