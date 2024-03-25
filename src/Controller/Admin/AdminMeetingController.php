@@ -63,12 +63,20 @@ class AdminMeetingController extends DashboardController
             throw new \RuntimeException('Aucun utilisateur connecté');
         }
 
-        // Associer l'utilisateur au rendez-vous
-        $meeting->addUser($user);
-        $meeting->setStatus(3); // Suppose que 3 est le statut pour "Pris en charge"
+        // Identifier et supprimer l'ancien utilisateur avec le job_title "Opérateur"
+        foreach ($meeting->getUsers() as $currentUser) {
+            if ($currentUser->getJobTitle() === "Opérateur") {
+                $meeting->removeUser($currentUser);
+            }
+        }
 
-        // Ajouter l'utilisateur courant (opérateur) comme dernier participant
-        $meeting->addUser($user);
+        // Associer l'utilisateur courant au rendez-vous, si pas déjà associé
+        if (!$meeting->getUsers()->contains($user)) {
+            $meeting->addUser($user);
+        }
+
+        // Mettre à jour le statut du rendez-vous
+        $meeting->setStatus(3); // Suppose que 3 est le statut pour "Pris en charge"
 
         $this->entityManager->flush();
 
@@ -76,7 +84,6 @@ class AdminMeetingController extends DashboardController
 
         return $this->redirect('/admin?routeName=app_admin_meeting', 301);
     }
-
     #[Route('/admin/meeting/new/', name: 'app_admin_meeting_new', methods: ['GET', 'POST'])]
     public function new(Request $request, Security $security): Response
     {

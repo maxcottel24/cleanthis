@@ -3,14 +3,11 @@
 {% set _content_title = 'Liste des rendez-vous' %}
 
 
-{% block page_title -%}{{ _content_title }}{%- endblock %}
-{% block content_header %}
+{% block page_title -%}{{ _content_title }}{%- endblock %}{% block content_header %}
 <h1 class="title">{{ _content_title }}</h1>
 <form action="{{ path('app_admin_meeting_new') }}" method="post">
 	<button type="submit" class="btn btn-primary">Add RDV</button>
-</form>
-{% endblock content_header %}
-{% block main %}
+</form>{% endblock content_header %}{% block main %}
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
 <table id="meeting-table" data-toggle="table" data-search="false" data-pagination="true">
 	<thead>
@@ -58,20 +55,28 @@
 				</td>
 				<td>{{ meeting.floorSpace }}</td>
 				<td>
-					{% if meeting.users|length > 0 %}
-						{{ meeting.users.last().firstname }}
-						{{ meeting.users.last().lastname }}
+					{% for user in meeting.users %}
+						{% if user.getJobTitle() == 'Null' %}
+							{{ user.firstname }}
+							{{ user.lastname }}
+							<br>
+						{% endif %}
 					{% else %}
 						Aucun créateur défini
-					{% endif %}
+					{% endfor %}
+
 				</td>
 				<td>
-					{% if meeting.users|length > 1 %}
-						{{ meeting.users.first().firstname }}
-						{{ meeting.users.first().lastname }}
-					{% elseif meeting.users|length == 1  %}
-						N/A
-					{% endif %}
+					{% for user in meeting.users %}
+						{% if user.getJobTitle() == 'Opérateur' %}
+							{{ user.firstname }}
+							{{ user.lastname }}
+							<br>
+						{% endif %}
+					{% else %}
+						Aucun créateur défini
+					{% endfor %}
+
 				</td>
 				<td>
 					{% if meeting.status != 3 %}
@@ -87,7 +92,7 @@
 							<button type="submit" class="btn btn-danger">Supprimer</button>
 						</form>
 					{% endif %}
-                    <form action="{{ path('app_admin_meeting_update', {'id': meeting.id}) }}" method="post">
+					<form action="{{ path('app_admin_meeting_update', {'id': meeting.id}) }}" method="post">
 						<button type="submit" class="btn btn-warning">Modifier</button>
 					</form>
 				</td>
@@ -99,8 +104,4 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 
-<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
-
-
-
-{% endblock main %}
+<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>{% endblock main %}
