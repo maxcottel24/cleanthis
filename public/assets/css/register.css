@@ -39,7 +39,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 8rem;
+    margin-top: 6rem;
 }
 
 .container h1 {
@@ -146,6 +146,7 @@ body {
 .connected a {
     margin-left: 0.3rem;
     text-decoration: none;
+    margin-bottom: 1rem;
 }
 
 .connected a:hover {
@@ -155,3 +156,15 @@ body {
 /* input{
     width: 7rem;
 } */
+
+.help-text {
+    font-size: 0.7rem;
+    margin-bottom: 7%;
+}
+
+body>div.split-container>div.right-side>div>form>div:nth-child(6)>ul,
+body>div.split-container>div.right-side>div>form>div:nth-child(5)>ul,
+body>div.split-container>div.right-side>div>form>div:nth-child(4)>ul {
+    color: rgb(195, 18, 18);
+    font-size: 0.6rem;
+}

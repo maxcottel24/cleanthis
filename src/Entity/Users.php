@@ -16,8 +16,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[ORM\Table(name: 'users')]
-#[UniqueEntity(('email'),('email déjà existant'))]
-class Users implements UserInterface , PasswordAuthenticatedUserInterface
+#[UniqueEntity(('email'), ('email déjà existant'))]
+class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -37,6 +37,10 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
     private ?\DateTimeInterface $date_of_birthday = null;
 
     #[ORM\Column(length: 10, nullable: true)]
+    #[Assert\Length(
+        exactly: 10,
+        exactMessage: 'Le numéro de téléphone doit comporter exactement 10 chiffres.',
+    )]
     private ?string $phone_number = null;
 
     #[ORM\Column(length: 255, unique: true)]
@@ -44,8 +48,8 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\PasswordStrength([
-        'minScore' => PasswordStrength::STRENGTH_WEAK, 
-        'message' => 'Votre mot de passe n\'est pas suffisament sécurisé' 
+        'minScore' => PasswordStrength::STRENGTH_WEAK,
+        'message' => 'Votre mot de passe n\'est pas suffisament sécurisé'
     ])]
     private ?string $password = null;
 
@@ -223,7 +227,7 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
         return $this->resetToken;
     }
 
-    public function setResetToken(?string $resetToken):self
+    public function setResetToken(?string $resetToken): self
     {
         $this->resetToken = $resetToken;
 
@@ -253,7 +257,7 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    
+
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -335,7 +339,7 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
 
     public function __toString(): string
     {
-        return $this->firstname. ' ' .$this->lastname;
+        return $this->firstname . ' ' . $this->lastname;
     }
 
     public function getGoogleId(): ?string
@@ -350,8 +354,7 @@ class Users implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
     public function getAddressesCount(): int
-{
-    return $this->addresses->count();
-}
-
+    {
+        return $this->addresses->count();
+    }
 }
