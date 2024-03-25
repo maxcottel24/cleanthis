@@ -71,6 +71,15 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
             ->getResult();
     }
 
+    public function findOperatorUsers(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.job_title = :title')
+            ->setParameter('title', 'Opérateur')
+            ->getQuery()
+            ->getResult();
+    }
+
 
     //    /**
     //     * @return Users[] Returns an array of Users objects
