@@ -67,15 +67,20 @@
 
 				</td>
 				<td>
+					{% set lastOperator = null %}
 					{% for user in meeting.users %}
 						{% if user.getJobTitle() == 'Opérateur' %}
-							{{ user.firstname }}
-							{{ user.lastname }}
-							<br>
+							{% set lastOperator = user %}
 						{% endif %}
-					{% else %}
-						Aucun créateur défini
 					{% endfor %}
+
+					{% if lastOperator is not null %}
+						{{ lastOperator.firstname }}
+						{{ lastOperator.lastname }}
+						<br>
+					{% else %}
+						Aucun opérateur défini
+					{% endif %}
 
 				</td>
 				<td>
