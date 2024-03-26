@@ -30,10 +30,10 @@ class MeetingFormType extends AbstractType
     {
         $builder
             ->add('reservedAt', null, [
-                'widget' => 'single_text', 
+                'widget' => 'single_text',
                 'attr' => [
                     'class' => 'form-control',
-                ], 
+                ],
                 'label' => 'Sélectionner la date et l\'heure du rendez-vous',
                 'constraints' => [
                     new NotBlank(),
@@ -95,7 +95,7 @@ class MeetingFormType extends AbstractType
                     ]),
                 ],
             ]);
-        
+
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) {
@@ -162,4 +162,3 @@ class MeetingFormType extends AbstractType
         ]);
     }
 }
-
