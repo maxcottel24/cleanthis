@@ -116,13 +116,13 @@ public function update(Request $request, EntityManagerInterface $entityManager, 
         } elseif ($surface > 100 && $surface <= 150) {
             switch ($cleanliness) {
                 case 1: // Normal
-                    $price = $surface * 10; // Exemple de prix pour <= 50m² et Normal
+                    $price = $surface * (10*2); // Exemple de prix pour <= 50m² et Normal
                     break;
                 case 2: // Sale
-                    $price = $surface * 14; // Exemple de prix pour <= 50m² et Sale
+                    $price = $surface * (14*2); // Exemple de prix pour <= 50m² et Sale
                     break;
                 case 3: //très sale
-                    $price = $surface * 16.67;
+                    $price = $surface * (16.67*2);
                     // Ajoutez plus de cas selon votre tarification
             }
         }
