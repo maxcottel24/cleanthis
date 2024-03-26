@@ -37,7 +37,7 @@ class AdminMeetingController extends DashboardController
     {
         $meetings = $this->entityManager->getRepository(Meeting::class)->findAll();
 
-        //Permets d'inscrire le nom de l'opérateur
+        // Permets d'inscrire le nom de l'opérateur
         $operatorNames = [];
         foreach ($meetings as $meeting) {
             $operatorNames[$meeting->getId()] = $meeting->getStatus() == 3 ? $this->getUser()->__toString() : null;
@@ -59,10 +59,9 @@ class AdminMeetingController extends DashboardController
         }
 
         $user = $this->getUser();
-
-        // Loop through users associated with the meeting
+        
         foreach ($meeting->getUsers() as $customer) {
-            // Check if the customer's job title is "Null"
+            // Verifier si le jobTitle de l'utilisateur est "Null"
             if ($customer->getJobTitle() == "Null") {
                 $context = [
                     'userId' => $user->getId(),
@@ -70,10 +69,9 @@ class AdminMeetingController extends DashboardController
                     'meeting' => $meeting,
                 ];
 
-                // Send email to the customer whose job title is "Null"
                 $mail->send(
                     'acleanthis@gmail.com',
-                    $customer->getEmail(), // Send email to the customer
+                    $customer->getEmail(), 
                     'Votre rendez-vous est confirmé',
                     'confirmation_meeting_admin',
                     $context,
@@ -81,29 +79,26 @@ class AdminMeetingController extends DashboardController
             }
         }
 
-        // Check if the current user is an instance of Users
         if (!$user instanceof Users) {
             throw new \RuntimeException('Aucun utilisateur connecté');
         }
 
-        // Remove the old user with the job_title "Opérateur"
+        // Retirer l'ancien utilisateur avec le jobTitle "Opérateur"
         foreach ($meeting->getUsers() as $currentUser) {
             if ($currentUser->getJobTitle() === "Opérateur") {
                 $meeting->removeUser($currentUser);
             }
         }
 
-        // Associate the current user with the meeting if not already associated
         if (!$meeting->getUsers()->contains($user)) {
             $meeting->addUser($user);
         }
 
-        // Update the status of the meeting
-        $meeting->setStatus(3); // Assume that 3 is the status for "Pris en charge"
+        $meeting->setStatus(3); 
 
         $this->entityManager->flush();
 
-        $this->addFlash('success', 'RDV pris en charge avec succès.');
+        $this->addFlash('success', 'Rendez-vous pris en charge avec succès.');
 
         return $this->redirect('/admin?routeName=app_admin_meeting', 301);
     }
@@ -133,7 +128,7 @@ class AdminMeetingController extends DashboardController
         }
 
         $form = $this->createForm(MeetingFormType::class, $meeting, [
-            'userData' => $userData, // Passer les données utilisateur au formulaire
+            'userData' => $userData, 
         ]);
 
         $form->handleRequest($request);
@@ -155,9 +150,9 @@ class AdminMeetingController extends DashboardController
 
             // Ajouter les utilisateurs au rendez-vous
             $meeting->addUser($selectedUser);
-             // Loop through users associated with the meeting
+             // Parcours les utilisateurs d'un rendez-vous
         foreach ($meeting->getUsers() as $customer) {
-            // Check if the customer's job title is "Null"
+            // Verifier si le jobTitle de l'utilisateur est "Null"
             if ($customer->getJobTitle() == "Null") {
                 $context = [
                     'userId' => $user->getId(),
@@ -167,7 +162,7 @@ class AdminMeetingController extends DashboardController
                 if ($meeting->getStatus() == 3) {
                     $mail->send(
                     'acleanthis@gmail.com',
-                    $customer->getEmail(), // Send email to the customer
+                    $customer->getEmail(), 
                     'Votre rendez-vous est confirmé',
                     'confirmation_meeting_admin',
                     $context,
@@ -175,7 +170,7 @@ class AdminMeetingController extends DashboardController
                 }elseif ($meeting->getStatus() == 1) {
                     $mail->send(
                         'acleanthis@gmail.com',
-                        $customer->getEmail(), // Send email to the customer
+                        $customer->getEmail(), 
                         'Vous avez un nouveau rendez-vous',
                         'nouveau_rdv',
                         $context,
@@ -183,7 +178,7 @@ class AdminMeetingController extends DashboardController
                 }elseif ($meeting->getStatus() == 2) {
                     $mail->send(
                         'acleanthis@gmail.com',
-                        $customer->getEmail(), // Send email to the customer
+                        $customer->getEmail(), 
                         'Merci, de confirmer votre rendez-vous',
                         'update_rdv',
                         $context,
@@ -191,14 +186,12 @@ class AdminMeetingController extends DashboardController
                 }elseif ($meeting->getStatus() == 4) {
                     $mail->send(
                         'acleanthis@gmail.com',
-                        $customer->getEmail(), // Send email to the customer
-                        'Votre rendez-vous est en attente de traitement un de nos opérateurs',
+                        $customer->getEmail(), 
+                        'Votre rendez-vous est en attente de traitement par un de nos opérateurs',
                         'en_attente_rdv',
                         $context,
                     );
                 }
-
-                // Send email to the customer whose job title is "Null"
                 
             }
         }
@@ -206,10 +199,7 @@ class AdminMeetingController extends DashboardController
             // Enregistrer le rendez-vous avec les utilisateurs
             $this->entityManager->flush();
 
-            // Ajoutez un message flash pour indiquer le succès de l'opération
             $this->addFlash('success', 'Le rendez-vous a été créé avec succès.');
-
-            // Redirigez vers une autre page, par exemple la liste des rendez-vous
             return $this->redirect('/admin?routeName=app_admin_meeting', 301);
         }
 
@@ -225,11 +215,11 @@ class AdminMeetingController extends DashboardController
         $meeting = $this->entityManager->getRepository(Meeting::class)->find($id);
 
         if (!$meeting) {
-            throw $this->createNotFoundException('RDV non trouvé.');
+            throw $this->createNotFoundException('Rendez-vous non trouvé.');
         }
         $user = $this->getUser();
         foreach ($meeting->getUsers() as $customer) {
-            // Check if the customer's job title is "Null"
+            // Verifier si le jobTitle de l'utilisateur est "Null"
             if ($customer->getJobTitle() == "Null") {
                 $context = [
                     'userId' => $user->getId(),
@@ -237,7 +227,7 @@ class AdminMeetingController extends DashboardController
                     'meeting' => $meeting,
                 ];
 
-                // Send email to the customer whose job title is "Null"
+                // Envoyer un email uniquement à l'utilisateur avec job_title "Null"
                 $mail->send(
                     'acleanthis@gmail.com',
                     $customer->getEmail(), // Send email to the customer
@@ -262,7 +252,7 @@ class AdminMeetingController extends DashboardController
         $meeting = $this->meetingRepository->find($id);
     
         if (!$meeting) {
-            throw $this->createNotFoundException('Meeting not found');
+            throw $this->createNotFoundException('Rendez-vous non trouvé.');
         }
     
         $form = $this->createForm(MeetingUpdateTypeForm::class, $meeting);
@@ -283,7 +273,7 @@ class AdminMeetingController extends DashboardController
                     if ($meeting->getStatus() == 3) {
                         $mail->send(
                             'acleanthis@gmail.com',
-                            $user->getEmail(), // Send email to the customer
+                            $user->getEmail(), 
                             'Votre rendez-vous est confirmé',
                             'confirmation_meeting_admin',
                             $context,
@@ -291,7 +281,7 @@ class AdminMeetingController extends DashboardController
                     } elseif ($meeting->getStatus() == 2) {
                         $mail->send(
                             'acleanthis@gmail.com',
-                            $user->getEmail(), // Send email to the customer
+                            $user->getEmail(), 
                             'Merci, de confirmer votre rendez-vous',
                             'update_rdv',
                             $context,
@@ -299,7 +289,7 @@ class AdminMeetingController extends DashboardController
                     } elseif ($meeting->getStatus() == 4) {
                         $mail->send(
                             'acleanthis@gmail.com',
-                            $user->getEmail(), // Send email to the customer
+                            $user->getEmail(), 
                             'Votre rendez-vous est en attente de traitement un de nos opérateurs',
                             'en_attente_rdv',
                             $context,
@@ -316,7 +306,7 @@ class AdminMeetingController extends DashboardController
     
             $this->entityManager->flush();
     
-            $this->addFlash('success', 'Meeting updated successfully.');
+            $this->addFlash('success', 'Rendez-vous modifié avec succès.');
             return $this->redirect('/admin?routeName=app_admin_meeting', 301);
         }
     

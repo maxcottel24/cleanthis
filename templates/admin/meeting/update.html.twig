@@ -19,40 +19,4 @@
         </div>
     </div>
 </div>
-
-<script>
-{# document.addEventListener('DOMContentLoaded', function() {
-    const userData = {{ userData|json_encode|raw }};
-    const userSelect = document.getElementById('{{ form.selectedUser.vars.id }}');
-    const addressSelect = document.querySelector('[name="{{ form.address.vars.full_name }}"]');
-    const addressLabel = document.createElement('label');
-addressLabel.textContent = 'Adresse';
-addressLabel.setAttribute('for', '{{ form.address.vars.id }}');
-
-const existingLabel = document.querySelector('[for="{{ form.address.vars.id }}"]');
-if (existingLabel) {
-    existingLabel.parentNode.removeChild(existingLabel);
-}
-
-addressSelect.classList.add('form-control');
-
-addressSelect.parentNode.insertBefore(addressLabel, addressSelect);
-
-userSelect.addEventListener('change', function() {
-    const selectedUserId = this.value;
-    const userAddresses = userData[selectedUserId] ? userData[selectedUserId].addresses : [];
-
-    while (addressSelect.options.length > 0) addressSelect.remove(0);
-
-    addressSelect.add(new Option('Sélectionner une adresse', ''));
-
-    userAddresses.forEach(function(address) {
-        const option = new Option(`${address.text}`, address.id);
-        addressSelect.add(option);
-    });
-});
-});
-</script> #}
-
-
 {% endblock main %}
