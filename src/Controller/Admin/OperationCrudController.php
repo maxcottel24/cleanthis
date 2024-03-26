@@ -26,7 +26,7 @@ class OperationCrudController extends AbstractCrudController
             ->setPageTitle(Crud::PAGE_INDEX, 'Liste des opérations');
     }
 
-    /*
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -35,5 +35,5 @@ class OperationCrudController extends AbstractCrudController
             TextEditorField::new('description'),
         ];
     }
-    */
+    
 }

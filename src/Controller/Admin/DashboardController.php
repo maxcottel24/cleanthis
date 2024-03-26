@@ -29,8 +29,8 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        return $this->redirect($adminUrlGenerator->setController(OperationCrudController::class)->generateUrl());
-        // return $this->redirectToRoute('app_admin_meeting'); 
+        // return $this->redirect($adminUrlGenerator->setController(OperationCrudController::class)->generateUrl());
+         return $this->redirect('/admin?routeName=app_admin_operation', 301); 
     }
 
     public function configureAssets(): Assets     
@@ -62,7 +62,7 @@ class DashboardController extends AbstractDashboardController
         if ($this->isGranted("ROLE_ADMIN") or $this->isGranted("ROLE_EXPERT")) {
             return [
                 yield MenuItem::section('Opérations', 'fa-solid fa-folder-open'),
-                yield MenuItem::linkToCrud('Opérations', 'fa-solid fa-hand-sparkles', Operation::class),
+                yield MenuItem::linkToRoute('Opérations', 'fa-solid fa-hand-sparkles', 'app_admin_operation'),
                 yield MenuItem::linkToRoute('Rendez-vous', 'fas fa-calendar', 'app_admin_meeting'),
                 yield MenuItem::linkToCrud('Factures', 'fas fa-file-invoice-dollar', Invoice::class),
                 yield MenuItem::section('Utilisateurs', 'fa-solid fa-users-line'),
