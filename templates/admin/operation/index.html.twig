@@ -1,0 +1,114 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% set _content_title = 'Liste des Opérations' %}
+
+{% block page_title -%}{{ _content_title }}{%- endblock %}{% block content_header %}
+<h1 class="title">{{ _content_title }}</h1>{% endblock content_header %}{% block main %}
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
+
+<table id="operation-table" data-toggle="table" data-search="false" data-pagination="true">
+	<thead>
+		<tr>
+			<th data-sortable="true" data-field="typeOperation">Type</th>
+			<th data-sortable="true" data-field="status">Status</th>
+			<th data-sortable="true" data-field="isValid">Validation</th>
+			<th data-sortable="true" data-field="address">Adresse</th>
+			<th data-sortable="true" data-field="description">Description</th>
+			<th data-sortable="true" data-field="floor_space">Surface(m²)</th>
+			<th data-sortable="true" data-field="price">Prix</th>
+			<th data-sortable="true" data-field="discount">Réduction</th>
+			<th data-sortable="true" data-field="cleanliness">Propreté</th>
+			<th data-sortable="true" data-field="created_by">Client</th>
+			<th data-sortable="true" data-field="operator">Opérateur</th>
+			<th data-sortable="true" data-field="action">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for operation in operations %}
+			<tr>
+				<td>{{ operation.typeOperation.label }}</td>
+				<td>
+					<span class="{{ operation.status|operation_status_badge }}">{{ operation.status|operation_status }}</span>
+				</td>
+				<td>
+					<span class="{{ operation.isValid|operation_is_valid_badge }}">{{ operation.isValid|operation_is_valid }}</span>
+				</td>
+				<td>
+					{% if operation.meeting and operation.meeting.address %}
+						{{ operation.meeting.address.street }},
+						{{ operation.meeting.address.city }}
+					{% else %}
+						Pas d'adresse
+					{% endif %}
+				</td>
+				<td>{{ operation.description }}</td>
+				<td>{{ operation.floorSpace }}</td>
+				<td>{{ operation.price }}
+					€</td>
+				<td>
+					{% if operation.discount %}
+						{{ (operation.discount - 1 ) * 100 }}% de Remise
+					{% else %}
+						Aucune réduction
+					{% endif %}
+				</td>
+				<td>
+					{% if operation.cleanliness == 1 %}
+						Normal
+					{% elseif operation.cleanliness == 2 %}
+						Sale
+					{% elseif operation.cleanliness == 3 %}
+						Très sale
+					{% elseif operation.cleanliness == 4 %}
+						Diogène
+					{% else %}
+						Non spécifié
+					{% endif %}
+				</td>
+				<td>
+					{% if operation.meeting %}
+						{% set userFound = false %}
+						{% for user in operation.meeting.users %}
+							{% if user.jobTitle == 'Null' %}
+								{{ user.firstname }},
+								{{ user.lastname }}
+								{% set userFound = true %}
+							{% endif %}
+						{% endfor %}
+						{% if not userFound %}
+							Pas d'utilisateur
+						{% endif %}
+					{% else %}
+						Pas de meeting
+					{% endif %}
+				</td>
+				<td>
+					{% if operation.meeting %}
+						{% set lastOperator = null %}
+						{% for user in operation.meeting.users %}
+							{% if user.jobTitle == 'Opérateur' %}
+								{% set lastOperator = user %}
+							{% endif %}
+						{% endfor %}
+						{% if lastOperator %}
+							{{ lastOperator.firstname }},
+							{{ lastOperator.lastname }}
+						{% else %}
+							Pas d'opérateur
+						{% endif %}
+					{% else %}
+						Pas de meeting
+					{% endif %}
+				</td>
+				<td>
+					<form action="{{ path('app_admin_operation_update', {'id': operation.id}) }}" method="post">
+						<button type="submit" class="btn btn-primary">Modifier</button>
+					</form>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+
+</table>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>{% endblock main %}

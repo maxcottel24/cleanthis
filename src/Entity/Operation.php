@@ -20,13 +20,13 @@ class Operation
     #[ORM\Column]
     private ?bool $isValid = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $price = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $discount = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $finished_at = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -40,6 +40,9 @@ class Operation
 
     #[ORM\ManyToOne(inversedBy: 'operations')]
     private ?TypeOperation $typeOperation = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $cleanliness = null;
 
     public function getId(): ?int
     {
@@ -150,6 +153,18 @@ class Operation
     public function setTypeOperation(?TypeOperation $typeOperation): static
     {
         $this->typeOperation = $typeOperation;
+
+        return $this;
+    }
+
+    public function getCleanliness(): ?int
+    {
+        return $this->cleanliness;
+    }
+
+    public function setCleanliness(?int $cleanliness): static
+    {
+        $this->cleanliness = $cleanliness;
 
         return $this;
     }

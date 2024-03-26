@@ -28,6 +28,8 @@ class AppExtensionAdmin extends AbstractExtension
                 return "Pris en charge";
             case 4:
                 return "Intervention opérateur";
+            case 5:
+                return "Terminé";
             default:
                 return "Statut inconnu";
         }
@@ -44,6 +46,8 @@ class AppExtensionAdmin extends AbstractExtension
                 return "badge badge-success";
             case 4:
                 return "badge badge-info";
+            case 5:
+                return "badge badge-dark text-light";
             default:
                 return "badge badge-secondary"; // It's better to return a default badge class than text
         }

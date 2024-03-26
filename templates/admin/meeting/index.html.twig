@@ -22,7 +22,7 @@
 			<th data-sortable="true" data-field="operator">Opérateur</th>
 			<th data-sortable="true" data-field="action">Actions</th>
 		</tr>
-	</thead>
+	</thead> 
 	<tbody>
 		{% for meeting in meetings %}
 			<tr>
@@ -83,22 +83,35 @@
 					{% endif %}
 				</td>
 				<td>
-					{% if meeting.status != 3 %}
-						<form action="{{ path('app_admin_meeting_handle', {'id': meeting.id}) }}" method="post">
-							<button type="submit" class="btn btn-primary">Prendre en charge</button>
+					{% if meeting.status != 5 %}
+						{% if meeting.status != 3 %}
+							<form action="{{ path('app_admin_meeting_handle', {'id': meeting.id}) }}" method="post">
+								<button type="submit" class="btn btn-primary">Prendre en charge</button>
+							</form>
+						{% else %}
+							<span class="badge badge-success">Pris en charge</span>
+						{% endif %}
+						{% if meeting.status != 3 %}
+							<form action="{{ path('app_admin_meeting_delete', {'id': meeting.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ meeting.id) }}">
+								<button type="submit" class="btn btn-danger">Supprimer</button>
+							</form>
+						{% endif %}
+						{% if meeting.status == 3  %}
+							{% if  meeting.reservedAt|date('Y-m-d H:i') < "now"|date('Y-m-d H:i') %}
+								<form action="{{ path('admin_meeting_validate', {'id': meeting.id}) }}" method="post" onsubmit="return confirm('Confirmez-vous la fin du rendez-vous ?');">
+									<input type="hidden" name="_token" value="">
+									<button type="submit" class="btn btn-success">Valider</button>
+								</form>
+							{% endif %}
+						{% endif %}
+						<form action="{{ path('app_admin_meeting_update', {'id': meeting.id}) }}" method="post">
+							<button type="submit" class="btn btn-warning">Modifier</button>
 						</form>
-					{% else %}
-						<span class="badge badge-success">Pris en charge</span>
 					{% endif %}
-					{% if meeting.status != 3 %}
-						<form action="{{ path('app_admin_meeting_delete', {'id': meeting.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');">
-							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ meeting.id) }}">
-							<button type="submit" class="btn btn-danger">Supprimer</button>
-						</form>
+					{% if meeting.status == 5 %}
+						<span class=" {{meeting.Status|meeting_statuss_badge}}">{{ meeting.Status|meeting_statuss}}</span>
 					{% endif %}
-					<form action="{{ path('app_admin_meeting_update', {'id': meeting.id}) }}" method="post">
-						<button type="submit" class="btn btn-warning">Modifier</button>
-					</form>
 				</td>
 
 			</tr>

@@ -5,12 +5,14 @@ namespace App\Controller\Admin;
 use App\Entity\Users;
 use App\Entity\Address;
 use App\Entity\Meeting;
+use App\Entity\Operation;
+use App\Entity\TypeOperation;
 use App\Form\MeetingFormType;
+use App\Service\SendMailService;
 use App\Form\MeetingUpdateTypeForm;
 use App\Repository\UsersRepository;
 use App\Repository\AddressRepository;
 use App\Repository\MeetingRepository;
-use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -315,4 +317,43 @@ class AdminMeetingController extends DashboardController
         ]);
     }
     
+    #[Route('/admin/meeting/validate/{id}', name: 'admin_meeting_validate')]
+public function validateMeeting(Request $request, EntityManagerInterface $entityManager, $id): Response
+{
+    $meeting = $entityManager->getRepository(Meeting::class)->find($id);
+
+    if (!$meeting) {
+        throw $this->createNotFoundException('Le meeting n\'a pas été trouvé.');
+    }
+
+    // Modifier le statut du meeting
+    $meeting->setStatus(5); // Assumons que 5 signifie "Terminé"
+    $surface = $meeting-> getFloorSpace();
+    $typeOperationRepo = $entityManager->getRepository(TypeOperation::class);
+    // Créer une nouvelle opération
+    $operation = new Operation();
+    $operation->setMeeting($meeting);
+    if ($surface <= 50) {
+        $typeOperation = $typeOperationRepo->findOneBy(['label' => 'Petite']);
+    } elseif ($surface > 50 && $surface <= 100) {
+        $typeOperation = $typeOperationRepo->findOneBy(['label' => 'Moyenne']);
+    } elseif ($surface > 100 && $surface <= 150) {
+        $typeOperation = $typeOperationRepo->findOneBy(['label' => 'Grande']);
+    } else {
+        // Gérer le cas où la surface ne correspond à aucun critère défini
+        $typeOperation = null; // ou définissez une valeur par défaut
+    }
+    $operation->setTypeOperation($typeOperation);
+    $operation->setStatus(2);
+    $operation->setIsValid(false); 
+    $operation->setDescription($meeting->getDescription());
+    $operation->setFloorSpace($meeting->getFloorSpace()); 
+
+    $entityManager->persist($operation);
+    $entityManager->flush();
+
+    // Rediriger l'utilisateur ou envoyer une réponse
+    return $this->redirectToRoute('admin');
+}
+
 }
