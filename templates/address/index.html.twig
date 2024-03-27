@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes adresses
+{% block title %}{{ "Mes adresses" |trans }}
 {% endblock %}
 
 {% block body %}
@@ -220,7 +220,7 @@
 	</style>
 	<section class="fancy">
 		<div class="backgrd">
-			<p>MES ADRESSES</p>
+			<p>{{ "MES ADRESSES" |trans }}</p>
 		</div>
 		<div class="content-container">
 			<div class="add-address-container">
@@ -237,34 +237,34 @@
 					{% for address in addresses %}
 						<div class="pricing__item">
 							{% if address.isIsPrimary == true %}
-								<h6 class="pricing__title">Principale</h6>
+								<h6 class="pricing__title">{{ "Principale" |trans }}</h6>
 								{# <div class="pricing__price"><span class="pricing__currency"></span></div> #}
 							{% endif %}
 							{% if address.isIsPrimary == false %}{% endif %}
 
 							<ul class="pricing__feature-list">
-								<li class="rue">Rue :
+								<li class="rue">{{ "Rue :" |trans }}
 									<strong>{{ address.street }}</strong>
 								</li>
-								<li class="pricing__feature">Ville :
+								<li class="pricing__feature">{{ "Ville :" |trans }}
 									<strong>{{ address.city }}</strong>
 								</li>
-								<li class="pricing__feature">Code Postal :
+								<li class="pricing__feature">{{ "Code Postal :" |trans }}
 									<strong>{{ address.zipcode }}</strong>
 								</li>
 							</ul>
-							<a href="{{ path('app_address_edit', {'id': address.id}) }}" class="btn  pricing__action">Modifier</a>
+							<a href="{{ path('app_address_edit', {'id': address.id}) }}" class="btn  pricing__action">{{ "Modifier" |trans }}</a>
 							{% if address.isIsPrimary == false %}
-								<form method="post" action="{{ path('app_address_delete', {'id': address.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette adresse ?');" class="mb-0">
+								<form method="post" action="{{ path('app_address_delete', {'id': address.id}) }}" onsubmit="return confirm('{{ "Êtes-vous sûr de vouloir supprimer cette adresse ?" |trans }}');" class="mb-0">
 									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ address.id) }}">
-									<button type="submit" class="pricing__action_delete mb-2">Supprimer</button>
+									<button type="submit" class="pricing__action_delete mb-2">{{ "Supprimer" |trans }}</button>
 								</form>
 							{% endif %}
 						</div>
 					{% endfor %}
 				</div>
 			</div>
-			<a href="/profile" class="btn btn-primary" id="btn-retour">Retour</a>
+			<a href="/profile" class="btn btn-primary" id="btn-retour">{{ "Retour" |trans }}</a>
 		</div>
 
 	</div>

@@ -8,3 +8,11 @@ api_search_address:
     path: /api/search_address
     controller: App\Controller\AddressApiController::search
 
+index:
+    path: /{_locale}/
+    controller: App\Controller\HomeController::index
+    requirements:
+        _locale: 'en|fr'
+    defaults:
+        _locale: 'fr'
+

@@ -1,0 +1,125 @@
+"Votre compte n'est pas activé,": 'Your account is not activated,'
+"Renvoyer le lien d'activation": 'Resend activation link'
+'Vous êtes connecté comme': 'You are logged in as'
+'Me déconnecter': 'Log off'
+'Se connecter': 'Login'
+Email: Email
+'Mot de passe': 'Password'
+'Mot de passe oublié ?': 'Forgot your password?'
+'Vous ne possédez pas de compte ?': 'Dont have an account?'
+Inscrivez-vous: 'Register at'
+'Bienvenue !': 'Welcome!'
+"CleanThis - Page d'acceuil": "CleanThis - Homepage"
+'CleanThis - Connexion': 'CleanThis - Connection'
+'CleanThis - Inscription': 'CleanThis - Registration'
+Inscription: Registration
+'Vous avez déjà un compte ?': 'Already have an account?'
+Connectez-vous: Connect
+'Réinitialisation de mot de passe': 'Reset password'
+'Réinitialiser votre mot de passe': 'Reinitialize your password'
+Envoyer: Send
+'Vous vous rappelez de votre mot de passe ?': 'Remember your password?'
+'Mon Profill - Modifier Mon Adresse': 'My Profill - Change My Address'
+'MES ADRESSES': 'MY ADDRESSES'
+Valider: Validate
+Retour: Return
+'Mes adresses': 'My addresses'
+Principale: Principal
+'Rue :': 'Street :'
+'Ville :': 'City :'
+'Code Postal :': 'Zip code :'
+Modifier: Modify
+'Êtes-vous sûr de vouloir supprimer cette adresse ?': 'Are you sure you want to delete this address?'
+Supprimer: Delete
+'Inscription - Adresse Principale': 'Registration - Primary address'
+'Adresse principale': 'Primary address'
+'Inscription 2/2': 'Registration 2/2'
+'Ajouter votre adresse': 'Add your address'
+'Mon Profile - Nouvelle adresse': 'My Profile - New address'
+'Modification du mot de passe': 'Modify password'
+'Modification du profil de': 'Changing the profile of'
+'Valider les modifications': 'Validate modifications'
+'Profil de': 'Profile of'
+'Mes différentes informations :': 'My different information:'
+'Liste des rendez-vous disponibles': 'List of available appointments'
+'Liste de mes rendez-vous': 'List of my appointments'
+'Nom :': 'Lastname:'
+'Prénom :': 'Firstname:'
+'Téléphone :': 'Phone number:'
+'E-mail :': 'E-mail:'
+'Confirmation de votre rendez-vous.': 'Confirmation of your appointment.'
+à: at
+'Pour une surface de :': 'For a surface area of:'
+m²: m²
+"À l'adresse :": "To the address:"
+'Description :': 'Description:'
+'Mes rendez-vous': 'My appointments'
+'En cas de désistement,  merci de bien vouloir nous contacter dans les plus bref délais.': 'In the event of withdrawal, please contact us as soon as possible.'
+'Annulation de votre Rendez-vous.': 'Cancellation of your appointment.'
+'Nous regrettons de vous informer que votre rendez-vous a été annulé.': 'We regret to inform you that your appointment has been cancelled.'
+'En cas de problème veuillez nous contacter.': 'If you have any problems, please contact us.'
+'Bienvenue chez CleanThis !': 'Welcome to CleanThis!'
+'Félicitations, vous avez été selectionné pour faire partie de nos équipes !': 'Congratulations, you have been selected to join our team!'
+'Veuillez cliquer sur le lien ci-dessous pour vous inscrire :': 'Please click on the link below to register:'
+'Merci de renseigner la totalité des champs.': 'Please complete all fields.'
+'La demande de rendez-vous a été reçue avec succès.': 'The appointment request was successfully received.'
+'Dans les prochaines 48 heures, un opérateur prendra contact avec vous.': 'An operator will contact you within 48 hours.'
+'Vous avez un nouveau rendez-vous.': 'You have a new appointment.'
+'Merci de confirmer rapidement. En cas de désistement,  merci de bien vouloir nous contacter dans les plus bref délais.': 'Please confirm as soon as possible. In the event of cancellation, please contact us as soon as possible.'
+'Réinitialisation de votre mot de passe': 'Resetting your password'
+Bonjour: Hello
+'Pour votre demande de réinitialisation de mot de passe, veuillez cliquer sur le lien ci-dessous :': 'To request a password reset, please click on the link below:'
+'Nouveau mot de passe': 'New password'
+'Activez votre compte': 'Please activate your account'
+'Votre inscription sur notre site CleanThis est à valider en cliquant sur le lien ci-dessous :': 'To register on our CleanThis site, click on the link below:'
+'Confirmation de votre compte client': 'Confirmation of your customer account'
+'Ce lien expirera dans 3 heures.': 'This link will expire in 3 hours.'
+'Merci de confirmer ou de modifier votre rendez-vous.': 'Please confirm or modify your appointment.'
+'CleanThis - Demande de devis': 'CleanThis - Request a quotation'
+Date: Date
+Date/Heure: Date/Time
+Surface: Surface area
+'Surface en m²': 'Surface area in m²'
+Description: Description
+Informations: Informations
+Adresse: Address
+'Où intervenir ?': 'Where to take action?'
+'Date et heure du rendez-vous:': 'Date and time of appointment:'
+'Sélectionner une date et une heure à votre convenance pour votre rendez-vous.': 'Select a convenient date and time for your appointment.'
+'Surface à nettoyer:': 'Surface to be cleaned:'
+'Taille de la surface à nettoyer en': 'Size of surface to be cleaned in'
+'Description:': 'Description:'
+"Merci d'entrer une description détaillée.": "Please provide a detailed description."
+'Adresse:': 'Address:'
+"Selectioner l'adresse du lieu de prise en charge.": "Select the address of the pick-up location."
+Précédent: Previous
+Suivant: Next
+'Mes Commandes': 'My Orders'
+'Vos Commandes': 'Your orders'
+Rendez-vous: Appointments
+Opération: Operation
+Terminé: Completed
+'Vos rendez-vous': 'Your appointments'
+'Êtes-vous sûr annuler votre demande de RDV ? (un opérateur va vous contacter) pour une réponse URGENTE : 01 02 03 04': 'Are you sure you want to cancel your appointment? (an operator will contact you) for an URGENT answer: 01 02 03 04'
+Annuler: Cancel
+'Historique des commandes terminées': 'History of completed orders'
+"Êtes-vous sur d'annuler votre demande de RDV ? (un operateur va vous contactez) pour une réponse URGENTE : 01 02 03 04": "Are you sure to cancel your appointment request? (an operator will contact you) for an URGENT answer: 01 02 03 04"
+"CleanThis - Modification de l'utilisateur": "CleanThis - Modification of the user"
+'MES INFORMATIONS': 'MY INFORMATION'
+'CleanThis - Modification du mot de passe': 'CleanThis - Password modification'
+'MODIFIER MON MOT DE PASSE': 'MODIFY MY PASSWORD'
+'CleanThis - Mon Profile': 'CleanThis - My profil'
+'MON PROFIL': 'MY PROFILE'
+'Vos commandes': 'Your orders'
+'Suivi, annulation': 'Tracking, cancellation'
+'Connexion - Sécurité': 'Connection - Security'
+'Modification adresse e-mail, nom, numéro de téléphone etc...': 'Change e-mail address, name, phone number etc...'
+Adresses: Addresses
+"Modification de vos adresses, ajout, changer l'adresse de facturation": "Modify your addresses, add, change billing address"
+'Demande de devis': 'Request a quotation'
+'Nos prestations': 'Our services'
+'Nos valeurs': 'Our core values'
+"S'inscrire": "Sign up"
+'Mes commandes': 'My orders'
+'Mon profil': 'My profile'
+'Se déconnecter': 'Logging off'

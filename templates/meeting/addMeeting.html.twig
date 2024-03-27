@@ -18,7 +18,7 @@
 {% block body %}
 
 
-<title>CleanThis - Demande de devis</title>
+<title>{{ "CleanThis - Demande de devis" |trans }}</title>
 
 
 <div id="page" class="site">
@@ -29,27 +29,27 @@
 				<ul class="progress-steps">
 					<li class="step active">
 						<span>1</span>
-						<p>Date<br><span>Date/Heure </span></p> 
+						<p>{{ "Date" |trans }}<br><span>{{ "Date/Heure " |trans }}</span></p> 
 					</li>
 					<li class="step">
 						<span>2</span>
-						<p>Surface<br><span>Surface en m² </span></p> 
+						<p>{{ "Surface" |trans }}<br><span>{{ "Surface en m² " |trans }}</span></p> 
 					</li>
 					<li class="step">
 						<span>3</span>
-						<p>Description<br><span>Informations </span></p> 
+						<p>{{ "Description" |trans }}<br><span>{{ "Informations " |trans }}</span></p> 
 					</li>
 					<li class="step">
 						<span>4</span>
-						<p>Adresse<br><span>Où intervenir ?</span></p> 
+						<p>{{ "Adresse" |trans }}<br><span>{{ "Où intervenir ?" |trans }}</span></p> 
 					</li>
 				</ul>
 			</div>
 			{{ form_start(form) }}
 				<div class="form-one form-step active">
 					<div class="bg-svg"><img src="{{ asset('assets/images/calendar.png') }}" alt="calendar"></div>
-					<h2>Date et heure du rendez-vous:</h2>
-					<p>Sélectionner une date et une heure à votre convenance pour votre rendez-vous.</p>
+					<h2>{{ "Date et heure du rendez-vous:" |trans }}</h2>
+					<p>{{ "Sélectionner une date et une heure à votre convenance pour votre rendez-vous." |trans }}</p>
 					<div>
 						<label></label>
 						{{form_row(form.reservedAt) }}
@@ -59,32 +59,32 @@
 					<div class="bg-svg">
 						<img src="{{ asset('assets/images/m2.png') }}" alt="m2">
 					</div>
-					<h2>Surface à nettoyer:</h2>
+					<h2>{{ "Surface à nettoyer:" |trans }}</h2>
 					<div>
-						<p>Taille de la surface à nettoyer en <strong>m²</strong>.</p>
+						<p>{{ "Taille de la surface à nettoyer en " |trans }}<strong>{{ "m²" |trans }}</strong>.</p>
 						{{form_row(form.floor_space) }}
 					</div>
 				</div>
 					<div class="form-three form-step">
 						<div class="bg-svg"><img src="{{ asset('assets/images/commente.png') }}" alt="Description"></div>
-						<h2>Description:</h2>
+						<h2>{{ "Description:" |trans }}</h2>
 						<div>
-							<p>Merci d'entrer une description détaillée.</p>
+							<p>{{ "Merci d'entrer une description détaillée." |trans }}</p>
 							{{form_row(form.description) }}
 						</div>
 					</div>
 						<div class="form-four form-step">
 							<div class="bg-svg"><img src="{{ asset('assets/images/address.png') }}" alt="Adresse"></div>
-							<h2>Adresse:</h2>
+							<h2>{{ "Adresse:" |trans }}</h2>
 							<div>
-								<p>Selectioner l'adresse du lieu de prise en charge.</p>
+								<p>{{ "Selectioner l'adresse du lieu de prise en charge." |trans }}</p>
 								{{form_row(form.address) }}
 							</div>
 						</div>
 
 				<div class="btn-group">
-					<button type="button" class="btn-prev" disabled>Précédent</button>
-					<button type="button" class="btn-next">Suivant</button>
+					<button type="button" class="btn-prev" disabled>{{ "Précédent" |trans }}</button>
+					<button type="button" class="btn-next">{{ "Suivant" |trans }}</button>
 					{{form_row(form.submit)}}
 				</div>	
 				{{form_end(form) }}

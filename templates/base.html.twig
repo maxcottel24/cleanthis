@@ -30,8 +30,8 @@
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
 				<div class="alert message">
 					<i class="fa-solid fa-triangle-exclamation alert-icon"></i>
-					<strong class="m-1">Votre compte n'est pas activé, </strong>
-					<a href="{{ path('resend_verif') }}"> Renvoyer le lien d'activation</a>
+					<strong class="m-1">{{ "Votre compte n'est pas activé, " |trans }}</strong>
+					<a href="{{ path('resend_verif') }}"> {{ "Renvoyer le lien d'activation" |trans }}</a>
 				</div>
 			</div>
 		{% endif %}

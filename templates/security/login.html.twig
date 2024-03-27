@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block title %}
-	CleanThis - Connexion
+	{{ "CleanThis - Connexion" |trans }}
 {% endblock %}
 
 {% block body %}
@@ -33,24 +33,24 @@
 
 		{% if app.user %}
 			<div class="mb-3">
-				Vous êtes connecté comme
+				{{ "Vous êtes connecté comme" |trans }}
 				{{ app.user.userIdentifier }},
-				<a href="{{ path('app_logout') }}">Me déconnecter</a>
+				<a href="{{ path('app_logout') }}">{{ "Me déconnecter" |trans }}</a>
 			</div>
 		{% endif %}
 
 	<div class = "loginform">
-	<h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
-		<label for="inputEmail">Email</label>
+	<h1 class="h3 mb-3 font-weight-normal">{{ "Se connecter" |trans }}</h1>
+		<label for="inputEmail">{{ "Email" |trans }}</label>
 		<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-		<label for="inputPassword">Mot de passe</label>
+		<label for="inputPassword">{{ "Mot de passe" |trans }}</label>
 		<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-		<a href="{{ path('forgotten_password')}}" class="forgottenpwd">Mot de passe oublié ?</a>
+		<a href="{{ path('forgotten_password')}}" class="forgottenpwd">{{ "Mot de passe oublié ?" |trans }}</a>
 
 		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
 		<button class="btn btn-lg btn-primary" type="submit">
-			Se connecter
+			{{ "Se connecter" |trans }}
 		</button>
 	</form>
    <div class="google-sign-in">
@@ -59,7 +59,7 @@
    </a>
 </div>
  <div class="noaccount">
-      <p>Vous ne possédez pas de compte ?    </p><a href="{{ path('security.registration') }}"> Inscrivez-vous</a>
+      <p>{{ "Vous ne possédez pas de compte ?" |trans }}    </p><a href="{{ path('security.registration') }}">{{ "Inscrivez-vous" |trans }}</a>
    </div>
 </div>
     </div>
