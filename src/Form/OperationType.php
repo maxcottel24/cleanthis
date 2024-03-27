@@ -56,8 +56,7 @@ class OperationType extends AbstractType
                 'choices' => [
                     'Normal' => '1',
                     'Sale' => '2',
-                    'Très sale' => '3',
-                    'Diogènes' => '4'
+                    'Très sale' => '3'
                 ],
                 'attr' => [
                     'class' => 'form-control',
