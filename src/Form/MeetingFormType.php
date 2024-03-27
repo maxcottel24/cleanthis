@@ -56,7 +56,6 @@ class MeetingFormType extends AbstractType
                 'choices' => [
                     'Nouveau RDV' => '1',
                     'En attente de retour client' => '2',
-                    'Pris en charge' => '3',
                     'Intervention opérateur' => '4'
                 ],
                 'attr' => [
