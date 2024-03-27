@@ -21,6 +21,17 @@ class OperationRepository extends ServiceEntityRepository
         parent::__construct($registry, Operation::class);
     }
 
+    public function findOperationsByUser($user)
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.meeting', 'm')
+            ->join('m.users', 'u')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $user->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Operation[] Returns an array of Operation objects
     //     */
