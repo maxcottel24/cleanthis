@@ -9,8 +9,15 @@
   border-radius: 35px;
 }
 
+.navbar-nav .custom2:hover {
+  border: 2px solid #72dfef;
+  background: #ffff;
+  color: #92D4F5;
+}
+
 .navbar-nav .custom1 {
   font-weight: bold;
+  color: #92D4F5;
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 15px !important;
@@ -20,11 +27,10 @@
   border-radius: 35px;
 }
 
-.right {
-    position: absolute;
-    right: 0;
-    display: flex;
-    gap: 20px;
-    flex-direction: row;
-    font-weight: 900;
-  }
+.navbar-nav .custom1:hover {
+  color: #3971FF;
+}
+
+.dropdown-item .custom3:hover {
+  color: #3971FF;
+}
