@@ -326,7 +326,7 @@ class AdminMeetingController extends DashboardController
         }
 
         // Modifier le statut du meeting
-        $meeting->setStatus(5); 
+        $meeting->setStatus(5);
         $surface = $meeting->getFloorSpace();
         $typeOperationRepo = $entityManager->getRepository(TypeOperation::class);
         // Créer une nouvelle opération
@@ -334,14 +334,26 @@ class AdminMeetingController extends DashboardController
         $operation->setMeeting($meeting);
         if ($surface <= 50) {
             $typeOperation = $typeOperationRepo->findOneBy(['label' => 'Petite']);
+            if ($typeOperation === null) {
+                throw new \Exception("Le type d'opération 'Petite' n'existe pas.");
+            }
         } elseif ($surface > 50 && $surface <= 100) {
             $typeOperation = $typeOperationRepo->findOneBy(['label' => 'Moyenne']);
+            if ($typeOperation === null) {
+                throw new \Exception("Le type d'opération 'Moyenne' n'existe pas.");
+            }
         } elseif ($surface > 100 && $surface <= 150) {
-            $typeOperation = $typeOperationRepo->findOneBy(['label' => 'Grande']);
-        } else {
-            // Gérer le cas où la surface ne correspond à aucun critère défini
-            $typeOperation = null; // ou définissez une valeur par défaut
+            $typeOperation = $typeOperationRepo->findOneBy(['label' => 'Grosse']);
+            if ($typeOperation === null) {
+                throw new \Exception("Le type d'opération 'Grosse' n'existe pas.");
+            }
+        } elseif ($surface > 150) {
+            $typeOperation = $typeOperationRepo->findOneBy(['label' => 'Custom']);
+            if ($typeOperation === null) {
+                throw new \Exception("Le type d'opération 'Custom' n'existe pas.");
+            }
         }
+
         $operation->setTypeOperation($typeOperation);
         $operation->setStatus(2);
         $operation->setIsValid(false);
