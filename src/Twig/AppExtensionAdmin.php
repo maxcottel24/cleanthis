@@ -47,7 +47,7 @@ class AppExtensionAdmin extends AbstractExtension
             case 4:
                 return "badge badge-info";
             case 5:
-                return "badge badge-dark text-light";
+                return "badge badge-success";
             default:
                 return "badge badge-secondary"; // It's better to return a default badge class than text
         }

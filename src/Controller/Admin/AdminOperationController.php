@@ -29,13 +29,15 @@ class AdminOperationController extends DashboardController
     private $userRepository;
     private $meetingRepository;
     private $operation;
+    private Security $security;
 
-    public function __construct(OperationRepository $operation, EntityManagerInterface $entityManager, MeetingRepository $meetingRepository, UsersRepository $userRepository)
+    public function __construct(Security $security, OperationRepository $operation, EntityManagerInterface $entityManager, MeetingRepository $meetingRepository, UsersRepository $userRepository)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
         $this->meetingRepository = $meetingRepository;
         $this->operation = $operation;
+        $this->security = $security;
     }
 
     #[Route('/admin/operation', name: 'app_admin_operation', methods: ['GET'])]
@@ -57,11 +59,9 @@ class AdminOperationController extends DashboardController
             throw $this->createNotFoundException('L\'opération n\'a pas été trouvée.');
         }
 
+
         $form = $this->createForm(OperationType::class, $operation);
         $form->handleRequest($request);
-
-        // Cette vérification est maintenant redondante et a été supprimée.
-        // if ($form->isSubmitted() && $form->isValid()) {
 
         $surface = $operation->getFloorSpace();
         $cleanliness = $operation->getCleanliness();
@@ -152,5 +152,74 @@ class AdminOperationController extends DashboardController
             'operation' => $operation,
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/admin/myoperation', name: 'app_admin_myoperation')]
+    public function myoperation(): Response
+    {
+        $user = $this->security->getUser();
+
+        // Assurez-vous que l'utilisateur est connecté
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+
+        // Assurez-vous que l'utilisateur a le job_title "Opérateur"
+        if ($user->getJobTitle() !== 'Opérateur') {
+            throw $this->createAccessDeniedException('Seuls les opérateurs peuvent accéder à cette page.');
+        }
+
+        // Utilisez la méthode findOperationsByUser de votre OperationRepository
+        $operations = $this->operation->findOperationsByUser($user);
+
+        return $this->render('admin/operation/index.html.twig', [
+            'operations' => $operations,
+        ]);
+    }
+
+    #[Route('/admin/myoperation/past', name: 'app_admin_my_past_operation')]
+    public function myoperations(): Response
+    {
+        $user = $this->security->getUser();
+
+        // Assurez-vous que l'utilisateur est connecté
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+
+        // Assurez-vous que l'utilisateur a le job_title "Opérateur"
+        if ($user->getJobTitle() !== 'Opérateur') {
+            throw $this->createAccessDeniedException('Seuls les opérateurs peuvent accéder à cette page.');
+        }
+
+        // Utilisez la méthode findOperationsByUser de votre OperationRepository
+        $operations = $this->operation->findOperationsByUser($user);
+
+        return $this->render('admin/operation/myoperation.html.twig', [
+            'operations' => $operations,
+        ]);
+    }
+
+
+    #[Route('/admin/operation/validate/{id}', name: 'app_admin_operation_validate')]
+    public function validateMeeting(Request $request, EntityManagerInterface $entityManager, $id, Security $security): Response
+    {
+        $operation = $entityManager->getRepository(Operation::class)->find($id);
+        $user = $security->getUser();
+
+        if (!$operation) {
+            throw $this->createNotFoundException('Le meeting n\'a pas été trouvé.');
+        }
+       
+        // Modifier le statut du meeting
+        $operation->setStatus(3);
+        $operation->setIsValid(true);
+        $operation->setFinishedAt(new \DateTimeImmutable());
+
+        $entityManager->persist($operation);
+        $entityManager->flush();
+
+        // Rediriger l'utilisateur ou envoyer une réponse
+        return $this->redirectToRoute('admin');
     }
 }

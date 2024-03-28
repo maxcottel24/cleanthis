@@ -29,7 +29,21 @@ class MeetingRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
+/**
+     * @return Meeting[] Returns an array of Meeting objects
+     */
+    public function findByOperatorUser($userId)
+    {
+        return $this->createQueryBuilder('m')
+        ->join('m.users', 'u')
+        ->andWhere('u.id = :userId')
+        ->andWhere('u.job_title = :jobTitle') // Assurez-vous que cela correspond au nom de la propriété dans l'entité.
+        ->setParameter('userId', $userId)
+        ->setParameter('jobTitle', 'Opérateur')
+        ->getQuery()
+        ->getResult()
+    ;
+    }
 
     public function findAll(): array
     {

@@ -1,13 +1,11 @@
 {% extends '@EasyAdmin/layout.html.twig' %}
 
-{% set _content_title = 'Liste des rendez-vous' %}
+{% set _content_title = 'Liste de mes rendez-vous' %}
 
 
 {% block page_title -%}{{ _content_title }}{%- endblock %}{% block content_header %}
 <h1 class="title">{{ _content_title }}</h1>
-<form action="{{ path('app_admin_meeting_new') }}" method="post">
-	<button type="submit" class="btn btn-primary">Add RDV</button>
-</form>{% endblock content_header %}{% block main %}
+{% endblock content_header %}{% block main %}
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
 <table id="meeting-table" data-toggle="table" data-search="false" data-pagination="true">
 	<thead>
@@ -20,15 +18,14 @@
 			<th data-sortable="true" data-field="floor_space">Surface(m²)</th>
 			<th data-sortable="true" data-field="created_by">Client</th>
 			<th data-sortable="true" data-field="operator">Opérateur</th>
-			<th data-sortable="true" data-field="action">Actions</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for meeting in meetings %}
-			{% if meeting.Status != 5 %}
+			{% if meeting.Status == 5 %}
 				<tr>
 					<td>{{ meeting.id }}</td>
-					<td>{{ meeting.reservedAt | date('d M Y H:i')  }}</td>
+					<td>{{ meeting.reservedAt | date }}</td>
 					<td>
 						<span class=" {{meeting.Status|meeting_statuss_badge}}">{{ meeting.Status|meeting_statuss}}</span>
 					</td>
@@ -83,37 +80,7 @@
 							Aucun opérateur défini
 						{% endif %}
 					</td>
-					<td>
-						{% if meeting.status != 5 %}
-							{% if meeting.status != 3 %}
-								<form action="{{ path('app_admin_meeting_handle', {'id': meeting.id}) }}" method="post">
-									<button type="submit" class="btn btn-primary">Prendre en charge</button>
-								</form>
-							{% else %}
-								<span class="badge badge-success">Pris en charge</span>
-							{% endif %}
-							{% if meeting.status != 3 %}
-								<form action="{{ path('app_admin_meeting_delete', {'id': meeting.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');">
-									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ meeting.id) }}">
-									<button type="submit" class="btn btn-danger">Supprimer</button>
-								</form>
-							{% endif %}
-							{% if meeting.status == 3  %}
-								{% if  meeting.reservedAt|date('Y-m-d H:i') < "now"|date('Y-m-d H:i') %}
-									<form action="{{ path('admin_meeting_validate', {'id': meeting.id}) }}" method="post" onsubmit="return confirm('Confirmez-vous la fin du rendez-vous ?');">
-										<input type="hidden" name="_token" value="">
-										<button type="submit" class="btn btn-success">Valider</button>
-									</form>
-								{% endif %}
-							{% endif %}
-							<form action="{{ path('app_admin_meeting_update', {'id': meeting.id}) }}" method="post">
-								<button type="submit" class="btn btn-warning">Modifier</button>
-							</form>
-						{% endif %}
-						{% if meeting.status == 5 %}
-							<span class=" {{meeting.Status|meeting_statuss_badge}}">{{ meeting.Status|meeting_statuss}}</span>
-						{% endif %}
-					</td>
+					
 
 				</tr>
 			{% endif %}
