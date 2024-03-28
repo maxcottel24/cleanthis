@@ -67,6 +67,13 @@
 												{% endif %}
 											</div>
 										{% endif %}
+										{% if meeting.status == 4   %}
+											<div class="d-flex justify-content-end ">
+												<form method="post" action="{{ path('app_meeting_validate', {'id': meeting.id}) }}" onsubmit="return confirm('{{ " etes-vous sur de vouloir valider ce rendez-vous ? " |trans }}');">
+													<button class="btn btn-outline-success btn-aligned " type="submit">{{ "Valider" |trans }}</button>
+												</form>
+											</div>
+										{% endif %}
 									</div>
 								</div>
 							{% endif %}
