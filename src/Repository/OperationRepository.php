@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Users;
 use App\Entity\Operation;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Operation>
@@ -31,6 +32,21 @@ class OperationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    // Dans OperationRepository.php
+public function countActiveOperationsByUser(Users $user)
+{
+    return $this->createQueryBuilder('o')
+        ->select('count(o.id)')
+        ->join('o.meeting', 'm')
+        ->join('m.users', 'u')
+        ->where('u.id = :userId')
+        ->andWhere('o.status != :status')
+        ->setParameter('userId', $user->getId())
+        ->setParameter('status', 5) // Supposons que 5 est le statut "terminé"
+        ->getQuery()
+        ->getSingleScalarResult();
+}
 
     //    /**
     //     * @return Operation[] Returns an array of Operation objects
