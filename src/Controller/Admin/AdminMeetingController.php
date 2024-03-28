@@ -334,7 +334,7 @@ class AdminMeetingController extends DashboardController
     
         // Compter les opérations actives de l'utilisateur
         $activeOperationsCount = $entityManager->getRepository(Operation::class)->countActiveOperationsByUser($user);
-    
+
         if ($activeOperationsCount >= $maxOperations) {
             $this->addFlash('danger', 'Vous avez atteint le nombre maximum d\'opérations actives autorisées.');
             return $this->redirectToRoute('admin');
