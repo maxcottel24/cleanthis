@@ -44,6 +44,9 @@ class Operation
     #[ORM\Column(nullable: true)]
     private ?int $cleanliness = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $intervention = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -165,6 +168,18 @@ class Operation
     public function setCleanliness(?int $cleanliness): static
     {
         $this->cleanliness = $cleanliness;
+
+        return $this;
+    }
+
+    public function getIntervention(): ?\DateTimeInterface
+    {
+        return $this->intervention;
+    }
+
+    public function setIntervention(?\DateTimeInterface $intervention): static
+    {
+        $this->intervention = $intervention;
 
         return $this;
     }

@@ -33,20 +33,33 @@ class OperationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    // Dans OperationRepository.php
-public function countActiveOperationsByUser(Users $user)
-{
-    return $this->createQueryBuilder('o')
-        ->select('count(o.id)')
-        ->join('o.meeting', 'm')
-        ->join('m.users', 'u')
-        ->where('u.id = :userId')
-        ->andWhere('o.status != :status')
-        ->setParameter('userId', $user->getId())
-        ->setParameter('status', 5) // Supposons que 5 est le statut "terminé"
-        ->getQuery()
-        ->getSingleScalarResult();
-}
+
+    public function countActiveOperationsByUser(Users $user)
+    {
+        return $this->createQueryBuilder('o')
+            ->select('count(o.id)')
+            ->join('o.meeting', 'm')
+            ->join('m.users', 'u')
+            ->where('u.id = :userId')
+            ->andWhere('o.status = :status') // Modifier ici pour vérifier le statut == 3
+            ->setParameter('userId', $user->getId())
+            ->setParameter('status', 3) // Supposons que 3 est le statut "en cours" ou "actif"
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+
+
+    public function findByUser($userId)
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.user', 'u') // Assurez-vous que 'user' est le bon nom de la relation dans votre entité Operation
+            ->where('u.id = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     //    /**
     //     * @return Operation[] Returns an array of Operation objects
