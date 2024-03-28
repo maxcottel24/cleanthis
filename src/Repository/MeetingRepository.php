@@ -21,9 +21,15 @@ class MeetingRepository extends ServiceEntityRepository
         parent::__construct($registry, Meeting::class);
     }
 
-    // Dans App\Repository\MeetingRepository.php
-
-    /**
+    public function findByUser($userId) {
+        return $this->createQueryBuilder('m')
+            ->innerJoin('m.users', 'u')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+/**
      * @return Meeting[] Returns an array of Meeting objects
      */
     public function findByOperatorUser($userId)
@@ -39,14 +45,12 @@ class MeetingRepository extends ServiceEntityRepository
     ;
     }
 
-
-
     public function findAll(): array
     {
         return $this->createQueryBuilder('p')
             // ->where('p.status = 1')
             ->getQuery()
-            ->getResult();
+            ->getResult(); 
     }
     //    /**
     //     * @return Meeting[] Returns an array of Meeting objects
