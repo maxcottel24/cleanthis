@@ -317,14 +317,28 @@ class AdminMeetingController extends DashboardController
     }
 
     #[Route('/admin/meeting/validate/{id}', name: 'admin_meeting_validate')]
-    public function validateMeeting(Request $request, EntityManagerInterface $entityManager, $id): Response
+    public function validateMeeting(Request $request, EntityManagerInterface $entityManager, $id, Security $security): Response
     {
         $meeting = $entityManager->getRepository(Meeting::class)->find($id);
+        $user = $security->getUser();
 
         if (!$meeting) {
             throw $this->createNotFoundException('Le meeting n\'a pas été trouvé.');
         }
-
+        $maxOperations = match(true) {
+            in_array('ROLE_EXPERT', $user->getRoles()) => 5,
+            in_array('ROLE_SENIOR', $user->getRoles()) => 3,
+            in_array('ROLE_APPRENTI', $user->getRoles()) => 1,
+            default => 0,
+        };
+    
+        // Compter les opérations actives de l'utilisateur
+        $activeOperationsCount = $entityManager->getRepository(Operation::class)->countActiveOperationsByUser($user);
+    
+        if ($activeOperationsCount >= $maxOperations) {
+            $this->addFlash('danger', 'Vous avez atteint le nombre maximum d\'opérations actives autorisées.');
+            return $this->redirectToRoute('admin');
+        }
         // Modifier le statut du meeting
         $meeting->setStatus(5);
         $surface = $meeting->getFloorSpace();

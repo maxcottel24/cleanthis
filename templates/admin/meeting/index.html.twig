@@ -22,99 +22,101 @@
 			<th data-sortable="true" data-field="operator">Opérateur</th>
 			<th data-sortable="true" data-field="action">Actions</th>
 		</tr>
-	</thead> 
+	</thead>
 	<tbody>
 		{% for meeting in meetings %}
-			<tr>
-				<td>{{ meeting.id }}</td>
-				<td>{{ meeting.reservedAt | date }}</td>
-				<td>
-					<span class=" {{meeting.Status|meeting_statuss_badge}}">{{ meeting.Status|meeting_statuss}}</span>
-				</td>
-				<td>{{ meeting.address }}</td>
-				<td>
-					{% if meeting.description|length > 20 %}
-						<span class="description-truncate">{{ meeting.description|slice(0, 20) }}...</span>
-						<a href="#" class="read-more-link" data-bs-toggle="modal" data-bs-target="#descriptionModal{{ meeting.id }}">Voir plus</a>
-						<div class="modal fade" id="descriptionModal{{ meeting.id }}" tabindex="-1" aria-labelledby="descriptionModal{{ meeting.id }}Label" aria-hidden="false">
-							<div class="modal-dialog modal-dialog-centered">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="descriptionModal{{ meeting.id }}Label">Description</h5>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body">
-										{{ meeting.description }}
+			{% if meeting.Status != 5 %}
+				<tr>
+					<td>{{ meeting.id }}</td>
+					<td>{{ meeting.reservedAt | date }}</td>
+					<td>
+						<span class=" {{meeting.Status|meeting_statuss_badge}}">{{ meeting.Status|meeting_statuss}}</span>
+					</td>
+					<td>{{ meeting.address }}</td>
+					<td>
+						{% if meeting.description|length > 20 %}
+							<span class="description-truncate">{{ meeting.description|slice(0, 20) }}...</span>
+							<a href="#" class="read-more-link" data-bs-toggle="modal" data-bs-target="#descriptionModal{{ meeting.id }}">Voir plus</a>
+							<div class="modal fade" id="descriptionModal{{ meeting.id }}" tabindex="-1" aria-labelledby="descriptionModal{{ meeting.id }}Label" aria-hidden="false">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="descriptionModal{{ meeting.id }}Label">Description</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											{{ meeting.description }}
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					{% else %}
-						{{ meeting.description }}
-					{% endif %}
-				</td>
-				<td>{{ meeting.floorSpace }}</td>
-				<td>
-					{% for user in meeting.users %}
-						{% if user.getJobTitle() == 'Null' %}
-							{{ user.firstname }}
-							{{ user.lastname }}
-							<br>
-						{% endif %}
-					{% else %}
-						Aucun créateur défini
-					{% endfor %}
-
-				</td>
-				<td>
-					{% set operator = null %}
-					{% for user in meeting.users %}
-						{% if user.getJobTitle() == 'Opérateur' %}
-							{% set operator = user %}
-						{% endif %}
-					{% endfor %}
-
-					{% if operator is not null %}
-						{{ operator.firstname }}
-						{{ operator.lastname }}
-						<br>
-					{% else %}
-						Aucun opérateur défini
-					{% endif %}
-				</td>
-				<td>
-					{% if meeting.status != 5 %}
-						{% if meeting.status != 3 %}
-							<form action="{{ path('app_admin_meeting_handle', {'id': meeting.id}) }}" method="post">
-								<button type="submit" class="btn btn-primary">Prendre en charge</button>
-							</form>
 						{% else %}
-							<span class="badge badge-success">Pris en charge</span>
+							{{ meeting.description }}
 						{% endif %}
-						{% if meeting.status != 3 %}
-							<form action="{{ path('app_admin_meeting_delete', {'id': meeting.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');">
-								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ meeting.id) }}">
-								<button type="submit" class="btn btn-danger">Supprimer</button>
-							</form>
+					</td>
+					<td>{{ meeting.floorSpace }}</td>
+					<td>
+						{% for user in meeting.users %}
+							{% if user.getJobTitle() == 'Null' %}
+								{{ user.firstname }}
+								{{ user.lastname }}
+								<br>
+							{% endif %}
+						{% else %}
+							Aucun créateur défini
+						{% endfor %}
+
+					</td>
+					<td>
+						{% set operator = null %}
+						{% for user in meeting.users %}
+							{% if user.getJobTitle() == 'Opérateur' %}
+								{% set operator = user %}
+							{% endif %}
+						{% endfor %}
+
+						{% if operator is not null %}
+							{{ operator.firstname }}
+							{{ operator.lastname }}
+							<br>
+						{% else %}
+							Aucun opérateur défini
 						{% endif %}
-						{% if meeting.status == 3  %}
-							{% if  meeting.reservedAt|date('Y-m-d H:i') < "now"|date('Y-m-d H:i') %}
-								<form action="{{ path('admin_meeting_validate', {'id': meeting.id}) }}" method="post" onsubmit="return confirm('Confirmez-vous la fin du rendez-vous ?');">
-									<input type="hidden" name="_token" value="">
-									<button type="submit" class="btn btn-success">Valider</button>
+					</td>
+					<td>
+						{% if meeting.status != 5 %}
+							{% if meeting.status != 3 %}
+								<form action="{{ path('app_admin_meeting_handle', {'id': meeting.id}) }}" method="post">
+									<button type="submit" class="btn btn-primary">Prendre en charge</button>
+								</form>
+							{% else %}
+								<span class="badge badge-success">Pris en charge</span>
+							{% endif %}
+							{% if meeting.status != 3 %}
+								<form action="{{ path('app_admin_meeting_delete', {'id': meeting.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ meeting.id) }}">
+									<button type="submit" class="btn btn-danger">Supprimer</button>
 								</form>
 							{% endif %}
+							{% if meeting.status == 3  %}
+								{% if  meeting.reservedAt|date('Y-m-d H:i') < "now"|date('Y-m-d H:i') %}
+									<form action="{{ path('admin_meeting_validate', {'id': meeting.id}) }}" method="post" onsubmit="return confirm('Confirmez-vous la fin du rendez-vous ?');">
+										<input type="hidden" name="_token" value="">
+										<button type="submit" class="btn btn-success">Valider</button>
+									</form>
+								{% endif %}
+							{% endif %}
+							<form action="{{ path('app_admin_meeting_update', {'id': meeting.id}) }}" method="post">
+								<button type="submit" class="btn btn-warning">Modifier</button>
+							</form>
 						{% endif %}
-						<form action="{{ path('app_admin_meeting_update', {'id': meeting.id}) }}" method="post">
-							<button type="submit" class="btn btn-warning">Modifier</button>
-						</form>
-					{% endif %}
-					{% if meeting.status == 5 %}
-						<span class=" {{meeting.Status|meeting_statuss_badge}}">{{ meeting.Status|meeting_statuss}}</span>
-					{% endif %}
-				</td>
+						{% if meeting.status == 5 %}
+							<span class=" {{meeting.Status|meeting_statuss_badge}}">{{ meeting.Status|meeting_statuss}}</span>
+						{% endif %}
+					</td>
 
-			</tr>
+				</tr>
+			{% endif %}
 		{% endfor %}
 	</tbody>
 </table>

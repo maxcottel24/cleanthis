@@ -29,13 +29,15 @@ class AdminOperationController extends DashboardController
     private $userRepository;
     private $meetingRepository;
     private $operation;
+    private Security $security;
 
-    public function __construct(OperationRepository $operation, EntityManagerInterface $entityManager, MeetingRepository $meetingRepository, UsersRepository $userRepository)
+    public function __construct(Security $security ,OperationRepository $operation, EntityManagerInterface $entityManager, MeetingRepository $meetingRepository, UsersRepository $userRepository)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
         $this->meetingRepository = $meetingRepository;
         $this->operation = $operation;
+        $this->security = $security;
     }
 
     #[Route('/admin/operation', name: 'app_admin_operation', methods: ['GET'])]
@@ -55,6 +57,30 @@ class AdminOperationController extends DashboardController
 
         if (!$operation) {
             throw $this->createNotFoundException('L\'opération n\'a pas été trouvée.');
+        }
+
+        
+        $user = $this->security->getUser();
+
+        if (!$user instanceof Users) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour effectuer cette action.');
+        }
+
+        // Définissez le nombre maximum d'opérations actives autorisées par rôle
+        $maxOperations = match(true) {
+            in_array('ROLE_EXPERT', $user->getRoles()) => 5,
+            in_array('ROLE_SENIOR', $user->getRoles()) => 3,
+            in_array('ROLE_APPRENTI', $user->getRoles()) => 1,
+            default => 0,
+        };
+
+        // Comptez le nombre d'opérations actives pour l'utilisateur
+        $activeOperationsCount = $this->entityManager->getRepository(Operation::class)->countActiveOperationsByUser($user);
+
+        // Vérifiez si l'utilisateur a déjà atteint son maximum d'opérations actives autorisées
+        if ($activeOperationsCount >= $maxOperations) {
+            $this->addFlash('error', 'Vous avez atteint le nombre maximum d\'opérations actives autorisées.');
+            return $this->redirectToRoute('app_admin_operation');
         }
 
         $form = $this->createForm(OperationType::class, $operation);
