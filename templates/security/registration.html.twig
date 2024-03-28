@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block title %}
-	CleanThis - Inscription
+	{{ "CleanThis - Inscription" |trans }}
 {% endblock %}
 
 {% block body %}
@@ -23,7 +23,7 @@
 				<img src="{{ asset('assets/images/CleanThisLogo.png') }}" alt="Logo Cleanthis" class="cleanthis-logo" style="position: absolute; top: 2%; right: 2%; z-index: 3;">
 			</a>
 			<div class="container">
-				<h1 class="mt-4">Inscription</h1>
+				<h1 class="mt-4">{{ "Inscription" |trans }}</h1>
 				{{ form_start(form)}}
 				{{form_row(form.firstname)}}
 				{{form_row(form.lastname)}}
@@ -40,10 +40,10 @@
 						</a>
 					</div>
 					<div class="connected">
-						<p>Vous avez déjà un compte ?
+						<p>{{ "Vous avez déjà un compte ?" |trans }}
 						</p>
 						<a href="{{ path('app_login') }}">
-							Connectez-vous</a>
+							{{ "Connectez-vous" |trans }}</a>
 					</div>
 
 				</div>

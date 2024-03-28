@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription - Adresse principale{% endblock %}
+{% block title %}{{ "Inscription - Adresse Principale" |trans }}{% endblock %}
 
 {% block head %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,7 @@
    <div class ="right-side">
    <img src="{{ asset('assets/images/CleanThisLogo.png') }}"  alt="Logo Cleanthis" class="cleanthis-logo" style="position: absolute; top: 2%; right: 2%; z-index: 3;">
    <div class="container">
-   <h1 class="mt-4">Adresse principale</h1>
+   <h1 class="mt-4">{{ "Adresse principale" |trans }}</h1>
    {{ include('address/_form.html.twig') }}
 
    </div>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CleanThis - Mon Profile
+{% block title %}{{ "CleanThis - Mon Profile" |trans }}
 {% endblock %}
 
 {% block body %}
@@ -110,7 +110,7 @@
 	</style>
 	<section class="fancy">
 		<div class="backgrd">
-			<p>MON PROFIL</p>
+			<p>{{ "MON PROFIL" |trans }}</p>
 		</div>
 		<div class="profile">
 			<div id="card-container" class="container">
@@ -118,24 +118,24 @@
 					<div class="card">
 						<a href="/meeting/{{app.user.id}}" class="card-link">
 							<div class="card-body text-center">
-								<h5 class="card-title">Vos commandes</h5>
-								<p class="card-text">Suivi, annulation</p>
+								<h5 class="card-title">{{ "Vos commandes" |trans }}</h5>
+								<p class="card-text">{{ "Suivi, annulation" |trans }}</p>
 							</div>
 						</a>
 					</div>
 					<div class="card">
 						<a href="/profile/edition/{{app.user.id}}" class="card-link">
 							<div class="card-body text-center">
-								<h5 class="card-title">Connexion - Sécurité</h5>
-								<p class="card-text">Modification adresse e-mail, nom, numéro de téléphone etc...</p>
+								<h5 class="card-title">{{ "Connexion - Sécurité" |trans }}</h5>
+								<p class="card-text">{{ "Modification adresse e-mail, nom, numéro de téléphone etc..." |trans }}</p>
 							</div>
 						</a>
 					</div>
 					<div class="card">
 						<a href="/address/{{app.user.id}}" class="card-link">
 							<div class="card-body text-center">
-								<h5 class="card-title">Adresses</h5>
-								<p class="card-text">Modification de vos adresses, ajout, changer l'adresse de facturation</p>
+								<h5 class="card-title">{{ "Adresses" |trans }}</h5>
+								<p class="card-text">{{ "Modification de vos adresses, ajout, changer l'adresse de facturation" |trans }}</p>
 							</div>
 						</a>
 					</div>

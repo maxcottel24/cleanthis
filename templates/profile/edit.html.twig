@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CleanThis - Modification de l'utilisateur
+{% block title %}{{ "CleanThis - Modification de l'utilisateur" |trans }}
 {% endblock %}
 
 {% block body %}
@@ -170,7 +170,7 @@
 	</style>
 	<section class="fancy">
 		<div class="backgrd">
-			<p>MES INFORMATIONS</p>
+			<p>{{ "MES INFORMATIONS" |trans }}</p>
 		</div>
 		<div class="container">
 
@@ -196,11 +196,11 @@
 				{{ form_end(form) }}
 			</div>
 			<div class="carte-mot-de-passe">
-				<span class="label-mot-de-passe">Mot de passe</span>
+				<span class="label-mot-de-passe">{{ "Mot de passe" |trans }}</span>
 				<span class="points">**********</span>
-				<a href="/profile/edition/{{app.user.id}}/password" class="bouton-lien">Modifier</a>
+				<a href="/profile/edition/{{app.user.id}}/password" class="bouton-lien">{{ "Modifier" |trans }}</a>
 			</div>
-			<a href="/profile" class="btn btn-primary">Retour</a>
+			<a href="/profile" class="btn btn-primary">{{ "Retour" |trans }}</a>
 		</div>
 	</section>
 {% endblock %}

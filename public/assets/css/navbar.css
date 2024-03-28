@@ -1,36 +1,128 @@
-.navbar-nav .custom2 {
+/* Base styles for navbar */
+.navbar {
+  background-color: #fff; /* Assuming a white background */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Helvetica is a common choice */
+  margin-left: 50px; /* Increase space outside the navbar on the left */
+  margin-right: 50px; /* Increase space outside the navbar on the right */
+}
+
+/* Navbar brand/logo */
+.navbar-brand img {
+  max-height: 70px; /* Adjust as necessary for your logo */
+}
+
+/* Styles for 'Se connecter' and 'S'inscrire' links to mimic dropdown toggle appearance */
+.navbar .nav-link.auth-link {
+  background-color: transparent; /* No background to keep them text-like */
+  color: #92d4f5; /* Using the light blue for text color */
+  padding: 0.5rem 1rem; /* Adequate padding for clickable area, adjust as needed */
+  transition: color 0.3s; /* Smooth transition for color change on hover */
+}
+
+/* Hover effect for these links */
+.navbar .nav-link.auth-link:hover {
+  color: #3971ff; /* Darker blue for text on hover, for visibility */
+}
+
+/* Button-like nav items for 'Nos valeurs' and 'Nos prestations' */
+.nav-link.button-style {
+  background-color: #92d4f5; /* Button background color */
+  color: #3971ff; /* Button text color */
+  border-radius: 25px; /* Rounded corners for button */
+  font-weight: bold; /* Bold font for button text */
+  padding: 0.4rem 2rem !important; /* Increased padding for more space inside the buttons */
+  margin: 0 10px; /* Margin for spacing between buttons */
+  border: 2px solid transparent; /* Add a transparent border by default */
+  transition: background-color 0.4s, border-color 0.4s; /* Smooth transition for colors */
+}
+
+/* Placeholder for hover effects on button-style links */
+.nav-link.button-style:hover {
+  background-color: #fff;
+  border: 2px solid #3971ff;
+}
+
+/* Active link styling, if you have a specific class for active state */
+.nav-link.active {
+  font-weight: bold; /* Bold font for active link */
+  /* You can also add a specific color for the active state if needed */
+}
+
+/* Adjust the positioning of the navbar-toggler for mobile views */
+.navbar-toggler {
+  border: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    padding-left: 30px; /* Increase space inside the navbar on the left */
+    padding-right: 30px; /* Increase space inside the navbar on the right */
+  }
+}
+
+/* Container to align language buttons next to the logo */
+.language-switch-container {
+  display: flex;
+  align-items: center; /* Centers the buttons vertically */
+}
+
+/* Styles for the active language button */
+.nav-link.language-button.active {
+  background-color: #3971ff; /* Darker background for active language */
+  color: #fff; /* White text for better contrast and visibility */
   font-weight: bold;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 20px !important;
-  padding-right: 20px !important;
-  background: #72dfef;
-  margin-right: 40px;
-  border-radius: 35px;
 }
 
-.navbar-nav .custom2:hover {
-  border: 2px solid #72dfef;
-  background: #ffff;
-  color: #92D4F5;
+/* General style for language buttons, including smaller size adjustments */
+.nav-link.language-button {
+  padding: 0.25rem 0.5rem; /* Smaller padding for a more compact look */
+  font-size: 0.75rem; /* Smaller font size for the text */
+  margin-left: 10px; /* Space between FR and EN buttons */
+  border: 1px solid #3971ff; /* Consistent border color */
+  border-radius: 15px; /* Pill-like shape for aesthetics */
+  background-color: transparent; /* Transparent background for the inactive state */
+  color: #3971ff; /* Color to match the border for inactive state */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+  text-decoration: none; /* Removes underline from links */
 }
 
-.navbar-nav .custom1 {
-  font-weight: bold;
-  color: #92D4F5;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 15px !important;
-  padding-right: 15px !important;
-  background: #ffff;
-  margin-right: 40px;
-  border-radius: 35px;
+/* Enhanced hover effect for inactive language button for more pronounced interaction feedback */
+.nav-link.language-button:not(.active):hover {
+  background-color: #c0d1ff; /* Slightly lighter blue for hover state on inactive language */
+  color: #fff; /* White text for contrast */
+  border-color: #3971ff; /* Keeping border color consistent */
 }
 
-.navbar-nav .custom1:hover {
-  color: #3971FF;
+/* Adjusting the dropdown toggle to not look like a button but rather a simple link */
+.navbar .nav-item.dropdown .nav-link.dropdown-toggle {
+  background-color: transparent; /* No background to look more like a link */
+  color: #123b61; /* Keeping the blue color for visibility */
+  border-radius: 0; /* No rounded corners */
+  padding: 0.5rem 1rem; /* Adjust padding as needed */
+  transition: color 0.3s; /* Smooth transition for color change */
 }
 
-.dropdown-item .custom3:hover {
-  color: #3971FF;
+/* Hover effect for the dropdown toggle to indicate it's clickable */
+.navbar .nav-item.dropdown .nav-link.dropdown-toggle:hover,
+.navbar .nav-item.dropdown .nav-link.dropdown-toggle:focus {
+  color: #3971ff; /* Slightly darker shade of blue on hover/focus */
+}
+
+/* Customizing the dropdown menu */
+.navbar .dropdown-menu {
+  background-color: #fff; /* White background for dropdown items */
+}
+
+/* Customizing the dropdown menu links */
+.navbar .dropdown-menu .dropdown-item {
+  color: #92d4f5; /* Blue text color for dropdown items */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+/* Adjusting the hover state for dropdown items to change background color */
+.navbar .dropdown-menu .dropdown-item:hover,
+.navbar .dropdown-menu .dropdown-item:focus {
+  background-color: #f0f0f0; /* Light grey background for hover state */
+  color: #2c63cc; /* Slightly darker shade of blue for text on hover */
 }
