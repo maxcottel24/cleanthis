@@ -2,14 +2,14 @@
 "Renvoyer le lien d'activation": 'Resend activation link'
 'Vous êtes connecté comme': 'You are logged in as'
 'Me déconnecter': 'Log off'
-'Se connecter': 'Login'
+'Se connecter': Login
 Email: Email
-'Mot de passe': 'Password'
+'Mot de passe': Password
 'Mot de passe oublié ?': 'Forgot your password?'
 'Vous ne possédez pas de compte ?': 'Dont have an account?'
 Inscrivez-vous: 'Register at'
-'Bienvenue !': 'Welcome!'
-"CleanThis - Page d'acceuil": "CleanThis - Homepage"
+'Bienvenue !': Welcome!
+"CleanThis - Page d'acceuil": 'CleanThis - Homepage'
 'CleanThis - Connexion': 'CleanThis - Connection'
 'CleanThis - Inscription': 'CleanThis - Registration'
 Inscription: Registration
@@ -51,7 +51,7 @@ Supprimer: Delete
 à: at
 'Pour une surface de :': 'For a surface area of:'
 m²: m²
-"À l'adresse :": "To the address:"
+"À l'adresse :": 'To the address:'
 'Description :': 'Description:'
 'Mes rendez-vous': 'My appointments'
 'En cas de désistement,  merci de bien vouloir nous contacter dans les plus bref délais.': 'In the event of withdrawal, please contact us as soon as possible.'
@@ -78,7 +78,7 @@ Bonjour: Hello
 'CleanThis - Demande de devis': 'CleanThis - Request a quotation'
 Date: Date
 Date/Heure: Date/Time
-Surface: Surface area
+Surface: 'Surface area'
 'Surface en m²': 'Surface area in m²'
 Description: Description
 Informations: Informations
@@ -89,9 +89,9 @@ Adresse: Address
 'Surface à nettoyer:': 'Surface to be cleaned:'
 'Taille de la surface à nettoyer en': 'Size of surface to be cleaned in'
 'Description:': 'Description:'
-"Merci d'entrer une description détaillée.": "Please provide a detailed description."
+"Merci d'entrer une description détaillée.": 'Please provide a detailed description.'
 'Adresse:': 'Address:'
-"Selectioner l'adresse du lieu de prise en charge.": "Select the address of the pick-up location."
+"Selectioner l'adresse du lieu de prise en charge.": 'Select the address of the pick-up location.'
 Précédent: Previous
 Suivant: Next
 'Mes Commandes': 'My Orders'
@@ -103,8 +103,8 @@ Terminé: Completed
 'Êtes-vous sûr annuler votre demande de RDV ? (un opérateur va vous contacter) pour une réponse URGENTE : 01 02 03 04': 'Are you sure you want to cancel your appointment? (an operator will contact you) for an URGENT answer: 01 02 03 04'
 Annuler: Cancel
 'Historique des commandes terminées': 'History of completed orders'
-"Êtes-vous sur d'annuler votre demande de RDV ? (un operateur va vous contactez) pour une réponse URGENTE : 01 02 03 04": "Are you sure to cancel your appointment request? (an operator will contact you) for an URGENT answer: 01 02 03 04"
-"CleanThis - Modification de l'utilisateur": "CleanThis - Modification of the user"
+"Êtes-vous sur d'annuler votre demande de RDV ? (un operateur va vous contactez) pour une réponse URGENTE : 01 02 03 04": 'Are you sure to cancel your appointment request? (an operator will contact you) for an URGENT answer: 01 02 03 04'
+"CleanThis - Modification de l'utilisateur": 'CleanThis - Modification of the user'
 'MES INFORMATIONS': 'MY INFORMATION'
 'CleanThis - Modification du mot de passe': 'CleanThis - Password modification'
 'MODIFIER MON MOT DE PASSE': 'MODIFY MY PASSWORD'
@@ -115,11 +115,13 @@ Annuler: Cancel
 'Connexion - Sécurité': 'Connection - Security'
 'Modification adresse e-mail, nom, numéro de téléphone etc...': 'Change e-mail address, name, phone number etc...'
 Adresses: Addresses
-"Modification de vos adresses, ajout, changer l'adresse de facturation": "Modify your addresses, add, change billing address"
+"Modification de vos adresses, ajout, changer l'adresse de facturation": 'Modify your addresses, add, change billing address'
 'Demande de devis': 'Request a quotation'
 'Nos prestations': 'Our services'
 'Nos valeurs': 'Our core values'
-"S'inscrire": "Sign up"
+"S'inscrire": 'Sign up'
 'Mes commandes': 'My orders'
 'Mon profil': 'My profile'
 'Se déconnecter': 'Logging off'
+'êtes-vous sûr annuler votre demande de rdv ? (un opérateur va vous contacter) pour une réponse urgente : 01 02 03 04': 'Are you sure you want to cancel your request for an appointment? (an operator will contact you) for an urgent answer: 01 02 03 04'
+'etes-vous sur de vouloir valider ce rendez-vous ?': 'Are you sure you want to validate this appointment?'

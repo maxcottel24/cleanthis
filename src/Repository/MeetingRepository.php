@@ -21,14 +21,24 @@ class MeetingRepository extends ServiceEntityRepository
         parent::__construct($registry, Meeting::class);
     }
 
-    public function findByUser($userId) {
+    // Dans App\Repository\MeetingRepository.php
+
+    /**
+     * @return Meeting[] Returns an array of Meeting objects
+     */
+    public function findByOperatorUser($userId)
+    {
         return $this->createQueryBuilder('m')
-            ->innerJoin('m.users', 'u')
-            ->where('u.id = :userId')
-            ->setParameter('userId', $userId)
-            ->getQuery()
-            ->getResult();
+        ->join('m.users', 'u')
+        ->andWhere('u.id = :userId')
+        ->andWhere('u.job_title = :jobTitle') // Assurez-vous que cela correspond au nom de la propriété dans l'entité.
+        ->setParameter('userId', $userId)
+        ->setParameter('jobTitle', 'Opérateur')
+        ->getQuery()
+        ->getResult()
+    ;
     }
+
 
 
     public function findAll(): array
@@ -36,7 +46,7 @@ class MeetingRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             // ->where('p.status = 1')
             ->getQuery()
-            ->getResult(); 
+            ->getResult();
     }
     //    /**
     //     * @return Meeting[] Returns an array of Meeting objects

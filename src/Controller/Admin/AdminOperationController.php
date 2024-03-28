@@ -179,4 +179,10 @@ class AdminOperationController extends DashboardController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('\admin\myoperation', name:'app_admin_myoperation')]
+    public function myoperation(): Response
+    {
+
+    }
 }
