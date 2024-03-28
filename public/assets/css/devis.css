@@ -1,61 +1,59 @@
 #bottomRight {
-    position: fixed;
-      display: block;
-      
-      right: 10px;
-      bottom: 10px;
-    }
-    #button {
-        background-color: #72DFEF; 
-        border: none; 
-        color: #000000; 
-        font-size: 12px; 
-        width: 72px; 
-        font-family:'Inter' ;
-        height: 72px; 
-        cursor: pointer;
-        transition: width 0.5s ease-in-out, border-radius 0.5s ease-in-out, padding-left 0.5s ease-in-out; /* Ajustez ici */
-        display: inline-flex; 
-        align-items: center; 
-        justify-content: center; 
-        border-radius: 50%; 
-        position: relative; 
-        overflow: hidden; 
-        text-align: center;
-      }
-    
-      #button:hover {
-        width: 180px; 
-        border-radius: 22px; 
-        justify-content: flex-start; 
-      border-radius: 40px;
-        padding-left: 120px;
-      }
-    
-      #button img {
-        width: 48px; 
-        height: 48px; 
-        transition: opacity 0.5s ease-in-out; 
-      }
-    
-    
-    
-      #button span {
-        display: block; 
-        opacity: 0;
-        color: #000000 white; 
-        position: absolute; 
-        left: 7%; 
-        top: 50%; 
-        transform: translateY(-50%); 
-        white-space: nowrap; 
-        margin-left: 8px; 
-        transition: opacity 0.3s; 
-      }
-    
-      #button:hover span {
-        display: inline; 
-        opacity: 1; 
-        box-shadow: 7em black;
-      }
+  position: fixed;
+  display: block;
 
+  right: 10px;
+  bottom: 10px;
+}
+#button {
+  background-color: #92d4f5;
+  border: none;
+  color: #000000;
+  font-size: 12px;
+  width: 72px;
+  font-family: Inter, sans-serif; 
+  height: 72px;
+  cursor: pointer;
+  transition: width 0.5s ease-in-out, border-radius 0.5s ease-in-out,
+    padding-left 0.5s ease-in-out; /* Ajustez ici */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+#button:hover {
+  width: 180px;
+  border-radius: 22px;
+  justify-content: flex-start;
+  border-radius: 40px;
+  padding-left: 120px;
+}
+
+#button img {
+  width: 48px;
+  height: 48px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#button span {
+  display: block;
+  opacity: 0;
+  color: #000000 white;
+  position: absolute;
+  left: 7%;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  margin-left: 8px;
+  transition: opacity 0.3s;
+}
+
+#button:hover span {
+  display: inline;
+  opacity: 1;
+  box-shadow: 7em black;
+}

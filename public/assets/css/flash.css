@@ -1,27 +1,31 @@
 .lien {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .lien:hover {
-    transition: .5s ease-in-out;
-    color: rgb(178, 214, 255) !important;
+  transition: 0.5s ease-in-out;
+  color: rgb(178, 214, 255) !important;
 }
 
 .alert-icon {
-    font-size: 1.5em;
-    padding: 16px;
+  font-size: 1.5em;
+  padding: 16px;
 }
 
 .alert {
-    z-index: 11;
-    height: 60px;
-    position: absolute;
-    justify-content:space-around;
-    align-items: center;
-    top: 5.2rem;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    opacity: 0.9;
+  z-index: 11;
+  position: fixed; /* Changed from absolute to fixed for viewport-relative positioning */
+  top: 10%; /* Adjust based on preference */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%; /* Responsive width */
+  max-width: 600px; /* Maximum width to avoid overly wide alerts on large screens */
+  opacity: 0.9;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 20px; /* Added padding for internal spacing */
+  box-sizing: border-box; /* Ensures padding is included in the width calculation */
 }
 
 .alert-warning,
@@ -29,11 +33,21 @@
 .alert-danger,
 .alert-info,
 .alert-success {
-    width: 67%;
-    margin: auto;
-    margin-top: 16px;
+  width: 100%; /* Ensures it fills the .alert container */
+  margin: 16px 0;
+  word-wrap: break-word; /* Allows long words to break and wrap to the next line */
+  text-align: center; /* Centers the text within the alert */
 }
-.message{
-    top: 1.6rem;
-    opacity: 1;
+
+.message {
+  opacity: 1; /* Ensures message text is fully opaque */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Show ellipsis for overflow text */
+  white-space: nowrap; /* Keep the message in a single line */
+}
+
+.close-btn {
+    cursor: pointer;
+    padding: 0 8px;
+    font-size: 1.2rem;
 }

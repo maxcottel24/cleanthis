@@ -1,0 +1,30 @@
+.lien {
+    text-decoration: none;
+}
+
+.lien:hover {
+    transition: .5s ease-in-out;
+    color: rgb(178, 214, 255) !important;
+}
+
+.alert-icon {
+    font-size: 1.5em;
+    padding: 16px;
+}
+
+.alert {
+    height: 60px;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    margin-bottom: 0 !important;
+}
+
+.alert-warning,
+.alert-danger,
+.alert-success {
+    width: 67%;
+    margin: auto;
+    margin-top: 16px;
+}
+
