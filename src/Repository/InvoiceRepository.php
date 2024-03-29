@@ -21,6 +21,20 @@ class InvoiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Invoice::class);
     }
 
+
+    public function findOperationByInvoice(Invoice $invoice)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $qb->select('o')
+            ->from('App\Entity\Operation', 'o')
+            ->join('App\Entity\Belong', 'b', 'WITH', 'o.id = b.operation')
+            ->where('b.invoice = :invoice')
+            ->setParameter('invoice', $invoice);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
     //    /**
     //     * @return Invoice[] Returns an array of Invoice objects
     //     */

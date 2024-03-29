@@ -36,7 +36,7 @@ class Operation
     private ?string $floor_space = null;
 
     #[ORM\ManyToOne(inversedBy: 'operations')]
-    private ?meeting $meeting = null;
+    private ?Meeting $meeting = null;
 
     #[ORM\ManyToOne(inversedBy: 'operations')]
     private ?TypeOperation $typeOperation = null;
@@ -136,12 +136,12 @@ class Operation
         return $this;
     }
 
-    public function getMeeting(): ?meeting
+    public function getMeeting(): ?Meeting
     {
         return $this->meeting;
     }
 
-    public function setMeeting(?meeting $meeting): static
+    public function setMeeting(?Meeting $meeting): static
     {
         $this->meeting = $meeting;
 

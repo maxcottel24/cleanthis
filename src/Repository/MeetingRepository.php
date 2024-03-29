@@ -45,6 +45,19 @@ class MeetingRepository extends ServiceEntityRepository
     ;
     }
 
+    public function findUserByOperationIdAndJobTitle($operationId, $jobTitle)
+{
+    return $this->createQueryBuilder('m')
+        ->leftJoin('m.users', 'u')
+        ->leftJoin('m.operations', 'o')
+        ->where('o.id = :operationId')
+        ->andWhere('u.jobTitle = :jobTitle')
+        ->setParameter('operationId', $operationId)
+        ->setParameter('jobTitle', $jobTitle)
+        ->getQuery()
+        ->getOneOrNullResult();
+}
+
     public function findAll(): array
     {
         return $this->createQueryBuilder('p')

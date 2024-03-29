@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<title>Facture</title>
+	</head>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			font-size: 14px;
+		}
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		th,
+		td {
+			padding: 8px;
+			border: 1px solid #ddd;
+			text-align: left;
+		}
+		th {
+			background-color: #f2f2f2;
+		}
+		.header {
+			text-align: center;
+			padding: 20px;
+		}
+		.footer {
+			text-align: center;
+			margin-top: 20px;
+			font-size: 12px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<h2>Facture N°{{ invoice.id }}</h2>
+		</div>
+		<div class="entete">
+			<h4>CleanThis</h4>
+			<p>1 Place de la République</p>
+			<p>92300 Levallois-Perret</p>
+		</div>
+
+
+		<table>
+			<tr>
+				<th>Adresse:</th>
+				<td>
+					{{ address.street }}<br>
+					{{ address.city }},
+					{{ address.zipCode }}<br>
+				</td>
+			</tr>
+			<tr>
+				<th>Date de l'intervention:</th>
+				<td>{{ operation.intervention | date('d/m/Y H:i') }}</td>
+			</tr>
+			<tr>
+				<th>Client:</th>
+				<td>
+					{% if user %}
+						{{ user.firstname }}
+						{{ user.lastname }}
+					{% else %}
+						Non applicable
+					{% endif %}
+				</td>
+			</tr>
+
+			<tr>
+				<th>Description:</th>
+				<td>{{ operation.description }}</td>
+			</tr>
+			<tr>
+				<th>Montant Total:</th>
+				<td>{{ operation.price }}
+					€</td>
+			</tr>
+			<tr>
+				<th>Méthode de Paiement:</th>
+				<td>{{ invoice.paymentMethod }}</td>
+			</tr>
+		</table>
+
+		<div class="footer">
+			<p>Merci pour votre confiance.</p>
+		</div>
+	</body>
+</html>
