@@ -44,7 +44,7 @@ class OperationType extends AbstractType
             ->add('intervention', DateTimeType::class, [
                 'attr' => ['id' => 'meeting_reservedAt'],
                 'widget' => 'single_text',
-                'label' => 'Date et heure du rendez-vous souhaitée : ' ,
+                'label' => 'Date et heure du nettoyage : ' ,
             ])
             ->add('description', null, [
                 'attr' => [
