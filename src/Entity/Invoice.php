@@ -23,7 +23,7 @@ class Invoice
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $closingAt = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $paymentMethod = null;
 
     public function getId(): ?int

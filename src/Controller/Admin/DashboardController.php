@@ -67,7 +67,7 @@ class DashboardController extends AbstractDashboardController
                 yield MenuItem::section('Opérations', 'fa-solid fa-folder-open'),
                 yield MenuItem::linkToRoute('Opérations', 'fa-solid fa-hand-sparkles', 'app_admin_operation'),
                 yield MenuItem::linkToRoute('Rendez-vous', 'fas fa-calendar', 'app_admin_meeting'),
-                yield MenuItem::linkToCrud('Factures', 'fas fa-file-invoice-dollar', Invoice::class),
+                yield MenuItem::linkToRoute('Factures', 'fas fa-file-invoice-dollar', 'app_admin_invoice'),
 
                 yield MenuItem::section('Mes interventions', 'fa-brands fa-redhat'),
                 yield MenuItem::linkToRoute('Mes opérations', 'fa-solid fa-hand-sparkles', 'app_admin_myoperation'),
@@ -104,7 +104,7 @@ class DashboardController extends AbstractDashboardController
                 yield MenuItem::section('Opérations', 'fa-solid fa-folder-open'),
                 yield MenuItem::linkToRoute('Opérations', 'fa-solid fa-hand-sparkles', 'app_admin_operation'),
                 yield MenuItem::linkToRoute('Rendez-vous', 'fas fa-calendar', 'app_admin_meeting'),
-                yield MenuItem::linkToCrud('Factures', 'fas fa-file-invoice-dollar', Invoice::class),
+                yield MenuItem::linkToRoute('Factures', 'fas fa-file-invoice-dollar', 'app_admin_invoice'),
 
                 yield MenuItem::section('Mes interventions', 'fa-brands fa-redhat'),
                 yield MenuItem::linkToRoute('Mes rendez-vous', 'fas fa-calendar', 'app_admin_my_meetings'), 

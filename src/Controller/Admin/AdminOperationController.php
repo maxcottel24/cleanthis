@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Users;
+use App\Entity\Belong;
 use App\Entity\Address;
+use App\Entity\Invoice;
 use App\Entity\Meeting;
 use App\Entity\Operation;
 use App\Form\OperationType;
@@ -202,24 +204,37 @@ class AdminOperationController extends DashboardController
 
 
     #[Route('/admin/operation/validate/{id}', name: 'app_admin_operation_validate')]
-    public function validateMeeting(Request $request, EntityManagerInterface $entityManager, $id, Security $security): Response
-    {
-        $operation = $entityManager->getRepository(Operation::class)->find($id);
-        $user = $security->getUser();
+public function validateOperation(Request $request, EntityManagerInterface $entityManager, $id, Security $security): Response
+{
+    $operation = $entityManager->getRepository(Operation::class)->find($id);
 
-        if (!$operation) {
-            throw $this->createNotFoundException('Le meeting n\'a pas été trouvé.');
-        }
-       
-        // Modifier le statut du meeting
-        $operation->setStatus(3);
-        $operation->setIsValid(true);
-        $operation->setFinishedAt(new \DateTimeImmutable());
-
-        $entityManager->persist($operation);
-        $entityManager->flush();
-
-        // Rediriger l'utilisateur ou envoyer une réponse
-        return $this->redirectToRoute('admin');
+    if (!$operation) {
+        throw $this->createNotFoundException('L\'opération n\'a pas été trouvée.');
     }
+
+    // Modifier le statut de l'opération
+    $operation->setStatus(3);
+    $operation->setIsValid(true);
+    $operation->setFinishedAt(new \DateTimeImmutable());
+
+    // Créer une nouvelle facture
+    $invoice = new Invoice();
+    $invoice->setStatus(1); // Exemple: 1 pour "en attente de paiement"
+    $invoice->setAmount($operation->getPrice()); // Définir selon la logique de votre application
+
+    // Créer une nouvelle entité Belong pour lier l'opération à la facture
+    $belong = new Belong();
+    $belong->setCreatedAt(new \DateTime());
+    $belong->setInvoice($invoice);
+    $belong->setOperation($operation); // Supposons que votre entité Operation est définie pour être compatible
+
+    $entityManager->persist($invoice);
+    $entityManager->persist($belong);
+    $entityManager->persist($operation);
+    $entityManager->flush();
+
+    // Rediriger l'utilisateur ou envoyer une réponse
+    return $this->redirectToRoute('admin');
+}
+
 }
