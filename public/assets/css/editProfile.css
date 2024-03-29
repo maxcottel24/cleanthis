@@ -1,10 +1,10 @@
 html,
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  color: #123b61;
-  font-family: Inter, sans-serif;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100% !important;
+  color: #123b61 !important;
+  font-family: Inter, sans-serif !important;
 }
 
 .fancy {
@@ -50,7 +50,7 @@ body {
 
 .formulaire,
 .formulaire * {
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 .formulaire {
@@ -132,7 +132,7 @@ body {
 }
 
 .bouton-lien {
-  color: #123b61;
+  color: #123b61 !important;
   background-color: #f5f5f5;
   border: 1px solid #d0d0d0;
   padding: 10px 20px;
@@ -152,14 +152,14 @@ body {
 
 /* Style adjustments for form elements */
 .form-control {
-  border: 1px solid #123b61;
+  border: 1px solid #123b61 !important;
 }
 
 .form-control,
 .bouton-lien,
 .btn-primary {
   font-weight: normal;
-  border: 1px solid #123b61;
+  border: 1px solid #123b61 !important;
 }
 
 .label-mot-de-passe,
