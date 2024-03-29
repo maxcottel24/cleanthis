@@ -5,7 +5,7 @@
 {% block page_title -%}{{ _content_title }}{%- endblock %}{% block content_header %}
 <h1 class="title">{{ _content_title }}</h1>{% endblock content_header %}{% block main %}
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
-
+<link rel="stylesheet" href=""{{ asset('assets/css/indexoperation.css') }}"">
 <table id="operation-table" data-toggle="table" data-search="false" data-pagination="true">
 	<thead>
 		<tr>
@@ -62,7 +62,7 @@
 						{% endif %}
 					</td>
 					<td>{{ operation.floorSpace }}</td>
-					<td> {{ operation.intervention | date('d M Y H:i')  }} </td>
+					<td> {{ operation.intervention | date('d F Y H:i')  }} </td>
 					<td>{{ operation.price }}
 						€</td>
 					<td>

@@ -35,18 +35,18 @@ class OperationRepository extends ServiceEntityRepository
 
 
     public function countActiveOperationsByUser(Users $user)
-    {
-        return $this->createQueryBuilder('o')
-            ->select('count(o.id)')
-            ->join('o.meeting', 'm')
-            ->join('m.users', 'u')
-            ->where('u.id = :userId')
-            ->andWhere('o.status = :status') // Modifier ici pour vérifier le statut == 3
-            ->setParameter('userId', $user->getId())
-            ->setParameter('status', 3) // Supposons que 3 est le statut "en cours" ou "actif"
-            ->getQuery()
-            ->getSingleScalarResult();
-    }
+{
+    return $this->createQueryBuilder('o')
+        ->select('count(o.id)')
+        ->join('o.meeting', 'm')
+        ->join('m.users', 'u')
+        ->where('u.id = :userId')
+        ->andWhere('o.status != :status') // Modification ici pour corriger la syntaxe
+        ->setParameter('userId', $user->getId())
+        ->setParameter('status', 5) // Supprimez le != ici et placez-le dans le andWhere()
+        ->getQuery()
+        ->getSingleScalarResult();
+}
 
 
 
