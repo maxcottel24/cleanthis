@@ -14,6 +14,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @author Efflam <cefflam@gmail.com>
@@ -39,7 +40,7 @@ class ProfileController extends AbstractController
 
 
     #[Route('/profile/edition/{id}', name: 'app_profile_edit' ,  methods: ['GET', 'POST'])]
-    public function edit(Users $user, Request $request, EntityManagerInterface $manager): Response
+    public function edit(Users $user, Request $request, EntityManagerInterface $manager, TranslatorInterface $translator): Response
     {
         if($this->getUser() == NULL) {
             return $this->redirectToRoute('app_login');
@@ -55,9 +56,12 @@ class ProfileController extends AbstractController
             $user = $form->getData();
             $manager->persist($user);
             $manager->flush();
+
+            $message = $translator->trans('Les informations de votre compte ont bien été modifié');
+
             $this->addFlash(
                 'success',
-                'Les informations de votre compte ont bien été modifié'
+                $message
             );
             
         return $this->redirectToRoute('app_profile');

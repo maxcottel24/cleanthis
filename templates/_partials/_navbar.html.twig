@@ -11,7 +11,7 @@
 			<a href="{{ path('app_switch_locale', {'locale': 'fr'}) }}" class="nav-link language-button {{ app.request.locale == 'fr' ? 'active' : '' }}">FR</a>
 			<a href="{{ path('app_switch_locale', {'locale': 'en'}) }}" class="nav-link language-button {{ app.request.locale == 'en' ? 'active' : '' }}">EN</a>
 		</div>
-		<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<button type="button" class="navbar-toggler custom-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
