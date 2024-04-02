@@ -4,7 +4,7 @@ namespace App\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
-class AppExtensionOperation extends AbstractExtension
+class AppExtensionInvoice extends AbstractExtension
 {
     public function getFilters()
     {
