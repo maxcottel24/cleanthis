@@ -28,22 +28,18 @@
 			</tr>
 		{% else %}
 			{% for belong in belongs %}
-
-				{% if belong.invoice.status == 1 %}
-
-
-					{% set meeting = belong.operation.meeting %}
-					<tr>
-						<td>{{ belong.invoice.id }}</td>
-						<td>
-							<span class="{{ belong.invoice.status|invoice_status_badge }}">{{ belong.invoice.status|invoice_status }}</span>
-						</td>
-						<td>{{ meeting.address }}</td>
-						<td>{{ belong.operation.floorSpace }}
-							m²</td>
-						<td>{{ belong.operation.intervention | date('d F Y H:i') }}</td>
-						<td>{{ belong.operation.price }}</td>
-						<td>
+				{% set meeting = belong.operation.meeting %}
+				<tr>
+					<td>{{ belong.invoice.id }}</td>
+					<td>
+						<span class="{{ belong.invoice.status|invoice_status_badge }}">{{ belong.invoice.status|invoice_status }}</span>
+					</td>
+					<td>{{ meeting.address }}</td>
+					<td>{{ belong.operation.floorSpace }}
+						m²</td>
+					<td>{{ belong.operation.intervention | date('d F Y H:i') }}</td>
+					<td>{{ belong.operation.price }}</td>
+					<td>
                         {% if  belong.operation.discount  == 0.95 %}
                             5% de remise
                         {% endif %}
@@ -57,25 +53,24 @@
                             20% de remise
                         {% endif %}
                     </td>
-						<td>{{ belong.invoice.paymentMethod }}</td>
-						<td>
-							{% set userWithJobTitleNull = null %}
-							{% for user in meeting.users %}
-								{% if user.jobTitle == 'Null' and userWithJobTitleNull == null %}
-									{% set userWithJobTitleNull = user %}
-								{% endif %}
-							{% endfor %}
-							{{ userWithJobTitleNull ? userWithJobTitleNull.firstname : 'Non applicable' }},
-							{{ userWithJobTitleNull ? userWithJobTitleNull.lastname : 'Non applicable' }}
-						</td>
-						<td>
-							{% if belong.invoice.status == 2 %}
-								<a onclick="openPdfPopup('{{ path('view_pdf', {'id': belong.operation.id}) }}')"><img src="/assets/images/pdf.jpg" alt="" style="width: 40px; cursor: pointer"></a>
-								<a href="{{ path('generate_pdf', {'id': belong.operation.id}) }}"><img src="/assets/images/telecharger.png" alt="" style="width: 40px;"></a>
+					<td>{{ belong.invoice.paymentMethod }}</td>
+					<td>
+						{% set userWithJobTitleNull = null %}
+						{% for user in meeting.users %}
+							{% if user.jobTitle == 'Null' and userWithJobTitleNull == null %}
+								{% set userWithJobTitleNull = user %}
 							{% endif %}
-						</td>
-					</tr>
-				{% endif %}
+						{% endfor %}
+						{{ userWithJobTitleNull ? userWithJobTitleNull.firstname : 'Non applicable' }},
+						{{ userWithJobTitleNull ? userWithJobTitleNull.lastname : 'Non applicable' }}
+					</td>
+					<td>
+						{% if belong.invoice.status == 2 %}
+							<a onclick="openPdfPopup('{{ path('view_pdf', {'id': belong.operation.id}) }}')"><img src="/assets/images/pdf.jpg" alt="" style="width: 40px; cursor: pointer"></a>
+							<a href="{{ path('generate_pdf', {'id': belong.operation.id}) }}"><img src="/assets/images/telecharger.png" alt="" style="width: 40px;"></a>
+						{% endif %}
+					</td>
+				</tr>
 			{% endfor %}
 		{% endif %}
 	</tbody>

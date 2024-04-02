@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Invoice;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @extends ServiceEntityRepository<Invoice>
@@ -72,6 +73,89 @@ public function findQuarterlyRevenue()
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+
+
+    /**
+     * @return Invoice[] Returns an array of Invoice objects linked to the given user
+     */
+    public function findByUser($userId)
+    {
+        return $this->createQueryBuilder('i')
+            ->join('App\Entity\Belong', 'b', 'WITH', 'b.invoice = i.id')
+            ->join('b.operation', 'o')
+            ->join('o.meeting', 'm')
+            ->join('m.users', 'u')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
+
+    // public function findInvoicesByOperatorUser($userId)
+    // {
+    //     $qb = $this->getEntityManager()->createQueryBuilder();
+
+    //     $qb->select('i')
+    //         ->from('App\Entity\Invoice', 'i')
+    //         ->join('App\Entity\Belong', 'b', 'WITH', 'b.invoice = i')
+    //         ->join('b.operation', 'o')
+    //         ->join('o.meeting', 'm')
+    //         ->join('m.users', 'u')
+    //         ->where('u.id = :userId')
+    //         ->andWhere('u.job_title = :job_title')
+    //         ->setParameter('userId', $userId)
+    //         ->setParameter('job_title', 'Opérateur');
+
+    //     return $qb->getQuery()->getResult();
+    // }
+
+
+    public function findInvoicesByOperatorUser($userId)
+{
+    $qb = $this->createQueryBuilder('i')
+        ->join('App\Entity\Belong', 'b', 'WITH', 'b.invoice = i')
+        ->join('b.operation', 'o')
+        ->join('o.meeting', 'm')
+        ->join('m.users', 'u')
+        ->where('u.id = :userId')
+        ->andWhere('u.job_title = :jobTitle')
+        ->andWhere('i.status = :status')
+        ->setParameter('userId', $userId) // Notez l'utilisation de setParameter au lieu de setParameters
+        ->setParameter('jobTitle', 'Opérateur')
+        ->setParameter('status', 1);
+
+    $query = $qb->getQuery();
+
+    // Pour obtenir les résultats
+    return $query->getResult();
+}
+
+
+
+
+    public function findInvoicesByOperatorUserFinished($userId)
+{
+    $qb = $this->createQueryBuilder('i')
+        ->join('App\Entity\Belong', 'b', 'WITH', 'b.invoice = i')
+        ->join('b.operation', 'o')
+        ->join('o.meeting', 'm')
+        ->join('m.users', 'u')
+        ->where('u.id = :userId')
+        ->andWhere('u.job_title = :jobTitle')
+        ->andWhere('i.status = :status')
+        ->setParameter('userId', $userId) // Notez l'utilisation de setParameter au lieu de setParameters
+        ->setParameter('jobTitle', 'Opérateur')
+        ->setParameter('status', 2);
+
+    $query = $qb->getQuery();
+
+    // Pour obtenir les résultats
+    return $query->getResult();
+}
 
     //    /**
     //     * @return Invoice[] Returns an array of Invoice objects
