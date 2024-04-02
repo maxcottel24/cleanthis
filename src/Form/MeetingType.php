@@ -29,18 +29,18 @@ class MeetingType extends AbstractType
             ->add('reservedAt', DateTimeType::class, [
                 'attr' => ['id' => 'meeting_reservedAt'],
                 'widget' => 'single_text',
-                'label' => 'Date et heure du rendez-vous souhaitée : ' ,
+                'label' => 'form.label.reservedAt' ,
             ])
             ->add('description', null, [
-                'label' => 'Description : '
+                'label' => 'form.label.description'
             ])
             ->add('floor_space' , NumberType::class , [
-                'label' => 'Surface en m² : ' ,
+                'label' => 'form.label.floorSpace' ,
                 'invalid_message' => 'Merci de renseigner un nombre.'
             ])
             ->add('address', EntityType::class, [
                 'class' => Address::class,
-                'label' => 'Adresse du rendez-vous : ' ,
+                'label' => 'form.label.address' ,
                 'choice_label' => function (Address $address) {
                     return sprintf('%s, %s %s', $address->getStreet(), $address->getCity(), $address->getZipcode());
                 },
@@ -60,7 +60,7 @@ class MeetingType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ],
-                'label' => 'Confirmer' ,
+                'label' => 'form.label.submit' ,
             ])
         ;
     }
@@ -70,6 +70,7 @@ class MeetingType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Meeting::class,
             'user' => null,
+            'translation_domain' => 'messages'
         ]);
     }
 }

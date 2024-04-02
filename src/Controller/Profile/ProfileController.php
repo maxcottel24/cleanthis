@@ -72,7 +72,7 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/edition/{id}/password', name: 'app_profile_edit_password', methods: ['GET', 'POST'])]
-public function editPassword(UserInterface $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher): Response
+public function editPassword(UserInterface $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator): Response
 {
     if ($this->getUser() === null) {
         return $this->redirectToRoute('app_login');
@@ -94,10 +94,13 @@ public function editPassword(UserInterface $user, Request $request, EntityManage
             $manager->persist($user);
             $manager->flush();
 
-            $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
+            $message = $translator->trans('Votre mot de passe a été changé avec succès.');
+
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('app_profile');
         } else {
-            $this->addFlash('danger', 'L\'ancien mot de passe est incorrect.');
+            $message = $translator->trans('L\'ancien mot de passe est incorrect.');
+            $this->addFlash('danger', $message);
         }
     }
 

@@ -18,21 +18,21 @@ class UsersPasswordType extends AbstractType
         $builder
             ->add('oldPassword', PasswordType::class, [
                 'attr' => ['class' => 'form-control'],
-                'label' => 'Mot de passe actuel : ',
+                'label' => 'form.label.password.old',
                 'label_attr' => ['class' => 'form-label'],
             ])
             ->add('newPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Nouveau mot de passe : (8 caractères minimum)',
+                    'label' => 'form.label.password.new',
                     'label_attr' => ['class' => 'form-label'],
                     'attr' => [
                         'class' => 'form-control',
-                        'placeholder' => '* 1 maj, 1 min, 1 chiffre, 1 caractère spécial'
+                        'placeholder' => 'form.label.password.help'
                     ]
                 ],
                 'second_options' => [
-                    'label' => 'Confirmation du nouveau mot de passe : ',
+                    'label' => 'form.label.password.confirm',
                     'label_attr' => ['class' => 'form-label'],
                     'attr' => ['class' => 'form-control']
                 ],
@@ -48,7 +48,7 @@ class UsersPasswordType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary mt-4', 'id' => 'btn-confirm'],
-                'label' => 'Confirmer',
+                'label' => 'form.label.submit',
             ]);
     }
 }

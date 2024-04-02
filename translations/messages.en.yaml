@@ -67,7 +67,7 @@ m²: m²
 'Vous avez un nouveau rendez-vous.': 'You have a new appointment.'
 'Merci de confirmer rapidement. En cas de désistement,  merci de bien vouloir nous contacter dans les plus bref délais.': 'Please confirm as soon as possible. In the event of cancellation, please contact us as soon as possible.'
 'Réinitialisation de votre mot de passe': 'Resetting your password'
-Bonjour: Hello
+'Bonjour ': 'Hello '
 'Pour votre demande de réinitialisation de mot de passe, veuillez cliquer sur le lien ci-dessous :': 'To request a password reset, please click on the link below:'
 'Nouveau mot de passe': 'New password'
 'Activez votre compte': 'Please activate your account'
@@ -77,17 +77,17 @@ Bonjour: Hello
 'Merci de confirmer ou de modifier votre rendez-vous.': 'Please confirm or modify your appointment.'
 'CleanThis - Demande de devis': 'CleanThis - Request a quotation'
 Date: Date
-Date/Heure: Date/Time
+'Date/Heure ': 'Date/Time '
 Surface: 'Surface area'
-'Surface en m²': 'Surface area in m²'
+'Surface en m² ': 'Surface area in m² '
 Description: Description
-Informations: Informations
+'Informations ': 'Informations '
 Adresse: Address
 'Où intervenir ?': 'Where to take action?'
 'Date et heure du rendez-vous:': 'Date and time of appointment:'
 'Sélectionner une date et une heure à votre convenance pour votre rendez-vous.': 'Select a convenient date and time for your appointment.'
 'Surface à nettoyer:': 'Surface to be cleaned:'
-'Taille de la surface à nettoyer en': 'Size of surface to be cleaned in'
+'Taille de la surface à nettoyer en ': 'Size of surface to be cleaned in '
 'Description:': 'Description:'
 "Merci d'entrer une description détaillée.": 'Please provide a detailed description.'
 'Adresse:': 'Address:'
@@ -123,7 +123,65 @@ Adresses: Addresses
 'Mes commandes': 'My orders'
 'Mon profil': 'My profile'
 'Se déconnecter': 'Logging off'
-'êtes-vous sûr annuler votre demande de rdv ? (un opérateur va vous contacter) pour une réponse urgente : 01 02 03 04': 'are you sure you want to cancel your request for an appointment? (an operator will contact you) for an urgent answer: 01 02 03 04'
-'etes-vous sur de vouloir valider ce rendez-vous ?': 'are you sure you want to validate this appointment?'
+'êtes-vous sûr annuler votre demande de rdv ? (un opérateur va vous contacter) pour une réponse urgente : 01 02 03 04': 'Are you sure you want to cancel your request for an appointment? (an operator will contact you) for an urgent answer: 01 02 03 04'
+'etes-vous sur de vouloir valider ce rendez-vous ?': 'Are you sure you want to validate this appointment?'
 'Les informations de votre compte ont bien été modifié': 'Your account information has been modified.'
-'êtes-vous sûr de vouloir supprimer cette adresse ?': 'are you sure you want to delete this address?'
+'êtes-vous sûr de vouloir supprimer cette adresse ?': 'Are you sure you want to delete this address?'
+form.label.zipcode: 'Zipcode:'
+form.label.city: 'City:'
+form.label.street: 'Street *:'
+form.label.primary: 'Set as main address:'
+form.label.reservedAt: 'Date and time of appointment: '
+form.label.description: 'Description: '
+form.label.floorSpace: 'Surface area in m² : '
+form.label.address: 'Appointment address : '
+form.label.submit: Confirmation
+form.label.firstname: 'First name:'
+form.label.lastname: 'Name:'
+form.label.birthday: 'Birthdate:'
+form.label.birthday.year: Year
+form.label.birthday.month: Month
+form.label.birthday.day: Day
+form.label.phone: 'Telephone number:'
+form.label.email: 'Email address:'
+form.label.password: 'Password: (8-character minimum)'
+form.label.password.help: '1 shift, 1 min, 1 digit and 1 special character required'
+form.label.password.confirm: 'Confirm password:'
+form.label.password.invalid: 'The passwords do not match'
+form.label.confirm: Continue
+form.label.email.request: 'Enter your login e-mail: *'
+form.label.password.request: 'Enter your new password: *'
+form.label.password.old: 'Current password:'
+form.label.password.new: 'New password: (minimum 8 characters)'
+form.label.modified: Modify
+'Votre mot de passe a été changé avec succès.': 'Your password has been successfully changed.'
+"L'ancien mot de passe est incorrect.": 'The old password is incorrect.'
+'Vous n’êtes pas autorisé à modifier cette adresse.': 'You are not authorized to change this address.'
+'Cette adresse est actuellement utilisée par un ou plusieurs RDV et ne peut pas être modifiée.': 'This address is currently used by one or more appointments and cannot be modified.'
+"Il est nécessaire d'avoir au moins une adresse principale.": "At least one main address is required."
+'Adresse mise à jour avec succès.': 'Address successfully updated.'
+'Impossible de supprimer une adresse principale.': 'Unable to delete a main address.'
+'Cette adresse est associée à un ou plusieurs RDV et ne peut pas être supprimée.': 'This address is associated with one or more appointments and cannot be deleted.'
+'Adresse supprimée avec succès.': 'Address successfully deleted.'
+'Token de sécurité invalide.': 'Invalid security token.'
+'Vous n’êtes pas autorisé à supprimer cette adresse.': 'You are not authorized to delete this address.'
+'Adresse ajoutée avec succès.': 'Address successfully added.'
+"Il est impossible d'avoir plus de quatre adresses.": "It is impossible to have more than four addresses."
+"Votre compte n'est pas vérifié.": "Your account is not verified."
+'Votre demande de devis a été correctement enregistrée. Nous vous recontacterons dans les 48 heures qui suivent.': 'Your quote request has been successfully registered. We will contact you within 48 hours.'
+'Rendez-vous mis à jour avec succès.': 'Appointment successfully updated.'
+'Vous n’êtes pas autorisé à supprimer ce rendez-vous.': 'You are not authorized to delete this appointment.'
+'Le rendez-vous a été annulé avec succès.': 'The appointment was successfully cancelled.'
+"Une erreur est survenue lors de l'annulation du rendez-vous.": "An error occurred when cancelling the appointment."
+'Le token de sécurité est invalide.': 'The security token is invalid.'
+"Vous n’êtes pas autorisé à valider ce rendez-vous ou le rendez-vous n'existe pas.": "You are not authorized to validate this appointment or the appointment does not exist."
+'Le rendez-vous a été validé avec succès.': 'The appointment was successfully validated.'
+'Email envoyé avec succès': 'Email sent successfully'
+'Un problème est survenu': 'A problem has arisen'
+'Mot de passe changé avec succès': 'Password successfully changed'
+'Jeton invalide': 'Invalid token'
+'Utilisateur activé': 'User activated'
+'Le token est invalide ou a expiré': 'The token is invalid or has expired'
+'Vous devez être connecté pour accéder à cette page': 'You must be logged in to access this page'
+'Cet utilisateur est déjà activé': 'This user is already activated'
+'Email de vérification envoyé': 'Email verification sent'

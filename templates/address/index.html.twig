@@ -47,7 +47,7 @@
 							</ul>
 							<a href="{{ path('app_address_edit', {'id': address.id}) }}" class="btn  pricing__action">{{ "Modifier" |trans }}</a>
 							{% if address.isIsPrimary == false %}
-								<form method="post" action="{{ path('app_address_delete', {'id': address.id}) }}" onsubmit="return confirm('{{ " êtes-vous sûr de vouloir supprimer cette adresse ?" |trans }}');" class="mb-0">
+								<form method="post" action="{{ path('app_address_delete', {'id': address.id}) }}" onsubmit="return confirm('{{ "êtes-vous sûr de vouloir supprimer cette adresse ?" |trans }}');" class="mb-0">
 									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ address.id) }}">
 									<button type="submit" class="pricing__action_delete mb-2">{{ "Supprimer" |trans }}</button>
 								</form>

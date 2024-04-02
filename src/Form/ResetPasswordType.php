@@ -19,13 +19,13 @@ class ResetPasswordType extends AbstractType
 
                 'type' => PasswordType::class ,
                 'first_options' => [
-                   'label' => 'Entrez votre nouveau mot de passe *',
+                   'label' => 'form.label.password.request',
                    'attr' => [
                        'class'=> 'form-control'
                    ]
                 ],
                 'second_options' => [
-                   'label' =>'Confirmation du mot de passe *',
+                   'label' =>'form.label.password.confirm',
                    'attr' => [
                        'class'=> 'form-control'
                    ] 
@@ -34,10 +34,6 @@ class ResetPasswordType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length(['min' => 8]),
-                    // new Assert\PasswordStrength([
-                    //     'minScore' => PasswordStrength::STRENGTH_WEAK ,
-                    //     'Votre mot de passe n\'est pas suffisament sécurisé'
-                    // ]) 
                 ]
                ])
         ;
@@ -46,7 +42,7 @@ class ResetPasswordType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'translation_domain' => 'messages'
         ]);
     }
 }
