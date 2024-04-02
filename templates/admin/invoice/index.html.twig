@@ -48,8 +48,8 @@
 				</td>
 				<td>
 					{% if belong.invoice.status == 2 %}
-                        <button onclick="openPdfPopup('{{ path('view_pdf', {'id': belong.operation.id}) }}')">Voir le PDF</button>
-						<a href="{{ path('generate_pdf', {'id': belong.operation.id}) }}" class="btn btn-success">Télécharger</a>
+                        <a onclick="openPdfPopup('{{ path('view_pdf', {'id': belong.operation.id}) }}')"><img src="/assets/images/pdf.jpg" alt="" style="width: 40px; cursor: pointer"></a>
+						<a href="{{ path('generate_pdf', {'id': belong.operation.id}) }}" ><img src="/assets/images/telecharger.png" alt="" style="width: 40px;"></a>
 					{% endif %}
 				</td>
 
