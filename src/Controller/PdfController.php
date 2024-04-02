@@ -71,21 +71,50 @@ class PdfController extends AbstractController
         // Configuration et création d'un nouveau document PDF avec TCPDF
         $pdf = new TCPDF();
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor('Votre Entreprise');
+        $pdf->SetAuthor('CleanThis');
         $pdf->SetTitle('Facture ' . $invoice->getId());
         $pdf->SetSubject('Facture Opération');
         $pdf->SetKeywords('TCPDF, PDF, facture, test, guide');
-
+        $pdf->SetMargins(5, 1, 5);
+        $pdf->SetFooterMargin(5);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFooterData(array(0,64,0), array(0,64,128)) ;
         // Ajouter une page
         $pdf->AddPage();
 
-        // Définir le contenu avec l'adresse
-        $htmlContent = $this->renderView('pdf/invoice.html.twig', [
-            'operation' => $operation,
-            'invoice' => $invoice,
-            'address' => $address,
-            'user' => $userWithJobTitleNull
-        ]);
+        // Définir le chemin du logo.
+    // Assurez-vous d'utiliser le chemin correct ici. Si vous utilisez Symfony, vous pouvez obtenir le chemin absolu comme ceci :
+    $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
+    $logoPath = $publicDirectory . '/assets/images/Logo.jpg';
+    $paidPath = $publicDirectory . '/assets/images/aquitter.jpg';
+    $signaturePath = $publicDirectory . '/assets/images/signature.jpg';
+    $tamponPath = $publicDirectory . '/assets/images/tampon.jpg';
+
+    // Vérifier si le fichier existe pour éviter des erreurs dans le PDF
+    if (!file_exists($logoPath)) {
+        throw new \Exception("Le fichier logo n'existe pas dans le chemin spécifié : " . $logoPath);
+    }
+    if (!file_exists($paidPath)) {
+        throw new \Exception("Le fichier logo n'existe pas dans le chemin spécifié : " . $paidPath);
+    }
+    if (!file_exists($signaturePath)) {
+        throw new \Exception("Le fichier logo n'existe pas dans le chemin spécifié : " . $signaturePath);
+    }
+    if (!file_exists($tamponPath)) {
+        throw new \Exception("Le fichier logo n'existe pas dans le chemin spécifié : " .$tamponPath );
+    }
+    // Définir le contenu avec l'adresse et inclure une image
+    $htmlContent = $this->renderView('pdf/invoice.html.twig', [
+        'operation' => $operation,
+        'invoice' => $invoice,
+        'address' => $address,
+        'user' => $userWithJobTitleNull,
+        'logoPath' => $logoPath, 
+        'tamponPath' => $tamponPath,
+        'signaturePath' => $signaturePath , 
+        'paidPath' => $paidPath
+
+    ]);
         $pdf->writeHTML($htmlContent, true, false, true, false, '');
 
         // Nom du fichier PDF à générer
@@ -145,27 +174,55 @@ class PdfController extends AbstractController
         // Configuration et création d'un nouveau document PDF avec TCPDF
         $pdf = new TCPDF();
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor('Votre Entreprise');
+        $pdf->SetAuthor('CleanThis');
         $pdf->SetTitle('Facture ' . $invoice->getId());
         $pdf->SetSubject('Facture Opération');
         $pdf->SetKeywords('TCPDF, PDF, facture, test, guide');
-
+        $pdf->SetMargins(5, 1, 5);
+        $pdf->SetFooterMargin(5);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFooterData(array(0,64,0), array(0,64,128)) ;
         // Ajouter une page
         $pdf->AddPage();
 
-        // Définir le contenu avec l'adresse
-        $htmlContent = $this->renderView('pdf/invoice.html.twig', [
-            'operation' => $operation,
-            'invoice' => $invoice,
-            'address' => $address,
-            'user' => $userWithJobTitleNull
-        ]);
-        $pdf->writeHTML($htmlContent, true, false, true, false, '');
+        // Définir le chemin du logo.
+    // Assurez-vous d'utiliser le chemin correct ici. Si vous utilisez Symfony, vous pouvez obtenir le chemin absolu comme ceci :
+    $publicDirectory = $this->getParameter('kernel.project_dir') . '/public';
+    $logoPath = $publicDirectory . '/assets/images/Logo.jpg';
+    $paidPath = $publicDirectory . '/assets/images/aquitter.jpg';
+    $signaturePath = $publicDirectory . '/assets/images/signature.jpg';
+    $tamponPath = $publicDirectory . '/assets/images/tampon.jpg';
 
-        // Envoyer le PDF au navigateur pour affichage
-        $pdf->Output('facture-' . $invoice->getId() . '-operation-' . $operation->getId() . '.pdf', 'I');
+    // Vérifier si le fichier existe pour éviter des erreurs dans le PDF
+    if (!file_exists($logoPath)) {
+        throw new \Exception("Le fichier logo n'existe pas dans le chemin spécifié : " . $logoPath);
+    }
+    if (!file_exists($paidPath)) {
+        throw new \Exception("Le fichier logo n'existe pas dans le chemin spécifié : " . $paidPath);
+    }
+    if (!file_exists($signaturePath)) {
+        throw new \Exception("Le fichier logo n'existe pas dans le chemin spécifié : " . $signaturePath);
+    }
+    if (!file_exists($tamponPath)) {
+        throw new \Exception("Le fichier logo n'existe pas dans le chemin spécifié : " .$tamponPath );
+    }
+    // Définir le contenu avec l'adresse et inclure une image
+    $htmlContent = $this->renderView('pdf/invoice.html.twig', [
+        'operation' => $operation,
+        'invoice' => $invoice,
+        'address' => $address,
+        'user' => $userWithJobTitleNull,
+        'logoPath' => $logoPath, 
+        'tamponPath' => $tamponPath,
+        'signaturePath' => $signaturePath , 
+        'paidPath' => $paidPath
 
-        // La réponse HTTP est gérée par TCPDF, pas besoin de retourner une réponse ici
-        exit;
+    ]);
+    $pdf->writeHTML($htmlContent, true, false, true, false, '');
+
+    // Envoyer le PDF au navigateur pour affichage
+    $pdf->Output('facture-' . $invoice->getId() . '-operation-' . $operation->getId() . '.pdf', 'I');
+
+    exit; // Pas besoin de retourner une réponse ici, TCPDF s'en charge
     }
 }

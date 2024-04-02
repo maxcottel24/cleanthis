@@ -7,7 +7,35 @@
 	<style>
 		body {
 			font-family: Arial, sans-serif;
-			font-size: 14px;
+			font-size: 11px;
+			margin: 0;
+			padding: 0;
+		}
+		.entete {
+			display: flex;
+			justify-content: space-between; /* Aligner les enfants aux extrémités */
+			align-items: center; /* Centrer les enfants verticalement */
+		}
+		.logo,
+		.aquitter {
+			/* Pas besoin de float ou de largeur spécifique */
+			text-align: center; /* Centre le texte et les images dans chaque conteneur */
+		}
+		.logo img,
+		.aquitter img {
+			width: auto; /* Adapter la largeur selon l'image */
+			height: 100px; /* Exemple de hauteur fixe */
+		}
+		{
+			# .logo {
+				width: 50%;
+				float: left; /* Le logo de CleanThis flotte à gauche */
+			}
+			.aquitter {
+				width: 50%;
+				float: right; /* L'image "aquitter" flotte à droite */
+				text-align: right;
+			} #
 		}
 		table {
 			width: 100%;
@@ -16,75 +44,153 @@
 		th,
 		td {
 			padding: 8px;
-			border: 1px solid #ddd;
+			border: 2px solid #123b61;
 			text-align: left;
 		}
 		th {
-			background-color: #f2f2f2;
+			background-color: #92d4f5;
+			font-weight: bold;
+
 		}
 		.header {
 			text-align: center;
-			padding: 20px;
 		}
 		.footer {
 			text-align: center;
 			margin-top: 20px;
 			font-size: 12px;
 		}
+
+
+		.entete p {
+			padding: 0;
+		}
+		.client {
+			margin-left: 30px;
+			text-align: right;
+		}
+
+		.name {
+			font-weight: bold;
+		}
+
+		p {
+			margin-top: 1px;
+			margin-bottom: 1px;
+		}
+		.center {
+			text-align: center;
+			font-weight: bold;
+		}
+
+		.right-align {
+			text-align: right; /* Ajouté pour aligner le contenu à droite */
+		}
+		.right-align img {
+			display: block; /* Assure que les images s'affichent l'une en dessous de l'autre */
+			margin: 10px auto auto; /* Centre les images horizontalement dans le conteneur */ /* Espacement entre les images */
+		}
 	</style>
 	<body>
-		<div class="header">
-			<h2>Facture N°{{ invoice.id }}</h2>
-		</div>
 		<div class="entete">
-			<h4>CleanThis</h4>
-			<p>1 Place de la République</p>
-			<p>92300 Levallois-Perret</p>
+			<div class="logo">
+				<img src="{{ asset('assets/images/Logo.jpg') }}" alt="Logo CleanThis">
+				<p class="name">CleanThis
+					<br>
+					1 Place de la République
+					<br>
+					92300 Levallois-Perret
+					<br>
+					09.72.72.39.36
+					<br>
+					acleanthis@gmail.com
+				</p>
+			</div>
 		</div>
 
+		<div class="client">
+			<p class="name">
+				{% if user %}
+					{{ user.firstname }}
+					{{ user.lastname }}
+				{% else %}
+					Non applicable
+				{% endif %}
+				<br>
 
-		<table>
-			<tr>
-				<th>Adresse:</th>
-				<td>
-					{{ address.street }}<br>
-					{{ address.city }},
-					{{ address.zipCode }}<br>
-				</td>
-			</tr>
-			<tr>
-				<th>Date de l'intervention:</th>
-				<td>{{ operation.intervention | date('d/m/Y H:i') }}</td>
-			</tr>
-			<tr>
-				<th>Client:</th>
-				<td>
-					{% if user %}
-						{{ user.firstname }}
-						{{ user.lastname }}
-					{% else %}
-						Non applicable
-					{% endif %}
-				</td>
-			</tr>
+				{{ address.street }}
+				<br>
+				{{ address.zipCode }}
+				{{ address.city }}</p>
+		</div>
+		<div class="center">
+			<h4>Facture N°{{ invoice.id }}</h4>
+		</div>
+		<div>
+			<p>
+				Date de création :
+				{{ invoice.closingAt }}
+				<br>
+				Date et heure d'intervention :
+				{{ operation.intervention | date('d/m/Y H:i') }}
+			</p>
+		</div>
+		<div class="tableau">
+			<table>
+				<thead>
+					<tr>
+						<th>Description</th>
+						<th>Surface</th>
+						<th>Réduction</th>
+						<th>PrixTTC</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{ operation.description }}
+						</td>
+						<td>
+							{{ operation.floorSpace }}
+							m²</td>
+						<td>
+							{% if operation.discount == 0.95 %}
+								5% de remise
+							{% endif %}
+							{% if operation.discount == 0.90 %}
+								10% de remise
+							{% endif %}
+							{% if operation.discount == 0.85 %}
+								15% de remise
+							{% endif %}
+							{% if operation.discount == 0.80 %}
+								20% de remise
+							{% endif %}
+						</td>
 
-			<tr>
-				<th>Description:</th>
-				<td>{{ operation.description }}</td>
-			</tr>
-			<tr>
-				<th>Montant Total:</th>
-				<td>{{ operation.price }}
-					€</td>
-			</tr>
-			<tr>
-				<th>Méthode de Paiement:</th>
-				<td>{{ invoice.paymentMethod }}</td>
-			</tr>
-		</table>
+						<td>{{ operation.price }}
+							€</td>
+					</tr>
 
+					<p>Méthode de paiement :
+						{{ invoice.paymentMethod }}
+					</p>
+
+				</tbody>
+
+			</table>
+		</div>
 		<div class="footer">
-			<p>Merci pour votre confiance.</p>
+			<div
+				class="right-align">
+				<!-- Conteneur pour aligner à droite -->
+				<img src="{{ asset('assets/images/tampon.jpg') }}" alt="Tampon" width="80" height="80">
+				<img src="{{ asset('assets/images/signature.jpg') }}" alt="Signature" width="120" height="120">
+			</div>
+			<br><br><br><br><br><br>
+			<P>CleanThis - Société au capital de 175 899,39€
+				<br>
+				N°SIRET : 82436343601164 - N°TVA : FR48824363436
+			</p>
 		</div>
 	</body>
 </html>
