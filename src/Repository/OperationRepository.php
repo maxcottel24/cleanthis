@@ -48,6 +48,40 @@ public function countActiveOperationsByUser(Users $user)
         ->getSingleScalarResult();
 }
 
+public function countTasksByOperationType()
+{
+    return $this->createQueryBuilder('o') 
+        ->select('t.label, COUNT(o.id) AS task_count')
+        ->join('o.typeOperation', 't')
+        ->groupBy('t.id')
+        ->orderBy('task_count', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
+
+
+public function calculateTotalRevenueByOperationType()
+{
+    return $this->createQueryBuilder('o') 
+        ->select('t.label, SUM(o.price) AS total_revenue')
+        ->join('o.typeOperation', 't') 
+        ->groupBy('t.id')
+        ->orderBy('total_revenue', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
+
+public function findCostPerUnit()
+{
+    $qb = $this->createQueryBuilder('o');
+
+    $qb->select('o.id, (o.price * COALESCE(o.discount, 1)) / o.floor_space  AS costPerUnit')
+        ->where($qb->expr()->gt('o.floor_space', 0)); 
+
+    return $qb->getQuery()->getResult();
+}
+
+
     //    /**
     //     * @return Operation[] Returns an array of Operation objects
     //     */

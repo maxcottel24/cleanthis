@@ -11,9 +11,186 @@
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
 
 
-
+<canvas id="chartTypeOp" role="img"></canvas>
+<br>
+<canvas id="efficiencyChart" role="img"></canvas>
+<br>
+<canvas id="monthlyRevenueChart" role="img"></canvas>
+<br>
+<canvas id="quarterlyRevenueChart" role="img"></canvas>
+<br>
+<canvas id="annualRevenueChart" role="img"></canvas>
 
 
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" integrity="sha512-ZwR1/gSZM3ai6vCdI+LVF1zSq/5HznD3ZSTk7kajkaj4D292NLuduDCO1c/NT8Id+jE58KYLKT7hXnbtryGmMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="module">
+ const TypeOpRevenue = {{ TypeOpRevenue|json_encode|raw }};
+    
+    const TypeOpUse = {{ TypeOpUse|json_encode|raw }};
+    
+    const orderedLabels = ["Grosse", "Moyenne", "Petite", "Custom"];
+    const orderedTaskCounts = orderedLabels.map(label => {
+        const item = TypeOpUse.find(td => td.label === label);
+        return item ? item.task_count : 0; 
+    });
+
+    const dataTypeOp = {
+        labels: TypeOpRevenue.map(op => op.label),
+        datasets: [{
+            label: 'Revenu Total',
+            yAxisID: 'yAxisRevenue',
+            data: TypeOpRevenue.map(op => op.total_revenue),
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }, {
+             label: 'Nombre de Tâches',
+            yAxisID: 'yAxisCount',
+            data: orderedTaskCounts,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const optionsTypeOp = {
+    scales: {
+        yAxisCount: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            title: {
+                display: true,
+                text: 'Nombre de Tâches'
+            }
+        },
+        yAxisRevenue: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            title: {
+                display: true,
+                text: 'Revenu Total'
+            },
+            grid: {
+                drawOnChartArea: false 
+            }
+        }
+    }
+};
+
+const ctx = document.getElementById('chartTypeOp');
+const myChart = new Chart(ctx, {
+    type: 'bar', 
+    data: dataTypeOp,
+    options: optionsTypeOp
+});
+
+
+ document.addEventListener('DOMContentLoaded', function() {
+        const operationIDs = {{ operationIDs|json_encode|raw }};
+        const costsPerUnit = {{ costsPerUnit|json_encode|raw }};
+        const averageCostData = {{ averageCostData|json_encode|raw }};
+
+        const efficiencyChartbar = document.getElementById('efficiencyChart');
+        const efficiencyChart = new Chart(efficiencyChartbar, {
+            type: 'bar',
+            data: {
+                labels: operationIDs,
+                datasets: [{
+                    label: 'Coût par unité de surface nettoyée ($/m²)',
+                    data: costsPerUnit,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Moyenne',
+                    data: averageCostData,
+                    type: 'line',
+                    fill: false,
+                    borderColor: 'rgb(54, 162, 235)',
+                    borderWidth: 2,
+                    pointRadius: 0 
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Coût ($/m²)'
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+
+const monthlyRevenueData = {
+       
+        labels: {{ labelsForCurrentQuarter|json_encode|raw }},
+        datasets: [{
+            label: 'Revenu Mensuel',
+           
+            data: {{ monthlyRevenue|map(revenue => revenue.monthly_revenue)|json_encode|raw }},
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+
+    const quarterlyRevenue = {{ quarterlyRevenue|json_encode|raw }};
+
+    const quarterlyRevenueData = {
+        labels: ['T1', 'T2', 'T3', 'T4'],
+        datasets: [{
+            label: 'Revenu Trimestriel',
+            data: quarterlyRevenue.map(revenue => revenue.quarterly_revenue),
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const annualRevenueData = {
+        labels: {{ annualRevenue|map(revenue => revenue.year)|json_encode|raw }},
+        datasets: [{
+            label: 'Revenu Annuel',
+            data: {{ annualRevenue|map(revenue => revenue.annual_revenue)|json_encode|raw }},
+            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+            borderColor: 'rgba(255, 159, 64, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const monthlyCtx = document.getElementById('monthlyRevenueChart').getContext('2d');
+    new Chart(monthlyCtx, {
+        type: 'line',
+        data: monthlyRevenueData
+    });
+
+    const quarterlyCtx = document.getElementById('quarterlyRevenueChart').getContext('2d');
+    new Chart(quarterlyCtx, {
+        type: 'line',
+        data: quarterlyRevenueData
+    });
+
+    const annualCtx = document.getElementById('annualRevenueChart').getContext('2d');
+    new Chart(annualCtx, {
+        type: 'line',
+        data: annualRevenueData
+    });
+
+
+
+
+
+
+
+</script>
 {% endblock main %}
