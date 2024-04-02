@@ -22,6 +22,44 @@ class InvoiceRepository extends ServiceEntityRepository
     }
 
 
+    public function findMonthlyRevenue()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $currentYear = date('Y');
+        $currentMonth = date('n');
+        $currentQuarter = ceil($currentMonth / 3);
+        
+        $sql = '
+            SELECT YEAR(closing_at) AS year, MONTH(closing_at) AS month, SUM(amount) AS monthly_revenue
+            FROM invoice
+            WHERE YEAR(closing_at) = :year AND QUARTER(closing_at) = :quarter
+            GROUP BY year, month
+        ';
+        $stmt = $conn->executeQuery($sql, [
+            'year' => $currentYear,
+            'quarter' => $currentQuarter,
+        ]);
+    
+        return $stmt->fetchAllAssociative();
+    }
+
+
+    
+public function findQuarterlyRevenue()
+{
+    $conn = $this->getEntityManager()->getConnection();
+    $currentYear = date('Y'); 
+    $sql = '
+        SELECT YEAR(closing_at) AS year, QUARTER(closing_at) AS quarter, SUM(amount) AS quarterly_revenue
+        FROM invoice
+        WHERE YEAR(closing_at) = :currentYear
+        GROUP BY year, quarter
+    ';
+    $stmt = $conn->executeQuery($sql, ['currentYear' => $currentYear]);
+
+    return $stmt->fetchAllAssociative();
+
+
     public function findOperationByInvoice(Invoice $invoice)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -59,4 +97,20 @@ class InvoiceRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
 }
+
+public function findAnnualRevenue()
+{
+    $conn = $this->getEntityManager()->getConnection();
+    $sql = '
+        SELECT YEAR(closing_at) AS year, SUM(amount) AS annual_revenue
+        FROM invoice
+        GROUP BY year
+    ';
+    $stmt = $conn->executeQuery($sql);
+
+    return $stmt->fetchAllAssociative();
+}
+}
+
