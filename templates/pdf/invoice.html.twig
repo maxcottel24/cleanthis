@@ -129,7 +129,7 @@
 		<div>
 			<p>
 				Date de création :
-				{{ invoice.closingAt }}
+				{{ invoice.closingAt | date('d/m/Y') }}
 				<br>
 				Date et heure d'intervention :
 				{{ operation.intervention | date('d/m/Y H:i') }}
