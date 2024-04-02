@@ -26,7 +26,7 @@ class UsersType extends AbstractType
                 'minlenght' => '2',
                 'maxlength' => '50',
             ],            
-           'label' => 'Prénom :' , 
+           'label' => 'form.label.firstname' , 
            'label_attr' => [
             'class' => 'form_label'
            ],
@@ -41,7 +41,7 @@ class UsersType extends AbstractType
                 'minlenght' => '2',
                 'maxlength' => '50',
             ],            
-           'label' => 'Nom :' , 
+           'label' => 'form.label.lastname' , 
            'label_attr' => [
             'class' => 'form_label'
            ],
@@ -56,7 +56,7 @@ class UsersType extends AbstractType
                 'minlenght' => '2',
                 'maxlength' => '50',
             ],            
-           'label' => 'Numéro de téléphone :' , 
+           'label' => 'form.label.phone' , 
            'label_attr' => [
             'class' => 'form_label'
            ],
@@ -74,7 +74,7 @@ class UsersType extends AbstractType
                 'maxlength' => '255',
             ],
 
-            'label' => 'E-mail *:',
+            'label' => 'form.label.email',
             'label_attr' => [
                 'class' => 'form_label'
             ],
@@ -88,7 +88,7 @@ class UsersType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ],
-                'label' => 'Modifier' , 
+                'label' => 'form.label.modified' , 
             ]) 
             ;
     }
@@ -97,6 +97,7 @@ class UsersType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Users::class,
+            'translation_domain' => 'messages'
         ]);
     }
 }

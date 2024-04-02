@@ -13,9 +13,9 @@ class ResetPasswordRequestType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'Entrez votre e-mail de connexion *',
+                'label' => 'form.label.email.request',
                 'attr' => [
-                    'placeholder' => 'exemple@gmail.fr',
+                    'placeholder' => 'exemple@gmail.com',
                     'class' => 'form-control'
                 ]
             ])
@@ -25,7 +25,7 @@ class ResetPasswordRequestType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'translation_domain' => 'messages'
         ]);
     }
 }

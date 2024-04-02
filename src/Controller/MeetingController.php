@@ -18,16 +18,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class MeetingController extends AbstractController
 {
     #[Route('/demande-de-devis', name: 'app_meeting')]
-    public function sendMeeting(Request $request, EntityManagerInterface $manager, Security $security, SendMailService $mail): Response
+    public function sendMeeting(Request $request, EntityManagerInterface $manager, Security $security, SendMailService $mail, TranslatorInterface $translator): Response
     {
         $user = $security->getUser();
         if ($this->getUser() == NULL) {
             return $this->redirectToRoute('app_login');
         }
         if ($user->isIsVerified() == 0) {
+            $message = $translator->trans('Votre compte n\'est pas vérifié.');
             $this->addFlash(
                 'danger',
-                "Votre compte n'est pas vérifié."
+                $message
             );
             return $this->redirectToRoute('app_profile');
         }
@@ -72,9 +73,10 @@ class MeetingController extends AbstractController
                 $context
             );
 
+            $message = $translator->trans('Votre demande de devis a été correctement enregistrée. Nous vous recontacterons dans les 48 heures qui suivent.');
             $this->addFlash(
                 'success',
-                'Votre demande de devis a été correctement enregistrée. Nous vous recontacterons dans les 48 heures qui suivent. Vous trouverez un résumé dans vos e-mails et dans vos commandes pour suivre votre demande.'
+                $message
             );
 
             return $this->redirectToRoute('app_profile');
@@ -104,7 +106,7 @@ class MeetingController extends AbstractController
     }
 
     #[Route('/meeting/{id}/edit', name: 'app_meeting_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Meeting $meeting, EntityManagerInterface $entityManager, Security $security): Response
+    public function edit(Request $request, Meeting $meeting, EntityManagerInterface $entityManager, Security $security, TranslatorInterface $translator): Response
     {
         $user = $security->getUser();
         if (!$meeting->getUsers()->contains($user)) {
@@ -121,7 +123,8 @@ class MeetingController extends AbstractController
 
 
             $entityManager->flush();
-            $this->addFlash('success', 'Rendez-vous mis à jour avec succès.');
+            $message = $translator->trans('Rendez-vous mis à jour avec succès.');
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('app_meeting_index', ['id' => $user->getId()]);
         }
 
@@ -136,7 +139,8 @@ class MeetingController extends AbstractController
     {
         $user = $security->getUser();
         if (!$meeting->getUsers()->contains($user)) {
-            $this->addFlash('warning', 'Vous n’êtes pas autorisé à supprimer ce rendez-vous.');
+            $message = $translator->trans('Vous n’êtes pas autorisé à supprimer ce rendez-vous.');
+            $this->addFlash('warning', $message);
             return $this->redirectToRoute('app_meeting_index');
         }
 
@@ -144,26 +148,30 @@ class MeetingController extends AbstractController
             try {
                 $entityManager->remove($meeting);
                 $entityManager->flush();
-                $this->addFlash('success', 'Le rendez-vous a été annulé avec succès.');
+                $message = $translator->trans('Le rendez-vous a été annulé avec succès.');
+                $this->addFlash('success', $message);
             } catch (\Exception $e) {
-                $this->addFlash('warning', 'Une erreur est survenue lors de l\'annulation du rendez-vous.');
+                $message = $translator->trans('Une erreur est survenue lors de l\'annulation du rendez-vous.');
+                $this->addFlash('warning', $message);
             }
         } else {
-            $this->addFlash('danger', 'Le token de sécurité est invalide.');
+            $message = $translator->trans('Le token de sécurité est invalide.');
+            $this->addFlash('danger', $message);
         }
 
         return $this->redirectToRoute('app_meeting_index', ['id' => $user->getId()]);
     }
 
     #[Route('/meeting/validate/{id}', name: 'app_meeting_validate', methods: ['GET', 'POST'])]
-    public function validate(int $id, EntityManagerInterface $entityManager, Security $security, MeetingRepository $meetingRepository): Response
+    public function validate(int $id, EntityManagerInterface $entityManager, Security $security, MeetingRepository $meetingRepository, TranslatorInterface $translator): Response
     {
         $user = $security->getUser();
         $meeting = $meetingRepository->find($id);
 
         // Vérifier si le rendez-vous existe et si l'utilisateur est associé au rendez-vous
         if (!$meeting || !$meeting->getUsers()->contains($user)) {
-            $this->addFlash('danger', 'Vous n’êtes pas autorisé à valider ce rendez-vous ou le rendez-vous n\'existe pas.');
+            $message = $translator->trans('Vous n’êtes pas autorisé à valider ce rendez-vous ou le rendez-vous n\'existe pas.');
+            $this->addFlash('danger', $message);
             return $this->redirectToRoute('app_meeting_index', ['id' => $user->getId()]);
         }
 
@@ -172,7 +180,8 @@ class MeetingController extends AbstractController
         $entityManager->persist($meeting);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Le rendez-vous a été validé avec succès.');
+        $message = $translator->trans('Le rendez-vous a été validé avec succès.');
+        $this->addFlash('success', $message);
         return $this->redirectToRoute('app_meeting_index', ['id' => $user->getId()]);
     }
 }

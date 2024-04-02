@@ -28,6 +28,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
@@ -132,7 +133,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/oubli-pass', name: 'forgotten_password')]
-    public function forgottenPassword(Request $request, UsersRepository $usersRepository, TokenGeneratorInterface $tokenGenerator, EntityManagerInterface $entityManagerInterface, SendMailService $mail): Response
+    public function forgottenPassword(Request $request, UsersRepository $usersRepository, TokenGeneratorInterface $tokenGenerator, EntityManagerInterface $entityManagerInterface, SendMailService $mail, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ResetPasswordRequestType::class);
 
@@ -166,12 +167,17 @@ class SecurityController extends AbstractController
                     $context
                 );
 
-                $this->addFlash('success', 'Email envoyé avec succès');
+                $message = $translator->trans('Email envoyé avec succès');
+
+                $this->addFlash('success', $message);
                 return $this->redirectToRoute('app_login');
             }
 
             //$user est NULL
-            $this->addFlash('danger', 'Un problème est survenu');
+
+            $message = $translator->trans('Un problème est survenu');
+
+            $this->addFlash('danger', $message);
             return $this->redirectToRoute('app_login');
         }
 
@@ -181,7 +187,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/oubli-pass/{token}', name:'reset_pass')]
-    public function resetPass(string $token, Request $request, UsersRepository $usersRepository, EntityManagerInterface $entityManagerInterface, UserPasswordHasherInterface $passwordHasher): Response
+    public function resetPass(string $token, Request $request, UsersRepository $usersRepository, EntityManagerInterface $entityManagerInterface, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator): Response
     {
         //On vérifie si le token existe dans la bdd
         $user = $usersRepository->findOneByResetToken($token);
@@ -203,7 +209,9 @@ class SecurityController extends AbstractController
                 $entityManagerInterface->persist($user);
                 $entityManagerInterface->flush();
 
-                $this->addFlash('success', 'Mot de passe changé avec succès');
+                $message = $translator->trans('Mot de passe changé avec succès');
+
+                $this->addFlash('success', $message);
                 return $this->redirectToRoute('app_login');
             }
 
@@ -211,13 +219,16 @@ class SecurityController extends AbstractController
                 'passForm' => $form->createView()
             ]);
         }
-        $this->addFlash('danger', 'Jeton invalide');
+
+        $message = $translator->trans('Jeton invalide');
+
+        $this->addFlash('danger', $message);
         return $this->redirectToRoute('app_login');
     }
 
 
     #[Route('/verif/{jwtToken}', name: 'verify_user')]
-    public function verifyUser($jwtToken, JWTService $jwt, UsersRepository $usersRepository, EntityManagerInterface $emi): Response
+    public function verifyUser($jwtToken, JWTService $jwt, UsersRepository $usersRepository, EntityManagerInterface $emi, TranslatorInterface $translator): Response
     {
         //On vérifie si le token est valide, n'a pas expiré et n'a pas été modifié
         if ($jwt->isValid($jwtToken) && !$jwt->isExpired($jwtToken) && $jwt->check($jwtToken, $this->getParameter('app.jwtsecret'))) {
@@ -231,32 +242,40 @@ class SecurityController extends AbstractController
             if ($user && !$user->isIsVerified()) {
                 $user->setIsVerified(true);
                 $emi->flush($user);
-                $this->addFlash('success', 'Utilisateur activé');
+
+                $message = $translator->trans('Utilisateur activé');
+
+                $this->addFlash('success', $message);
                 return $this->redirectToRoute('app_profile');
             }
         }
         //Après vérification token non valide
-        $this->addFlash('danger', 'Le token est invalide ou a expiré');
+
+        $message = $translator->trans('Le token est invalide ou a expiré');
+
+        $this->addFlash('danger', $message);
         return $this->redirectToRoute('app_login');
     }
 
     #[Route('/renvoiverif', name: 'resend_verif')]
-    public function resendVerif(JWTService $jwt, SendMailService $mail, UsersRepository $usersRepository): Response
+    public function resendVerif(JWTService $jwt, SendMailService $mail, UsersRepository $usersRepository, TranslatorInterface $translator): Response
     {
         $user = $this->getUser();
 
         if (!$user) {
+            $message = $translator->trans('Vous devez être connecté pour accéder à cette page');
             $this->addFlash(
                 'danger',
-                'Vous devez être connecté pour accéder à cette page'
+                $message
             );
             return $this->redirectToRoute('app_login');
         }
 
         if ($user->isIsVerified()) {
+            $message = $translator->trans('Cet utilisateur est déjà activé');
             $this->addFlash(
                 'warning',
-                'Cet utilisateur est déjà activé'
+                $message
             );
             return $this->redirectToRoute('app_profile');
         }
@@ -284,9 +303,10 @@ class SecurityController extends AbstractController
             'register',
             compact('user', 'jwtToken')
         );
+        $message = $translator->trans('Email de vérification envoyé');
         $this->addFlash(
             'success',
-            'Email de vérification envoyé'
+            $message
         );
         return $this->redirectToRoute('app_profile');
     }

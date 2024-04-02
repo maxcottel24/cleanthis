@@ -25,17 +25,17 @@ class Address1TypeEdit extends AbstractType
                 'constraints' => [
                     new NotBlank()
                 ],
-                'label' => 'Code postale :'
+                'label' => 'form.label.zipcode'
             ))
             ->add('city', TextType::class, array(
                 'attr' => [
                     'readonly' => true,
                     'class' => 'form-control'
-                ], 
+                ],
                 'constraints' => [
                     new NotBlank()
                 ],
-                'label' => 'Ville :',
+                'label' => 'form.label.city',
             ))
             ->add('street', null, [
                 'attr' => [
@@ -43,10 +43,10 @@ class Address1TypeEdit extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'Adresse'
                 ],
-                'label' => 'Adresse *:'
+                'label' => 'form.label.street'
             ])
             ->add('is_primary', CheckboxType::class, [
-                'label'    => 'Définir comme adresse principale :',
+                'label'    => 'form.label.primary',
                 'required' => false,
             ])
             //             ->add('user', EntityType::class, [
@@ -60,6 +60,7 @@ class Address1TypeEdit extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Address::class,
+            'translation_domain' => 'messages'
         ]);
     }
 }
