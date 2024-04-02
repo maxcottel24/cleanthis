@@ -1,179 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "CleanThis - Modification de l'utilisateur" |trans }}
+{% block title %}
+	{{ "CleanThis - Modification de l'utilisateur" | trans }}
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/css/editProfile.css') }}">
 {% endblock %}
 
 {% block body %}
-
-	{% include '_partials/_navbar.html.twig' %}
-
-	<style>
-		.carte-mot-de-passe {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding: 10px;
-			border: 1px solid #ccc;
-			background: #fff;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-			border-radius: 4px;
-			max-width: 500px;
-			margin: 2rem auto;
-
-		}
-
-		.label-mot-de-passe {
-			font-size: 16px;
-			font-weight: bold;
-			margin-right: 5px;
-			color: #123b61;
-		}
-
-		.points {
-			flex-grow: 1;
-			text-align: center;
-			font-size: 16px;
-			letter-spacing: 3px;
-			color: #123b61;
-		}
-
-		.bouton-lien {
-			padding: 10px 20px;
-			font-size: 16px;
-			text-decoration: none;
-			color: #123b61;
-			background-color: #f5f5f5;
-			border: 1px solid #ccc;
-			border-radius: 4px;
-			display: inline-block;
-			cursor: pointer;
-		}
-
-		.bouton-lien:hover {
-			background-color: #CBDAFF;
-			transition: background 0.3s;
-		}
-
-		.fancy {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-		}
-
-		.backgrd {
-			display: flex;
-			flex-direction: unset;
-			background-color: #92D4F5;
-			font-weight: bold;
-			color: white;
-			width: 75rem;
-			height: 12rem;
-			border-radius: 0.8rem;
-			margin-left: 0;
-			top: 0;
-			z-index: 0;
-			position: absolute;
-			top: 18%;
-			border: 1px solid #c5ccbf;
-			box-shadow: 0 2px 5px #c5ccbf;
-		}
-
-		.backgrd p {
-			margin-left: 1rem;
-			margin-top: 0.5rem;
-		}
-
-		.container {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			border-radius: 2rem;
-			width: 52%;
-			height: 200%;
-			padding-top: 2rem;
-			padding-bottom: 2rem;
-			background-color: white;
-			border: 2px solid #c5ccbf;
-			box-shadow: 0 5px 5px #c5ccbf;
-			z-index: 1;
-			margin-top: 7.5rem;
-		}
-
-		.formulaire {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			padding: 10px;
-			width: 80%;
-			height: auto;
-			border: 1px solid #ccc;
-			border-radius: 2rem;
-			background: #fff;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-			border-radius: 4px;
-			margin-top: 1.5rem;
-		}
-
-		.col1 {
-			display: flex;
-			flex-direction: row;
-			text-align: center;
-		}
-
-		.col2 {
-			display: flex;
-			flex-direction: row;
-			text-align: center;
-		}
-
-		.row1 {
-			margin-right: 2rem;
-		}
-
-		.row3 {
-			margin-right: 2rem;
-		}
-
-		.form-control {
-			background-color: white;
-			color: #123b61;
-			border: 1px solid #123b61;
-		}
-
-		.form-control:hover {
-			color: #123b61;
-		}
-
-		.form_label {
-			font-weight: bolder;
-			color: #123b61;
-		}
-
-		.btn-primary {
-			padding: 10px 20px;
-			font-size: 16px;
-			color: #123b61;
-			background-color: #f5f5f5;
-			border: 1px solid #d0d0d0;
-			border-radius: 4px;
-			cursor: pointer;
-		}
-
-		.btn-primary:hover {
-			background-color: #123b61;
-			transition: background 0.3s;
-		}
-		
-	</style>
 	<section class="fancy">
 		<div class="backgrd">
-			<p>{{ "MES INFORMATIONS" |trans }}</p>
+			<p>
+				<strong>{{ "MES INFORMATIONS" | trans }}</strong>
+			</p>
 		</div>
-		<div class="container">
-
+		<div class="profile">
 			<div class="formulaire ">
 				{{ form_start(form) }}
 				<div class="col1">
@@ -200,7 +42,7 @@
 				<span class="points">**********</span>
 				<a href="/profile/edition/{{app.user.id}}/password" class="bouton-lien">{{ "Modifier" |trans }}</a>
 			</div>
-			<a href="/profile" class="btn btn-primary">{{ "Retour" |trans }}</a>
+			<a href="/profile" class="btn btn-primary">{{ "Retour" | trans }}</a>
 		</div>
 	</section>
 {% endblock %}

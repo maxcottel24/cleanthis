@@ -28,7 +28,7 @@
 			{% if meeting.Status != 5 %}
 				<tr>
 					<td>{{ meeting.id }}</td>
-					<td>{{ meeting.reservedAt | date }}</td>
+					<td>{{ meeting.reservedAt | date('d M Y H:i')  }}</td>
 					<td>
 						<span class=" {{meeting.Status|meeting_statuss_badge}}">{{ meeting.Status|meeting_statuss}}</span>
 					</td>

@@ -1,0 +1,74 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% set _content_title = 'Facturations' %}
+
+{% block page_title -%}{{ _content_title }}{%- endblock %}{% block content_header %}
+<h1 class="title">{{ _content_title }}</h1>{% endblock content_header %}{% block main %}
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
+
+<table id="operation-table" data-toggle="table" data-search="false" data-pagination="true">
+	<thead>
+		<tr>
+			<th data-sortable="true" data-field="id">N° de facturation</th>
+			<th data-sortable="true" data-field="status">Status</th>
+			<th data-sortable="true" data-field="address">Adresse</th>
+			<th data-sortable="true" data-field="floor_space">Surface(m²)</th>
+			<th data-sortable="true" data-field="intervention">Date d'intervention</th>
+			<th data-sortable="true" data-field="price">Prix</th>
+			<th data-sortable="true" data-field="discount">Réduction</th>
+			<th data-sortable="true" data-field="payment_method">Moyen de paiement</th>
+			<th data-sortable="true" data-field="created_by">Client</th>
+			<th data-sortable="true" data-field="action">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for belong in belongs %}
+			{% set meeting = belong.operation.meeting %}
+			<tr>
+				<td>{{ belong.invoice.id }}</td>
+				<td>
+					<span class="{{ belong.invoice.status|invoice_status_badge }}">{{ belong.invoice.status|invoice_status }}</span>
+				</td>
+				<td>{{ meeting.address }}</td>
+				<td>{{ belong.operation.floorSpace }}
+					m²</td>
+				<td>{{ belong.operation.intervention | date('d F Y H:i') }}</td>
+				<td>{{ belong.operation.price }}</td>
+				<td>{{ belong.operation.discount }}</td>
+				<td>{{ belong.invoice.paymentMethod }}</td>
+				<td>
+					{% set userWithJobTitleNull = null %}
+					{% for user in meeting.users %}
+						{% if user.jobTitle == 'Null' and userWithJobTitleNull == null %}
+							{% set userWithJobTitleNull = user %}
+						{% endif %}
+					{% endfor %}
+					{{ userWithJobTitleNull ? userWithJobTitleNull.firstname : 'Non applicable' }},
+					{{ userWithJobTitleNull ? userWithJobTitleNull.lastname : 'Non applicable' }}
+				</td>
+				<td>
+					{% if belong.invoice.status == 2 %}
+                        <a onclick="openPdfPopup('{{ path('view_pdf', {'id': belong.operation.id}) }}')"><img src="/assets/images/pdf.jpg" alt="" style="width: 40px; cursor: pointer"></a>
+						<a href="{{ path('generate_pdf', {'id': belong.operation.id}) }}" ><img src="/assets/images/telecharger.png" alt="" style="width: 40px;"></a>
+					{% endif %}
+				</td>
+
+			</tr>
+		{% endfor %}
+	</tbody>
+
+
+</table>
+<script>
+function openPdfPopup(url) {
+    // Paramètres de la fenêtre popup (ajustez selon vos besoins)
+    var windowFeatures = "width=800,height=600,scrollbars=yes,resizable=yes";
+    
+    // Ouvrir la nouvelle fenêtre
+    window.open(url, 'PdfPopup', windowFeatures);
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>
+
+{% endblock main %}

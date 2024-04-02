@@ -36,13 +36,16 @@ class Operation
     private ?string $floor_space = null;
 
     #[ORM\ManyToOne(inversedBy: 'operations')]
-    private ?meeting $meeting = null;
+    private ?Meeting $meeting = null;
 
     #[ORM\ManyToOne(inversedBy: 'operations')]
     private ?TypeOperation $typeOperation = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $cleanliness = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $intervention = null;
 
     public function getId(): ?int
     {
@@ -133,12 +136,12 @@ class Operation
         return $this;
     }
 
-    public function getMeeting(): ?meeting
+    public function getMeeting(): ?Meeting
     {
         return $this->meeting;
     }
 
-    public function setMeeting(?meeting $meeting): static
+    public function setMeeting(?Meeting $meeting): static
     {
         $this->meeting = $meeting;
 
@@ -165,6 +168,18 @@ class Operation
     public function setCleanliness(?int $cleanliness): static
     {
         $this->cleanliness = $cleanliness;
+
+        return $this;
+    }
+
+    public function getIntervention(): ?\DateTimeInterface
+    {
+        return $this->intervention;
+    }
+
+    public function setIntervention(?\DateTimeInterface $intervention): static
+    {
+        $this->intervention = $intervention;
 
         return $this;
     }

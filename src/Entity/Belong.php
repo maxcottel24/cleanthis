@@ -18,7 +18,7 @@ class Belong
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?invoice $invoice = null;
+    private ?Invoice $invoice = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?operation $operation = null;
@@ -40,12 +40,12 @@ class Belong
         return $this;
     }
 
-    public function getInvoice(): ?invoice
+    public function getInvoice(): ?Invoice
     {
         return $this->invoice;
     }
 
-    public function setInvoice(?invoice $invoice): static
+    public function setInvoice(?Invoice $invoice): static
     {
         $this->invoice = $invoice;
 

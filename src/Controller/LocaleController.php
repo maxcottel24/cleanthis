@@ -16,7 +16,7 @@ class LocaleController extends AbstractController
 
         $referer = $request->headers->get('referer');
         if (empty($referer)) {
-            $referer = $this->generateUrl('homepage'); // Replace 'homepage' with the route name of your homepage
+            $referer = $this->generateUrl('app_home'); // Replace 'homepage' with the route name of your homepage
         }
 
         return new RedirectResponse($referer);

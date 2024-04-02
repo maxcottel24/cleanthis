@@ -33,20 +33,21 @@ class OperationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    // Dans OperationRepository.php
-public function countActiveOperationsByUser(Users $user)
+
+    public function countActiveOperationsByUser(Users $user)
 {
     return $this->createQueryBuilder('o')
         ->select('count(o.id)')
         ->join('o.meeting', 'm')
         ->join('m.users', 'u')
         ->where('u.id = :userId')
-        ->andWhere('o.status != :status')
+        ->andWhere('o.status != :status') // Modification ici pour corriger la syntaxe
         ->setParameter('userId', $user->getId())
-        ->setParameter('status', 5) // Supposons que 5 est le statut "terminé"
+        ->setParameter('status', 5) // Supprimez le != ici et placez-le dans le andWhere()
         ->getQuery()
         ->getSingleScalarResult();
 }
+
 
 public function countTasksByOperationType()
 {
@@ -80,6 +81,19 @@ public function findCostPerUnit()
 
     return $qb->getQuery()->getResult();
 }
+
+
+
+    public function findByUser($userId)
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.user', 'u') // Assurez-vous que 'user' est le bon nom de la relation dans votre entité Operation
+            ->where('u.id = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 
     //    /**

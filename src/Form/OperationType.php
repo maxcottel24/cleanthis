@@ -8,9 +8,11 @@ use App\Entity\TypeOperation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class OperationType extends AbstractType
 {
@@ -21,7 +23,6 @@ class OperationType extends AbstractType
             'choices' => [
                 'En attente' => '1',
                 'En cours' => '2',
-                'Terminée' => '3',
                 'Annulée' => '4'
             ],
             'attr' => [
@@ -39,6 +40,11 @@ class OperationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
+            ])
+            ->add('intervention', DateTimeType::class, [
+                'attr' => ['id' => 'meeting_reservedAt'],
+                'widget' => 'single_text',
+                'label' => 'Date et heure du nettoyage : ' ,
             ])
             ->add('description', null, [
                 'attr' => [

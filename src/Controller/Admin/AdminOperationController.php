@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Users;
+use App\Entity\Belong;
 use App\Entity\Address;
+use App\Entity\Invoice;
 use App\Entity\Meeting;
 use App\Entity\Operation;
 use App\Form\OperationType;
@@ -31,7 +33,7 @@ class AdminOperationController extends DashboardController
     private $operation;
     private Security $security;
 
-    public function __construct(Security $security ,OperationRepository $operation, EntityManagerInterface $entityManager, MeetingRepository $meetingRepository, UsersRepository $userRepository)
+    public function __construct(Security $security, OperationRepository $operation, EntityManagerInterface $entityManager, MeetingRepository $meetingRepository, UsersRepository $userRepository)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
@@ -59,35 +61,9 @@ class AdminOperationController extends DashboardController
             throw $this->createNotFoundException('L\'opération n\'a pas été trouvée.');
         }
 
-        
-        $user = $this->security->getUser();
-
-        if (!$user instanceof Users) {
-            throw $this->createAccessDeniedException('Vous devez être connecté pour effectuer cette action.');
-        }
-
-        // Définissez le nombre maximum d'opérations actives autorisées par rôle
-        $maxOperations = match(true) {
-            in_array('ROLE_EXPERT', $user->getRoles()) => 5,
-            in_array('ROLE_SENIOR', $user->getRoles()) => 3,
-            in_array('ROLE_APPRENTI', $user->getRoles()) => 1,
-            default => 0,
-        };
-
-        // Comptez le nombre d'opérations actives pour l'utilisateur
-        $activeOperationsCount = $this->entityManager->getRepository(Operation::class)->countActiveOperationsByUser($user);
-
-        // Vérifiez si l'utilisateur a déjà atteint son maximum d'opérations actives autorisées
-        if ($activeOperationsCount >= $maxOperations) {
-            $this->addFlash('error', 'Vous avez atteint le nombre maximum d\'opérations actives autorisées.');
-            return $this->redirectToRoute('app_admin_operation');
-        }
 
         $form = $this->createForm(OperationType::class, $operation);
         $form->handleRequest($request);
-
-        // Cette vérification est maintenant redondante et a été supprimée.
-        // if ($form->isSubmitted() && $form->isValid()) {
 
         $surface = $operation->getFloorSpace();
         $cleanliness = $operation->getCleanliness();
@@ -180,9 +156,85 @@ class AdminOperationController extends DashboardController
         ]);
     }
 
-    #[Route('\admin\myoperation', name:'app_admin_myoperation')]
+    #[Route('/admin/myoperation', name: 'app_admin_myoperation')]
     public function myoperation(): Response
     {
+        $user = $this->security->getUser();
 
+        // Assurez-vous que l'utilisateur est connecté
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+
+        // Assurez-vous que l'utilisateur a le job_title "Opérateur"
+        if ($user->getJobTitle() !== 'Opérateur') {
+            throw $this->createAccessDeniedException('Seuls les opérateurs peuvent accéder à cette page.');
+        }
+
+        // Utilisez la méthode findOperationsByUser de votre OperationRepository
+        $operations = $this->operation->findOperationsByUser($user);
+
+        return $this->render('admin/operation/index.html.twig', [
+            'operations' => $operations,
+        ]);
     }
+
+    #[Route('/admin/myoperation/past', name: 'app_admin_my_past_operation')]
+    public function myoperations(): Response
+    {
+        $user = $this->security->getUser();
+
+        // Assurez-vous que l'utilisateur est connecté
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+
+        // Assurez-vous que l'utilisateur a le job_title "Opérateur"
+        if ($user->getJobTitle() !== 'Opérateur') {
+            throw $this->createAccessDeniedException('Seuls les opérateurs peuvent accéder à cette page.');
+        }
+
+        // Utilisez la méthode findOperationsByUser de votre OperationRepository
+        $operations = $this->operation->findOperationsByUser($user);
+
+        return $this->render('admin/operation/myoperation.html.twig', [
+            'operations' => $operations,
+        ]);
+    }
+
+
+    #[Route('/admin/operation/validate/{id}', name: 'app_admin_operation_validate')]
+public function validateOperation(Request $request, EntityManagerInterface $entityManager, $id, Security $security): Response
+{
+    $operation = $entityManager->getRepository(Operation::class)->find($id);
+
+    if (!$operation) {
+        throw $this->createNotFoundException('L\'opération n\'a pas été trouvée.');
+    }
+
+    // Modifier le statut de l'opération
+    $operation->setStatus(3);
+    $operation->setIsValid(true);
+    $operation->setFinishedAt(new \DateTimeImmutable());
+
+    // Créer une nouvelle facture
+    $invoice = new Invoice();
+    $invoice->setStatus(1); // Exemple: 1 pour "en attente de paiement"
+    $invoice->setAmount($operation->getPrice()); // Définir selon la logique de votre application
+
+    // Créer une nouvelle entité Belong pour lier l'opération à la facture
+    $belong = new Belong();
+    $belong->setCreatedAt(new \DateTime());
+    $belong->setInvoice($invoice);
+    $belong->setOperation($operation); // Supposons que votre entité Operation est définie pour être compatible
+
+    $entityManager->persist($invoice);
+    $entityManager->persist($belong);
+    $entityManager->persist($operation);
+    $entityManager->flush();
+
+    // Rediriger l'utilisateur ou envoyer une réponse
+    return $this->redirectToRoute('admin');
+}
+
 }

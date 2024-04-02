@@ -54,7 +54,11 @@
 }
 
 .content-wrapper{
-    margin-left: 7%;
+    margin-left: 2%;
+    padding: 0;
+    margin-top: 2%;
+    max-width: 75%;
+    width: 75%;
 }
 
 
@@ -65,4 +69,44 @@
 
 label{
     font-weight: bolder;
+    
 }
+
+ @media (max-width: 1674px) {
+
+    .content-wrapper{
+        margin-left: 2%;
+        padding: 0;
+        margin-top: 2%;
+        width: 70rem;
+        margin-right: 10%;
+    }
+
+}
+
+@media (max-width: 1600px) {
+
+    .content-wrapper{
+        margin-left: 2%;
+        padding: 0;
+        margin-top: 2%;
+        width: 60rem;
+        margin-right: 10%;
+        font-size:small;
+    }
+
+} 
+
+@media (max-width: 1500px) {
+
+    .content-wrapper{
+        margin-left: 2%;
+        padding: 0;
+        margin-top: 2%;
+        width: 50rem;
+        margin-right: 10%;
+        font-size: x-small;
+
+    }
+
+} 
