@@ -58,7 +58,7 @@ public function findQuarterlyRevenue()
     $stmt = $conn->executeQuery($sql, ['currentYear' => $currentYear]);
 
     return $stmt->fetchAllAssociative();
-
+}
 
     public function findOperationByInvoice(Invoice $invoice)
     {
@@ -98,7 +98,7 @@ public function findQuarterlyRevenue()
     //        ;
     //    }
 
-}
+
 
 public function findAnnualRevenue()
 {
@@ -112,5 +112,5 @@ public function findAnnualRevenue()
 
     return $stmt->fetchAllAssociative();
 }
-}
 
+}
