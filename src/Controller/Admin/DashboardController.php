@@ -72,7 +72,7 @@ class DashboardController extends AbstractDashboardController
                 yield MenuItem::section('Mes interventions', 'fa-brands fa-redhat'),
                 yield MenuItem::linkToRoute('Mes opérations', 'fa-solid fa-hand-sparkles', 'app_admin_myoperation'),
                 yield MenuItem::linkToRoute('Mes rendez-vous', 'fas fa-calendar', 'app_admin_my_meetings'),
-                yield MenuItem::linkToRoute('Ma facturation', 'fas fa-file-invoice-dollar', Invoice::class),
+                yield MenuItem::linkToRoute('Ma facturation', 'fas fa-file-invoice-dollar', 'app_admin_myinvoices'),
                 
 
                 yield MenuItem::section('Utilisateurs', 'fa-solid fa-users-line'),
@@ -95,7 +95,7 @@ class DashboardController extends AbstractDashboardController
                 yield MenuItem::section('Mon historique', 'fa-solid fa-clock-rotate-left'),
                 yield MenuItem::linkToRoute('Mes opérations', 'fa-solid fa-hand-sparkles', 'app_admin_my_past_operation'),
                 yield MenuItem::linkToRoute('Mes rendez-vous', 'fas fa-calendar', 'app_admin_my_meeting'), 
-                yield MenuItem::linkToRoute('Ma facturation', 'fas fa-file-invoice-dollar', Invoice::class)
+                yield MenuItem::linkToRoute('Ma facturation', 'fas fa-file-invoice-dollar', 'app_admin_myinvoicess')
                 
 
             ];
@@ -109,7 +109,7 @@ class DashboardController extends AbstractDashboardController
                 yield MenuItem::section('Mes interventions', 'fa-brands fa-redhat'),
                 yield MenuItem::linkToRoute('Mes rendez-vous', 'fas fa-calendar', 'app_admin_my_meetings'), 
                 yield MenuItem::linkToRoute('Mes opérations', 'fa-solid fa-hand-sparkles', 'app_admin_myoperation'),
-                yield MenuItem::linkToRoute('Ma facturation', 'fas fa-file-invoice-dollar', Invoice::class),
+                yield MenuItem::linkToRoute('Ma facturation', 'fas fa-file-invoice-dollar', 'app_admin_myinvoices'),
 
                 yield MenuItem::section('Utilisateurs', 'fa-solid fa-users-line'),
                 yield MenuItem::subMenu('Utilisateurs', 'fa-solid fa-users-rectangle')->setSubItems([
@@ -130,7 +130,7 @@ class DashboardController extends AbstractDashboardController
                 yield MenuItem::section('Mon historique', 'fa-solid fa-clock-rotate-left'),
                 yield MenuItem::linkToRoute('Mes rendez-vous', 'fas fa-calendar', 'app_admin_my_meeting'), 
                 yield MenuItem::linkToRoute('Mes opérations', 'fa-solid fa-hand-sparkles', 'app_admin_my_past_operation'),
-                yield MenuItem::linkToRoute('Ma facturation', 'fas fa-file-invoice-dollar', Invoice::class)
+                yield MenuItem::linkToRoute('Ma facturation', 'fas fa-file-invoice-dollar', 'app_admin_myinvoicess')
 
             ];
         }
