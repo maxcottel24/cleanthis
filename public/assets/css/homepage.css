@@ -1,0 +1,249 @@
+* {
+    text-decoration: none;
+}
+
+.page {
+    margin-top: 5%;
+}
+
+.first_line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.first_para,
+.first_pic {
+    flex: 1;
+}
+
+.first_para {
+    flex: 1;
+    padding-right: 2rem;
+    padding-left: 1rem;
+}
+
+div.first_pic {
+    flex: 1;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/assets/images/cleanthishomepagefirstpic.png");
+    background-size: cover;
+    background-position: center;
+}
+
+div.first_para h1 {
+    display: block;
+    font-size: 50px;
+}
+
+div.first_para h1 .grey {
+    color: #666666;
+}
+
+div.first_para h1 .blue {
+    color: #92d4f5;
+}
+
+div.first_para p {
+    color: #2A56A1;
+}
+
+.boxes {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(233px, 1fr));
+    gap: 20px;
+    margin-top: 15rem;
+    justify-content: space-between;
+    margin-left: 10%;
+    align-items: center;
+}
+
+.icon-box {
+    width: 233px;
+    height: 233px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 16px rgba(0.5, 0.5, 0.5, 0.5);
+    margin: 10px;
+    overflow: hidden;
+    background: white;
+    justify-content: space-between;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.icon-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.icon-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.boxes>.icon-box>.icon-title {
+    color: #2A56A1;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    margin-top: 5px;
+    padding: 5px 10px;
+
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+}
+
+.whoarewe-card {
+    display: flex;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(15, 15, 15, 15);
+    overflow: hidden;
+    margin-bottom: 40px;
+    align-items: center;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.whoarewe-content {
+    padding: 20px;
+    flex: 1;
+}
+
+.whoarewe-content h2 {
+    color: #2A56A1;
+    margin-bottom: 15px;
+}
+
+.whoarewe-content p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.whoarewe-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whoarewe-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.values-card {
+    display: flex;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(15, 15, 15, 15);
+    overflow: hidden;
+    margin-bottom: 40px;
+    align-items: center;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.values-content {
+    padding: 20px;
+    flex: 1;
+}
+
+.values-content h2 {
+    color: #2A56A1;
+    margin-bottom: 15px;
+}
+
+.values-content p {
+    color: #666;
+    line-height: 1.6;
+
+}
+
+.values-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.values-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.engagements-card {
+    display: flex;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(15, 15, 15, 15);
+    overflow: hidden;
+    margin-bottom: 40px;
+    align-items: center;
+    margin-left: 15%;
+    margin-right: 15%;
+
+}
+
+.engagements-content {
+    padding: 20px;
+    flex: 1;
+
+}
+
+.engagements-content h2 {
+    color: #2A56A1;
+    margin-bottom: 15px;
+}
+
+.engagements-content p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.engagements-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.engagements-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.partners-section {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.partners-section h2 {
+    margin-bottom: 20px;
+    color: #123b61;
+}
+
+.partners-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.partner-logo {
+    height: 50px;
+    object-fit: contain;
+
+}
