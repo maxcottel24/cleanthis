@@ -203,38 +203,57 @@ class AdminOperationController extends DashboardController
     }
 
 
+
     #[Route('/admin/operation/validate/{id}', name: 'app_admin_operation_validate')]
-public function validateOperation(Request $request, EntityManagerInterface $entityManager, $id, Security $security): Response
-{
-    $operation = $entityManager->getRepository(Operation::class)->find($id);
-
-    if (!$operation) {
-        throw $this->createNotFoundException('L\'opération n\'a pas été trouvée.');
+    public function validateOperation(Request $request, EntityManagerInterface $entityManager, $id, Security $security, SendMailService $sendMailService): Response
+    {
+        $operation = $entityManager->getRepository(Operation::class)->find($id);
+    
+        if (!$operation) {
+            throw $this->createNotFoundException('L\'opération n\'a pas été trouvée.');
+        }
+    
+        // Modifier le statut de l'opération
+        $operation->setStatus(3);
+        $operation->setIsValid(true);
+        $operation->setFinishedAt(new \DateTimeImmutable());
+    
+        // Créer une nouvelle facture
+        $invoice = new Invoice();
+        $invoice->setStatus(1); // Exemple: 1 pour "en attente de paiement"
+        $invoice->setAmount($operation->getPrice()); // Définir selon la logique de votre application
+    
+        // Créer une nouvelle entité Belong pour lier l'opération à la facture
+        $belong = new Belong();
+        $belong->setCreatedAt(new \DateTime());
+        $belong->setInvoice($invoice);
+        $belong->setOperation($operation);
+    
+        $entityManager->persist($invoice);
+        $entityManager->persist($belong);
+        $entityManager->flush();
+    
+        // Trouver l'utilisateur avec le jobTitle "Null" dans le meeting associé
+        $meeting = $operation->getMeeting();
+        if ($meeting) {
+            foreach ($meeting->getUsers() as $user) {
+                if ($user->getJobTitle() === "Null") {
+                    // Envoie un email à cet utilisateur
+                    $sendMailService->send(
+                        'email@votre-domaine.com',
+                        $user->getEmail(),
+                        'Opération Validée',
+                        'operation_validee',
+                        ['user' => $user, 'operation' => $operation]
+                    );
+                    break; // Arrête la boucle une fois l'email envoyé
+                }
+            }
+        }
+    
+        // Rediriger l'utilisateur ou envoyer une réponse
+        return $this->redirectToRoute('admin');
     }
-
-    // Modifier le statut de l'opération
-    $operation->setStatus(3);
-    $operation->setIsValid(true);
-    $operation->setFinishedAt(new \DateTimeImmutable());
-
-    // Créer une nouvelle facture
-    $invoice = new Invoice();
-    $invoice->setStatus(1); // Exemple: 1 pour "en attente de paiement"
-    $invoice->setAmount($operation->getPrice()); // Définir selon la logique de votre application
-
-    // Créer une nouvelle entité Belong pour lier l'opération à la facture
-    $belong = new Belong();
-    $belong->setCreatedAt(new \DateTime());
-    $belong->setInvoice($invoice);
-    $belong->setOperation($operation); // Supposons que votre entité Operation est définie pour être compatible
-
-    $entityManager->persist($invoice);
-    $entityManager->persist($belong);
-    $entityManager->persist($operation);
-    $entityManager->flush();
-
-    // Rediriger l'utilisateur ou envoyer une réponse
-    return $this->redirectToRoute('admin');
-}
+    
 
 }

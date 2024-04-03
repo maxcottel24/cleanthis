@@ -432,7 +432,7 @@
 																						<tr>
 																							<td class="t43" style="width:480px;">
 
-																								<h1 class="t49" style="margin:0;Margin:0;font-family:BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif,'Albert Sans';line-height:35px;font-weight:800;font-style:normal;font-size:30px;text-decoration:none;text-transform:none;letter-spacing:-1.2px;direction:ltr;color:#333333;text-align:center;mso-line-height-rule:exactly;mso-text-raise:2px;">{{ "La demande de rendez-vous a été reçue avec succès." |trans }}</h1>
+																								<h1 class="t49" style="margin:0;Margin:0;font-family:BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif,'Albert Sans';line-height:35px;font-weight:800;font-style:normal;font-size:30px;text-decoration:none;text-transform:none;letter-spacing:-1.2px;direction:ltr;color:#333333;text-align:center;mso-line-height-rule:exactly;mso-text-raise:2px;">{{ "Votre opération  a été valider par notre équipe" |trans }}</h1>
 																							</td>
 																						</tr>
 																					</table>
@@ -446,22 +446,29 @@
 																			<tr>
 																				<td>
 																					<p class="t39" style="margin:0;Margin:0;font-family:BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif,'Inter Tight';line-height:21px;font-weight:400;font-style:normal;font-size:14px;text-decoration:none;text-transform:none;direction:ltr;color:#555555;text-align:center;mso-line-height-rule:exactly;mso-text-raise:2px;">
+                                                                                        {{
+                                                                                            "Votre intervention aura lieux  le : " | trans
+                                                                                        }}
 																						<strong>
-																							{{ meeting.reservedAt|date('d/m/Y') }}
+																							{{ operation.intervention|date('d/m/Y') }}
 																						</strong>
 																						{{ "  à " |trans }}<strong>
-																							{{ meeting.reservedAt|date('H:i') }}
+																							{{ operation.intervention|date('H:i') }}
 																						</strong>
 																						,
 																						<br>{{ " Pour une surface de : " |trans }}<strong>
-																							{{ meeting.floorSpace }}{{ " m² " |trans }}</strong>
+																							{{ operation.floorSpace }}{{ " m² " |trans }}</strong>
 																						<br>{{ " À l'adresse : " |trans }}<strong>
-																							{{ meeting.address }}
+																							{{ operation.meeting.address }}
 																						</strong>
 																						,
 																						<br>{{ " Description : " |trans }}<strong>
-																							{{meeting.description}}
+																							{{operation.description}}
 																						</strong>
+                                                                                        ,
+                                                                                        <br>{{ "au prix  de : "  |trans }} <strong>
+                                                                                            {{operation.price}}€
+                                                                                        </strong>
 																					</p>
 																				</td>
 																			</tr>
@@ -476,10 +483,10 @@
 																						<tr>
 																							<td class="t53" style="background-color:#000000;overflow:hidden;width:460px;text-align:center;line-height:24px;mso-line-height-rule:exactly;mso-text-raise:2px;padding:10px 10px 10px 10px;border-radius:10px 10px 10px 10px;">
 
-																								<a href="{{ url('app_meeting_index', {'id': userId}) }}" style="color: #FFFFFF; text-decoration: underline;">
+																								{# <a href="{{ url('app_meeting_index', {'id': userId}) }}" style="color: #FFFFFF; text-decoration: underline;">
 																									<span class="t59" style="display:block;margin:0;Margin:0;font-family:BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif,'Inter Tight';line-height:24px;font-weight:600;font-style:normal;font-size:16px;text-decoration:none;direction:ltr;color:#FFFFFF;text-align:center;mso-line-height-rule:exactly;mso-text-raise:2px;">
 																										{{ "Mes rendez-vous" |trans }}
-																									</span>
+																									</span> #}
 																								</a>
 																							</td>
 																						</tr>
@@ -497,7 +504,7 @@
 																						<tr>
 																							<td class="t65" style="width:480px;">
 
-																								<p class="t71" style="margin:0;Margin:0;font-family:BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif,'Inter Tight';line-height:21px;font-weight:400;font-style:normal;font-size:14px;text-decoration:none;text-transform:none;direction:ltr;color:#555555;text-align:center;mso-line-height-rule:exactly;mso-text-raise:2px;">{{ "Dans les prochaines 48 heures, un opérateur prendra contact avec vous." |trans }}</p>
+																								<p class="t71" style="margin:0;Margin:0;font-family:BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif,'Inter Tight';line-height:21px;font-weight:400;font-style:normal;font-size:14px;text-decoration:none;text-transform:none;direction:ltr;color:#555555;text-align:center;mso-line-height-rule:exactly;mso-text-raise:2px;">{{ "En cas d'imprévu merci de nous contacter dans les plus bref délai." |trans }}</p>
 																							</td>
 																						</tr>
 																					</table>
