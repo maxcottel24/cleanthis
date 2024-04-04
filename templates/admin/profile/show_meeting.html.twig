@@ -16,14 +16,14 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Numéro RDV</th>
-                <th scope="col">Date/Heure</th>
-                <th scope="col">Status</th>
-                <th scope="col">Adresse</th>
-                <th scope="col">Description</th>
-                <th scope="col">Surface(m²)</th>
-                <th scope="col">Clients</th>
-                <th scope="col">Opérateur</th>
+                <th scope="col">{{ "Numéro RDV" |trans }}</th>
+                <th scope="col">{{ "Date/Heure" |trans }}</th>
+                <th scope="col">{{ "Status" |trans }}</th>
+                <th scope="col">{{ "Adresse" |trans }}</th>
+                <th scope="col"{{ "Description" |trans }}></th>
+                <th scope="col">{{ "Surface(m²)" |trans }}</th>
+                <th scope="col"{{ "Client" |trans }}></th>
+                <th scope="col">{{ "Opérateur" |trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -44,7 +44,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="8">Aucun rendez-vous trouvé.</td>
+                    <td colspan="8">{{ "Aucun rendez-vous trouvé." |trans }}</td>
                 </tr>
             {% endfor %}
         </tbody>
