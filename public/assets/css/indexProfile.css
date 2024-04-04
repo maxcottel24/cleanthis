@@ -40,6 +40,7 @@ body {
   border: 2px solid #c5ccbf;
   box-shadow: 0 5px 5px #c5ccbf;
   margin-top: -5rem; 
+  margin-bottom: 2em;
   position: relative; 
   z-index: 2; 
   color: #123b61; 

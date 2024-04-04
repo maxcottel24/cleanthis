@@ -15,12 +15,9 @@
 	{{ "CleanThis - Inscription" |trans }}
 {% endblock %}
 
-{% block navbar %}
-
-{% endblock %}
-{% block devis %}
-
-{% endblock %}
+{% block navbar %}{% endblock %}
+{% block devis %}{% endblock %}
+{% block footer %}{% endblock %}
 
 {% block body %}
 	<div class="split-container">
@@ -37,24 +34,24 @@
 				{{form_row(form.date_of_birthday)}}
 				{{form_row(form.phone_number)}}
 				{{form_row(form.email)}}
-				{{ form_row(form.password) }}		
+				{{ form_row(form.password) }}
 				{{form_row(form.Continuer)}}
 				{{form_end(form)}}
 
-					<div class="google-sign-in">
-						<a href="{{ path('auth_oauth_connect', {service: 'google'}) }}">
-							<img src="{{ asset('assets/images/googlelogo.png') }}" alt="Se connecter avec Google" style="display: block; margin-top: 20px">
-						</a>
-					</div>
-					<div class="connected">
-						<p>{{ "Vous avez déjà un compte ?" |trans }}
-						</p>
-						<a href="{{ path('app_login') }}">
-							{{ "Connectez-vous" |trans }}</a>
-					</div>
-
+				<div class="google-sign-in">
+					<a href="{{ path('auth_oauth_connect', {service: 'google'}) }}">
+						<img src="{{ asset('assets/images/googlelogo.png') }}" alt="Se connecter avec Google" style="display: block; margin-top: 20px">
+					</a>
 				</div>
+				<div class="connected">
+					<p>{{ "Vous avez déjà un compte ?" |trans }}
+					</p>
+					<a href="{{ path('app_login') }}">
+						{{ "Connectez-vous" |trans }}</a>
+				</div>
+
 			</div>
 		</div>
+	</div>
 
-	{% endblock %}
+{% endblock %}
