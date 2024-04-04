@@ -12,7 +12,10 @@ class AppExtension extends AbstractExtension
             new TwigFilter('meeting_status_badge', [$this, 'MeetingStatusBadge']),
             new TwigFilter('meeting_status', [$this, 'MeetingStatus']),
             new TwigFilter('status_to_percent', [$this, 'statusToPercent']),
-            new TwigFilter('operation_status', [$this, 'operationStatus']),
+            new TwigFilter('operation_statuss', [$this, 'operationStatuss']),
+            new TwigFilter('operation_statuss_badge', [$this, 'operationStatussBadge']),
+            new TwigFilter('belong_invoice_status', [$this, 'belongInvoiceStatus']),
+            new TwigFilter('belong_invoice_status_badge', [$this, 'belongInvoiceStatusBadge'])
         ];
     }
 
@@ -65,6 +68,23 @@ class AppExtension extends AbstractExtension
     }
 
 
+
+    public function operationStatussBadge($status)
+    {
+        switch ($status) {
+            case 1:
+                return 'badge bg-primary';
+            case 2:
+                return "badge bg-warning text-dark";
+            case 3:
+                return "badge bg-success";
+            case 4:
+                return "badge bg-warning text-dark";
+            default:
+                return "Statut inconnu";
+        }
+    }
+
     public function statusToPercent($status)
     {
         switch ($status) {
@@ -82,6 +102,28 @@ class AppExtension extends AbstractExtension
     }
 
 
+    public function belongInvoiceStatus($status)
+    {
+        switch ($status) {
+            case 1:
+                return "En attente de paiement";
+            case 2:
+                return "Terminer";
+            default:
+                return "Statut inconnu";
+        }
+    }
+    public function belongInvoiceStatusBadge($status)
+    {
+        switch ($status) {
+            case 1:
+                return 'badge bg-danger';
+            case 2:
+                return "badge success";
+            default:
+                return "Statut inconnu";
+        }
+    }
 
 }
 

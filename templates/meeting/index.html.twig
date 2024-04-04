@@ -1,32 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ "Mes Commandes" |trans }}
+	{{ "Mes Commandes" | trans }}
 {% endblock %}
 
 {% block body %}
-<style>
-.btn-aligned {
-    position: relative;
-    top: -38px; 
-}
-</style> 
+	<style>
+		.btn-aligned {
+			position: relative;
+			top: -38px;
+		}
+	</style>
+
 	<div class="container mt-5">
-		<h2>{{ "Vos Commandes" |trans }}</h2>
+		<h2>{{ "Vos Commandes" | trans }}</h2>
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation">
-				<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">{{ "Rendez-vous" |trans }}</button>
+				<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">{{ "Rendez-vous" | trans }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">{{ "Opération" |trans }}</button>
+				<button class="nav-link" id="operation-tab" data-bs-toggle="tab" data-bs-target="#operation" type="button" role="tab" aria-controls="operation" aria-selected="false">{{ "Opération" | trans }}</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">{{ "Terminé" |trans }}</button>
+				<button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab" aria-controls="payment" aria-selected="false">{{ "Paiement" | trans }}</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab" aria-controls="completed" aria-selected="false">{{ "Terminé" | trans }}</button>
 			</li>
 		</ul>
+
 		<div
 			class="tab-content" id="myTabContent">
-			<!-- Rendez-vous -->
+			<!-- Onglet Rendez-vous -->
 			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 				<h1 class="my-5">{{ "Vos rendez-vous" |trans }}</h1>
 				<div class="row">
@@ -74,20 +79,92 @@
 									</div>
 								</div>
 							{% endif %}
+						{% else %}
+							<p>{{ "Aucun rendez-vous pour le moment." | trans }}</p>
 						{% endfor %}
 					</div>
 				</div>
 			</div>
-			<!-- Opération -->
-			<div
-				class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"><!-- Ici pour l'onglet Operation -->
-			</div>
-			<!-- Terminé -->
-			<div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">
-				<h1 class="my-5">{{ "Historique des commandes terminées" |trans }}</h1>
-				<div
-					class="row"><!-- Ici Pour afficher les Operation bien effectuer -->
+
+			<!-- Onglet Opération -->
+			<div class="tab-pane fade" id="operation" role="tabpanel" aria-labelledby="operation-tab">
+				<h1 class="my-5">{{ "Vos Opérations" |trans }}</h1>
+				<div class="row">
+					<div class="row align-items-md-stretch">
+						{% for operation in operations %}
+							{% if operation.status != 3 %}
+								<div class="col-md-6 mb-3">
+									<div class="h-100 p-5 text-white bg-dark rounded-3">
+										<span class=" {{operation.status|operation_statuss_badge}}">{{ operation.status|operation_statuss}}</span>
+										<h2>{{ operation.intervention|date('d/m/Y H:i') }}</h2>
+										<p>{{ "Surface : " |trans }}<strong>{{ operation.floorSpace }}
+												m²</strong>
+										</p>
+										<p>{{ "Description : " |trans }}{{ operation.description }}</p>
+										<p>{{ "Prix : " |trans }}{{ operation.price }}€</p>
+										{% if operation.status == 2 %}
+											<div class="d-flex justify-content-end ">
+												<form method="post" action="{{ path('app_operation_customer_validate', {'id': operation.id}) }}" onsubmit="return confirm('{{ " etes-vous sur de vouloir valider cette opération ? " |trans }}');">
+													<button class="btn btn-outline-success btn-aligned " type="submit">{{ "Valider" |trans }}</button>
+												</form>
+											</div>
+										{% endif %}
+									</div>
+								</div>
+
+							{% endif %}
+						{% endfor %}
+					</div>
 				</div>
+
+			</div>
+
+			<!-- Onglet Paiement -->
+			<div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab">
+				<h1 class="my-5">{{ "Vos facture en attente de paiement" |trans }}</h1>
+				<div class="row">
+					<div class="row align-items-md-stretch">
+						{% for belong in belongs %}
+							{% if belong.invoice.status != 2 %}
+								<div class="col-md-6 mb-3">
+									<div class="h-100 p-5 text-white bg-dark rounded-3">
+										<span class=" {{belong.invoice.status|belong_invoice_status_badge}}">{{ belong.invoice.status|belong_invoice_status}}</span>
+										<h2>{{ belong.operation.intervention|date('d/m/Y H:i') }}</h2>
+										<p>{{ "Surface : " |trans }}<strong>{{ belong.operation.floorSpace }}
+												m²</strong>
+										</p>
+										<p>{{ "Description : " |trans }}{{ belong.operation.description }}</p>
+										<p>{{ "Prix : " |trans }}{{ belong.invoice.amount }}€</p>
+										{% if belong.invoice.status == 1 %}
+											<div class="d-flex justify-content ">
+												<form method="post" action="{{ path('app_invoice_to_pay', {'id': belong.invoice.id}) }}" onsubmit="return confirm('{{ " Êtes-vous sur de vouloir valider cette action ? " |trans }}');">
+													<div
+														class="mb-5">
+														
+														<select name="payment_method" id="" class="form-control">
+															<option value="">Sélectionner un moyen de paiement</option>
+															<option value="Carte Bancaire">Carte Bancaire (Visa, etc...)</option>
+															<option value="Chèques bancaire">Chèques bancaire</option>
+															<option value="Virement bancaire">Virement bancaire</option>
+														</select>
+													</div>
+													<button class="btn btn-outline-success btn-aligned" type="submit">{{ "Payer" |trans }}</button>
+												</form>
+											</div>
+
+										{% endif %}
+									</div>
+								</div>
+
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+
+			<!-- Onglet Terminé -->
+			<div
+				class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab"><!-- Contenu pour l'onglet Terminé -->
 			</div>
 		</div>
 	</div>

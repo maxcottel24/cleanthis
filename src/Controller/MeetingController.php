@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\Meeting;
 use App\Entity\Users;
+use App\Entity\Meeting;
+use App\Entity\Operation;
 use App\Form\MeetingType;
-use App\Repository\MeetingRepository;
 use App\Service\SendMailService;
+use App\Repository\BelongRepository;
+use App\Repository\InvoiceRepository;
+use App\Repository\MeetingRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MeetingController extends AbstractController
 {
@@ -89,21 +92,37 @@ class MeetingController extends AbstractController
 
 
     #[Route('/meeting/{id}', name: 'app_meeting_index', methods: ['GET'])]
-    public function index(int $id, MeetingRepository $meetingRepository, Security $security): Response
-    {
-        $user = $security->getUser();
+public function index(int $id, MeetingRepository $meetingRepository, InvoiceRepository $invoiceRepository, BelongRepository $belongRepository, Security $security, EntityManagerInterface $entityManager): Response
+{
+    $user = $security->getUser();
 
-        if ($user->getId() == $id) {
+    if ($user->getId() == $id) {
+        $meetings = $meetingRepository->findByUser($user->getId());
+        $operations = $entityManager->getRepository(Operation::class)->findOperationsByUser($user);
+        
+        // Récupérer les factures liées à l'utilisateur connecté
+        $invoices = $invoiceRepository->findByUser($user->getId());
 
-            $meetings = $meetingRepository->findByUser($user->getId());
-
-            return $this->render('meeting/index.html.twig', [
-                'meetings' => $meetings,
-            ]);
-        } else {
-            return $this->redirectToRoute('app_home');
+        // Récupérer les entités Belong correspondantes à ces factures
+        $belongs = [];
+        foreach ($invoices as $invoice) {
+            $belong = $belongRepository->findOneBy(['invoice' => $invoice]);
+            if ($belong) {
+                $belongs[] = $belong;
+            }
         }
+
+        return $this->render('meeting/index.html.twig', [
+            'meetings' => $meetings,
+            'operations' => $operations,
+            'belongs' => $belongs, // Passez belongs à la vue
+        ]);
+    } else {
+        return $this->redirectToRoute('app_home');
     }
+}
+
+
 
     #[Route('/meeting/{id}/edit', name: 'app_meeting_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Meeting $meeting, EntityManagerInterface $entityManager, Security $security, TranslatorInterface $translator): Response
