@@ -9,18 +9,18 @@
 <table id="operation-table" data-toggle="table" data-search="false" data-pagination="true">
 	<thead>
 		<tr>
-			<th data-sortable="true" data-field="typeOperation">Type</th>
-			<th data-sortable="true" data-field="status">Status</th>
-			<th data-sortable="true" data-field="address">Adresse</th>
-			<th data-sortable="true" data-field="description">Description</th>
-			<th data-sortable="true" data-field="floor_space">Surface(m²)</th>
-			<th data-sortable="true" data-field="intervention">Date d'intervention</th>
-			<th data-sortable="true" data-field="price">Prix</th>
-			<th data-sortable="true" data-field="discount">Réduction</th>
-			<th data-sortable="true" data-field="cleanliness">Propreté</th>
-			<th data-sortable="true" data-field="created_by">Client</th>
-			<th data-sortable="true" data-field="operator">Opérateur</th>
-			<th data-sortable="true" data-field="action">Actions</th>
+			<th data-sortable="true" data-field="typeOperation">{{ "Type" |trans }}</th>
+			<th data-sortable="true" data-field="status">{{ "Status" |trans }}</th>
+			<th data-sortable="true" data-field="address">{{ "Adresse" |trans }}</th>
+			<th data-sortable="true" data-field="description">{{ "Description" |trans }}</th>
+			<th data-sortable="true" data-field="floor_space">{{ "Surface(m²)" |trans }}</th>
+			<th data-sortable="true" data-field="intervention">{{ "Date d'intervention" |trans }}</th>
+			<th data-sortable="true" data-field="price">{{ "Prix" |trans }}</th>
+			<th data-sortable="true" data-field="discount">{{ "Réduction" |trans }}</th>
+			<th data-sortable="true" data-field="cleanliness">{{ "Propreté" |trans }}</th>
+			<th data-sortable="true" data-field="created_by">{{ "Client" |trans }}</th>
+			<th data-sortable="true" data-field="operator">{{ "Opérateur" |trans }}</th>
+			<th data-sortable="true" data-field="action">{{ "Actions" |trans }}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -43,12 +43,12 @@
 					<td>
 						{% if operation.description|length > 20 %}
 							<span class="description-truncate">{{ operation.description|slice(0, 20) }}...</span>
-							<a href="#" class="read-more-link" data-bs-toggle="modal" data-bs-target="#descriptionModal{{ operation.id }}">Voir plus</a>
+							<a href="#" class="read-more-link" data-bs-toggle="modal" data-bs-target="#descriptionModal{{ operation.id }}">{{ "Voir plus" |trans }}</a>
 							<div class="modal fade" id="descriptionModal{{ operation.id }}" tabindex="-1" aria-labelledby="descriptionModal{{ operation.id }}Label" aria-hidden="false">
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="descriptionModal{{ operation.id }}Label">Description</h5>
+											<h5 class="modal-title" id="descriptionModal{{ operation.id }}Label">{{ "Description" |trans }}</h5>
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body">
@@ -123,11 +123,11 @@
 					<td>
 						{% if app.user in operation.meeting.users %}
 							<form action="{{ path('app_admin_operation_update', {'id': operation.id}) }}" method="post">
-								<button type="submit" class="btn btn-primary">Modifier</button>
+								<button type="submit" class="btn btn-warning"><img src="/assets/images/modify.png" alt="" style="width:30px"> </button>
 							</form>
 							{% if operation.status != 3  %}
 								<form action="{{ path('app_admin_operation_validate', {'id': operation.id}) }}" method="post" onsubmit="return confirm(Êtes-vous sûr de vouloir finir cette opérations?');">
-								<button type="submit" class="btn btn-success">Valider</button>
+								<button type="submit" class="btn btn-success"><img src="/assets/images/validate.png" alt="" style="width:30px"></button>
 							</form>
 							{% endif %}
 						{% endif %}
