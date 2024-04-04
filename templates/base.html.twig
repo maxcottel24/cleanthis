@@ -51,5 +51,10 @@
 			</div>
 		{% endif %}
 	</body>
+	<footer>
+	{% block footer %}
+		{% include '_partials/_footer.html.twig' %}
+	{% endblock %}
+	</footer>
 	<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
 </html>
