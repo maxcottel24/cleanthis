@@ -37,4 +37,26 @@ class SendMailService
 
         $this->mailer->send($email);
     }
+
+    public function sendEmailWithPdfAttachment(string $to, $invoice, string $pdfPath): void
+    {
+        // Assurez-vous que le fichier existe
+        if (!file_exists($pdfPath)) {
+            throw new \Exception("Le fichier PDF n'existe pas : $pdfPath");
+        }
+
+        $email = (new TemplatedEmail())
+            ->from('from@example.com')
+            ->to($to)
+            ->subject('Votre Facture')
+            // Chemin vers le template Twig de votre email
+            ->htmlTemplate('email/invoice_paid.html.twig')
+            ->context([
+                'invoice' => $invoice,
+            ])
+            // Ajout de la pièce jointe
+            ->attachFromPath($pdfPath, 'facture.pdf', 'application/pdf');
+
+        $this->mailer->send($email);
+    }
 }

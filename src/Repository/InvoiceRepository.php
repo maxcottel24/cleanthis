@@ -125,7 +125,7 @@ public function findQuarterlyRevenue()
         ->andWhere('u.job_title = :jobTitle')
         ->andWhere('i.status = :status')
         ->setParameter('userId', $userId) // Notez l'utilisation de setParameter au lieu de setParameters
-        ->setParameter('jobTitle', 'Opérateur')
+        ->setParameter('jobTitle', 'Null')
         ->setParameter('status', 1);
 
     $query = $qb->getQuery();
@@ -134,6 +134,33 @@ public function findQuarterlyRevenue()
     return $query->getResult();
 }
 
+public function findByUsers(int $userId): array
+{
+    return $this->createQueryBuilder('i')
+        ->join('App\Entity\Belong', 'b', 'WITH', 'b.invoice = i')
+        ->join('b.operation', 'o')
+        ->join('o.meeting', 'm')
+        ->join('m.user', 'u')
+        ->where('u.id = :userId')
+        ->setParameter('userId', $userId)
+        ->getQuery()
+        ->getResult();
+}
+
+// Dans InvoiceRepository.php
+
+public function findInvoicesByUser($userId)
+{
+    return $this->createQueryBuilder('i')
+        ->join('i.belongs', 'b')
+        ->join('b.operation', 'o')
+        ->join('o.meeting', 'm')
+        ->join('m.users', 'u')
+        ->where('u.id = :userId')
+        ->setParameter('userId', $userId)
+        ->getQuery()
+        ->getResult();
+}
 
 
 
