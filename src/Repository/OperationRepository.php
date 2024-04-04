@@ -22,6 +22,24 @@ class OperationRepository extends ServiceEntityRepository
         parent::__construct($registry, Operation::class);
     }
 
+    // Dans OperationRepository.php
+
+    public function countActiveOperationByUser($user): int
+    {
+        $qb = $this->createQueryBuilder('o');
+        $qb->select('count(o.id)')
+            ->join('o.meeting', 'm')
+            ->join('m.users', 'u') // Assurez-vous que cette jointure correspond à la manière dont les utilisateurs sont liés aux meetings
+            ->where('u = :user')
+            ->andWhere('o.status NOT IN (:excludedStatuses)')
+            ->andWhere('o.isValid = false')
+            ->setParameter('user', $user)
+            ->setParameter('excludedStatuses', [3, 4]);
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+
     public function findOperationsByUser($user)
     {
         return $this->createQueryBuilder('o')
@@ -35,52 +53,52 @@ class OperationRepository extends ServiceEntityRepository
 
 
     public function countActiveOperationsByUser(Users $user)
-{
-    return $this->createQueryBuilder('o')
-        ->select('count(o.id)')
-        ->join('o.meeting', 'm')
-        ->join('m.users', 'u')
-        ->where('u.id = :userId')
-        ->andWhere('o.status != :status') // Modification ici pour corriger la syntaxe
-        ->setParameter('userId', $user->getId())
-        ->setParameter('status', 5) // Supprimez le != ici et placez-le dans le andWhere()
-        ->getQuery()
-        ->getSingleScalarResult();
-}
+    {
+        return $this->createQueryBuilder('o')
+            ->select('count(o.id)')
+            ->join('o.meeting', 'm')
+            ->join('m.users', 'u')
+            ->where('u.id = :userId')
+            ->andWhere('o.status != :status') // Modification ici pour corriger la syntaxe
+            ->setParameter('userId', $user->getId())
+            ->setParameter('status', 5) // Supprimez le != ici et placez-le dans le andWhere()
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
 
-public function countTasksByOperationType()
-{
-    return $this->createQueryBuilder('o') 
-        ->select('t.label, COUNT(o.id) AS task_count')
-        ->join('o.typeOperation', 't')
-        ->groupBy('t.id')
-        ->orderBy('task_count', 'DESC')
-        ->getQuery()
-        ->getResult();
-}
+    public function countTasksByOperationType()
+    {
+        return $this->createQueryBuilder('o')
+            ->select('t.label, COUNT(o.id) AS task_count')
+            ->join('o.typeOperation', 't')
+            ->groupBy('t.id')
+            ->orderBy('task_count', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 
 
-public function calculateTotalRevenueByOperationType()
-{
-    return $this->createQueryBuilder('o') 
-        ->select('t.label, SUM(o.price) AS total_revenue')
-        ->join('o.typeOperation', 't') 
-        ->groupBy('t.id')
-        ->orderBy('total_revenue', 'DESC')
-        ->getQuery()
-        ->getResult();
-}
+    public function calculateTotalRevenueByOperationType()
+    {
+        return $this->createQueryBuilder('o')
+            ->select('t.label, SUM(o.price) AS total_revenue')
+            ->join('o.typeOperation', 't')
+            ->groupBy('t.id')
+            ->orderBy('total_revenue', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 
-public function findCostPerUnit()
-{
-    $qb = $this->createQueryBuilder('o');
+    public function findCostPerUnit()
+    {
+        $qb = $this->createQueryBuilder('o');
 
-    $qb->select('o.id, (o.price * COALESCE(o.discount, 1)) / o.floor_space  AS costPerUnit')
-        ->where($qb->expr()->gt('o.floor_space', 0)); 
+        $qb->select('o.id, (o.price * COALESCE(o.discount, 1)) / o.floor_space  AS costPerUnit')
+            ->where($qb->expr()->gt('o.floor_space', 0));
 
-    return $qb->getQuery()->getResult();
-}
+        return $qb->getQuery()->getResult();
+    }
 
 
 

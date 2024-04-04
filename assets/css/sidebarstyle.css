@@ -11,7 +11,15 @@
 
 }
 
+[data-bs-theme="dark"] canvas{
 
+        margin-top: 2rem;
+        background-color: black;
+        border: 1px solid white;
+        border-radius: 1rem;
+        box-shadow: 5px 5px 10px 0 rgba(255,255,255,0.5);
+
+}
 
 :root, [data-bs-theme="light"]{
     --sidebar-bg: #9fd7e6; 
@@ -66,6 +74,16 @@
     display: flex;
     justify-content: center;
 }
+
+canvas{
+    margin-top: 2rem;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.5);
+}
+
+
 
 label{
     font-weight: bolder;

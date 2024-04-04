@@ -11,6 +11,10 @@ use App\Entity\Operation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
+
 class PdfService
 {
     private $twig;
@@ -29,10 +33,16 @@ class PdfService
         $pdf = new TCPDF();
 
         // Configurations de base du document PDF
+        $pdf = new TCPDF();
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor('Votre Entreprise');
+        $pdf->SetAuthor('CleanThis');
         $pdf->SetTitle('Facture ' . $invoice->getId());
-        $pdf->SetSubject('Détails de la facture');
+        $pdf->SetSubject('Facture Opération');
+        $pdf->SetKeywords('TCPDF, PDF, facture, test, guide');
+        $pdf->SetMargins(5, 1, 5);
+        $pdf->SetFooterMargin(5);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFooterData(array(0, 64, 0), array(0, 64, 128));
         $pdf->AddPage();
 
         // Chemins des images utilisées dans le template PDF
