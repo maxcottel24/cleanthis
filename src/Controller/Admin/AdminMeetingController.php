@@ -325,15 +325,17 @@ class AdminMeetingController extends DashboardController
         if (!$meeting) {
             throw $this->createNotFoundException('Le meeting n\'a pas été trouvé.');
         }
-        $maxOperations = match(true) {
+        // Déterminez le nombre maximum d'opérations en fonction du rôle de l'utilisateur
+        $maxOperations = match (true) {
             in_array('ROLE_EXPERT', $user->getRoles()) => 5,
             in_array('ROLE_SENIOR', $user->getRoles()) => 3,
             in_array('ROLE_APPRENTI', $user->getRoles()) => 1,
             default => 0,
         };
-    
-        // Compter les opérations actives de l'utilisateur
-        $activeOperationsCount = $entityManager->getRepository(Operation::class)->countActiveOperationsByUser($user);
+
+        // Comptez les opérations actives de l'utilisateur, en excluant celles en statut 3 ou 4 et celles validées
+        $activeOperationsCount = $entityManager->getRepository(Operation::class)
+            ->countActiveOperationByUser($user);
 
         if ($activeOperationsCount >= $maxOperations) {
             $this->addFlash('danger', 'Vous avez atteint le nombre maximum d\'opérations actives autorisées.');
