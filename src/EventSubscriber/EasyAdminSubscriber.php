@@ -7,6 +7,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use Symfony\Component\Uid\Uuid;
 
+/**
+ * @author Florent <bflorent53170@gmail.com>
+ */
+
 class EasyAdminSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()

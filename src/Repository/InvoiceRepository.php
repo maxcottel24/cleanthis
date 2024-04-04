@@ -9,7 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @extends ServiceEntityRepository<Invoice>
- *
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ * @author Efflam <cefflam@gmail.com>
  * @method Invoice|null find($id, $lockMode = null, $lockVersion = null)
  * @method Invoice|null findOneBy(array $criteria, array $orderBy = null)
  * @method Invoice[]    findAll()

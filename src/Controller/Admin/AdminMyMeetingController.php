@@ -21,6 +21,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
+
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
+
 class AdminMyMeetingController extends DashboardController
 {
     private $entityManager;

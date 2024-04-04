@@ -4,6 +4,11 @@ namespace App\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ * @author Efflam <cefflam@gmail.com>
+ */
+
 class AppExtension extends AbstractExtension
 {
     public function getFilters()

@@ -7,6 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @author Efflam <cefflam@gmail.com>
+ */
+
 class LocaleController extends AbstractController
 {
     #[Route('/switch-locale/{locale}', name: 'app_switch_locale')]

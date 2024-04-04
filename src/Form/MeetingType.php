@@ -19,6 +19,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ * @author Efflam <cefflam@gmail.com>
+ */
+
+
 class MeetingType extends AbstractType
 {
    

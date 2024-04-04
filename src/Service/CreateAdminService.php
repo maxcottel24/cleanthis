@@ -11,6 +11,11 @@ use Doctrine\DBAL\Types\Types;
 use PharIo\Manifest\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * @author Florent <bflorent53170@gmail.com>
+ * @author Efflam <cefflam@gmail.com>
+ */
+
 class CreateAdminService
 {
     public function __construct(

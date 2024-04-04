@@ -7,6 +7,10 @@ use App\Repository\UsersRepository;
 use League\OAuth2\Client\Provider\GoogleUser; 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface; 
 
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
+
 final readonly class OAuthRegistrationService
 {
     public function __construct(

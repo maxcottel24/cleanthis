@@ -3,6 +3,10 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * @author Efflam <cefflam@gmail.com>
+ */
+
 class StatusService
 {
     private $client;

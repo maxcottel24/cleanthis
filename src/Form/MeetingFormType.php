@@ -17,6 +17,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ * @author Efflam <cefflam@gmail.com>
+ */
+
 class MeetingFormType extends AbstractType
 {
     private $entityManager;

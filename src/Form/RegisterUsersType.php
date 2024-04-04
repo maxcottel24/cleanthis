@@ -22,6 +22,12 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @author Florent <bflorent53170@gmail.com>
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ * @author Efflam <cefflam@gmail.com>
+ */
+
 class RegisterUsersType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

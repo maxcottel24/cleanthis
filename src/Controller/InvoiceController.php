@@ -14,6 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
+
 class InvoiceController extends AbstractController
 {
     #[Route('/invoice/payed/{id}', name: 'app_invoice_to_pay', methods: ['POST'])]

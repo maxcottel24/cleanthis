@@ -14,6 +14,12 @@ use Symfony\Component\Validator\Constraints\PasswordStrength;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
+
+/**
+ * @author Efflam <cefflam@gmail.com>
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
+
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[ORM\Table(name: 'users')]
 #[UniqueEntity(('email'), ('email déjà existant'))]

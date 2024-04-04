@@ -15,6 +15,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * @author Florent <bflorent53170@gmail.com>
+ */
+
 class InvitationController extends AbstractController
 {
 

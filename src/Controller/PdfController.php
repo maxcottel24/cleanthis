@@ -15,6 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
+
 class PdfController extends AbstractController
 {
     private $entityManager;

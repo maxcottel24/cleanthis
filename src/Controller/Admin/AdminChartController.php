@@ -10,6 +10,11 @@ use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\InvoiceRepository;
 
+/**
+ * @author Efflam <cefflam@gmail.com>
+ */
+
+
 class AdminChartController extends DashboardController
 {   
     private $entityManager;

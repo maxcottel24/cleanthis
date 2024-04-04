@@ -14,6 +14,10 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
+
 class GoogleAuthenticator extends AbstractOAuthAuthenticator
 {
     

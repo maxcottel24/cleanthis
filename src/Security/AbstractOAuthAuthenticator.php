@@ -23,6 +23,10 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
+
 
 abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
 {

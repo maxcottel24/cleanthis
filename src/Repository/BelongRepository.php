@@ -8,7 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Belong>
- *
+ * @author Efflam <cefflam@gmail.com>
  * @method Belong|null find($id, $lockMode = null, $lockVersion = null)
  * @method Belong|null findOneBy(array $criteria, array $orderBy = null)
  * @method Belong[]    findAll()
