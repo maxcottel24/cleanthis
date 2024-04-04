@@ -19,6 +19,11 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
+
 class AdminInvoiceController extends DashboardController
 {
 

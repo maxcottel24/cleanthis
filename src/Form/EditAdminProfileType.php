@@ -11,6 +11,13 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
+
+/**
+ * @author Florent <bflorent53170@gmail.com>
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ * @author Efflam <cefflam@gmail.com>
+ */
+
 class EditAdminProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

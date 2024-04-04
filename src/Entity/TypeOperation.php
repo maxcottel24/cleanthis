@@ -7,6 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
+/**
+ * @author Efflam <cefflam@gmail.com>
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
 #[ORM\Entity(repositoryClass: TypeOperationRepository::class)]
 class TypeOperation
 {

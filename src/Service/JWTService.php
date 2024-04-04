@@ -3,6 +3,11 @@ namespace App\Service;
 
 use DateTimeImmutable;
 
+/**
+ * @author Florent <bflorent53170@gmail.com>
+ * @author Efflam <cefflam@gmail.com>
+ */
+
 class JWTService
 {
     //On génère le token
@@ -16,6 +21,8 @@ class JWTService
      * @param integer $validity
      * @return string
      */
+
+     
     public function generate(array $header, array $payload, string $secret, int $validity = 10800): string
     {
         if ($validity > 0){

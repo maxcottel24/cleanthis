@@ -6,6 +6,11 @@ use App\Repository\InvitationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
+
+/**
+ * @author Florent <bflorent53170@gmail.com>
+ */
+
 #[ORM\Entity(repositoryClass: InvitationRepository::class)]
 class Invitation
 {

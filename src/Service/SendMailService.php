@@ -5,6 +5,10 @@ namespace App\Service;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
+
 class SendMailService
 {
     private $mailer;

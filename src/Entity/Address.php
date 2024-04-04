@@ -7,6 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
+/**
+ * @author Efflam <cefflam@gmail.com>
+ */
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
 class Address
 {

@@ -30,6 +30,13 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ * @author Florent < bflorent53170@gmail.com>
+ * @author Efflam <cefflam@gmail.com> 
+ */
+
+
 class SecurityController extends AbstractController
 {
 

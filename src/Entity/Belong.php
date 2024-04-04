@@ -6,6 +6,10 @@ use App\Repository\BelongRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+
+/**
+ * @author Efflam <cefflam@gmail.com>
+ */
 #[ORM\Entity(repositoryClass: BelongRepository::class)]
 class Belong
 {

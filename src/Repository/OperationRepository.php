@@ -9,7 +9,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Operation>
- *
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ * @author Efflam <cefflam@gmail.com>
  * @method Operation|null find($id, $lockMode = null, $lockVersion = null)
  * @method Operation|null findOneBy(array $criteria, array $orderBy = null)
  * @method Operation[]    findAll()

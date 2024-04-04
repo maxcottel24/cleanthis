@@ -6,6 +6,11 @@ use App\Repository\OperationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @author Efflam <cefflam@gmail.com>
+ * @author Nacim <nacim.ouldrabah@gmail.com>
+ */
+
 #[ORM\Entity(repositoryClass: OperationRepository::class)]
 class Operation
 {

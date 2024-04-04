@@ -8,7 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Address>
- *
+ * @author Efflam <cefflam@gmail.com>
  * @method Address|null find($id, $lockMode = null, $lockVersion = null)
  * @method Address|null findOneBy(array $criteria, array $orderBy = null)
  * @method Address[]    findAll()

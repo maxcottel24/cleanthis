@@ -12,6 +12,11 @@ use DateTime;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * @author Efflam <cefflam@gmail.com>
+ */
+
+
 #[AsCommand(
     name: 'app:create-admin',
     description: 'Create a new admin user',
