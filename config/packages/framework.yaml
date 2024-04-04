@@ -5,6 +5,11 @@ framework:
     annotations: false
     http_method_override: false
     handle_all_throwables: true
+    default_locale: 'fr'
+    translator:
+        fallbacks: ['en']
+
+
     
     
 

@@ -14,6 +14,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @author Efflam <cefflam@gmail.com>
@@ -39,7 +40,7 @@ class ProfileController extends AbstractController
 
 
     #[Route('/profile/edition/{id}', name: 'app_profile_edit' ,  methods: ['GET', 'POST'])]
-    public function edit(Users $user, Request $request, EntityManagerInterface $manager): Response
+    public function edit(Users $user, Request $request, EntityManagerInterface $manager, TranslatorInterface $translator): Response
     {
         if($this->getUser() == NULL) {
             return $this->redirectToRoute('app_login');
@@ -55,9 +56,12 @@ class ProfileController extends AbstractController
             $user = $form->getData();
             $manager->persist($user);
             $manager->flush();
+
+            $message = $translator->trans('Les informations de votre compte ont bien été modifié');
+
             $this->addFlash(
                 'success',
-                'Les informations de votre compte ont bien été modifié'
+                $message
             );
             
         return $this->redirectToRoute('app_profile');
@@ -68,7 +72,7 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/edition/{id}/password', name: 'app_profile_edit_password', methods: ['GET', 'POST'])]
-public function editPassword(UserInterface $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher): Response
+public function editPassword(UserInterface $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator): Response
 {
     if ($this->getUser() === null) {
         return $this->redirectToRoute('app_login');
@@ -90,10 +94,13 @@ public function editPassword(UserInterface $user, Request $request, EntityManage
             $manager->persist($user);
             $manager->flush();
 
-            $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
+            $message = $translator->trans('Votre mot de passe a été changé avec succès.');
+
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('app_profile');
         } else {
-            $this->addFlash('danger', 'L\'ancien mot de passe est incorrect.');
+            $message = $translator->trans('L\'ancien mot de passe est incorrect.');
+            $this->addFlash('danger', $message);
         }
     }
 

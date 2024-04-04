@@ -1,0 +1,142 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% set _content_title = 'Liste des Opérations' %}
+
+{% block page_title -%}{{ _content_title }}{%- endblock %}{% block content_header %}
+<h1 class="title">{{ _content_title }}</h1>{% endblock content_header %}{% block main %}
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
+<link rel="stylesheet" href=""{{ asset('assets/css/indexoperation.css') }}"">
+<table id="operation-table" data-toggle="table" data-search="false" data-pagination="true">
+	<thead>
+		<tr>
+			<th data-sortable="true" data-field="typeOperation">Type</th>
+			<th data-sortable="true" data-field="status">Status</th>
+			<th data-sortable="true" data-field="address">Adresse</th>
+			<th data-sortable="true" data-field="description">Description</th>
+			<th data-sortable="true" data-field="floor_space">Surface(m²)</th>
+			<th data-sortable="true" data-field="intervention">Date d'intervention</th>
+			<th data-sortable="true" data-field="price">Prix</th>
+			<th data-sortable="true" data-field="discount">Réduction</th>
+			<th data-sortable="true" data-field="cleanliness">Propreté</th>
+			<th data-sortable="true" data-field="created_by">Client</th>
+			<th data-sortable="true" data-field="operator">Opérateur</th>
+			<th data-sortable="true" data-field="action">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for operation in operations %}
+			{% if operation.status != 3 %}
+				<tr>
+					<td>{{ operation.typeOperation.label }}</td>
+					<td>
+						<span class="{{ operation.status|operation_status_badge }}">{{ operation.status|operation_status }}</span>
+					</td>
+					<td>
+						{% if operation.meeting and operation.meeting.address %}
+							{{ operation.meeting.address.street }},
+							{{ operation.meeting.address.zipcode }},
+							{{ operation.meeting.address.city }}
+						{% else %}
+							Pas d'adresse
+						{% endif %}
+					</td>
+					<td>
+						{% if operation.description|length > 20 %}
+							<span class="description-truncate">{{ operation.description|slice(0, 20) }}...</span>
+							<a href="#" class="read-more-link" data-bs-toggle="modal" data-bs-target="#descriptionModal{{ operation.id }}">Voir plus</a>
+							<div class="modal fade" id="descriptionModal{{ operation.id }}" tabindex="-1" aria-labelledby="descriptionModal{{ operation.id }}Label" aria-hidden="false">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="descriptionModal{{ operation.id }}Label">Description</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											{{ operation.description }}
+										</div>
+									</div>
+								</div>
+							</div>
+						{% else %}
+							{{ operation.description }}
+						{% endif %}
+					</td>
+					<td>{{ operation.floorSpace }}</td>
+					<td> {{ operation.intervention | date('d F Y H:i')  }} </td>
+					<td>{{ operation.price }}
+						€</td>
+					<td>
+						{% if operation.discount %}
+							{{ (operation.discount - 1 ) * 100 }}% de Remise
+						{% else %}
+							Aucune réduction
+						{% endif %}
+					</td>
+					<td>
+						{% if operation.cleanliness == 1 %}
+							Normal
+						{% elseif operation.cleanliness == 2 %}
+							Sale
+						{% elseif operation.cleanliness == 3 %}
+							Très sale
+						{% elseif operation.cleanliness == 4 %}
+							Diogène
+						{% else %}
+							Non spécifié
+						{% endif %}
+					</td>
+					<td>
+						{% if operation.meeting %}
+							{% set userFound = false %}
+							{% for user in operation.meeting.users %}
+								{% if user.jobTitle == 'Null' %}
+									{{ user.firstname }},
+									{{ user.lastname }}
+									{% set userFound = true %}
+								{% endif %}
+							{% endfor %}
+							{% if not userFound %}
+								Pas d'utilisateur
+							{% endif %}
+						{% else %}
+							Pas de meeting
+						{% endif %}
+					</td>
+					<td>
+						{% if operation.meeting %}
+							{% set lastOperator = null %}
+							{% for user in operation.meeting.users %}
+								{% if user.jobTitle == 'Opérateur' %}
+									{% set lastOperator = user %}
+								{% endif %}
+							{% endfor %}
+							{% if lastOperator %}
+								{{ lastOperator.firstname }},
+								{{ lastOperator.lastname }}
+							{% else %}
+								Pas d'opérateur
+							{% endif %}
+						{% else %}
+							Pas de meeting
+						{% endif %}
+					</td>
+					<td>
+						{% if app.user in operation.meeting.users %}
+							<form action="{{ path('app_admin_operation_update', {'id': operation.id}) }}" method="post">
+								<button type="submit" class="btn btn-primary">Modifier</button>
+							</form>
+							{% if operation.status != 3  %}
+								<form action="{{ path('app_admin_operation_validate', {'id': operation.id}) }}" method="post" onsubmit="return confirm(Êtes-vous sûr de vouloir finir cette opérations?');">
+								<button type="submit" class="btn btn-success">Valider</button>
+							</form>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+			{% endif %}
+		{% endfor %}
+	</tbody>
+
+</table>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>{% endblock main %}

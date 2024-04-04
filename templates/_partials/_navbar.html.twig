@@ -1,139 +1,55 @@
-
-
- <style>
-   
-    .navbar-brand img {
-      max-width: 100%;
-      height: auto;
-      margin-right: 40px;
-      padding-top: 0px;
-       border-radius:  35px; 
-       z-index: 1;
-    }
-    
-    .logo {
-      position: relative;
-      margin-right: 40px;
-      padding-top: 0px;
-      top: -7px;
-      border-radius:  35px; 
-    }
-
-    .navbar-nav .custom2{
-      color: #2764FF; 
-      font-weight: bold;
-      padding-top: 6px;
-      padding-bottom: 6px; 
-      padding-left: 20px !important; 
-      padding-right: 20px !important;
-      background: #92D4F5;
-      margin-right: 40px;
-      font-family:'Inter' ;
-      border-radius:  35px; 
-    }
-
-    .navbar-nav {
-      color: #ffff; 
-    }
-    
-    
-    
-    .navbar-toggler {
-      border-color: #007bff; 
-    }
-
-    .orther .custom1 {
-        color: #92D4F5; 
-      font-weight: bold;
-      padding-top: 6px;
-      padding-bottom: 6px; 
-      padding-left: 15px !important; 
-      padding-right: 15px !important;
-      background: #ffff;
-      margin-right: 40px;
-      font-family:'Inter' ;
-      border-radius:  35px; 
-    }
-
-   
-   .right {
-  position: absolute;
-  right: 0;
-  display: flex;
-  gap: 20px;
-  flex-direction: row;
-  font-weight: 900;
-}
-
-#menu-deroulant, #menu-deroulant ul {
-    padding: 0;
-    margin: 0;
-    font-family:'Inter' ;
-}
-#menu-deroulant {
-    text-align: center;
-}
-#menu-deroulant li {
-    display: inline-block;
-}
-#menu-deroulant ul li {
-    display: inherit;
-}
-#menu-deroulant a {
-    text-decoration: none;
-    display: block;
-	color:#2764FF;
-}
-#menu-deroulant ul {
-    position: absolute;
-    left: -999em;
-    text-align: left;
-    z-index: 1000;
-}
-#menu-deroulant li:hover ul {
-
-    left: 415px;;
-}
-  </style>
-
-<nav class="navbar navbar-expand-lg">
-  <a class="navbar-brand" href="{{ path('app_home') }}">
-    <img src="{{ asset('assets/images/Logo.png') }}" width="161" height="69" class="d-inline-block align-top" alt="charger">
-  </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Basculer la navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto right">
-          <li class="nav-item">
-            <a class="nav-link custom2" aria-current="page" href="#">Nos Valeurs</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link custom2" href="#">Nos Prestations</a>
-          </li>
-          <li class="orther">
-          {% if not app.user %}
-            <a class="nav-link custom1 " href="{{ path('app_login') }}">Se connecter</a>
-          </li>
-          <li class="orther ">
-            <a class="nav-link custom1" href="{{ path('security.registration') }}">S'inscrire</a>
-            {% endif %}
-            {% if app.user %}
-        <li class="nav-item">
-        <ul id="menu-deroulant">
-	<li><a class="logo" href="{{ path('app_profile') }}">
-    <img src="{{ asset('assets/images/LogoProfile.png') }}" width="50" height="50" class="d-inline-block align-top" alt="charger">
-  </a>
-		<ul>
-      <li><a href ="{{path('app_profile')}}">Mon profil</a></li>
-			<li><a href="{{ path('app_meeting_index', {'id': app.user.id}) }}">Commande</a></li>
-			<li><a href="{{path('app_logout')}}">Déconnexion</a></li>
-		</ul>
-	</li>
-        </li>
-        {% endif %}
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<head>
+	<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('assets/css/navbar.css') }}" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-white">
+		<a href="{{ path('app_home') }}" class="navbar-brand mb-0">
+			<img src="{{ asset('assets/images/Logo.png') }}" alt="Logo" class="d-inline-block align-top" width="161" height="69">
+		</a>
+		<div class="language-switch-container ms-auto me-3">
+			<a href="{{ path('app_switch_locale', {'locale': 'fr'}) }}" class="nav-link language-button {{ app.request.locale == 'fr' ? 'active' : '' }}">FR</a>
+			<a href="{{ path('app_switch_locale', {'locale': 'en'}) }}" class="nav-link language-button {{ app.request.locale == 'en' ? 'active' : '' }}">EN</a>
+		</div>
+		<button type="button" class="navbar-toggler custom-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item">
+					<a href="#" class="nav-link button-style">{{ "Nos valeurs"|trans }}</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link button-style">{{ "Nos prestations"|trans }}</a>
+				</li>
+				{% if not app.user %}
+					<li class="nav-item">
+						<a href="{{ path('app_login') }}" class="nav-link auth-link">{{ "Se connecter"|trans }}</a>
+					</li>
+					<li class="nav-item">
+						<a href="{{ path('security.registration') }}" class="nav-link auth-link">{{ "S'inscrire"|trans }}</a>
+					</li>
+				{% endif %}
+				{% if app.user %}
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							{{ app.user.lastname }}
+							{{ app.user.firstname }}
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li>
+								<a href="{{ path('app_meeting_index', {'id': app.user.id}) }}" class="dropdown-item">{{ "Mes commandes"|trans }}</a>
+							</li>
+							<li>
+								<a href="{{ path('app_profile') }}" class="dropdown-item">{{ "Mon profil"|trans }}</a>
+							</li>
+							<li>
+								<a href="{{ path('app_logout') }}" class="dropdown-item">{{ "Se déconnecter"|trans }}</a>
+							</li>
+						</ul>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+	</nav>
+</body>

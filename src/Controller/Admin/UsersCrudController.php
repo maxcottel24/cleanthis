@@ -73,7 +73,7 @@ class UsersCrudController extends AbstractCrudController
                 ->onlyOnDetail(),
             AssociationField::new('meetings', ('Rendez-vous'))
                 ->onlyOnIndex(),
-            AssociationField::new('meetings', ('Rendez-vous'))
+            ArrayField::new('meetings', ('Rendez-vous'))
                 ->onlyOnDetail(),
             TelephoneField::new('phone_number', ('Téléphone')),
             DateField::new('date_of_birthday', ('Date de naissance'))

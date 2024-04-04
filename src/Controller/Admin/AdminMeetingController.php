@@ -5,7 +5,10 @@ namespace App\Controller\Admin;
 use App\Entity\Users;
 use App\Entity\Address;
 use App\Entity\Meeting;
+use App\Entity\Operation;
+use App\Entity\TypeOperation;
 use App\Form\MeetingFormType;
+use App\Service\SendMailService;
 use App\Form\MeetingUpdateTypeForm;
 use App\Repository\UsersRepository;
 use App\Repository\AddressRepository;
@@ -36,7 +39,7 @@ class AdminMeetingController extends DashboardController
     {
         $meetings = $this->entityManager->getRepository(Meeting::class)->findAll();
 
-        //Permets d'inscrire le nom de l'opérateur
+        // Permets d'inscrire le nom de l'opérateur
         $operatorNames = [];
         foreach ($meetings as $meeting) {
             $operatorNames[$meeting->getId()] = $meeting->getStatus() == 3 ? $this->getUser()->__toString() : null;
@@ -49,7 +52,7 @@ class AdminMeetingController extends DashboardController
     }
 
     #[Route('/admin/meeting/handle/{id}', name: 'app_admin_meeting_handle', methods: ['POST'])]
-    public function handleMeeting(Request $request, $id): Response
+    public function handleMeeting(Request $request, $id, SendMailService $mail): Response
     {
         $meeting = $this->entityManager->getRepository(Meeting::class)->find($id);
 
@@ -59,33 +62,50 @@ class AdminMeetingController extends DashboardController
 
         $user = $this->getUser();
 
+        foreach ($meeting->getUsers() as $customer) {
+            // Verifier si le jobTitle de l'utilisateur est "Null"
+            if ($customer->getJobTitle() == "Null") {
+                $context = [
+                    'userId' => $user->getId(),
+                    'user' => $user,
+                    'meeting' => $meeting,
+                ];
+
+                $mail->send(
+                    'acleanthis@gmail.com',
+                    $customer->getEmail(),
+                    'Votre rendez-vous est confirmé',
+                    'confirmation_meeting_admin',
+                    $context,
+                );
+            }
+        }
+
         if (!$user instanceof Users) {
             throw new \RuntimeException('Aucun utilisateur connecté');
         }
 
-        // Identifier et supprimer l'ancien utilisateur avec le job_title "Opérateur"
+        // Retirer l'ancien utilisateur avec le jobTitle "Opérateur"
         foreach ($meeting->getUsers() as $currentUser) {
             if ($currentUser->getJobTitle() === "Opérateur") {
                 $meeting->removeUser($currentUser);
             }
         }
 
-        // Associer l'utilisateur courant au rendez-vous, si pas déjà associé
         if (!$meeting->getUsers()->contains($user)) {
             $meeting->addUser($user);
         }
 
-        // Mettre à jour le statut du rendez-vous
-        $meeting->setStatus(3); // Suppose que 3 est le statut pour "Pris en charge"
+        $meeting->setStatus(3);
 
         $this->entityManager->flush();
 
-        $this->addFlash('success', 'RDV pris en charge avec succès.');
+        $this->addFlash('success', 'Rendez-vous pris en charge avec succès.');
 
         return $this->redirect('/admin?routeName=app_admin_meeting', 301);
     }
     #[Route('/admin/meeting/new/', name: 'app_admin_meeting_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, Security $security): Response
+    public function new(Request $request, Security $security, SendMailService $mail): Response
     {
         $meeting = new Meeting();
 
@@ -110,7 +130,7 @@ class AdminMeetingController extends DashboardController
         }
 
         $form = $this->createForm(MeetingFormType::class, $meeting, [
-            'userData' => $userData, // Passer les données utilisateur au formulaire
+            'userData' => $userData,
         ]);
 
         $form->handleRequest($request);
@@ -132,15 +152,55 @@ class AdminMeetingController extends DashboardController
 
             // Ajouter les utilisateurs au rendez-vous
             $meeting->addUser($selectedUser);
-
+            // Parcours les utilisateurs d'un rendez-vous
+            foreach ($meeting->getUsers() as $customer) {
+                // Verifier si le jobTitle de l'utilisateur est "Null"
+                if ($customer->getJobTitle() == "Null") {
+                    $context = [
+                        'userId' => $user->getId(),
+                        'user' => $user,
+                        'meeting' => $meeting,
+                    ];
+                    if ($meeting->getStatus() == 3) {
+                        $mail->send(
+                            'acleanthis@gmail.com',
+                            $customer->getEmail(),
+                            'Votre rendez-vous est confirmé',
+                            'confirmation_meeting_admin',
+                            $context,
+                        );
+                    } elseif ($meeting->getStatus() == 1) {
+                        $mail->send(
+                            'acleanthis@gmail.com',
+                            $customer->getEmail(),
+                            'Vous avez un nouveau rendez-vous',
+                            'nouveau_rdv',
+                            $context,
+                        );
+                    } elseif ($meeting->getStatus() == 2) {
+                        $mail->send(
+                            'acleanthis@gmail.com',
+                            $customer->getEmail(),
+                            'Merci, de confirmer votre rendez-vous',
+                            'update_rdv',
+                            $context,
+                        );
+                    } elseif ($meeting->getStatus() == 4) {
+                        $mail->send(
+                            'acleanthis@gmail.com',
+                            $customer->getEmail(),
+                            'Votre rendez-vous est en attente de traitement par un de nos opérateurs',
+                            'en_attente_rdv',
+                            $context,
+                        );
+                    }
+                }
+            }
 
             // Enregistrer le rendez-vous avec les utilisateurs
             $this->entityManager->flush();
 
-            // Ajoutez un message flash pour indiquer le succès de l'opération
             $this->addFlash('success', 'Le rendez-vous a été créé avec succès.');
-
-            // Redirigez vers une autre page, par exemple la liste des rendez-vous
             return $this->redirect('/admin?routeName=app_admin_meeting', 301);
         }
 
@@ -151,12 +211,32 @@ class AdminMeetingController extends DashboardController
     }
 
     #[Route('/admin/meeting/delete/{id}', name: 'app_admin_meeting_delete', methods: ['POST'])]
-    public function deleteMeeting(Request $request, $id): Response
+    public function deleteMeeting(Request $request, $id, SendMailService $mail): Response
     {
         $meeting = $this->entityManager->getRepository(Meeting::class)->find($id);
 
         if (!$meeting) {
-            throw $this->createNotFoundException('RDV non trouvé.');
+            throw $this->createNotFoundException('Rendez-vous non trouvé.');
+        }
+        $user = $this->getUser();
+        foreach ($meeting->getUsers() as $customer) {
+            // Verifier si le jobTitle de l'utilisateur est "Null"
+            if ($customer->getJobTitle() == "Null") {
+                $context = [
+                    'userId' => $user->getId(),
+                    'user' => $user,
+                    'meeting' => $meeting,
+                ];
+
+                // Envoyer un email uniquement à l'utilisateur avec job_title "Null"
+                $mail->send(
+                    'acleanthis@gmail.com',
+                    $customer->getEmail(), // Send email to the customer
+                    'Votre rendez-vous a été annulé',
+                    'delete_meeting',
+                    $context,
+                );
+            }
         }
 
         $this->entityManager->remove($meeting);
@@ -168,12 +248,12 @@ class AdminMeetingController extends DashboardController
 
 
     #[Route('/admin/meeting/update/{id}', name: 'app_admin_meeting_update', methods: ['GET', 'POST'])]
-    public function update(Request $request, $id): Response
+    public function update(Request $request, $id, SendMailService $mail): Response
     {
         $meeting = $this->meetingRepository->find($id);
 
         if (!$meeting) {
-            throw $this->createNotFoundException('Meeting not found');
+            throw $this->createNotFoundException('Rendez-vous non trouvé.');
         }
 
         $form = $this->createForm(MeetingUpdateTypeForm::class, $meeting);
@@ -183,10 +263,39 @@ class AdminMeetingController extends DashboardController
             // Sauvegarder l'utilisateur sélectionné temporairement
             $selectedOperator = $form->get('selectedOperator')->getData();
 
-            // Supprimer tous les utilisateurs sauf celui avec job_title "Null"
+            // Envoyer un email uniquement à l'utilisateur avec job_title "Null"
             foreach ($meeting->getUsers() as $user) {
-                if ($user->getJobTitle() !== "Null") {
-                    $meeting->removeUser($user);
+                if ($user->getJobTitle() === "Null") {
+                    $context = [
+                        'userId' => $user->getId(),
+                        'user' => $user,
+                        'meeting' => $meeting,
+                    ];
+                    if ($meeting->getStatus() == 3) {
+                        $mail->send(
+                            'acleanthis@gmail.com',
+                            $user->getEmail(),
+                            'Votre rendez-vous est confirmé',
+                            'confirmation_meeting_admin',
+                            $context,
+                        );
+                    } elseif ($meeting->getStatus() == 2) {
+                        $mail->send(
+                            'acleanthis@gmail.com',
+                            $user->getEmail(),
+                            'Merci, de confirmer votre rendez-vous',
+                            'update_rdv',
+                            $context,
+                        );
+                    } elseif ($meeting->getStatus() == 4) {
+                        $mail->send(
+                            'acleanthis@gmail.com',
+                            $user->getEmail(),
+                            'Votre rendez-vous est en attente de traitement un de nos opérateurs',
+                            'en_attente_rdv',
+                            $context,
+                        );
+                    }
                 }
             }
 
@@ -198,12 +307,77 @@ class AdminMeetingController extends DashboardController
 
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'Meeting updated successfully.');
+            $this->addFlash('success', 'Rendez-vous modifié avec succès.');
             return $this->redirect('/admin?routeName=app_admin_meeting', 301);
         }
 
         return $this->render('admin/meeting/update.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/admin/meeting/validate/{id}', name: 'admin_meeting_validate')]
+    public function validateMeeting(Request $request, EntityManagerInterface $entityManager, $id, Security $security): Response
+    {
+        $meeting = $entityManager->getRepository(Meeting::class)->find($id);
+        $user = $security->getUser();
+
+        if (!$meeting) {
+            throw $this->createNotFoundException('Le meeting n\'a pas été trouvé.');
+        }
+        $maxOperations = match(true) {
+            in_array('ROLE_EXPERT', $user->getRoles()) => 5,
+            in_array('ROLE_SENIOR', $user->getRoles()) => 3,
+            in_array('ROLE_APPRENTI', $user->getRoles()) => 1,
+            default => 0,
+        };
+    
+        // Compter les opérations actives de l'utilisateur
+        $activeOperationsCount = $entityManager->getRepository(Operation::class)->countActiveOperationsByUser($user);
+
+        if ($activeOperationsCount >= $maxOperations) {
+            $this->addFlash('danger', 'Vous avez atteint le nombre maximum d\'opérations actives autorisées.');
+            return $this->redirectToRoute('admin');
+        }
+        // Modifier le statut du meeting
+        $meeting->setStatus(5);
+        $surface = $meeting->getFloorSpace();
+        $typeOperationRepo = $entityManager->getRepository(TypeOperation::class);
+        // Créer une nouvelle opération
+        $operation = new Operation();
+        $operation->setMeeting($meeting);
+        if ($surface <= 50) {
+            $typeOperation = $typeOperationRepo->findOneBy(['label' => 'Petite']);
+            if ($typeOperation === null) {
+                throw new \Exception("Le type d'opération 'Petite' n'existe pas.");
+            }
+        } elseif ($surface > 50 && $surface <= 100) {
+            $typeOperation = $typeOperationRepo->findOneBy(['label' => 'Moyenne']);
+            if ($typeOperation === null) {
+                throw new \Exception("Le type d'opération 'Moyenne' n'existe pas.");
+            }
+        } elseif ($surface > 100 && $surface <= 150) {
+            $typeOperation = $typeOperationRepo->findOneBy(['label' => 'Grosse']);
+            if ($typeOperation === null) {
+                throw new \Exception("Le type d'opération 'Grosse' n'existe pas.");
+            }
+        } elseif ($surface > 150) {
+            $typeOperation = $typeOperationRepo->findOneBy(['label' => 'Custom']);
+            if ($typeOperation === null) {
+                throw new \Exception("Le type d'opération 'Custom' n'existe pas.");
+            }
+        }
+
+        $operation->setTypeOperation($typeOperation);
+        $operation->setStatus(2);
+        $operation->setIsValid(false);
+        $operation->setDescription($meeting->getDescription());
+        $operation->setFloorSpace($meeting->getFloorSpace());
+
+        $entityManager->persist($operation);
+        $entityManager->flush();
+
+        // Rediriger l'utilisateur ou envoyer une réponse
+        return $this->redirectToRoute('admin');
     }
 }

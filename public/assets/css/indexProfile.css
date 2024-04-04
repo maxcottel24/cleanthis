@@ -1,0 +1,79 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: #123b61;
+  font-family: Inter, sans-serif;
+}
+
+.fancy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 1%;
+  width: 100%;
+}
+
+.backgrd {
+  width: 80%;
+  height: 10rem;
+  background-color: #92d4f5;
+  color: white;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-radius: 0.8rem;
+  box-shadow: 0 2px 5px #c5ccbf;
+  margin-top: 2%;
+  position: relative;
+  z-index: 1;
+  padding: 1rem;
+}
+
+.profile {
+  width: 60%;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 2rem;
+  border: 2px solid #c5ccbf;
+  box-shadow: 0 5px 5px #c5ccbf;
+  margin-top: -5rem; 
+  margin-bottom: 2em;
+  position: relative; 
+  z-index: 2; 
+  color: #123b61; 
+}
+
+.profile {
+  color: #123b61;
+}
+
+.profile h5,
+.profile p,
+.profile a {
+  color: inherit; 
+}
+
+.profile a {
+  color: #123b61; 
+  text-decoration: none; 
+}
+
+.profile a:hover {
+  color: #3971ff; 
+  text-decoration: none; 
+}
+
+@media (max-width: 770px) {
+  .backgrd {
+    padding: 20px;
+    height: auto;
+    font-size: 0.9rem;
+  }
+
+  .profile {
+    margin-top: -2rem; 
+  }
+}

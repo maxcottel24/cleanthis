@@ -146,7 +146,6 @@ body {
 .connected a {
     margin-left: 0.3rem;
     text-decoration: none;
-    margin-bottom: 1rem;
 }
 
 .connected a:hover {
@@ -167,4 +166,44 @@ body>div.split-container>div.right-side>div>form>div:nth-child(5)>ul,
 body>div.split-container>div.right-side>div>form>div:nth-child(4)>ul {
     color: rgb(195, 18, 18);
     font-size: 0.6rem;
+}
+
+@media (max-width: 1120px) {
+    .left-side {
+        display: none;
+    }
+
+    .split-container {
+        flex-direction: column;
+    }
+
+    .left-side,
+    .right-side {
+        flex: none;
+        width: 100%;
+        min-height: 50vh;
+    }
+
+    .left-side {
+        background-image: none;
+        background-color: #92D4F5; /* Optional: you can set a fallback color */
+    }
+
+    .container h1, .loginform {
+        margin-top: 2rem;
+    }
+
+    .btn-primary, .right-side input, .right-side select, .right-side textarea {
+        font-size: 0.9rem;
+    }
+
+    .connected {
+        flex-direction: column;
+        margin-top: 5%;
+    }
+
+    .connected a {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
 }

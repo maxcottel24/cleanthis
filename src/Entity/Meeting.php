@@ -170,4 +170,14 @@ class Meeting
     {
         return $this->description;
     }
+
+    public function getUserWithJobTitleNull(): ?Users
+{
+    foreach ($this->getUsers() as $user) {
+        if ($user->getJobTitle() === "Null") {
+            return $user;
+        }
+    }
+    return null; // Aucun utilisateur correspondant trouvé
+}
 }

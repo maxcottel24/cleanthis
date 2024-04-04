@@ -162,10 +162,50 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
 }
 
 
 .noaccount a:hover {
     color: #3971FF
 }
+
+@media (max-width: 650px) {
+    .left-side {
+        display: none;
+    }
+
+    .split-container {
+        flex-direction: column;
+    }
+
+    .left-side,
+    .right-side {
+        flex: none;
+        width: 100%;
+        min-height: 50vh;
+    }
+
+    .left-side {
+        background-image: none;
+        background-color: #92D4F5; /* Optional: you can set a fallback color */
+    }
+
+    .container h1, .loginform {
+        margin-top: 2rem;
+    }
+
+    .btn-primary, .right-side input, .right-side select, .right-side textarea {
+        font-size: 0.9rem;
+    }
+
+    .noaccount {
+        flex-direction: column;
+        margin-top: 5%;
+    }
+
+    .noaccount a {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+}
+

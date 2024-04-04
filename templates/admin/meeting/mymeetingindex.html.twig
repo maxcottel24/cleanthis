@@ -1,0 +1,93 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% set _content_title = 'Liste de mes rendez-vous' %}
+
+
+{% block page_title -%}{{ _content_title }}{%- endblock %}{% block content_header %}
+<h1 class="title">{{ _content_title }}</h1>
+{% endblock content_header %}{% block main %}
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
+<table id="meeting-table" data-toggle="table" data-search="false" data-pagination="true">
+	<thead>
+		<tr>
+			<th data-sortable="true" data-field="id">Numéro RDV</th>
+			<th data-sortable="true" data-field="reserved_at">Date/Heure</th>
+			<th data-sortable="true" data-field="status">Statut</th>
+			<th data-sortable="true" data-field="address">Adresse</th>
+			<th data-sortable="true" data-field="description">Description</th>
+			<th data-sortable="true" data-field="floor_space">Surface(m²)</th>
+			<th data-sortable="true" data-field="created_by">Client</th>
+			<th data-sortable="true" data-field="operator">Opérateur</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for meeting in meetings %}
+			{% if meeting.Status == 5 %}
+				<tr>
+					<td>{{ meeting.id }}</td>
+					<td>{{ meeting.reservedAt | date }}</td>
+					<td>
+						<span class=" {{meeting.Status|meeting_statuss_badge}}">{{ meeting.Status|meeting_statuss}}</span>
+					</td>
+					<td>{{ meeting.address }}</td>
+					<td>
+						{% if meeting.description|length > 20 %}
+							<span class="description-truncate">{{ meeting.description|slice(0, 20) }}...</span>
+							<a href="#" class="read-more-link" data-bs-toggle="modal" data-bs-target="#descriptionModal{{ meeting.id }}">Voir plus</a>
+							<div class="modal fade" id="descriptionModal{{ meeting.id }}" tabindex="-1" aria-labelledby="descriptionModal{{ meeting.id }}Label" aria-hidden="false">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="descriptionModal{{ meeting.id }}Label">Description</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											{{ meeting.description }}
+										</div>
+									</div>
+								</div>
+							</div>
+						{% else %}
+							{{ meeting.description }}
+						{% endif %}
+					</td>
+					<td>{{ meeting.floorSpace }}</td>
+					<td>
+						{% for user in meeting.users %}
+							{% if user.getJobTitle() == 'Null' %}
+								{{ user.firstname }}
+								{{ user.lastname }}
+								<br>
+							{% endif %}
+						{% else %}
+							Aucun créateur défini
+						{% endfor %}
+
+					</td>
+					<td>
+						{% set operator = null %}
+						{% for user in meeting.users %}
+							{% if user.getJobTitle() == 'Opérateur' %}
+								{% set operator = user %}
+							{% endif %}
+						{% endfor %}
+
+						{% if operator is not null %}
+							{{ operator.firstname }}
+							{{ operator.lastname }}
+							<br>
+						{% else %}
+							Aucun opérateur défini
+						{% endif %}
+					</td>
+					
+
+				</tr>
+			{% endif %}
+		{% endfor %}
+	</tbody>
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+
+<script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>{% endblock main %}

@@ -30,10 +30,10 @@ class MeetingFormType extends AbstractType
     {
         $builder
             ->add('reservedAt', null, [
-                'widget' => 'single_text', 
+                'widget' => 'single_text',
                 'attr' => [
                     'class' => 'form-control',
-                ], 
+                ],
                 'label' => 'Sélectionner la date et l\'heure du rendez-vous',
                 'constraints' => [
                     new NotBlank(),
@@ -56,7 +56,6 @@ class MeetingFormType extends AbstractType
                 'choices' => [
                     'Nouveau RDV' => '1',
                     'En attente de retour client' => '2',
-                    'Pris en charge' => '3',
                     'Intervention opérateur' => '4'
                 ],
                 'attr' => [
@@ -95,7 +94,7 @@ class MeetingFormType extends AbstractType
                     ]),
                 ],
             ]);
-        
+
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) {
@@ -162,4 +161,3 @@ class MeetingFormType extends AbstractType
         ]);
     }
 }
-

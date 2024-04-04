@@ -4,7 +4,7 @@
 	<section class="container my-3">
 		<div class="row">
 			<div class="col px-4 py-4">
-				<h1 class="pb-2 border-bottom">Modification du profil de {{ app.user.firstname }} {{ app.user.lastname }}</h1>
+				<h1 class="pb-2 border-bottom">{{ "Modification du profil de " |trans }}{{ app.user.firstname }} {{ app.user.lastname }}</h1>
 				
                 {{ form_errors(editAdminProfileType) }}
 
@@ -16,7 +16,7 @@
 					    {{ form_row(editAdminProfileType.date_of_birthday) }}
 					    {{ form_row(editAdminProfileType.phone_number) }}
 				    </fieldset>
-                    <button type="submit" class="btn btn-primary btn-lg mt-3">Valider les modifications</button>
+                    <button type="submit" class="btn btn-primary btn-lg mt-3">{{ "Valider les modifications" |trans }}</button>
                 {{ form_end(editAdminProfileType) }}
 			</div>
 		</div>
