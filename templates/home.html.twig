@@ -1,11 +1,91 @@
+{% block title %}
+  CleanThis -
+{% endblock %}
+
+{% block stylesheets %}
+   {% include '_partials/_navbar.html.twig' %}
+  {% include '_partials/_devis.html.twig' %}
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link href="{{ asset('assets/css/homepage.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "CleanThis - Page d'acceuil" |trans }}
-{% endblock %}
+ {% block body %}
 
-{% block body %}
+ <div class ="page">
+  <div class ="first_line">
+    <div class="first_para">
+      <h1><span class="grey">On vous offre les meilleurs</span><span class="blue"> services de nettoyage.</span></h1>
+      <p>Nous nous engageons à minimiser notre empreinte carbone en privilégiant des pratiques respectueuses de l'environnement et des produits écologiques. La préservation de la planète guide chacune de nos actions, renforçant notre responsabilité sociale.</p>
+    </div>
+    <div class ="first_pic">
+    </div>
+  </div>
+  <div class = "boxes">
+      <div class="icon-box">
+        <div class="icon-title">Nettoyage</div>
+        <img src="assets/images/nettoyage.png" alt="Nettoyage">
+      </div>
+      <div class="icon-box">
+        <div class="icon-title">Environnement</div>
+        <img src="assets/images/environment.png" alt="Environnement">
+      </div>
+      <div class="icon-box">
+        <div class="icon-title">Confort</div>
+        <img src="assets/images/comfort.png" alt="Confort">
+      </div>
+      <div class="icon-box">
+        <div class="icon-title">Hygiène</div>
+        <img src="assets/images/hygiene.png" alt="Hygiène">
+      </div>
+  </div>
+    <div class ="cards">
+      <div class="whoarewe-card">
+        <div class="whoarewe-image">
+          <img src="assets/images/whoarewe.png" alt="Image représentant qui nous sommes.">
+        </div>
+        <div class="whoarewe-content">
+          <h2>Qui sommes-nous ?</h2>
+          <p>Bienvenue chez CleanThis, le leader du nettoyage redéfinissant les standards de propreté. Spécialisés dans le nettoyage résidentiel et commercial, nous offrons des services personnalisés adaptés à vos besoins. Transformez votre domicile en un espace immaculé avec nos services de nettoyage réguliers et ponctuels. Profitez d'un environnement propre et sain sans effort.</p>
+        </div>
+      </div>
+      <div class="values-card">
+        <div class="values-content">
+          <h2>Nos Valeurs</h2>
+          <p>Notre entreprise de nettoyage incarne des valeurs profondément ancrées, plaçant l'écologie au cœur de ses engagements. Nous nous engageons à minimiser notre empreinte carbone en privilégiant des pratiques respectueuses de l'environnement et des produits écologiques. La préservation de la planète guide chacune de nos actions, renforçant notre responsabilité sociale.
+          Le bien-être de nos employés est une priorité essentielle.</p>
+        </div>
+        <div class="values-image">
+          <img src="assets/images/values.png" alt="Image représentant nos valeurs.">
+        </div>
+      </div>
+      <div class="engagements-card">
+        <div class="engagements-image">
+          <img src="assets/images/engagements.png" alt="Image représentant nos engagements.">
+        </div>
+        <div class="engagements-content">
+          <h2>Nos engagements</h2>
+          <p>Chez CleanThis, notre engagement va au-delà de la propreté. Nous accordons une importance particulière au bien-être de nos employés, reconnaissant que des équipes épanouies garantissent des services de nettoyage exceptionnels.
+          Engagement envers le Bien-Être au Travail :Chez CleanThis, nous considérons nos employés comme une partie essentielle de notre famille. Nous nous engageons à créer un environnement de travail sain, équilibré et favorable à l'épanouissement personnel et professionnel de chacun.</p>
+        </div>
+      </div>
+    </div>
+  <div class="partners-section">
+  <h2>Nos Partenaires</h2>
+  <div class="partners-logos">
+    <img src="assets/images/AVIS.png" alt="Avis" class="partner-logo">
+    <img src="assets/images/SIXT.png" alt="Sixt" class="partner-logo">
+    <img src="assets/images/RENAULT.png" alt="Renault" class="partner-logo">
+    <img src="assets/images/AMAZON.png" alt="Amazon" class="partner-logo">
+    <img src="assets/images/AFPA.png" alt="AFPA" class="partner-logo">
+    <img src="assets/images/RF.png" alt="République Française" class="partner-logo">
+    <img src="assets/images/MEL.png" alt="MEL" class="partner-logo">
+  </div>
+</div>
+ </div>
 
-	{# {% include '_partials/_navbar.html.twig' %}
-	{% include '_partials/_devis.html.twig' %} #}
 
-{% endblock %}
+  
+ {% endblock %}
