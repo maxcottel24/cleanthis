@@ -43,7 +43,7 @@ class EmployeeCrudController extends UsersCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
-            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des employés');
+            ->setPageTitle(Crud::PAGE_INDEX, 'list_employees_label');
     }
 
     /**
@@ -70,7 +70,7 @@ class EmployeeCrudController extends UsersCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            ChoiceField::new('roles', ('Poste'))
+            ChoiceField::new('roles', ('position_label'))
                 ->setChoices([
                         'Apprenti' => 'ROLE_APPRENTI',
                         'Senior' => 'ROLE_SENIOR',
@@ -83,17 +83,17 @@ class EmployeeCrudController extends UsersCrudController
                     'ROLE_EXPERT' => 'success',
                     'ROLE_ADMIN' => 'danger'
                 ]),
-            TextField::new('lastname', ('Nom')),
-            TextField::new('firstname', ('Prénom')),
-            EmailField::new('email', ('E-mail')),
-            ArrayField::new('addresses', ('Adresse'))
+            TextField::new('lastname', ('lastname_label')),
+            TextField::new('firstname', ('firstname_label')),
+            EmailField::new('email', ('email_label')),
+            ArrayField::new('addresses', ('addresses_label'))
                 ->onlyOnDetail(),
-            AssociationField::new('meetings', ('Rendez-vous'))
+            AssociationField::new('meetings', ('my_meetings_label'))
                 ->onlyOnIndex(),
-            ArrayField::new('meetings', ('Rendez-vous'))
+            ArrayField::new('meetings', ('my_meetings_label'))
                 ->onlyOnDetail(),
-            TelephoneField::new('phone_number', ('Téléphone')),
-            DateField::new('date_of_birthday', ('Date de naissance'))
+            TelephoneField::new('phone_number', ('phone_label')),
+            DateField::new('date_of_birthday', ('birthday_label'))
                 ->onlyOnDetail(),
         ];
     }

@@ -4,7 +4,7 @@
 
 
 {% block page_title -%}{{ _content_title }}{%- endblock %}{% block content_header %}
-<h1 class="title">{{ _content_title }}</h1>
+<h1 class="title">{{ 'Liste des rendez-vous' |trans }}</h1>
 <form action="{{ path('app_admin_meeting_new') }}" method="post">
 	<button type="submit" class="btn btn-primary" style="margin-left:10rem; "><img src="/assets/images/add.png" alt="" style="width:30px"></button>
 </form>{% endblock content_header %}{% block main %}
