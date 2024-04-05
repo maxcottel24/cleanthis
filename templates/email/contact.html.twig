@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            color: #333;
+        }
+        .email-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .email-heading {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .email-footer {
+            margin-top: 40px;
+            font-size: 12px;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-heading">Nouveau message de contact</div>
+        
+        <p>Vous avez reçu un nouveau message via le formulaire de contact sur votre site web.</p>
+
+    
+       
+</div>
+        <p><strong>De :</strong> {{ mail }}</p>
+        <p><strong>Message :</strong></p>
+        <p>{{ message }}</p>
+
+        <div class="email-footer">
+            © {{ "now"|date("Y") }} Cleanthis. Tous droits réservés.
+        </div>
+    </div>
+</body>
+</html>

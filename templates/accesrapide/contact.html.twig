@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez-nous{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2>Contactez-nous</h2>
+    <p>Utilisez le formulaire ci-dessous pour envoyer un message à notre équipe.</p>
+
+    {{ form_start(form) }}
+
+        <div class="mb-3">
+            {{ form_label(form.firstname, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.firstname) }}
+        </div>
+        <div class="mb-3">
+            {{ form_label(form.lastname, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.lastname) }}
+        </div>
+        <div class="mb-3">
+            {{ form_label(form.mail, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.mail, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.mail) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.message, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.message, {'attr': {'class': 'form-control', 'rows': '5'}}) }}
+            {{ form_errors(form.message) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_widget(form.send, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

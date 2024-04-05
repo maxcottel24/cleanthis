@@ -14,4 +14,6 @@ class RapidAccessController extends AbstractController
     {
         return $this->render('accesrapide/faq.html.twig');
     }
+
+    
 }
