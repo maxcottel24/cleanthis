@@ -20,7 +20,7 @@
 				<span style="color: #2a56a1">{{ "On vous offre les meilleurs" |trans }}</span>
 				<span style="color: #92d4f5"><br>{{ "services de nettoyage." |trans }}</span>
 			</h1>
-			<a onclick="window.location.href='{{ path('app_meeting') }}'">{{ "Nos prestations" |trans }}</a>
+			<a href="{{ path('app_home') }}#prestation" >{{ "Nos prestations" |trans }}</a>
 			{# <p>Nous nous engageons à minimiser notre empreinte carbone en privilégiant des pratiques respectueuses de l'environnement et des produits écologiques. La préservation de la planète guide chacune de nos actions, renforçant notre responsabilité sociale.</p> #}
 		</div>
 		<div class="boxes">
@@ -30,7 +30,7 @@
 			</div>
 			<div class="icon-box" data-aos="flip-up">
 				<div class="icon-title">{{ "Environnement" |trans }}</div>
-				<img style="width:17rem;"  src="assets/images/environnement.png" alt="Environnement">
+				<img style="width:17rem;" src="assets/images/environnement.png" alt="Environnement">
 			</div>
 			<div class="icon-box" data-aos="flip-up">
 				<div class="icon-title">{{ "Confort" |trans }}</div>
@@ -58,6 +58,63 @@
 				</div>
 				<div class="values-image">
 					<img src="assets/images/values.png" alt="Image représentant nos valeurs.">
+				</div>
+			</div>
+			
+			<div id="prestation" class="row" style=" justify-content: center; text-align: center;margin-bottom: 4em; " >
+			<h2 style="font-family: Inter, sans-serif;">{{'Nos prestations' | trans}}</h2>
+				<div class="card" style="width: 18rem; margin-right: 2rem; border-radius: 20px ;box-shadow: 0 5px 15px rgba(197, 204, 191, 15); ">
+					<img class="card-img-top" src="/assets/images/tailleS.png" alt="Card image cap" style="width: 15rem; ">
+					<div class="card-body">
+						<h5 class="card-title"> {{'Taille S' | trans}} </h5>
+						<p class="card-text">{{ 'Pour des surface de moins de 50m². Nettoyage complet respectueux de l\'environnement et de vos habitudes de vie et de travail.' | trans }}</p>
+						<p>{{ 'Un seul de nos agent est necessaire. Pour un travail bien fais nous ne comptons pas nos heures. La satisfaction client est notre prioritée' }}</p>
+					</div>
+					
+					<ul class="list-group list-group-flush"> {{'Propreté' | trans}} 
+						<li class="list-group-item"> {{ 'Basique' | trans }} = 10€/m²/agent </li>
+						<li class="list-group-item">{{ 'Sale' | trans }} = 15€/m²/agent</li>
+						<li class="list-group-item">{{ 'Très sale' | trans }} = 20€/m²/agent</li>
+					</ul>
+				</div>
+				<div class="card" style="width: 18rem; margin-right: 2rem; border-radius: 20px ;box-shadow: 0 5px 15px rgba(197, 204, 191, 15);">
+					<img class="card-img-top" src="/assets/images/tailleM.png" alt="Card image cap" style="width: 15rem; ">
+					<div class="card-body">
+						<h5 class="card-title"> {{' Taille M' | trans}} </h5>
+						<p class="card-text">{{ 'Pour des surface en 50 et 100m². Nettoyage complet respectueux de l\'environnement et de vos habitudes de vie et de travail.' | trans }}</p>
+						<p>{{ 'Un seul de nos agent est necessaire. Pour un travail bien fais nous ne comptons pas nos heures. La satisfaction client est notre prioritée' }}</p>
+					</div>
+					<ul class="list-group list-group-flush"> {{'Propreté' | trans}} 
+						<li class="list-group-item"> {{ 'Basique' | trans }} = 15€/m²/agent </li>
+						<li class="list-group-item">{{ 'Sale' | trans }} = 20€/m²/agent</li>
+						<li class="list-group-item">{{ 'Très sale' | trans }} = 25€/m²/agent</li>
+					</ul>
+				</div>
+				<div class="card" style="width: 18rem; margin-right: 2rem; border-radius: 20px ;box-shadow: 0 5px 15px rgba(197, 204, 191, 15);">
+					<img class="card-img-top" src="/assets/images/tailleL.png" alt="Card image cap" style="width: 15rem; ">
+					<div class="card-body">
+						<h5 class="card-title"> {{'Taille L' | trans}} </h5>
+						<p class="card-text">{{ 'Pour des surface comprise entre 100 et 150 m². Nettoyage complet respectueux de l\'environnement et de vos habitudes de vie et de travail.' | trans }}</p>
+						<p>{{ 'Deux de nos agent est necessaire. Pour un travail bien fais nous ne comptons pas nos heures. La satisfaction client est notre prioritée' }}</p>
+					</div>
+					<ul class="list-group list-group-flush"> {{'Propreté' | trans}} 
+						<li class="list-group-item"> {{ 'Basique' | trans }} = 10€/m²/agent</li>
+						<li class="list-group-item">{{ 'Sale' | trans }} = 14€/m²/agent</li>
+						<li class="list-group-item">{{ 'Très sale' | trans }} = 16,67€/m²/agent</li>
+					</ul>
+				</div>
+				<div class="card" style="width: 18rem; margin-right: 2rem; border-radius: 20px ;box-shadow: 0 5px 15px rgba(197, 204, 191, 15);">
+					<img class="card-img-top" src="/assets/images/tailleXXL.png" alt="Card image cap" style="width: 15rem; ">
+					<div class="card-body">
+						<h5 class="card-title"> {{'Taille XxL' | trans}} </h5>
+						<p class="card-text">{{ 'Pour des surface superieur à 150 m². Nettoyage complet respectueux de l\'environnement et de vos habitudes de vie et de travail.' | trans }}</p>
+						<p>{{ 'Deux de nos agent est necessaire. Pour un travail bien fais nous ne comptons pas nos heures. La satisfaction client est notre prioritée' }}</p>
+					</div>
+					<ul class="list-group list-group-flush"> {{'Propreté' | trans}} 
+						<li class="list-group-item"> {{ 'Basique' | trans }} = 10€/m²/agent</li>
+						<li class="list-group-item">{{ 'Sale' | trans }} = 14€/m²/agent</li>
+						<li class="list-group-item">{{ 'Très sale' | trans }} = 16,67€/m²/agent</li>
+					</ul>
 				</div>
 			</div>
 			<div class="engagements-card" data-aos="fade-up">
