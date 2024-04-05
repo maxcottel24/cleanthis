@@ -128,3 +128,35 @@ label{
     }
 
 } 
+
+.language-switch-container {
+    display: flex;
+    align-items: center; 
+  }
+  
+  /* Styles for the active language button */
+  .nav-link.language-button.active {
+    background-color: #3971ff; 
+    color: #fff; 
+    font-weight: bold;
+  }
+  
+  /* General style for language buttons, including smaller size adjustments */
+  .nav-link.language-button {
+    padding: 0.25rem 0.5rem; 
+    font-size: 0.75rem; 
+    margin-left: 10px; 
+    border: 1px solid #3971ff; 
+    border-radius: 15px; 
+    background-color: transparent; 
+    color: #3971ff; 
+    transition: background-color 0.3s, color 0.3s; 
+    text-decoration: none; 
+  }
+  
+  /* Enhanced hover effect for inactive language button for more pronounced interaction feedback */
+  .nav-link.language-button:not(.active):hover {
+    background-color: #c0d1ff; 
+    color: #fff; 
+    border-color: #3971ff; 
+  }
