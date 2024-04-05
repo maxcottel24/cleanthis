@@ -96,23 +96,23 @@ public function findQuarterlyRevenue()
 
 
 
-    // public function findInvoicesByOperatorUser($userId)
-    // {
-    //     $qb = $this->getEntityManager()->createQueryBuilder();
+    public function findInvoicesByOperatorUsers($userId)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
 
-    //     $qb->select('i')
-    //         ->from('App\Entity\Invoice', 'i')
-    //         ->join('App\Entity\Belong', 'b', 'WITH', 'b.invoice = i')
-    //         ->join('b.operation', 'o')
-    //         ->join('o.meeting', 'm')
-    //         ->join('m.users', 'u')
-    //         ->where('u.id = :userId')
-    //         ->andWhere('u.job_title = :job_title')
-    //         ->setParameter('userId', $userId)
-    //         ->setParameter('job_title', 'Opérateur');
+        $qb->select('i')
+            ->from('App\Entity\Invoice', 'i')
+            ->join('App\Entity\Belong', 'b', 'WITH', 'b.invoice = i')
+            ->join('b.operation', 'o')
+            ->join('o.meeting', 'm')
+            ->join('m.users', 'u')
+            ->where('u.id = :userId')
+            ->andWhere('u.job_title = :job_title')
+            ->setParameter('userId', $userId)
+            ->setParameter('job_title', 'Opérateur');
 
-    //     return $qb->getQuery()->getResult();
-    // }
+        return $qb->getQuery()->getResult();
+    }
 
 
     public function findInvoicesByOperatorUser($userId)

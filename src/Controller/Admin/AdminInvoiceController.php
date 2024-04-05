@@ -59,34 +59,34 @@ class AdminInvoiceController extends DashboardController
     }
 
     #[Route('/admin/myinvoices', name: 'app_admin_myinvoices')]
-public function myInvoices(Security $security): Response
-{
-    $user = $security->getUser();
+    public function myInvoices(Security $security): Response
+    {
+        $user = $security->getUser();
 
-    if (!$user) {
-        throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
-    }
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
 
-    // Utilisez la méthode mise à jour pour obtenir uniquement les factures avec un statut égal à 1
-    $invoices = $this->entityManager->getRepository(Invoice::class)->findInvoicesByOperatorUser($user->getId());
+        // Utilisez la méthode mise à jour pour obtenir uniquement les factures avec un statut égal à 1
+        $invoices = $this->entityManager->getRepository(Invoice::class)->findInvoicesByOperatorUsers($user->getId());
 
-    $belongs = [];
+        $belongs = [];
 
-    // Si des invoices sont trouvés, récupérez les entités Belong associées
-    if (!empty($invoices)) {
-        foreach ($invoices as $invoice) {
-            $belong = $this->entityManager->getRepository(Belong::class)->findOneBy(['invoice' => $invoice]);
-            if ($belong) {
-                $belongs[] = $belong;
+        // Si des invoices sont trouvés, récupérez les entités Belong associées
+        if (!empty($invoices)) {
+            foreach ($invoices as $invoice) {
+                $belong = $this->entityManager->getRepository(Belong::class)->findOneBy(['invoice' => $invoice]);
+                if ($belong) {
+                    $belongs[] = $belong;
+                }
             }
         }
-    }
 
-    return $this->render('admin/invoice/index.html.twig', [
-        'invoices' => $invoices,
-        'belongs' => $belongs
-    ]);
-}
+        return $this->render('admin/invoice/index.html.twig', [
+            'invoices' => $invoices,
+            'belongs' => $belongs
+        ]);
+    }
 
 
     #[Route('/admin/myinvoicess', name: 'app_admin_myinvoicess')]
@@ -97,12 +97,12 @@ public function myInvoices(Security $security): Response
         if (!$user) {
             throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
         }
-    
+
         // Utilisez la méthode mise à jour pour obtenir uniquement les factures avec un statut égal à 1
         $invoices = $this->entityManager->getRepository(Invoice::class)->findInvoicesByOperatorUserFinished($user->getId());
-    
+
         $belongs = [];
-    
+
         // Si des invoices sont trouvés, récupérez les entités Belong associées
         if (!empty($invoices)) {
             foreach ($invoices as $invoice) {
@@ -112,7 +112,7 @@ public function myInvoices(Security $security): Response
                 }
             }
         }
-    
+
         return $this->render('admin/invoice/myhistoryinvoices.html.twig', [
             'invoices' => $invoices,
             'belongs' => $belongs

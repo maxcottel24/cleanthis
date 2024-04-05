@@ -47,12 +47,12 @@ class EditAdminProfileType extends AbstractType
                 ],
                 'label' => 'Numéro de téléphone :'
             ])
-            ->add('email', EmailType::class,[
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'E-mail :'
-            ])
+            // ->add('email', EmailType::class,[
+            //     'attr' => [
+            //         'class' => 'form-control'
+            //     ],
+            //     'label' => 'E-mail :'
+            // ])
         ;
     }
 
