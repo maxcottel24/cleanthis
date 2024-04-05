@@ -43,6 +43,7 @@
     --form-group-border-color: #9fd7e6;
     --form-switch-bg: red; 
     --bs-body-font-size: 10rem; 
+
 }
 [data-bs-theme="light"] .main-content{
     background-image:  url("/assets/images/paneladmin.jpg");
@@ -69,6 +70,12 @@
     width: 75%;
 }
 
+.main-header #header-logo a{
+    text-align: center;
+    font-size: xx-large;
+    /* color: #2A56A1; */
+    margin-left: -1rem;
+}
 
 .row{
     display: flex;
