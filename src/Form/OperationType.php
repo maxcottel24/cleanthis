@@ -25,9 +25,9 @@ class OperationType extends AbstractType
         $builder
         ->add('status', ChoiceType::class, [
             'choices' => [
-                'En attente' => '1',
-                'En cours' => '2',
-                'Annulée' => '4'
+                'form.label.operation.one' => '1',
+                'form.label.operation.two' => '2',
+                'form.label.operation.four' => '4'
             ],
             'attr' => [
                 'class' => 'form-control',
@@ -48,7 +48,7 @@ class OperationType extends AbstractType
             ->add('intervention', DateTimeType::class, [
                 'attr' => ['id' => 'meeting_reservedAt'],
                 'widget' => 'single_text',
-                'label' => 'Date et heure du nettoyage : ' ,
+                'label' => 'form.label.reservedAt' ,
             ])
             ->add('description', null, [
                 'attr' => [
@@ -59,14 +59,14 @@ class OperationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
-                'label' => 'Surface en m² : ',
+                'label' => 'form.label.floorSpace',
                 'invalid_message' => 'Merci de renseigner un nombre.'
             ])
             ->add('cleanliness', ChoiceType::class, [
                 'choices' => [
-                    'Normal' => '1',
-                    'Sale' => '2',
-                    'Très sale' => '3'
+                    'form.label.cleanliness.one' => '1',
+                    'form.label.cleanliness.two' => '2',
+                    'form.label.cleanliness.three' => '3'
                 ],
                 'attr' => [
                     'class' => 'form-control',
@@ -79,6 +79,7 @@ class OperationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Operation::class,
+            'translation_domain' => 'messages'
         ]);
     }
 }

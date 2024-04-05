@@ -27,25 +27,25 @@ class EditAdminProfileType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Prénom :'
+                'label' => 'form.label.firstname'
             ])
             ->add('lastname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Nom :'
+                'label' => 'form.label.lastname:'
             ])
             ->add('date_of_birthday', BirthdayType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Date de naissance :'
+                'label' => 'form.label.birthday:'
             ])
             ->add('phone_number', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Numéro de téléphone :'
+                'label' => 'form.label.phone:'
             ])
             // ->add('email', EmailType::class,[
             //     'attr' => [
@@ -60,6 +60,7 @@ class EditAdminProfileType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Users::class,
+            'translation_domain' => 'messages'
         ]);
     }
 }

@@ -39,7 +39,7 @@ class MeetingFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
-                'label' => 'Sélectionner la date et l\'heure du rendez-vous',
+                'label' => 'form.label.reservedAt',
                 'constraints' => [
                     new NotBlank(),
                 ]
@@ -48,20 +48,20 @@ class MeetingFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
-                'label' => 'Description : '
+                'label' => 'form.label.description'
             ])
             ->add('floor_space', NumberType::class, [
                 'attr' => [
                     'class' => 'form-control',
                 ],
-                'label' => 'Surface en m² : ',
+                'label' => 'form.label.floorSpace',
                 'invalid_message' => 'Merci de renseigner un nombre.'
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [
-                    'Nouveau RDV' => '1',
-                    'En attente de retour client' => '2',
-                    'Intervention opérateur' => '4'
+                    'form.label.meeting.one' => '1',
+                    'form.label.meeting.two' => '2',
+                    'form.label.meeting.four' => '4'
                 ],
                 'attr' => [
                     'class' => 'form-control',
@@ -69,7 +69,7 @@ class MeetingFormType extends AbstractType
             ])
             ->add('selectedUser', EntityType::class, [
                 'class' => Users::class,
-                'label' => 'Client',
+                'label' => 'form.label.customer',
                 'query_builder' => function ($er) {
                     return $er->createQueryBuilder('u')
                         ->where('u.job_title = :jobTitle')
@@ -86,7 +86,7 @@ class MeetingFormType extends AbstractType
             ])
             ->add('address', EntityType::class, [
                 'class' => Address::class, // Spécifiez la classe de l'entité Address
-                'label' => 'Adresse',
+                'label' => 'form.label.address',
                 'choice_label' => function ($address) {
                     return sprintf('%s, %s %s', $address->getStreet(), $address->getCity(), $address->getZipcode());
                 },
@@ -142,7 +142,7 @@ class MeetingFormType extends AbstractType
 
         $form->add('address', EntityType::class, [
             'class' => Address::class, // Spécifiez la classe de l'entité Address
-            'label' => 'Adresse',
+            'label' => 'form.label.address',
             'choices' => $addresses,
             'choice_label' => function ($address) {
                 return sprintf('%s, %s %s', $address->getStreet(), $address->getCity(), $address->getZipcode());
@@ -163,6 +163,7 @@ class MeetingFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Meeting::class,
             'userData' => [],
+            'translation_domain' => 'messages'
         ]);
     }
 }

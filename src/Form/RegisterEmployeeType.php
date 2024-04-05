@@ -38,7 +38,7 @@ class RegisterEmployeeType extends AbstractType
                     'minlenght' => '2',
                     'maxlength' => '50',
                 ],
-                'label' => 'Prénom *',
+                'label' => 'form.label.firstname',
                 'label_attr' => [
                     'class' => 'form_label'
                 ],
@@ -53,7 +53,7 @@ class RegisterEmployeeType extends AbstractType
                     'minlenght' => '2',
                     'maxlength' => '50',
                 ],
-                'label' => 'Nom *',
+                'label' => 'form.label.lastname',
                 'label_attr' => [
                     'class' => 'form_label'
                 ],
@@ -64,13 +64,13 @@ class RegisterEmployeeType extends AbstractType
             ])
 
             ->add('date_of_birthday', BirthdayType::class, [
-                'label' => 'Date de naissance *',
+                'label' => 'form.label.birthday',
                 'label_attr' => [
                     'class' => 'form_dateofbirthday'
                 ],
                 'placeholder' => [
 
-                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
+                    'year' => 'form.label.birthday.year', 'month' => 'form.label.birthday.month', 'day' => 'form.label.birthday.day',
                 ],
             ])
             ->add('phone_number', TextType::class,  [
@@ -80,7 +80,7 @@ class RegisterEmployeeType extends AbstractType
                     'maxlength' => '50',
 
                 ],
-                'label' => 'Numéro de téléphone *',
+                'label' => 'form.label.phone',
                 'label_attr' => [
                     'class' => 'form_label'
                 ],
@@ -97,7 +97,7 @@ class RegisterEmployeeType extends AbstractType
                     'maxlength' => '255',
                 ],
 
-                'label' => 'E-mail *',
+                'label' => 'form.label.email',
                 'label_attr' => [
                     'class' => 'form_label'
                 ],
@@ -112,19 +112,19 @@ class RegisterEmployeeType extends AbstractType
 
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Mot de passe : (8 caractères minimum)',
+                    'label' => 'form.label.password',
                     'attr' => [
                         'class' => 'form-control',
-                        'placeholder' => '1 maj, 1 min, 1 chiffre, 1 caractère spécial'
+                        'placeholder' => 'form.label.password.help'
                     ]
                 ],
                 'second_options' => [
-                    'label' => 'Confirmer mot de passe *',
+                    'label' => 'form.label.password.confirm',
                     'attr' => [
                         'class' => 'form-control'
                     ]
                 ],
-                'invalid_message' => 'Les mots de passe ne correspondent pas.', 
+                'invalid_message' => 'form.label.password.invalid', 
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length(['min' => 8]),
@@ -145,6 +145,7 @@ class RegisterEmployeeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Users::class,
+            'translation_domain' => 'messages'
         ]);
     }
 }
