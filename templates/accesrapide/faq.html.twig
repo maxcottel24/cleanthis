@@ -1,0 +1,58 @@
+{% block title %}
+	{{ "CleanThis - Page d'acceuil " |trans }}
+{% endblock %}
+
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+	<div class="row">
+
+
+		<div class="card-group">
+			<div class="card">
+				<img class="card-img-top" src="/assets/images/service.png" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title" style="color: #2a56a1; font-weight: bold;">{{ 'Quels services de nettoyage proposez-vous ?' | trans }}</h5>
+					<p class="card-text" style="color: #666;">{{ ' Cleanthis offre une gamme complète de services de nettoyage, incluant le nettoyage résidentiel, commercial, le nettoyage après sinistre et le nettoyage en profondeur. Nous adaptons nos services aux besoins spécifiques de nos clients.' | trans}}</p>
+				</div>
+			</div>
+			<div class="card">
+				<img class="card-img-top" src="/assets/images/reservation.png" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title" style="color: #2a56a1; font-weight: bold;">{{ ' Comment puis-je obtenir un devis pour les services de nettoyage ?' | trans}}</h5>
+					<p class="card-text" style="color: #666;">{{ ' Vous pouvez obtenir un devis en nous contactant via notre formulaire en ligne, par téléphone ou par email. Un membre de notre équipe évaluera vos besoins et vous fournira une estimation précise.' | trans}}</p>
+				</div>
+			</div>
+			<div class="card">
+				<img class="card-img-top" src="/assets/images/ecofaq.png" alt="Card image cap" >
+				<div class="card-body">
+					<h5 class="card-title" style="color: #2a56a1; font-weight: bold;">{{ 'Cleanthis utilise-t-elle des produits de nettoyage écologiques ?' | trans}}</h5>
+					<p class="card-text" style="color: #666;">{{ ' Oui, chez Cleanthis, nous sommes engagés à protéger l\'environnement. Nous utilisons des produits de nettoyage écologiques et des méthodes durables chaque fois que possible.' | trans}}</p>
+			</div>
+		</div>
+        <div class="card">
+			<img class="card-img-top" src="/assets/images/covid19.png" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title" style="color: #2a56a1; font-weight: bold;">{{ 'Quelles sont les mesures prises par Cleanthis pour garantir la sécurité pendant le nettoyage en période de COVID-19 ?' | trans}}</h5>
+				<p class="card-text" style="color: #666;">{{ ' La sécurité de nos clients et employés est notre priorité absolue. Nous suivons strictement les protocoles sanitaires recommandés, incluant l\'utilisation d\'équipements de protection individuelle, la désinfection régulière de nos outils et le respect de la distanciation sociale.' | trans}}</p>
+			</div>
+		</div>
+        <div class="card">
+			<img class="card-img-top" src="/assets/images/regular.png" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title" style="color: #2a56a1; font-weight: bold;">{{ 'Cleanthis offre-t-elle des contrats de nettoyage réguliers ?' | trans}}</h5>
+				<p class="card-text" style="color: #666;">{{ ' Oui, nous proposons des contrats personnalisés pour des nettoyages réguliers selon votre emploi du temps, qu\'il s\'agisse de nettoyages quotidiens, hebdomadaires ou mensuels.' | trans}}</p>
+			</div>
+		</div>
+        <div class="card">
+			<img class="card-img-top" src="/assets/images/horaire.png" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title" style="color: #2a56a1; font-weight: bold;">{{ 'Quelles sont vos heures d\'ouverture ?' | trans}}</p>
+				</h5>
+				<p class="card-text" style="color: #666;">{{ ' Nous sommes disponibles du lundi au vendredi de 8h à 17h. Les interventions le dimanche peuvent être organisées sur demande spéciale.' | trans}}</p>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}
