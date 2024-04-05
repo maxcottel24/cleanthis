@@ -3,53 +3,55 @@
 	<link href="{{ asset('assets/css/navbar.css') }}" rel="stylesheet">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-white">
-		<a href="{{ path('app_home') }}" class="navbar-brand mb-0">
-			<img src="{{ asset('assets/images/Logo.png') }}" alt="Logo" class="d-inline-block align-top" width="161" height="69">
-		</a>
-		<div class="language-switch-container ms-auto me-3">
-			<a href="{{ path('app_switch_locale', {'locale': 'fr'}) }}" class="nav-link language-button {{ app.request.locale == 'fr' ? 'active' : '' }}">FR</a>
-			<a href="{{ path('app_switch_locale', {'locale': 'en'}) }}" class="nav-link language-button {{ app.request.locale == 'en' ? 'active' : '' }}">EN</a>
-		</div>
-		<button type="button" class="navbar-toggler custom-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav ms-auto">
-				<li class="nav-item">
-					<a href="#" class="nav-link button-style">{{ "Nos valeurs"|trans }}</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link button-style">{{ "Nos prestations"|trans }}</a>
-				</li>
-				{% if not app.user %}
+	<nav class="navbar navbar-expand-lg navbar-light">
+		<div class="container">
+			<a href="{{ path('app_home') }}" class="navbar-brand mb-0">
+				<img src="{{ asset('assets/images/Logo.png') }}" alt="Logo" class="d-inline-block align-top" width="161" height="69">
+			</a>
+			<div class="language-switch-container ms-auto me-3">
+				<a href="{{ path('app_switch_locale', {'locale': 'fr'}) }}" class="nav-link language-button {{ app.request.locale == 'fr' ? 'active' : '' }}">FR</a>
+				<a href="{{ path('app_switch_locale', {'locale': 'en'}) }}" class="nav-link language-button {{ app.request.locale == 'en' ? 'active' : '' }}">EN</a>
+			</div>
+			<button type="button" class="navbar-toggler custom-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
 					<li class="nav-item">
-						<a href="{{ path('app_login') }}" class="nav-link auth-link">{{ "Se connecter"|trans }}</a>
+						<a href="{{ path('app_home') }}#about" class="nav-link button-style">{{ "Nos valeurs"|trans }}</a>
 					</li>
 					<li class="nav-item">
-						<a href="{{ path('security.registration') }}" class="nav-link auth-link">{{ "S'inscrire"|trans }}</a>
+						<a href="{{ path('app_home') }}#pricing" class="nav-link button-style">{{ "Nos prestations"|trans }}</a>
 					</li>
-				{% endif %}
-				{% if app.user %}
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							{{ app.user.lastname }}
-							{{ app.user.firstname }}
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li>
-								<a href="{{ path('app_meeting_index', {'id': app.user.id}) }}" class="dropdown-item">{{ "Mes commandes"|trans }}</a>
-							</li>
-							<li>
-								<a href="{{ path('app_profile') }}" class="dropdown-item">{{ "Mon profil"|trans }}</a>
-							</li>
-							<li>
-								<a href="{{ path('app_logout') }}" class="dropdown-item">{{ "Se déconnecter"|trans }}</a>
-							</li>
-						</ul>
-					</li>
-				{% endif %}
-			</ul>
+					{% if not app.user %}
+						<li class="nav-item">
+							<a href="{{ path('app_login') }}" class="nav-link auth-link">{{ "Se connecter"|trans }}</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ path('security.registration') }}" class="nav-link auth-link">{{ "S'inscrire"|trans }}</a>
+						</li>
+					{% endif %}
+					{% if app.user %}
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								{{ app.user.lastname }}
+								{{ app.user.firstname }}
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li>
+									<a href="{{ path('app_meeting_index', {'id': app.user.id}) }}" class="dropdown-item">{{ "Mes commandes"|trans }}</a>
+								</li>
+								<li>
+									<a href="{{ path('app_profile') }}" class="dropdown-item">{{ "Mon profil"|trans }}</a>
+								</li>
+								<li>
+									<a href="{{ path('app_logout') }}" class="dropdown-item">{{ "Se déconnecter"|trans }}</a>
+								</li>
+							</ul>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
 		</div>
 	</nav>
 </body>
