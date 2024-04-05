@@ -3,13 +3,13 @@
 {% block head_stylesheets %}
 
 
-{{parent()}}
+	{{parent()}}
 {% endblock %}
 
 {% block header_custom_menu_wrapper %}
 	<div class="language-switch-container ms-auto me-3">
-			<a href="{{ path('app_switch_locale', {'locale': 'fr'}) }}" class="nav-link language-button {{ app.request.locale == 'fr' ? 'active' : '' }}">FR</a>
-			<a href="{{ path('app_switch_locale', {'locale': 'en'}) }}" class="nav-link language-button {{ app.request.locale == 'en' ? 'active' : '' }}">EN</a>
-		</div>
+		<a href="{{ path('app_switch_locale', {'locale': 'fr'}) }}" class="nav-link language-button {{ app.request.locale == 'fr' ? 'active' : '' }}">FR</a>
+		<a href="{{ path('app_switch_locale', {'locale': 'en'}) }}" class="nav-link language-button {{ app.request.locale == 'en' ? 'active' : '' }}">EN</a>
+	</div>
 	{{parent()}}
 {% endblock %}
