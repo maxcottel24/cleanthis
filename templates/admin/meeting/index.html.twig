@@ -90,7 +90,7 @@
 									<button type="submit" class="btn btn-primary"><img src="/assets/images/take.png" alt="" style="width:30px"></button>
 								</form>
 							{% else %}
-								<span class="badge badge-success">{{ "Pris en charge" |trans }}</span>
+								{# <span class="badge badge-success">{{ "Pris en charge" |trans }}</span> #}
 							{% endif %}
 							{% if meeting.status != 3 %}
 								<form action="{{ path('app_admin_meeting_delete', {'id': meeting.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');">

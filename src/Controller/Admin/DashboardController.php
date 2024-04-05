@@ -46,7 +46,8 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-        ->setTitle('<img src="assets/images/Logo.png" class="img-fluid d-block mx-auto" style="max-width:100px; width:100%; ">');
+        // ->setTitle('<img src="assets/images/Logo.jpg" class="img-fluid d-block mx-auto" style="max-width:100px; width:100%; "> CleanThis');
+        ->setTitle('<span style="color:white;">Clean</span><span style="color:#2A56A1; ">This</span>');
     }
 
 
