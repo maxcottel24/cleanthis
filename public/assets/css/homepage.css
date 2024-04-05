@@ -1,7 +1,11 @@
-.page {
-  margin-top: 15%;
+body{
   font-family: Inter, sans-serif;
   font-weight: bold;
+}
+
+
+.page {
+  margin-top: 15%;
   cursor: default;
 }
 
@@ -261,6 +265,36 @@ video {
   text-decoration: underline #92d4f5;
 }
 
+.row h2{
+  color: #2a56a1;
+  font-weight: bolder;
+  text-decoration: underline #92d4f5;
+  margin-bottom: 2rem;
+}
+
+.row h5{
+
+  color: #2a56a1 ;
+  text-decoration: underline #92d4f5;
+  font-weight: bold;
+}
+
+.row li{
+  color: #2a56a1;
+  font-size: small;
+}
+
+.row ul{
+  color: #2a56a1;
+  font-weight: bold;
+}
+
+.row p{
+  color: #666;
+  font-size: small;
+}
+
+
 .partners-logos {
   display: flex;
   justify-content: center;
@@ -274,6 +308,8 @@ video {
   height: 50px;
   object-fit: contain;
 }
+
+
 
 @media (min-aspect-ratio: 16/9) {
   .backvideo {
