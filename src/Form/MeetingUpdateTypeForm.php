@@ -29,7 +29,7 @@ class MeetingUpdateTypeForm extends AbstractType
             'attr' => [
                 'class' => 'form-control',
             ], 
-            'label' => 'Sélectionner la date et l\'heure du rendez-vous',
+            'label' => 'form.label.reservedAt',
             'constraints' => [
                 new NotBlank(),
             ]
@@ -38,21 +38,21 @@ class MeetingUpdateTypeForm extends AbstractType
             'attr' => [
                 'class' => 'form-control',
             ],
-            'label' => 'Surface en m² : ',
+            'label' => 'form.label.floorSpace',
             'invalid_message' => 'Merci de renseigner un nombre.'
         ])
         ->add('description', null, [
             'attr' => [
                 'class' => 'form-control',
             ],
-            'label' => 'Description : '
+            'label' => 'form.label.description'
         ])
             
         ->add('status', ChoiceType::class, [
             'choices' => [
-                'Nouveau RDV' => '1',
-                'En attente de retour client' => '2',
-                'Intervention opérateur' => '4'
+                'form.label.meeting.one' => '1',
+                'form.label.meeting.two' => '2',
+                'form.label.meeting.four' => '4'
             ],
             'attr' => [
                 'class' => 'form-control',
@@ -60,7 +60,7 @@ class MeetingUpdateTypeForm extends AbstractType
         ])
             ->add('selectedOperator', EntityType::class, [
                 'class' => Users::class,
-                'label' => 'Opérateur',
+                'label' => 'form.label.employee',
                 'query_builder' => function ($er) {
                     return $er->createQueryBuilder('u')
                         ->where('u.job_title = :jobTitle')
@@ -81,6 +81,7 @@ class MeetingUpdateTypeForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Meeting::class,
+            'translation_domain' => 'messages'
         ]);
 
     }

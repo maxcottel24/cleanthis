@@ -28,7 +28,7 @@ class Address1Type extends AbstractType
                 'constraints' => [
                     new NotBlank()
                 ],
-                'label' => 'Code postale :',
+                'label' => 'form.label.zipcode',
             ))
             ->add('city', TextType::class, array(
                 'attr' => [
@@ -38,7 +38,7 @@ class Address1Type extends AbstractType
                 'constraints' => [
                     new NotBlank()
                 ],
-                'label' => 'Ville :',
+                'label' => 'form.label.city',
             ))
             ->add('street', null, [
                 'attr' => [
@@ -46,9 +46,10 @@ class Address1Type extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => '* veuillez entrer votre adresse ici'
                 ],
-                'label' => 'Adresse *:'
+                'label' => 'form.label.street'
             ])
             ->add('Valider', SubmitType::class, [
+                'label'    => 'form.label.primary',
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ]
@@ -63,6 +64,7 @@ class Address1Type extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Address::class,
+            'translation_domain' => 'messages'
         ]);
     }
 }

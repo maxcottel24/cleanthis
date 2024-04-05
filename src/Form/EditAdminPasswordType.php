@@ -27,19 +27,19 @@ class EditAdminPasswordType extends AbstractType
         ->add('password', RepeatedType::class, [
             'type' => PasswordType::class,
             'first_options' => [
-                'label' => 'Nouveau mot de passe : ',
+                'label' => 'form.label.password.new',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => '1 maj, 1 min, 1 chiffre, 1 caractère spécial'
+                    'placeholder' => 'form.label.password.help'
                 ]
             ],
             'second_options' => [
-                'label' => 'Confirmation du nouveau mot de passe : ',
+                'label' => 'form.label.password.confirm',
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => 'form-control']
             ],
-            'invalid_message' => 'Les nouveaux mots de passe ne correspondent pas.',
+            'invalid_message' => 'form.label.password.invalid',
             'constraints' => [
                 new Assert\NotBlank(),
                 new Assert\Length(['min' => 8]),
@@ -55,6 +55,7 @@ class EditAdminPasswordType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Users::class,
+            'translation_domain' => 'messages'
         ]);
     }
 }
