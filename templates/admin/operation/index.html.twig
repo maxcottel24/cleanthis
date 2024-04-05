@@ -125,7 +125,7 @@
 							<form action="{{ path('app_admin_operation_update', {'id': operation.id}) }}" method="post">
 								<button type="submit" class="btn btn-warning"><img src="/assets/images/modify.png" alt="" style="width:30px"> </button>
 							</form>
-							{% if operation.status != 3  %}
+							{% if operation.status != 3 and operation.price > 1  %}
 								<form action="{{ path('app_admin_operation_validate', {'id': operation.id}) }}" method="post" onsubmit="return confirm(Êtes-vous sûr de vouloir finir cette opérations?');">
 								<button type="submit" class="btn btn-success"><img src="/assets/images/validate.png" alt="" style="width:30px"></button>
 							</form>
