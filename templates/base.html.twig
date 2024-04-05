@@ -9,6 +9,8 @@
 		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
 		{# Feuilles de styles #}
 		<script src="https://kit.fontawesome.com/c97ef3498f.js" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+			<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 		{% endblock %}
@@ -50,11 +52,15 @@
 				</div>
 			</div>
 		{% endif %}
-	</body>
+	</body>	
+	<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+	<script>
+  AOS.init();
+</script>
 	<footer>
-	{% block footer %}
-		{% include '_partials/_footer.html.twig' %}
-	{% endblock %}
+		{% block footer %}
+			{% include '_partials/_footer.html.twig' %}
+		{% endblock %}
 	</footer>
-	<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
+
 </html>

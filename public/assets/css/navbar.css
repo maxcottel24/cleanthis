@@ -1,39 +1,36 @@
 /* Base styles for navbar */
 .navbar {
-  background-color: #fff; 
-  font-family: Inter, sans-serif; 
-  margin-left: 50px; 
-  margin-right: 50px; 
+  font-family: Inter, sans-serif;
 }
 
 /* Navbar brand/logo */
 .navbar-brand img {
-  max-height: 70px; 
+  max-height: 70px;
 }
 
 /* Styles for 'Se connecter' and 'S'inscrire' links to mimic dropdown toggle appearance */
 .navbar .nav-link.auth-link {
-  background-color: transparent; 
-  color: #92d4f5; 
+  background-color: transparent;
+  color: #92d4f5;
   padding: 0.5rem 1rem;
-  transition: color 0.3s; 
+  transition: color 0.3s;
 }
 
 /* Hover effect for these links */
 .navbar .nav-link.auth-link:hover {
-  color: #3971ff; 
+  color: #3971ff;
 }
 
 /* Button-like nav items for 'Nos valeurs' and 'Nos prestations' */
 .nav-link.button-style {
-  background-color: #92d4f5; 
+  background-color: #92d4f5;
   color: #fff;
   border-radius: 25px;
-  font-weight: bold; 
-  padding: 0.4rem 2rem !important; 
-  margin: 0 10px; 
-  border: 2px solid transparent; 
-  transition: background-color 0.4s, border-color 0.4s; 
+  font-weight: bold;
+  padding: 0.4rem 2rem !important;
+  margin: 0 10px;
+  border: 2px solid transparent;
+  transition: background-color 0.4s, border-color 0.4s;
 }
 
 /* Placeholder for hover effects on button-style links */
@@ -45,7 +42,7 @@
 
 /* Active link styling, if you have a specific class for active state */
 .nav-link.active {
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 /* Adjust the positioning of the navbar-toggler for mobile views */
@@ -56,75 +53,77 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .navbar {
-    padding-left: 30px; 
-    padding-right: 30px; 
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
 
 /* Container to align language buttons next to the logo */
 .language-switch-container {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 /* Styles for the active language button */
 .nav-link.language-button.active {
-  background-color: #3971ff; 
-  color: #fff; 
+  background-color: #3971ff;
+  color: #fff;
   font-weight: bold;
 }
 
 /* General style for language buttons, including smaller size adjustments */
 .nav-link.language-button {
-  padding: 0.25rem 0.5rem; 
-  font-size: 0.75rem; 
-  margin-left: 10px; 
-  border: 1px solid #3971ff; 
-  border-radius: 15px; 
-  background-color: transparent; 
-  color: #3971ff; 
-  transition: background-color 0.3s, color 0.3s; 
-  text-decoration: none; 
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  margin-left: 10px;
+  border: 1px solid #3971ff;
+  border-radius: 15px;
+  background-color: transparent;
+  color: #3971ff;
+  transition: background-color 0.3s, color 0.3s;
+  text-decoration: none;
 }
 
 /* Enhanced hover effect for inactive language button for more pronounced interaction feedback */
 .nav-link.language-button:not(.active):hover {
-  background-color: #c0d1ff; 
-  color: #fff; 
-  border-color: #3971ff; 
+  background-color: #c0d1ff;
+  color: #fff;
+  border-color: #3971ff;
 }
 
 /* Adjusting the dropdown toggle to not look like a button but rather a simple link */
 .navbar .nav-item.dropdown .nav-link.dropdown-toggle {
-  background-color: transparent; 
-  color: #123b61; 
-  border-radius: 0; 
-  padding: 0.5rem 1rem; 
-  transition: color 0.3s; 
+  background-color: transparent;
+  color: #123b61;
+  border-radius: 0;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s;
+  font-weight: bold;
 }
 
 /* Hover effect for the dropdown toggle to indicate it's clickable */
 .navbar .nav-item.dropdown .nav-link.dropdown-toggle:hover,
 .navbar .nav-item.dropdown .nav-link.dropdown-toggle:focus {
-  color: #3971ff; 
+  color: #3971ff;
 }
 
 /* Customizing the dropdown menu */
 .navbar .dropdown-menu {
-  background-color: #fff; 
+  background-color: #fff;
 }
 
 /* Customizing the dropdown menu links */
 .navbar .dropdown-menu .dropdown-item {
-  color: #92d4f5; 
-  transition: background-color 0.3s, color 0.3s; 
+  color: #2c63cc;
+  font-weight: 300;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* Adjusting the hover state for dropdown items to change background color */
 .navbar .dropdown-menu .dropdown-item:hover,
 .navbar .dropdown-menu .dropdown-item:focus {
-  background-color: #f0f0f0; 
-  color: #2c63cc; 
+  background-color: #f0f0f0;
+  color: #92d4f5;
 }
 
 .custom-toggler .navbar-toggler-icon {
@@ -132,5 +131,5 @@
 }
 
 .custom-toggler.navbar-toggler {
-  border-color: rgb(44,99,204);
-} 
+  border-color: rgb(44, 99, 204);
+}
