@@ -5,14 +5,46 @@
 {% endblock %}
 
 {% block stylesheets %}
+
 	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
 {% endblock %}
 
 {% block body %}
 	<style>
+		.container {
+			color: #123b61;
+			margin-bottom: 2em;
+		}
 		.btn-aligned {
 			position: relative;
 			top: -38px;
+		}
+		#ecrasement {
+			border-radius: 10px;
+			border: 1px solid #dcdcdc;
+			background: #F7F3EE;
+			box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 15px 30px -10px rgba(0, 0, 0, 0.3);
+			transition: background 0.3s;
+		}
+		#ecrasement:hover {
+			background-color: #cbdaff;
+			border-color: #3971ff !important;
+			transition: background 0.3s;
+		}
+
+		.btn {
+			color: #123b61 !important;
+			background-color: #f5f5f5 !important;
+			border: 1px solid #123b61 !important;
+			cursor: pointer !important;
+			transition: background-color 0.3s ease !important;
+		}
+
+		.btn:hover {
+			color: #ffffff !important;
+			background-color: #123b61 !important;
+			border-color: #3971ff !important;
+			transition: background 0.3s color 0.3s !important;
 		}
 	</style>
 
@@ -43,7 +75,7 @@
 						{% for meeting in meetings %}
 							{% if meeting.status != 5 %}
 								<div class="col-md-6 mb-3">
-									<div class="h-100 p-5 text-white bg-dark rounded-3">
+									<div class="h-100 p-5  rounded-3" id="ecrasement">
 										<span class=" {{meeting.Status|meeting_status_badge}}">{{ meeting.Status|meeting_status}}</span>
 										<h2>{{ meeting.reservedAt|date('d/m/Y') }}
 											à
@@ -98,7 +130,7 @@
 						{% for operation in operations %}
 							{% if operation.status != 3 %}
 								<div class="col-md-6 mb-3">
-									<div class="h-100 p-5 text-white bg-dark rounded-3">
+									<div class="h-100 p-5  rounded-3" id="ecrasement">
 										<span class=" {{operation.status|operation_statuss_badge}}">{{ operation.status|operation_statuss}}</span>
 										<h2>{{ operation.intervention|date('d/m/Y H:i') }}</h2>
 										<p>{{ "Surface : " |trans }}<strong>{{ operation.floorSpace }}
@@ -131,7 +163,7 @@
 						{% for belong in belongs %}
 							{% if belong.invoice.status != 2 %}
 								<div class="col-md-6 mb-3">
-									<div class="h-100 p-5 text-white bg-dark rounded-3">
+									<div class="h-100 p-5  rounded-3" id="ecrasement">
 										<span class=" {{belong.invoice.status|belong_invoice_status_badge}}">{{ belong.invoice.status|belong_invoice_status}}</span>
 										<h2>{{ belong.operation.intervention|date('d/m/Y H:i') }}</h2>
 										<p>{{ "Surface : " |trans }}<strong>{{ belong.operation.floorSpace }}
@@ -144,7 +176,7 @@
 												<form method="post" action="{{ path('app_invoice_to_pay', {'id': belong.invoice.id}) }}" onsubmit="return confirm('{{ " êtes-vous sur de vouloir valider cette action ? " |trans }}');">
 													<div class="mb-5">
 
-														<select name="payment_method" id="" class="form-control">
+														<select name="payment_method" id="selectpaiement" class="form-control">
 															<option value="">Sélectionner un moyen de paiement</option>
 															<option value="Carte Bancaire">Carte Bancaire (Visa, etc...)</option>
 															<option value="Chèques bancaire">Chèques bancaire</option>
@@ -183,15 +215,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						
-							{% for belong in belongs %}
+
+						{% for belong in belongs %}
 							{% if belong.invoice.status == 2 %}
 								{% set meeting = belong.operation.meeting %}
 								<tr>
 									<td>{{ belong.invoice.id }}</td>
 									{# <td>
-										<span class="{{ belong.invoice.status|invoice_status_badge}}">{{ belong.invoice.status|invoice_status }}</span>
-									</td> #}
+																																														<span class="{{ belong.invoice.status|invoice_status_badge}}">{{ belong.invoice.status|invoice_status }}</span>
+																																													</td> #}
 									<td>{{ meeting.address }}</td>
 									<td>{{ belong.operation.floorSpace }}
 										m²</td>
@@ -229,9 +261,9 @@
 										{% endif %}
 									</td>
 								</tr>
-								{% endif %}
-							{% endfor %}
-							
+							{% endif %}
+						{% endfor %}
+
 					</tbody>
 
 
