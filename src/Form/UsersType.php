@@ -72,24 +72,24 @@ class UsersType extends AbstractType
            ]
            ])
 
-           ->add('email', EmailType::class, [
-            'attr' => [
+        //    ->add('email', EmailType::class, [
+        //     'attr' => [
 
-                'class' => 'form-control',
-                'minlenght' => '5',
-                'maxlength' => '255',
-            ],
+        //         'class' => 'form-control',
+        //         'minlenght' => '5',
+        //         'maxlength' => '255',
+        //     ],
 
-            'label' => 'form.label.email',
-            'label_attr' => [
-                'class' => 'form_label'
-            ],
-            'constraints' => [
-                new Length(['min' => 3]),
-                new NotBlank(),
-                new Email(),
-            ],
-        ])
+        //     'label' => 'form.label.email',
+        //     'label_attr' => [
+        //         'class' => 'form_label'
+        //     ],
+        //     'constraints' => [
+        //         new Length(['min' => 3]),
+        //         new NotBlank(),
+        //         new Email(),
+        //     ],
+        // ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
