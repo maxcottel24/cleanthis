@@ -35,7 +35,7 @@ class AddressCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
-            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des adresses');
+            ->setPageTitle(Crud::PAGE_INDEX, 'list_addresses_label');
     }
 
 
@@ -50,11 +50,11 @@ class AddressCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('user', ('Utilisateur')),
-            TextField::new('street', ('Rue')),
-            TextField::new('zipcode', ('Code postale')),
-            TextField::new('city', ('Ville')),
-            ChoiceField::new('is_primary', ('Définir'))->setChoices([
+            AssociationField::new('user', ('user_label')),
+            TextField::new('street', ('street_label')),
+            TextField::new('zipcode', ('zipcode_label')),
+            TextField::new('city', ('city_label')),
+            ChoiceField::new('is_primary', ('primary_label'))->setChoices([
                 'choices' => [
                     'Secondaire' => 0,
                     'Principale' => 1,

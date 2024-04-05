@@ -1,25 +1,25 @@
 'Mon Profill - Modifier Mon Adresse': 'Mon Profill - Modifier Mon Adresse'
 'MES ADRESSES': 'MES ADRESSES'
-Valider: Valider
-Retour: Retour
+'Valider': 'Valider'
+'Retour': 'Retour'
 'Mes adresses': 'Mes adresses'
-Principale: Principale
+'Principale': 'Principale'
 'Rue :': 'Rue :'
 'Ville :': 'Ville :'
 'Code Postal :': 'Code Postal :'
-Modifier: Modifier
+'Modifier': 'Modifier'
 'Êtes-vous sûr de vouloir supprimer cette adresse ?': 'Êtes-vous sûr de vouloir supprimer cette adresse ?'
-Supprimer: Supprimer
+'Supprimer': 'Supprimer'
 'Inscription - Adresse Principale': 'Inscription - Adresse Principale'
 'Adresse principale': 'Adresse principale'
 'Inscription 2/2': 'Inscription 2/2'
 'Ajouter votre adresse': 'Ajouter votre adresse'
 'Mon Profile - Nouvelle adresse': 'Mon Profile - Nouvelle adresse'
 'Modification du mot de passe': 'Modification du mot de passe'
-Envoyer: Envoyer
+'Envoyer': 'Envoyer'
 'Modification du profil de': 'Modification du profil de'
 'Valider les modifications': 'Valider les modifications'
-'Profil de': 'Profil de'
+'Profil de ': 'Profil de '
 'Mes différentes informations :': 'Mes différentes informations :'
 'Liste des rendez-vous disponibles': 'Liste des rendez-vous disponibles'
 'Liste de mes rendez-vous': 'Liste de mes rendez-vous'
@@ -30,10 +30,10 @@ Envoyer: Envoyer
 "Votre compte n'est pas activé,": "Votre compte n'est pas activé,"
 "Renvoyer le lien d'activation": "Renvoyer le lien d'activation"
 'Confirmation de votre rendez-vous.': 'Confirmation de votre rendez-vous.'
-à: à
-'Pour une surface de :': 'Pour une surface de :'
-m²: m²
-"À l'adresse :": "À l'adresse :"
+'à': 'à'
+'Pour une surface de : ': 'Pour une surface de : '
+' m² ': ' m² '
+"À l'adresse : ": "À l'adresse : "
 'Description :': 'Description :'
 'Mes rendez-vous': 'Mes rendez-vous'
 'En cas de désistement,  merci de bien vouloir nous contacter dans les plus bref délais.': 'En cas de désistement,  merci de bien vouloir nous contacter dans les plus bref délais.'
@@ -43,7 +43,7 @@ m²: m²
 'Bienvenue chez CleanThis !': 'Bienvenue chez CleanThis !'
 'Félicitations, vous avez été selectionné pour faire partie de nos équipes !': 'Félicitations, vous avez été selectionné pour faire partie de nos équipes !'
 'Veuillez cliquer sur le lien ci-dessous pour vous inscrire :': 'Veuillez cliquer sur le lien ci-dessous pour vous inscrire :'
-Inscription: Inscription
+'Inscription': 'Inscription'
 'Merci de renseigner la totalité des champs.': 'Merci de renseigner la totalité des champs.'
 'La demande de rendez-vous a été reçue avec succès.': 'La demande de rendez-vous a été reçue avec succès.'
 'Dans les prochaines 48 heures, un opérateur prendra contact avec vous.': 'Dans les prochaines 48 heures, un opérateur prendra contact avec vous.'
@@ -60,13 +60,13 @@ Inscription: Inscription
 'Merci de confirmer ou de modifier votre rendez-vous.': 'Merci de confirmer ou de modifier votre rendez-vous.'
 "CleanThis - Page d'acceuil": "CleanThis - Page d'acceuil"
 'CleanThis - Demande de devis': 'CleanThis - Demande de devis'
-Date: Date
+'Date': 'Date'
 'Date/Heure ': 'Date/Heure '
-Surface: Surface
+'Surface': 'Surface'
 'Surface en m² ': 'Surface en m² '
-Description: Description
+'Description': 'Description'
 'Informations ': 'Informations '
-Adresse: Adresse
+'Adresse': 'Adresse'
 'Où intervenir ?': 'Où intervenir ?'
 'Date et heure du rendez-vous:': 'Date et heure du rendez-vous:'
 'Sélectionner une date et une heure à votre convenance pour votre rendez-vous.': 'Sélectionner une date et une heure à votre convenance pour votre rendez-vous.'
@@ -76,16 +76,16 @@ Adresse: Adresse
 "Merci d'entrer une description détaillée.": "Merci d'entrer une description détaillée."
 'Adresse:': 'Adresse:'
 "Selectioner l'adresse du lieu de prise en charge.": "Selectioner l'adresse du lieu de prise en charge."
-Précédent: Précédent
-Suivant: Suivant
+'Précédent': 'Précédent'
+'Suivant': 'Suivant'
 'Mes Commandes': 'Mes Commandes'
 'Vos Commandes': 'Vos Commandes'
-Rendez-vous: Rendez-vous
-Opération: Opération
-Terminé: Terminé
+'Rendez-vous': 'Rendez-vous'
+'Opération': 'Opération'
+'Terminé': 'Terminé'
 'Vos rendez-vous': 'Vos rendez-vous'
 'Êtes-vous sûr annuler votre demande de RDV ? (un opérateur va vous contacter) pour une réponse URGENTE : 01 02 03 04': 'Êtes-vous sûr annuler votre demande de RDV ? (un opérateur va vous contacter) pour une réponse URGENTE : 01 02 03 04'
-Annuler: Annuler
+'Annuler': 'Annuler'
 'Historique des commandes terminées': 'Historique des commandes terminées'
 "Êtes-vous sur d'annuler votre demande de RDV ? (un operateur va vous contactez) pour une réponse URGENTE : 01 02 03 04": "Êtes-vous sur d'annuler votre demande de RDV ? (un operateur va vous contactez) pour une réponse URGENTE : 01 02 03 04"
 "CleanThis - Modification de l'utilisateur": "CleanThis - Modification de l'utilisateur"
@@ -99,19 +99,19 @@ Annuler: Annuler
 'Suivi, annulation': 'Suivi, annulation'
 'Connexion - Sécurité': 'Connexion - Sécurité'
 'Modification adresse e-mail, nom, numéro de téléphone etc...': 'Modification adresse e-mail, nom, numéro de téléphone etc...'
-Adresses: Adresses
+'Adresses': 'Adresses'
 "Modification de vos adresses, ajout, changer l'adresse de facturation": "Modification de vos adresses, ajout, changer l'adresse de facturation"
 'CleanThis - Connexion': 'CleanThis - Connexion'
 'Vous êtes connecté comme': 'Vous êtes connecté comme'
 'Me déconnecter': 'Me déconnecter'
 'Se connecter': 'Se connecter'
-Email: Email
+'Email': 'Email'
 'Mot de passe oublié ?': 'Mot de passe oublié ?'
 'Vous ne possédez pas de compte ?': 'Vous ne possédez pas de compte ?'
-Inscrivez-vous: Inscrivez-vous
+'Inscrivez-vous': 'Inscrivez-vous'
 'CleanThis - Inscription': 'CleanThis - Inscription'
 'Vous avez déjà un compte ?': 'Vous avez déjà un compte ?'
-Connectez-vous: Connectez-vous
+'Connectez-vous': 'Connectez-vous'
 'Bienvenue !': 'Bienvenue !'
 'Réinitialisation de mot de passe': 'Réinitialisation de mot de passe'
 'Réinitialiser votre mot de passe': 'Réinitialiser votre mot de passe'
@@ -153,7 +153,43 @@ form.label.email.request: 'Entrez votre e-mail de connexion *:'
 form.label.password.request: 'Entrez votre nouveau mot de passe *:'
 form.label.password.old: 'Mot de passe actuel :'
 form.label.password.new: 'Nouveau mot de passe : (8 caractères minimum)'
-form.label.modified: Modifier
+form.label.modified: 'Modifier'
+statistique_label: 'Statistiques'
+operations_label: 'Opérations'
+meetings_label: 'Rendez-vous'
+my_interventions_label: 'Mes interventions'
+my_operations_label: 'Mes opérations'
+my_meetings_label: 'Mes rendez-vous'
+invoices_label: 'Factures'
+my_invoices_label: 'Mes factures'
+users_label: 'Utilisateurs'
+invitations_label: 'Invitations'
+customers_label: 'Clients'
+employees_label: 'Employés'
+addresses_label: 'Adresses'
+my_profile_label: 'Mon profil'
+control_my_profile_label: 'Gestion de mon profil'
+modify_my_profile_label: 'Modification de mon profil'
+password_label: 'Mot de passe'
+contact_label: 'Coordonnées'
+my_history_label: 'Mon historique'
+list_customers_label: 'Liste des clients'
+lastname_label: 'Nom'
+firstname_label: 'Prénom'
+email_label: 'E-mail'
+phone_label: 'Téléphone'
+birthday_label: 'Date de naissance'
+list_employees_label: 'Liste des employés'
+position_label: 'Poste'
+list_addresses_label: 'Liste des adresses'
+user_label: 'Utilisateur'
+street_label: 'Rue'
+zipcode_label: 'Code postale'
+city_label: 'Ville'
+primary_label: 'Statut'
+employee_invitation_label: 'Nouvel employé par invitation'
+key_uuid_label: 'Clé Uuid'
+employee_label: 'Employé'
 'Votre mot de passe a été changé avec succès.': 'Votre mot de passe a été changé avec succès.'
 "L'ancien mot de passe est incorrect.": "L'ancien mot de passe est incorrect."
 'Vous n’êtes pas autorisé à modifier cette adresse.': 'Vous n’êtes pas autorisé à modifier cette adresse.'
@@ -185,3 +221,78 @@ form.label.modified: Modifier
 'Vous devez être connecté pour accéder à cette page': 'Vous devez être connecté pour accéder à cette page'
 'Cet utilisateur est déjà activé': 'Cet utilisateur est déjà activé'
 'Email de vérification envoyé': 'Email de vérification envoyé'
+'Facture non trouvée.': 'Facture non trouvée.'
+'Facture introuvable.': 'Facture introuvable.'
+'La facture a été payée avec succès. Votre facture vous a été envoyé par mail.': 'La facture a été payée avec succès. Votre facture vous a été envoyé par mail.'
+'Veuillez sélectionner un moyen de paiement.': 'Veuillez sélectionner un moyen de paiement.'
+'N° de facturation': 'N° de facturation'
+'Status': 'Status'
+'Surface(m²)': 'Surface(m²)'
+"Date d'intervention": "Date d'intervention"
+'Prix': 'Prix'
+'Réduction': 'Réduction'
+'Moyen de paiement': 'Moyen de paiement'
+'Client': 'Client'
+'Actions': 'Actions'
+'Numéro RDV': 'Numéro RDV'
+'Date/Heure': Date/Heure
+'Statut': 'Statut'
+'Opérateur': 'Opérateur'
+'Voir plus': 'Voir plus'
+'Aucun créateur défini': 'Aucun créateur défini'
+'Aucun opérateur défini': 'Aucun opérateur défini'
+'Créer': 'Créer'
+'Type': 'Type'
+'Propreté': 'Propreté'
+'Date de fin': 'Date de fin'
+"Pas d'opération terminée. Retournez au travail !": "Pas d'opération terminée. Retournez au travail !"
+'Aucun rendez-vous trouvé.': 'Aucun rendez-vous trouvé.'
+'Paiement accepté': 'Paiement accepté'
+'Votre paiement a été effectué avec succes. Veuillez trouver ci-joint votre facture.': 'Votre paiement a été effectué avec succes. Veuillez trouver ci-joint votre facture.'
+'En cas de non réception de votre facture pour pourrez la retrouver dans votre espace commande': 'En cas de non réception de votre facture pour pourrez la retrouver dans votre espace commande'
+'Votre opération  a été valider par notre équipe': 'Votre opération  a été valider par notre équipe'
+'Votre intervention aura lieux  le :': 'Votre intervention aura lieux  le :'
+'au prix  de :': 'au prix  de :'
+"En cas d'imprévu merci de nous contacter dans les plus bref délai.": "En cas d'imprévu merci de nous contacter dans les plus bref délai."
+'Bonjour': 'Bonjour'
+'On vous offre les meilleurs': 'On vous offre les meilleurs'
+'services de nettoyage.': 'services de nettoyage.'
+'Nettoyage': 'Nettoyage'
+'Environnement': 'Environnement'
+'Confort': 'Confort'
+'Hygiène': 'Hygiène'
+'Qui sommes-nous ?': 'Qui sommes-nous ?'
+"Bienvenue chez CleanThis, le leader du nettoyage redéfinissant les standards de propreté. Spécialisés dans le nettoyage résidentiel et commercial, nous offrons des services personnalisés adaptés à vos besoins. Transformez votre domicile en un espace immaculé avec nos services de nettoyage réguliers et ponctuels. Profitez d'un environnement propre et sain sans effort.": "Bienvenue chez CleanThis, le leader du nettoyage redéfinissant les standards de propreté. Spécialisés dans le nettoyage résidentiel et commercial, nous offrons des services personnalisés adaptés à vos besoins. Transformez votre domicile en un espace immaculé avec nos services de nettoyage réguliers et ponctuels. Profitez d'un environnement propre et sain sans effort."
+'Nos Valeurs': 'Nos Valeurs'
+"Notre entreprise de nettoyage incarne des valeurs profondément ancrées, plaçant l'écologie au cœur de ses engagements. Nous nous engageons à minimiser notre empreinte carbone en privilégiant des pratiques respectueuses de l'environnement et des produits écologiques. La préservation de la planète guide chacune de nos actions, renforçant notre responsabilité sociale. Le bien-être de nos employés est une priorité essentielle.": "Notre entreprise de nettoyage incarne des valeurs profondément ancrées, plaçant l'écologie au cœur de ses engagements. Nous nous engageons à minimiser notre empreinte carbone en privilégiant des pratiques respectueuses de l'environnement et des produits écologiques. La préservation de la planète guide chacune de nos actions, renforçant notre responsabilité sociale. Le bien-être de nos employés est une priorité essentielle."
+'Nos engagements': 'Nos engagements'
+"Chez CleanThis, notre engagement va au-delà de la propreté. Nous accordons une importance particulière au bien-être de nos employés, reconnaissant que des équipes épanouies garantissent des services de nettoyage exceptionnels. Engagement envers le Bien-Être au Travail :Chez CleanThis, nous considérons nos employés comme une partie essentielle de notre famille. Nous nous engageons à créer un environnement de travail sain, équilibré et favorable à l'épanouissement personnel et professionnel de chacun.": "Chez CleanThis, notre engagement va au-delà de la propreté. Nous accordons une importance particulière au bien-être de nos employés, reconnaissant que des équipes épanouies garantissent des services de nettoyage exceptionnels. Engagement envers le Bien-Être au Travail :Chez CleanThis, nous considérons nos employés comme une partie essentielle de notre famille. Nous nous engageons à créer un environnement de travail sain, équilibré et favorable à l'épanouissement personnel et professionnel de chacun."
+'Nos Partenaires': 'Nos Partenaires'
+'Surface en m²': 'Surface en m²'
+'Informations': 'Informations'
+'Taille de la surface à nettoyer en': 'Taille de la surface à nettoyer en'
+'Paiement': 'Paiement'
+'Aucun rendez-vous pour le moment.': 'Aucun rendez-vous pour le moment.'
+'Vos Opérations': 'Vos Opérations'
+'Surface : ': 'Surface : '
+'Description : ': 'Description : ' 
+'Prix : ': 'Prix : '
+'etes-vous sur de vouloir valider cette opération ? ': 'etes-vous sur de vouloir valider cette opération ? '
+'Vos facture en attente de paiement': 'Vos facture en attente de paiement'
+'êtes-vous sur de vouloir valider cette action ?': 'êtes-vous sur de vouloir valider cette action ?'
+'Payer': 'Payer'
+'Nous contacter': 'Nous contacter'
+'Liens rapides': 'Liens rapides'
+'Nos Prestations': 'Nos Prestations'
+'Accès rapide': 'Accès rapide'
+'FAQ': 'FAQ'
+'Nous Contacter': 'Nous Contacter'
+'Recrutement': 'Recrutement'
+'Nous suivre': 'Nous suivre'
+'Statistiques': 'Statistiques'
+'Facturations': 'Facturations'
+'Liste des rendez-vous': 'Liste des rendez-vous'
+'Nouveau rendez-vous': 'Nouveau rendez-vous'
+'Modifier rendez-vous': 'Modifier rendez-vous'
+'Liste des opérations': 'Liste des opérations'
+'Liste des opérations terminées': 'Liste des opérations terminées'

@@ -37,7 +37,7 @@ class UsersCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
-            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des clients');
+            ->setPageTitle(Crud::PAGE_INDEX, 'list_customers_label');
     }
 
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
@@ -64,19 +64,19 @@ class UsersCrudController extends AbstractCrudController
                 ->hideOnIndex()
                 ->hideOnDetail()
                 , 
-            TextField::new('lastname', ('Nom')),
-            TextField::new('firstname', ('Prénom')),
-            EmailField::new('email', ('E-mail')),
-            AssociationField::new('addresses', ('Adresses'))
+            TextField::new('lastname', ('lastname_label')),
+            TextField::new('firstname', ('firstname_label')),
+            EmailField::new('email', ('email_label')),
+            AssociationField::new('addresses', ('addresses_label'))
                 ->onlyOnIndex(),
-            ArrayField::new('addresses', ('Adresses'))
+            ArrayField::new('addresses', ('addresses_label'))
                 ->onlyOnDetail(),
-            AssociationField::new('meetings', ('Rendez-vous'))
+            AssociationField::new('meetings', ('meetings_label'))
                 ->onlyOnIndex(),
-            ArrayField::new('meetings', ('Rendez-vous'))
+            ArrayField::new('meetings', ('meetings_label'))
                 ->onlyOnDetail(),
-            TelephoneField::new('phone_number', ('Téléphone')),
-            DateField::new('date_of_birthday', ('Date de naissance'))
+            TelephoneField::new('phone_number', ('phone_label')),
+            DateField::new('date_of_birthday', ('birthday_label'))
                 ->onlyOnDetail(),
         ];
     }

@@ -75,7 +75,7 @@ class InvitationCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
-            ->setPageTitle(Crud::PAGE_INDEX, 'Nouvel employé par invitation');
+            ->setPageTitle(Crud::PAGE_INDEX, 'employee_invitation_label');
     }
 
     /**
@@ -88,12 +88,12 @@ class InvitationCrudController extends AbstractCrudController
     {
 
         return [
-            EmailField::new('email', ('E-mail')),
-            TextField::new('uuid', ('Clé Uuid'))
+            EmailField::new('email', ('email_label')),
+            TextField::new('uuid', ('key_uuid_label'))
                 ->hideWhenCreating(),
-            AssociationField::new('employee', ('Employé'))
+            AssociationField::new('employee', ('employee_label'))
                 ->hideWhenCreating(),
-                ChoiceField::new('roles', ('Poste'))
+                ChoiceField::new('roles', ('position_label'))
                 ->setChoices([
                         'Apprenti' => 'ROLE_APPRENTI',
                         'Senior' => 'ROLE_SENIOR',

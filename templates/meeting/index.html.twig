@@ -52,7 +52,7 @@
 										<br>
 										<p>{{ "Pour une surface de : " |trans }}<strong>
 												{{ meeting.floorSpace }}{{ " m² " |trans }}</strong>
-											<br>{{ " À l'adresse : " |trans }}<strong>
+											<br>{{ "À l'adresse : " |trans }}<strong>
 												{{ meeting.address }}
 											</strong>
 										</p>
@@ -108,7 +108,7 @@
 										<p>{{ "Prix : " |trans }}{{ operation.price }}€</p>
 										{% if operation.status == 2 %}
 											<div class="d-flex justify-content-end ">
-												<form method="post" action="{{ path('app_operation_customer_validate', {'id': operation.id}) }}" onsubmit="return confirm('{{ " etes-vous sur de vouloir valider cette opération ? " |trans }}');">
+												<form method="post" action="{{ path('app_operation_customer_validate', {'id': operation.id}) }}" onsubmit="return confirm('{{ "etes-vous sur de vouloir valider cette opération ? " |trans }}');">
 													<button class="btn btn-outline-success btn-aligned " type="submit">{{ "Valider" |trans }}</button>
 												</form>
 											</div>
