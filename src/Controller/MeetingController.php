@@ -37,7 +37,7 @@ class MeetingController extends AbstractController
                 'danger',
                 $message
             );
-            return $this->redirectToRoute('app_profile');
+            return $this->redirectToRoute('app_home');
         }
         $meeting = new Meeting();
         $form = $this->createForm(

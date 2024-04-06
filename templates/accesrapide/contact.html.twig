@@ -1,39 +1,84 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contactez-nous{% endblock %}
+{% block title %}{{ 'Contactez-nous' |trans }}{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .contact-form-container {
+        color: #123b61; 
+        font-family: Inter, sans-serif;
+        font-weight: 600;
+    }
+
+    .contact-form-container h2 {
+        text-decoration: underline #92d4f5;
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        color: #123b61 !important;
+        background-color: #f5f5f5 !important;
+        border: 1px solid #d0d0d0 !important;
+        padding: 10px 20px !important;
+        border-radius: 4px !important;
+        text-decoration: none !important;
+        display: inline-block !important;
+        cursor: pointer !important;
+        transition: background-color 0.3s ease !important;
+    }
+
+    .btn-primary:hover {
+        color: #ffffff !important;
+        background-color: #123b61 !important;
+        border-color: #3971ff !important;
+        transition: background 0.3s color 0.3s !important;
+    }
+</style>
+{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <h2>Contactez-nous</h2>
-    <p>Utilisez le formulaire ci-dessous pour envoyer un message à notre équipe.</p>
+<body>
+<div class="container mt-4 contact-form-container">
+    <h2 class="text-center">{{ 'Contactez-nous' |trans }}</h2>
+    <p class="text-center">{{ 'Utilisez le formulaire ci-dessous pour envoyer un message à notre équipe.' |trans }}</p>
 
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-        <div class="mb-3">
-            {{ form_label(form.firstname, null, {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.firstname) }}
-        </div>
-        <div class="mb-3">
-            {{ form_label(form.lastname, null, {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.lastname) }}
-        </div>
-        <div class="mb-3">
-            {{ form_label(form.mail, null, {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.mail, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.mail) }}
+        <div class="row mb-3 justify-content-center">
+            <div class="col-md-6">
+                {{ form_label(form.firstname, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.firstname) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_label(form.lastname, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.lastname) }}
+            </div>
         </div>
 
-        <div class="mb-3">
-            {{ form_label(form.message, null, {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.message, {'attr': {'class': 'form-control', 'rows': '5'}}) }}
-            {{ form_errors(form.message) }}
+        <div class="row mb-3 justify-content-center">
+            <div class="col-md-12">
+                {{ form_label(form.mail, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.mail, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.mail) }}
+            </div>
         </div>
 
-        <div class="mb-3">
+        <div class="row mb-3 justify-content-center">
+            <div class="col-md-12">
+                {{ form_label(form.message, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.message, {'attr': {'class': 'form-control', 'rows': '5'}}) }}
+                {{ form_errors(form.message) }}
+            </div>
+        </div>
+
+        <div class="text-center">
             {{ form_widget(form.send, {'attr': {'class': 'btn btn-primary'}}) }}
         </div>
+
     {{ form_end(form) }}
 </div>
+</body>
 {% endblock %}
+
