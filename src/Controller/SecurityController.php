@@ -177,7 +177,7 @@ class SecurityController extends AbstractController
                 $message = $translator->trans('Email envoyé avec succès');
 
                 $this->addFlash('success', $message);
-                return $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('app_home');
             }
 
             //$user est NULL
@@ -284,7 +284,7 @@ class SecurityController extends AbstractController
                 'warning',
                 $message
             );
-            return $this->redirectToRoute('app_profile');
+            return $this->redirectToRoute('app_home');
         }
 
         //On génère le JWT de l'utilisateur
@@ -315,7 +315,7 @@ class SecurityController extends AbstractController
             'success',
             $message
         );
-        return $this->redirectToRoute('app_profile');
+        return $this->redirectToRoute('app_home');
     }
 
 }
