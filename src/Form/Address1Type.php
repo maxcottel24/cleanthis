@@ -49,7 +49,7 @@ class Address1Type extends AbstractType
                 'label' => 'form.label.street'
             ])
             ->add('Valider', SubmitType::class, [
-                'label'    => 'form.label.primary',
+                'label'    => 'form.label.submit',
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ]
