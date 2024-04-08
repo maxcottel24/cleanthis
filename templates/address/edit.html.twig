@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "Mon Profill - Modifier Mon Adresse" |trans }}
+{% block title %}
+	{{ "Mon Profill - Modifier Mon Adresse" |trans }}
 {% endblock %}
 {% block stylesheets %}
 	<link href="{{ asset('assets/css/editAdresse.css') }}" rel="stylesheet">
@@ -9,7 +10,9 @@
 {% block body %}
 	<section class="fancy">
 		<div class="backgrd">
-			<p><strong>{{ "MES ADRESSES" |trans }}</strong></p>
+			<p>
+				<strong>{{ "MES ADRESSES" |trans }}</strong>
+			</p>
 		</div>
 		<div class="container">
 			<div class="formulaire">
@@ -37,6 +40,7 @@ var query = event.target.value;
 
 if (query.length < 3) 
 return;
+
 
 
 fetch (`/api/search_address?query=${
