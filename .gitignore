@@ -25,3 +25,6 @@
 /migrations
 /composer.lock
 /assets/controllers.json
+/public/uploads
+/public/uploads/letters
+/public/uploads/cvs
