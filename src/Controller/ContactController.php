@@ -17,11 +17,12 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request, SendMailService $sendMailService): Response
+    public function index(Request $request, SendMailService $sendMailService, TranslatorInterface $translator): Response
     {
         // Créez un formulaire simple pour le contact
         $form = $this->createFormBuilder()
@@ -56,13 +57,14 @@ class ContactController extends AbstractController
                 ]
             ])
             ->add('mail', EmailType::class, [
-                'label' => 'Votre adresse email',
+                'label' => 'form.label.email',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('message', TextareaType::class, [
-                'label' => 'Votre message',
+                'label' => 'form.label.message',
                 'attr' => ['class' => 'form-control']
             ])
+
             ->add('send', SubmitType::class, [
                 'label' => 'Envoyer',
                 'attr' => ['class' => 'btn btn-primary mt-3']
@@ -89,7 +91,8 @@ class ContactController extends AbstractController
                 // Pas de PDF attaché dans ce cas
             );
 
-            $this->addFlash('success', 'Votre message a été envoyé avec succès.');
+            $message = $translator->trans('Votre message a été envoyé avec succès.');
+            $this->addFlash('success', $message);
 
             return $this->redirectToRoute('app_contact');
         }
@@ -100,7 +103,7 @@ class ContactController extends AbstractController
     }
 
     #[Route('/recruitment', name: 'app_recruitment')]
-    public function recrutement(Request $request, SendMailService $sendMailService): Response
+    public function recrutement(Request $request, SendMailService $sendMailService, TranslatorInterface $translator): Response
     {
         $form = $this->createFormBuilder()
             ->add('firstname', TextType::class, [
@@ -109,7 +112,7 @@ class ContactController extends AbstractController
                     'minlength' => '2',
                     'maxlength' => '50',
                 ],
-                'label' => 'Prénom',
+                'label' => 'form.label.firstname',
                 'label_attr' => [
                     'class' => 'form-label'
                 ],
@@ -124,7 +127,7 @@ class ContactController extends AbstractController
                     'minlength' => '2',
                     'maxlength' => '50',
                 ],
-                'label' => 'Nom',
+                'label' => 'form.label.lastname',
                 'label_attr' => [
                     'class' => 'form-label'
                 ],
@@ -134,11 +137,11 @@ class ContactController extends AbstractController
                 ]
             ])
             ->add('mail', EmailType::class, [
-                'label' => 'Votre adresse email',
+                'label' => 'form.label.email',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('cv', FileType::class, [
-                'label' => 'Votre CV (fichier PDF)',
+                'label' => 'form.label.CV.request',
                 'attr' => ['class' => 'form-control'],
                 'mapped' => false,
                 'constraints' => [
@@ -150,7 +153,7 @@ class ContactController extends AbstractController
                 ],
             ])
             ->add('lettre_motivation', FileType::class, [
-                'label' => 'Lettre de motivation (fichier PDF)',
+                'label' => 'form.label.motiv.request',
                 'attr' => ['class' => 'form-control'],
                 'mapped' => false,
                 'constraints' => [
@@ -162,7 +165,7 @@ class ContactController extends AbstractController
                 ],
             ])
             ->add('message', TextareaType::class, [
-                'label' => 'Votre message',
+                'label' => 'form.label.message',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('send', SubmitType::class, [
@@ -224,9 +227,11 @@ class ContactController extends AbstractController
                     $letterPath
                 );
 
-                $this->addFlash('success', 'Votre candidature a été envoyée avec succès.');
+                $message = $translator->trans('Votre candidature a été envoyée avec succès.');
+                $this->addFlash('success', $message);
             } catch (Exception $e) {
-                $this->addFlash('error', 'Une erreur est survenue lors de l\'envoi de votre candidature : ' . $e->getMessage());
+                $message = $translator->trans('Une erreur est survenue lors de cet envoi de candidature : ');
+                $this->addFlash('error', $message . $e->getMessage());
             }
 
             return $this->redirectToRoute('app_recruitment');
