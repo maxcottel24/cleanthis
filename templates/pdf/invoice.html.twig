@@ -142,7 +142,10 @@
 						<th>Description</th>
 						<th>Surface</th>
 						<th>Réduction</th>
+						<th>Prix H.T</th>
+						<th>TVA</th>
 						<th>PrixTTC</th>
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -166,8 +169,11 @@
 								20% de remise
 							{% endif %}
 						</td>
-
-						<td>{{ operation.price }}
+						<td> 
+						{{operation.price * 0.80}} €
+						</td>
+						<td> 20%</td>
+						<td> {{ operation.price }}
 							€</td>
 					</tr>
 

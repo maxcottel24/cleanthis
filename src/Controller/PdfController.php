@@ -78,7 +78,6 @@ class PdfController extends AbstractController
         if (!$userWithJobTitleNull) {
             throw $this->createNotFoundException('Aucun utilisateur avec job_title "Null" trouvé pour cette réunion.');
         }
-
         // Configuration et création d'un nouveau document PDF avec TCPDF
         $pdf = new TCPDF();
         $pdf->SetCreator(PDF_CREATOR);
