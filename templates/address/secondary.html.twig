@@ -15,9 +15,11 @@
 		<div class="backgrd">
 			<p>{{ "MES ADRESSES" |trans }}</p>
 		</div>
+		<div class="contain">
 		<div class="formulaire">
 			{{ include('address/_form.html.twig') }}
 			<a href="/address/{{app.user.id}}" class="btn btn-primary" id="btn-retour">{{ "Retour" |trans }}</a>
+		</div>
 		</div>
 
 	</section>
