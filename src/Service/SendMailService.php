@@ -63,4 +63,34 @@ class SendMailService
 
         $this->mailer->send($email);
     }
+
+    public function sendRecruitment(
+        string $from,
+        string $to,
+        string $subject,
+        string $template,
+        array $context,
+        string $cvPath = null, // Chemin vers le CV
+        string $letterPath = null // Chemin vers la lettre de motivation
+    ): void {
+        $email = (new TemplatedEmail())
+            ->from($from)
+            ->to($to)
+            ->subject($subject)
+            ->htmlTemplate("email/$template.html.twig")
+            ->context($context);
+    
+        // Attachez le CV s'il est fourni et existe
+        if ($cvPath !== null && file_exists($cvPath)) {
+            $email->attachFromPath($cvPath, 'CV.pdf', 'application/pdf');
+        }
+    
+        // Attachez la lettre de motivation si elle est fournie et existe
+        if ($letterPath !== null && file_exists($letterPath)) {
+            $email->attachFromPath($letterPath, 'LettreDeMotivation.pdf', 'application/pdf');
+        }
+    
+        $this->mailer->send($email);
+    }
+    
 }

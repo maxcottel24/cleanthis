@@ -6,6 +6,9 @@
 parameters:
     app.jwtsecret: '%env(JWT_SECRET)%'
     app.locales: [fr, en]
+    cv_directory: '%kernel.project_dir%/public/uploads/cvs'
+    letters_directory: '%kernel.project_dir%/public/uploads/letters'
+
     
 services:
     # default configuration for services in *this* file

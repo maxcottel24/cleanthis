@@ -33,18 +33,30 @@ class MeetingType extends AbstractType
         $user = $options['user'];
         $builder
             ->add('reservedAt', DateTimeType::class, [
-                'attr' => ['id' => 'meeting_reservedAt'],
+                'attr' => [
+                    'id' => 'meeting_reservedAt',
+                    'class' => 'form-control',
+                ],
                 'widget' => 'single_text',
                 'label' => 'form.label.reservedAt' ,
             ])
             ->add('description', null, [
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'label' => 'form.label.description'
             ])
             ->add('floor_space' , NumberType::class , [
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'label' => 'form.label.floorSpace' ,
                 'invalid_message' => 'Merci de renseigner un nombre.'
             ])
             ->add('address', EntityType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'class' => Address::class,
                 'label' => 'form.label.address' ,
                 'choice_label' => function (Address $address) {
