@@ -1,64 +1,101 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "CleanThis - Demande de devis" |trans }}{% endblock %}
+{% block title %}
+	{{ "CleanThis - Demande de devis" |trans }}
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<style>
+		.example-wrapper {
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+			align-items: center;
+			justify-content: center;
+			margin-left: 30%;
+			margin-top: 5%;
+            padding: 1rem ;
+            border: 1px solid #dcdcdc;
+            border-radius: 20px ;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 15px 30px -10px rgba(0, 0, 0, 0.3);
+			transition: background 0.3s;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+		.btn-primary {
+			color: #123b61 !important;
+			background-color: #f5f5f5 !important;
+			border: 1px solid #d0d0d0 !important;
+			padding: 10px 20px !important;
+			border-radius: 4px !important;
+			text-decoration: none !important;
+			display: inline-block !important;
+			cursor: pointer !important;
+			transition: background-color 0.3s ease !important;
+		}
 
-<div class="example-wrapper">
-    <h1> </h1>
-    {{ form_start(form) }}
-    {{form_row(form.reservedAt) }}
-     {{form_row(form.floor_space) }}
-     {{form_row(form.description) }}
-      {{form_row(form.address) }}
-      {{form_row(form.submit)}}
-       {{form_end(form) }}
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const datePicker = document.querySelector("#meeting_reservedAt");
+		.bouton-lien:hover,
+		.btn-primary:hover {
+			color: #ffffff !important;
+			background-color: #123b61 !important;
+			border-color: #3971ff !important;
+			transition: background 0.3s color 0.3s !important;
+		}
+	</style>
 
-    function setMinDateTime() {
-        const now = new Date();
-        now.setDate(now.getDate() + 2); 
-        const minDate = formatDateTimeString(now, true) + "T08:00";
-        datePicker.setAttribute("min", minDate);
-    }
+	<div class="example-wrapper">
+		<h1></h1>
+		{{ form_start(form) }}
+		{{form_row(form.reservedAt) }}
+		{{form_row(form.floor_space) }}
+		{{form_row(form.description) }}
+		{{form_row(form.address) }}
+		{{form_row(form.submit)}}
+		{{form_end(form) }}
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+const datePicker = document.querySelector("#meeting_reservedAt");
 
-    function adjustDateTime() {
-        const inputDateTime = new Date(datePicker.value);
-        const hour = inputDateTime.getHours();
-        if (hour < 8 || hour > 17) {
-            alert("Veuillez choisir un horaire entre 8h00 et 17h00.");
-            datePicker.value = ''; 
-        }
-        const dayOfWeek = inputDateTime.getDay();
-        if (dayOfWeek === 0 || dayOfWeek === 6) {
-            alert("Un rendez-vous ne peut pas être pris les jours de week-ends.");
-            datePicker.value = ''; 
-        }
-    }
+function setMinDateTime() {
+const now = new Date();
+now.setDate(now.getDate() + 2);
+const minDate = formatDateTimeString(now, true) + "T08:00";
+datePicker.setAttribute("min", minDate);
+}
 
-    datePicker.addEventListener("change", adjustDateTime);
+function adjustDateTime() {
+const inputDateTime = new Date(datePicker.value);
+const hour = inputDateTime.getHours();
+if (hour < 8 || hour > 17) {
+alert("Veuillez choisir un horaire entre 8h00 et 17h00.");
+datePicker.value = '';
+}
+const dayOfWeek = inputDateTime.getDay();
+if (dayOfWeek === 0 || dayOfWeek === 6) {
+alert("Un rendez-vous ne peut pas être pris les jours de week-ends.");
+datePicker.value = '';
+}
+}
 
-    function formatDateTimeString(date, isDateOnly) {
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = date.getDate().toString().padStart(2, '0');
-        if (isDateOnly) {
-            return `${year}-${month}-${day}`;
-        } else {
-            const hours = date.getHours().toString().padStart(2, '0');
-            const minutes = date.getMinutes().toString().padStart(2, '0');
-            return `${year}-${month}-${day}T${hours}:${minutes}`;
-        }
-    }
+datePicker.addEventListener("change", adjustDateTime);
 
-    setMinDateTime();
+function formatDateTimeString(date, isDateOnly) {
+const year = date.getFullYear();
+const month = (date.getMonth() + 1).toString().padStart(2, '0');
+const day = date.getDate().toString().padStart(2, '0');
+if (isDateOnly) {
+return `${year}-${month}-${day}`;
+} else {
+const hours = date.getHours().toString().padStart(2, '0');
+const minutes = date.getMinutes().toString().padStart(2, '0');
+return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+}
+
+setMinDateTime();
 });
-</script>
+	</script>
 {% endblock %}
