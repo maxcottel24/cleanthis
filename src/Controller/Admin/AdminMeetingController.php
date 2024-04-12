@@ -13,6 +13,7 @@ use App\Form\MeetingUpdateTypeForm;
 use App\Repository\UsersRepository;
 use App\Repository\AddressRepository;
 use App\Repository\MeetingRepository;
+use App\Service\ApiLog;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -110,7 +111,7 @@ class AdminMeetingController extends DashboardController
         return $this->redirect('/admin?routeName=app_admin_meeting', 301);
     }
     #[Route('/admin/meeting/new/', name: 'app_admin_meeting_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, Security $security, SendMailService $mail): Response
+    public function new(Request $request, Security $security, SendMailService $mail, ApiLog $apiLog): Response
     {
         $meeting = new Meeting();
 
@@ -206,6 +207,21 @@ class AdminMeetingController extends DashboardController
             $this->entityManager->flush();
 
             $this->addFlash('success', 'Le rendez-vous a été créé avec succès.');
+
+            $logData = [
+                'loggerName' => 'rdvcreate',
+                'user' => $currentUser->getLastname()." ".$currentUser->getFirstname(),
+                'level' => 'INFO',
+                'message' => 'rdv créer par un employé',
+                'data' => [],
+            ]; 
+
+            try {
+                $apiLog->postLog($logData);
+            } catch (\Throwable $th) {
+                
+            }
+
             return $this->redirect('/admin?routeName=app_admin_meeting', 301);
         }
 
@@ -322,7 +338,7 @@ class AdminMeetingController extends DashboardController
     }
 
     #[Route('/admin/meeting/validate/{id}', name: 'admin_meeting_validate')]
-    public function validateMeeting(Request $request, EntityManagerInterface $entityManager, $id, Security $security): Response
+    public function validateMeeting(Request $request, EntityManagerInterface $entityManager, $id, Security $security, ApiLog $apiLog): Response
     {
         $meeting = $entityManager->getRepository(Meeting::class)->find($id);
         $user = $security->getUser();
@@ -383,6 +399,20 @@ class AdminMeetingController extends DashboardController
 
         $entityManager->persist($operation);
         $entityManager->flush();
+
+        $logData = [
+            'loggerName' => 'rdvvalid',
+            'user' => $user->getLastname()." ".$user->getFirstname(),
+            'level' => 'INFO',
+            'message' => 'rdv valider par un employé',
+            'data' => [],
+        ]; 
+
+        try {
+            $apiLog->postLog($logData);
+        } catch (\Throwable $th) {
+            
+        }
 
         // Rediriger l'utilisateur ou envoyer une réponse
         return $this->redirectToRoute('admin');

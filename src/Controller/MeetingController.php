@@ -10,6 +10,7 @@ use App\Service\SendMailService;
 use App\Repository\BelongRepository;
 use App\Repository\InvoiceRepository;
 use App\Repository\MeetingRepository;
+use App\Service\ApiLog;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -25,7 +26,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MeetingController extends AbstractController
 {
     #[Route('/demande-de-devis', name: 'app_meeting')]
-    public function sendMeeting(Request $request, EntityManagerInterface $manager, Security $security, SendMailService $mail, TranslatorInterface $translator): Response
+    public function sendMeeting(Request $request, EntityManagerInterface $manager, Security $security, SendMailService $mail, TranslatorInterface $translator, ApiLog $apiLog): Response
     {
         $user = $security->getUser();
         if ($this->getUser() == NULL) {
@@ -85,6 +86,19 @@ class MeetingController extends AbstractController
                 'success',
                 $message
             );
+            $logData = [
+                'loggerName' => 'rdvcreate',
+                'user' => $user->getEmail(),
+                'level' => 'INFO',
+                'message' => 'rdv créer par le client',
+                'data' => [],
+            ]; 
+
+            try {
+                $apiLog->postLog($logData);
+            } catch (\Throwable $th) {
+                
+            }
 
             return $this->redirectToRoute('app_profile');
         }
@@ -186,7 +200,7 @@ public function index(int $id, MeetingRepository $meetingRepository, InvoiceRepo
     }
 
     #[Route('/meeting/validate/{id}', name: 'app_meeting_validate', methods: ['GET', 'POST'])]
-    public function validate(int $id, EntityManagerInterface $entityManager, Security $security, MeetingRepository $meetingRepository, TranslatorInterface $translator): Response
+    public function validate(int $id, EntityManagerInterface $entityManager, Security $security, MeetingRepository $meetingRepository, TranslatorInterface $translator, ApiLog $apiLog): Response
     {
         $user = $security->getUser();
         $meeting = $meetingRepository->find($id);
@@ -205,6 +219,21 @@ public function index(int $id, MeetingRepository $meetingRepository, InvoiceRepo
 
         $message = $translator->trans('Le rendez-vous a été validé avec succès.');
         $this->addFlash('success', $message);
+
+        $logData = [
+            'loggerName' => 'rdvvalid',
+            'user' => $user->getEmail(),
+            'level' => 'INFO',
+            'message' => 'rdv valider par le client',
+            'data' => [],
+        ]; 
+
+        try {
+            $apiLog->postLog($logData);
+        } catch (\Throwable $th) {
+            
+        }
+
         return $this->redirectToRoute('app_meeting_index', ['id' => $user->getId()]);
     }
 }

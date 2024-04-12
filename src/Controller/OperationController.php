@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Belong;
 use App\Entity\Invoice;
 use App\Entity\Operation;
+use App\Service\ApiLog;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,8 +30,10 @@ class OperationController extends AbstractController
     }
 
     #[Route('operation/validate/{id}', name:'app_operation_customer_validate' , methods:['GET', 'POST'])]
-    public function validate(Security $security, EntityManagerInterface $entityManager, int $id): Response
+    public function validate(Security $security, EntityManagerInterface $entityManager, int $id, ApiLog $apiLog): Response
     {
+
+        $user = $security->getUser();
         $operation = $entityManager->getRepository(Operation::class)->find($id);
     
         if (!$operation) {
@@ -56,6 +59,21 @@ class OperationController extends AbstractController
         $entityManager->persist($invoice);
         $entityManager->persist($belong);
         $entityManager->flush();
+
+        $logData = [
+            'loggerName' => 'opévalid',
+            'user' => $user->getEmail(),
+            'level' => 'INFO',
+            'message' => 'opération valider par le client',
+            'data' => [],
+        ]; 
+
+        try {
+            $apiLog->postLog($logData);
+        } catch (\Throwable $th) {
+            
+        }
+
         return $this->render('profile/index.html.twig');
     }
 }
