@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\ApiLog;
 use Exception;
 use App\Service\SendMailService;
 use Symfony\Component\Mime\Email;
@@ -21,8 +22,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContactController extends AbstractController
 {
+    
+
     #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request, SendMailService $sendMailService, TranslatorInterface $translator): Response
+    public function contact(Request $request, SendMailService $sendMailService, TranslatorInterface $translator, ApiLog $apiLog): Response
     {
         // Créez un formulaire simple pour le contact
         $form = $this->createFormBuilder()
@@ -94,6 +97,24 @@ class ContactController extends AbstractController
             $message = $translator->trans('Votre message a été envoyé avec succès.');
             $this->addFlash('success', $message);
 
+            $logData = [
+                'loggerName' => 'contact',
+                'user' => $contactFormData['mail'],
+                'level' => 'INFO',
+                'message' => 'contacter par un client',
+                'data' => [
+                    'message' => $contactFormData['message'],
+                    'mail' => $contactFormData['mail'],
+                    'lastname' => $contactFormData['lastname'],
+                    'firstname' => $contactFormData['firstname']
+                ],
+            ]; 
+
+            try {
+                $apiLog->postLog($logData);
+            } catch (\Throwable $th) {
+                
+            }
             return $this->redirectToRoute('app_contact');
         }
 
