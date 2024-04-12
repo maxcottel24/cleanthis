@@ -7,6 +7,7 @@ use App\Entity\Invoice;
 use App\Service\PdfService;
 use App\Service\SendMailService;
 use App\Repository\InvoiceRepository;
+use App\Service\ApiLog;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -29,7 +30,8 @@ class InvoiceController extends AbstractController
         Security $security,
         PdfService $pdfService,
         SendMailService $sendMailService, 
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        ApiLog $apiLog
     ) {
         $user = $security->getUser();
         $invoice = $invoiceRepository->find($id);
@@ -67,6 +69,36 @@ class InvoiceController extends AbstractController
 
             $message = $translator->trans('La facture a été payée avec succès. Votre facture vous a été envoyé par mail.');
             $this->addFlash('success', $message);
+
+            $type = $operation->getTypeOperation();
+
+            if ($type == 1) {
+                $operationType = 'Petite';
+            } elseif ($type == 2) {
+                $operationType = 'Moyenne';
+            } elseif ($type == 3) {
+                $operationType = 'Grosse';
+            } else {
+                $operationType = 'Custom';
+            }
+
+            $logData = [
+                'loggerName' => 'payment',
+                'user' => $user->getEmail(),
+                'level' => 'INFO',
+                'message' => 'vente',
+                'data' => [
+                    'method payment' => $invoice->getPaymentMethod(),
+                    'price' => $invoice->getAmount(),
+                    'type operation' => $operationType
+                ],
+            ]; 
+
+            try {
+                $apiLog->postLog($logData);
+            } catch (\Throwable $th) {
+                
+            }
 
             // Supprimez le fichier PDF temporaire
             if (file_exists($pdfPath)) {
