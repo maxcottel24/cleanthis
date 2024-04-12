@@ -70,7 +70,7 @@ class InvoiceController extends AbstractController
             $message = $translator->trans('La facture a été payée avec succès. Votre facture vous a été envoyé par mail.');
             $this->addFlash('success', $message);
 
-            $type = $operation->getTypeOperation();
+            $type = $operation->getTypeOperation()->getId();
 
             if ($type == 1) {
                 $operationType = 'Petite';

@@ -17,6 +17,7 @@ use App\Repository\UsersRepository;
 use App\Repository\AddressRepository;
 use App\Repository\MeetingRepository;
 use App\Repository\OperationRepository;
+use App\Service\ApiLog;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -210,8 +211,10 @@ class AdminOperationController extends DashboardController
 
 
     #[Route('/admin/operation/validate/{id}', name: 'app_admin_operation_validate')]
-    public function validateOperation(Request $request, EntityManagerInterface $entityManager, $id, Security $security, SendMailService $sendMailService): Response
+    public function validateOperation(Request $request, EntityManagerInterface $entityManager, $id, Security $security, SendMailService $sendMailService, ApiLog $apiLog): Response
     {
+        $operator = $user = $security->getUser();
+
         $operation = $entityManager->getRepository(Operation::class)->find($id);
     
         if (!$operation) {
@@ -254,6 +257,22 @@ class AdminOperationController extends DashboardController
                     break; // Arrête la boucle une fois l'email envoyé
                 }
             }
+        }
+
+        $logData = [
+            'loggerName' => 'opévalid',
+            'user' => $operator->getLastname(). " ".$operator->getFirstname(),
+            'level' => 'INFO',
+            'message' => 'opération valider par un employé ' ,
+            'data' => [
+                'price' => $invoice->getAmount()
+            ]
+        ]; 
+
+        try {
+            $apiLog->postLog($logData);
+        } catch (\Throwable $th) {
+            
         }
     
         // Rediriger l'utilisateur ou envoyer une réponse
