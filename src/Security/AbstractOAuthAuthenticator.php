@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Entity\Users;
 use App\Repository\UsersRepository;
+use App\Service\ApiLog;
 use League\OAuth2\Client\Token\AccessToken;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,14 +33,17 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
 {
     use TargetPathTrait; 
     protected string $serviceName = ''; 
+    private $apiLog;
 
     public function __construct(
         private readonly ClientRegistry $clientRegistry,   
         private readonly RouterInterface $router, 
         private readonly UsersRepository $repository,  
-        private readonly OAuthRegistrationService $registrationService
+        private readonly OAuthRegistrationService $registrationService,
+        ApiLog $apiLog
+        
     ){
-
+        $this->apiLog = $apiLog;
         
     }
 
@@ -57,10 +61,36 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
         }
         
         $roles = $token->getRoleNames();
-
+        $user=$token->getUser(); 
     if (in_array('ROLE_SENIOR', $roles) || in_array('ROLE_APPRENTI', $roles) || in_array('ROLE_EXPERT', $roles) || in_array('ROLE_ADMIN', $roles)) {
+        $logData = [
+            'loggerName' => 'connexion',
+            'user' => $user->getEmail(),
+            'level' => 'INFO',
+            'message' => 'Utilisateur connecté',
+            'data' => [
+            ]
+        ];
+
+        try {
+            $this->apiLog->postLog($logData);
+        } catch (\Throwable $th) {
+        }
         return new RedirectResponse($this->router->generate('admin'));
     } else {
+        $logData = [
+            'loggerName' => 'connexion',
+            'user' => $user->getEmail(),
+            'level' => 'INFO',
+            'message' => 'Utilisateur connecté',
+            'data' => [
+            ]
+        ];
+
+        try {
+            $this->apiLog->postLog($logData);
+        } catch (\Throwable $th) {
+        }
         return new RedirectResponse($this->router->generate('app_profile'));
     }
         
