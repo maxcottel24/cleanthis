@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\Entity;
 use App\Security\AppAuthenticator;
 use App\Repository\UsersRepository;
 use App\Form\ResetPasswordRequestType;
+use App\Service\ApiLog;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,7 +55,10 @@ class SecurityController extends AbstractController
     #[Route(path: '/connexion', name: 'app_login', methods:['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
+        $user = $this->getUser();
+
+        if ($user) {
+
             return $this->redirectToRoute('app_profile');
         }
 

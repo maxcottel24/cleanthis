@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Service\ApiLog;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,9 +27,11 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
+    private $apiLog;
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(private UrlGeneratorInterface $urlGenerator, ApiLog $apiLog)
     {
+        $this->apiLog = $apiLog;
     }
 
     public function authenticate(Request $request): Passport
@@ -55,14 +58,79 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
 
         $user=$token->getUser(); 
         if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            $logData = [
+                'loggerName' => 'connexion',
+                'user' => $user->getEmail(),
+                'level' => 'INFO',
+                'message' => 'Utilisateur connecté',
+                'data' => [
+                ]
+            ];
+
+            try {
+                $this->apiLog->postLog($logData);
+            } catch (\Throwable $th) {
+            }
             return new RedirectResponse($this->urlGenerator->generate('admin'));
         }elseif (in_array('ROLE_SENIOR', $user->getRoles(), true)) {
+            $logData = [
+                'loggerName' => 'connexion',
+                'user' => $user->getEmail(),
+                'level' => 'INFO',
+                'message' => 'Utilisateur connecté',
+                'data' => [
+                ]
+            ];
+
+            try {
+                $this->apiLog->postLog($logData);
+            } catch (\Throwable $th) {
+            }
             return new RedirectResponse($this->urlGenerator->generate('admin'));
         }elseif (in_array('ROLE_APPRENTI', $user->getRoles(), true)) {
+            $logData = [
+                'loggerName' => 'connexion',
+                'user' => $user->getEmail(),
+                'level' => 'INFO',
+                'message' => 'Utilisateur connecté',
+                'data' => [
+                ]
+            ];
+
+            try {
+                $this->apiLog->postLog($logData);
+            } catch (\Throwable $th) {
+            }
             return new RedirectResponse($this->urlGenerator->generate('admin'));
         }elseif (in_array('ROLE_EXPERT', $user->getRoles(), true)) {
+            $logData = [
+                'loggerName' => 'connexion',
+                'user' => $user->getEmail(),
+                'level' => 'INFO',
+                'message' => 'Utilisateur connecté',
+                'data' => [
+                ]
+            ];
+
+            try {
+                $this->apiLog->postLog($logData);
+            } catch (\Throwable $th) {
+            }
             return new RedirectResponse($this->urlGenerator->generate('admin'));
         }else {
+            $logData = [
+                'loggerName' => 'connexion',
+                'user' => $user->getEmail(),
+                'level' => 'INFO',
+                'message' => 'Utilisateur connecté',
+                'data' => [
+                ]
+            ];
+
+            try {
+                $this->apiLog->postLog($logData);
+            } catch (\Throwable $th) {
+            }
             return new RedirectResponse($this->urlGenerator->generate('app_profile'));
         }
         
